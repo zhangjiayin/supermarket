@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.activity.dao.ActivityMapper" >
+  <resultMap id="BaseResultMap" type="com.linkwee.activity.model.Activity" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="fid" property="fid" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="img" property="img" jdbcType="VARCHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="start_date" property="startDate" jdbcType="TIMESTAMP" />
+    <result column="end_date" property="endDate" jdbcType="TIMESTAMP" />
+    <result column="type" property="type" jdbcType="BIT" />
+    <result column="show_index" property="showIndex" jdbcType="BIT" />
+    <result column="status" property="status" jdbcType="BIT" />
+    <result column="init_date" property="initDate" jdbcType="TIMESTAMP" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="deadline_condition" property="deadlineCondition" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, fid, name, img, url, start_date, end_date, type, show_index, status, init_date, 
+    update_date, deadline_condition
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_activity
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_activity
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.linkwee.activity.model.Activity" >
+    insert into t_activity (id, fid, name, 
+      img, url, start_date, 
+      end_date, type, show_index, 
+      status, init_date, update_date, 
+      deadline_condition)
+    values (#{id,jdbcType=BIGINT}, #{fid,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{img,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{startDate,jdbcType=TIMESTAMP}, 
+      #{endDate,jdbcType=TIMESTAMP}, #{type,jdbcType=BIT}, #{showIndex,jdbcType=BIT}, 
+      #{status,jdbcType=BIT}, #{initDate,jdbcType=DECIMAL}, #{updateDate,jdbcType=TIMESTAMP}, 
+      #{deadlineCondition,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.linkwee.activity.model.Activity" >
+    insert into t_activity
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="fid != null" >
+        fid,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="img != null" >
+        img,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+      <if test="startDate != null" >
+        start_date,
+      </if>
+      <if test="endDate != null" >
+        end_date,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="showIndex != null" >
+        show_index,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="initDate != null" >
+        init_date,
+      </if>
+      <if test="updateDate != null" >
+        update_date,
+      </if>
+      <if test="deadlineCondition != null" >
+        deadline_condition,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="fid != null" >
+        #{fid,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="img != null" >
+        #{img,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="startDate != null" >
+        #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDate != null" >
+        #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=BIT},
+      </if>
+      <if test="showIndex != null" >
+        #{showIndex,jdbcType=BIT},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=BIT},
+      </if>
+      <if test="initDate != null" >
+        #{initDate,jdbcType=DECIMAL},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deadlineCondition != null" >
+        #{deadlineCondition,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.linkwee.activity.model.Activity" >
+    update t_activity
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="endDate != null" >
+        end_date = #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null" >
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where fid = #{fid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.linkwee.activity.model.Activity" >
+    update t_activity
+    set fid = #{fid,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      img = #{img,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      start_date = #{startDate,jdbcType=TIMESTAMP},
+      end_date = #{endDate,jdbcType=TIMESTAMP},
+      type = #{type,jdbcType=BIT},
+      show_index = #{showIndex,jdbcType=BIT},
+      status = #{status,jdbcType=BIT},
+      init_date = #{initDate,jdbcType=DECIMAL},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      deadline_condition = #{deadlineCondition,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  
+  <!-- 分页条件查询 -->
+    <select id="selectBySearchInfo" resultMap="BaseResultMap" parameterType="com.linkwee.core.datatable.DataTable">
+        select
+        <include refid="Base_Column_List" />
+        from t_activity
+        <where> 
+        <if test="dt.search!=null">  
+                name like CONCAT('%','${dt.search.value}','%' )  
+         </if>  
+         <if test="dt.order!=null">  
+               <foreach collection="dt.order" index="index" item="item"
+                    open="order by" separator="," close=" ">
+                    ${item.name} ${item.dir}
+                </foreach>
+         </if>  
+        </where>
+    </select>
+    
+    <select id="getActivity" resultMap="BaseResultMap">
+    	<![CDATA[ SELECT fid,name FROM t_activity  WHERE fid = #{ativityId} AND  (( NOW() >= start_date AND NOW() <= end_date ) OR (deadline_condition=1))  ]]>
+    </select>
+</mapper>

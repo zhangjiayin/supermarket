@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.LogsDao">
+    <!--*********************************************************************-->
+    <!--分页查询帐户操作日志表 @Author:libin-->
+    <!--*********************************************************************-->
+    <select id="queryAccountOpLogList" resultType="com.linkwee.web.response.AccountLogResp">
+        SELECT
+        `f_id` as id ,
+        `f_message_id` as messageId,
+        `f_customer_id` as customerId,
+        `f_customer_name` as customerName,
+        `f_mobile` as mobile,
+        `f_bank_card` as bankCard,
+        `f_bank_code` as bankCode,
+        `f_id_card` as idCard,
+        `f_amount` as amount,
+        `f_pay_method` as payMethod,
+        `f_pay_type` as payType,
+        `f_sms_code` as smsCode,
+        `f_record_no` as recordNo,
+        `f_op_type` as opType,
+        `f_result_code` as resultCode,
+        `f_result_msg` as resultMsg,
+        `f_source_type` sourceType,
+        `f_create_time` as createTime
+        FROM `t_account_op_log` as t
+        WHERE 1=1
+        <if test="query.searchValue!=null and query.searchValue!=''"> AND ( t.f_customer_name LIKE CONCAT(CONCAT('%',#{query.searchValue}),'%') OR t.f_mobile=#{query.searchValue})</if>
+        <if test="query.startDate!=null and query.startDate!='' and query.endDate!=null and query.endDate!=''"> AND t.f_create_time BETWEEN #{query.startDate} AND  #{query.endDate}</if>
+        ORDER BY
+        <choose>
+            <when test="odd.amount!=null">
+                 `f_amount` ${odd.amount}
+            </when>
+            <otherwise>
+                `f_amount` DESC
+            </otherwise>
+        </choose>
+    </select>
+
+
+</mapper>

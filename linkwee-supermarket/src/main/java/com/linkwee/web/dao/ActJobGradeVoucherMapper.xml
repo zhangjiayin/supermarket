@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.ActJobGradeVoucherMapper">
+	<!-- Result Map-->
+	<resultMap  type="com.linkwee.web.model.crm.ActJobGradeVoucher" id="BaseResultMap">
+		<result column="id" property="id" jdbcType="INTEGER"/>
+		<result column="voucher_id" property="voucherId" jdbcType="VARCHAR"/>
+		<result column="user_id" property="userId" jdbcType="VARCHAR"/>
+		<result column="mobile" property="mobile" jdbcType="VARCHAR"/>
+		<result column="activity_attr" property="activityAttr" jdbcType="VARCHAR"/>
+		<result column="job_grade" property="jobGrade" jdbcType="VARCHAR"/>
+		<result column="job_grade_weight" property="jobGradeWeight" jdbcType="INTEGER"/>
+		<result column="use_time" property="useTime" jdbcType="TIMESTAMP"/>
+		<result column="expires_time" property="expiresTime" jdbcType="TIMESTAMP"/>
+		<result column="status" property="status" jdbcType="INTEGER"/>
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+		<result column="operator" property="operator" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+  <sql id="Base_Column_List">
+    <trim suffixOverrides=",">
+	    	id,
+	    	voucher_id,
+	    	user_id,
+	    	mobile,
+	    	activity_attr,
+	    	job_grade,
+	    	job_grade_weight,
+	    	use_time,
+	    	expires_time,
+	    	status,
+	    	create_time,
+	    	update_time,
+	    	operator,
+    </trim>
+  </sql>  
+  
+  <sql id="Base_Condition">
+		<if test=" null != id ">
+			and id = #{id}
+		</if>
+		<if test=" null != voucherId and ''!= voucherId  ">
+			and voucher_id = #{voucherId}
+		</if>
+		<if test=" null != userId and ''!= userId  ">
+			and user_id = #{userId}
+		</if>
+		<if test=" null != mobile and ''!= mobile  ">
+			and mobile = #{mobile}
+		</if>
+		<if test=" null != activityAttr and ''!= activityAttr  ">
+			and activity_attr = #{activityAttr}
+		</if>
+		<if test=" null != jobGrade and ''!= jobGrade  ">
+			and job_grade = #{jobGrade}
+		</if>
+		<if test=" null != jobGradeWeight ">
+			and job_grade_weight = #{jobGradeWeight}
+		</if>
+		<if test=" null != useTime ">
+			and use_time = #{useTime}
+		</if>
+		<if test=" null != expiresTime ">
+			and expires_time = #{expiresTime}
+		</if>
+		<if test=" null != status ">
+			and status = #{status}
+		</if>
+		<if test=" null != createTime ">
+			and create_time = #{createTime}
+		</if>
+		<if test=" null != updateTime ">
+			and update_time = #{updateTime}
+		</if>
+		<if test=" null != operator and ''!= operator  ">
+			and operator = #{operator}
+		</if>
+  </sql>
+  
+  <select id="selectOneByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.web.model.crm.ActJobGradeVoucher">
+		select <include refid="Base_Column_List" /> from tact_job_grade_voucher 
+		where 1=1 <include refid="Base_Condition" />
+  </select>
+  
+  <select id="selectByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.web.model.crm.ActJobGradeVoucher">
+		select <include refid="Base_Column_List" /> from tact_job_grade_voucher 
+		where 1=1 <include refid="Base_Condition" />
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tact_job_grade_voucher
+    where  id = #{0}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tact_job_grade_voucher
+    where id = #{0}
+  </delete>
+
+  <insert id="insert" parameterType="com.linkwee.web.model.crm.ActJobGradeVoucher" >
+    INSERT INTO tact_job_grade_voucher
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != voucherId and ''!= voucherId  ">
+					voucher_id,
+				</if>
+			 	<if test=" null != userId and ''!= userId  ">
+					user_id,
+				</if>
+			 	<if test=" null != mobile and ''!= mobile  ">
+					mobile,
+				</if>
+			 	<if test=" null != activityAttr and ''!= activityAttr  ">
+					activity_attr,
+				</if>
+			 	<if test=" null != jobGrade and ''!= jobGrade  ">
+					job_grade,
+				</if>
+			 	<if test=" null != jobGradeWeight ">
+					job_grade_weight,
+				</if>
+			 	<if test=" null != useTime ">
+					use_time,
+				</if>
+			 	<if test=" null != expiresTime ">
+					expires_time,
+				</if>
+			 	<if test=" null != status ">
+					status,
+				</if>
+			 	<if test=" null != createTime ">
+					create_time,
+				</if>
+			 	<if test=" null != updateTime ">
+					update_time,
+				</if>
+			 	<if test=" null != operator and ''!= operator  ">
+					operator,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != voucherId and ''!= voucherId  ">
+					 	#{voucherId},
+				</if>
+			 	<if test=" null != userId and ''!= userId  ">
+					 	#{userId},
+				</if>
+			 	<if test=" null != mobile and ''!= mobile  ">
+					 	#{mobile},
+				</if>
+			 	<if test=" null != activityAttr and ''!= activityAttr  ">
+					 	#{activityAttr},
+				</if>
+			 	<if test=" null != jobGrade and ''!= jobGrade  ">
+					 	#{jobGrade},
+				</if>
+			 	<if test=" null != jobGradeWeight ">
+					 	#{jobGradeWeight},
+				</if>
+			 	<if test=" null != useTime ">
+					 	#{useTime},
+				</if>
+			 	<if test=" null != expiresTime ">
+					 	#{expiresTime},
+				</if>
+			 	<if test=" null != status ">
+					 	#{status},
+				</if>
+			 	<if test=" null != createTime ">
+					 	#{createTime},
+				</if>
+			 	<if test=" null != updateTime ">
+					 	#{updateTime},
+				</if>
+			 	<if test=" null != operator and ''!= operator  ">
+					 	#{operator},
+				</if>
+		</trim>
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.linkwee.web.model.crm.ActJobGradeVoucher" useGeneratedKeys="true" keyProperty="id" >
+		INSERT INTO tact_job_grade_voucher
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != voucherId and ''!= voucherId  ">
+					voucher_id,
+				</if>
+			 	<if test=" null != userId and ''!= userId  ">
+					user_id,
+				</if>
+			 	<if test=" null != mobile and ''!= mobile  ">
+					mobile,
+				</if>
+			 	<if test=" null != activityAttr and ''!= activityAttr  ">
+					activity_attr,
+				</if>
+			 	<if test=" null != jobGrade and ''!= jobGrade  ">
+					job_grade,
+				</if>
+			 	<if test=" null != jobGradeWeight ">
+					job_grade_weight,
+				</if>
+			 	<if test=" null != useTime ">
+					use_time,
+				</if>
+			 	<if test=" null != expiresTime ">
+					expires_time,
+				</if>
+			 	<if test=" null != status ">
+					status,
+				</if>
+			 	<if test=" null != createTime ">
+					create_time,
+				</if>
+			 	<if test=" null != updateTime ">
+					update_time,
+				</if>
+			 	<if test=" null != operator and ''!= operator  ">
+					operator,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != voucherId and ''!= voucherId  ">
+					 	#{voucherId},
+				</if>
+			 	<if test=" null != userId and ''!= userId  ">
+					 	#{userId},
+				</if>
+			 	<if test=" null != mobile and ''!= mobile  ">
+					 	#{mobile},
+				</if>
+			 	<if test=" null != activityAttr and ''!= activityAttr  ">
+					 	#{activityAttr},
+				</if>
+			 	<if test=" null != jobGrade and ''!= jobGrade  ">
+					 	#{jobGrade},
+				</if>
+			 	<if test=" null != jobGradeWeight ">
+					 	#{jobGradeWeight},
+				</if>
+			 	<if test=" null != useTime ">
+					 	#{useTime},
+				</if>
+			 	<if test=" null != expiresTime ">
+					 	#{expiresTime},
+				</if>
+			 	<if test=" null != status ">
+					 	#{status},
+				</if>
+			 	<if test=" null != createTime ">
+					 	#{createTime},
+				</if>
+			 	<if test=" null != updateTime ">
+					 	#{updateTime},
+				</if>
+			 	<if test=" null != operator and ''!= operator  ">
+					 	#{operator},
+				</if>
+		</trim>
+	</insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.linkwee.web.model.crm.ActJobGradeVoucher" >
+  		UPDATE tact_job_grade_voucher
+		<set>
+			<trim suffixOverrides=",">
+					<if test=" null != voucherId and ''!= voucherId  ">
+						voucher_id = #{voucherId},
+					</if>
+					<if test=" null != userId and ''!= userId  ">
+						user_id = #{userId},
+					</if>
+					<if test=" null != mobile and ''!= mobile  ">
+						mobile = #{mobile},
+					</if>
+					<if test=" null != activityAttr and ''!= activityAttr  ">
+						activity_attr = #{activityAttr},
+					</if>
+					<if test=" null != jobGrade and ''!= jobGrade  ">
+						job_grade = #{jobGrade},
+					</if>
+					<if test=" null != jobGradeWeight ">
+						job_grade_weight = #{jobGradeWeight},
+					</if>
+					<if test=" null != useTime ">
+						use_time = #{useTime},
+					</if>
+					<if test=" null != expiresTime ">
+						expires_time = #{expiresTime},
+					</if>
+					<if test=" null != status ">
+						status = #{status},
+					</if>
+					<if test=" null != createTime ">
+						create_time = #{createTime},
+					</if>
+					<if test=" null != updateTime ">
+						update_time = #{updateTime},
+					</if>
+					<if test=" null != operator and ''!= operator  ">
+						operator = #{operator},
+					</if>
+			</trim>
+		</set>
+		<where>
+			 id = #{id}
+		</where>
+	</update>
+  
+	<update id="updateByPrimaryKey" parameterType="com.linkwee.web.model.crm.ActJobGradeVoucher" >
+	    UPDATE tact_job_grade_voucher
+	   <set>
+			<trim suffixOverrides=",">
+					<if test=" null != voucherId and ''!= voucherId  ">
+						voucher_id = #{voucherId},
+					</if>
+					<if test=" null != userId and ''!= userId  ">
+						user_id = #{userId},
+					</if>
+					<if test=" null != mobile and ''!= mobile  ">
+						mobile = #{mobile},
+					</if>
+					<if test=" null != activityAttr and ''!= activityAttr  ">
+						activity_attr = #{activityAttr},
+					</if>
+					<if test=" null != jobGrade and ''!= jobGrade  ">
+						job_grade = #{jobGrade},
+					</if>
+					<if test=" null != jobGradeWeight ">
+						job_grade_weight = #{jobGradeWeight},
+					</if>
+					<if test=" null != useTime ">
+						use_time = #{useTime},
+					</if>
+					<if test=" null != expiresTime ">
+						expires_time = #{expiresTime},
+					</if>
+					<if test=" null != status ">
+						status = #{status},
+					</if>
+					<if test=" null != createTime ">
+						create_time = #{createTime},
+					</if>
+					<if test=" null != updateTime ">
+						update_time = #{updateTime},
+					</if>
+					<if test=" null != operator and ''!= operator  ">
+						operator = #{operator},
+					</if>
+			</trim>
+		</set>
+		<where>
+			id = #{0}
+		</where>
+	  </update>
+
+	<!-- 分页条件查询 -->
+    <select id="selectBySearchInfo" resultMap="BaseResultMap" parameterType="com.linkwee.core.datatable.DataTable">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM tact_job_grade_voucher
+        <where> 
+        <if test="dt.search!=null">  
+<!--                 name LIKE CONCAT('%','${dt.search.value}','%' )   -->
+         </if>  
+         <if test="dt.order!=null">  
+               <foreach collection="dt.order" index="index" item="item"
+                    open="order by" separator="," close=" ">
+                    ${item.name} ${item.dir} 
+                </foreach>
+         </if>  
+        </where>
+    </select>
+    
+    	<!-- 4.5.0职级体验券列表 -->
+	<select id="jobGradeVoucherPage" resultType="com.linkwee.api.response.crm.JobGradeVoucherResponse" >
+	   <![CDATA[
+	    select tjgv.activity_attr as activityAttr,date_format(tjgv.expires_time,'%Y-%m-%d %H:%i:%s') as expiresTime,status,date_format(tjgv.use_time,'%Y-%m-%d %H:%i:%s') as use_time,tjgv.job_grade_weight as voucherType ,
+		case when tjgv.job_grade='SM3' then '总监职级' when tjgv.job_grade='SM2' then '经理职级' else '' end as voucherName,
+		'销售佣金100%＋推荐奖励160%' as jobGradeWelfare1,
+		case when tjgv.job_grade='SM3' then '直接管理津贴50%＋ 团队管理津贴50%' when tjgv.job_grade='SM2' then '直接管理津贴30%＋ 团队管理津贴30%' else '' end as jobGradeWelfare2
+	    from tact_job_grade_voucher tjgv LEFT JOIN tcrm_cfplanner tcf on tjgv.user_id=tcf.user_id where tjgv.user_id =#{userId,jdbcType=VARCHAR} order by tjgv.status 
+	 	]]> 
+	</select>
+	
+	<!-- 4.5.0职级体验券弹出框判断时间 -->
+	<select id="queryNewJobGradeVoucherPopupDate" resultType="com.linkwee.web.model.crm.JobGradeVoucherPopupResponse" >
+	     <![CDATA[
+	    select create_time as createTime,case when job_grade='SM3' then '总监' when job_grade='SM2' then '经理' else '' end as jobGrade 
+        from tact_job_grade_voucher where user_id =#{userId,jdbcType=VARCHAR} and status<>4 order by create_time desc limit 1
+        ]]> 
+    </select>
+    
+    <!-- 4.5.0统计可以使用的职级体验券 -->
+    <select id="queryCanUserJobGradeVoucher" resultType="Integer" >
+      select count(*) from tact_job_grade_voucher where user_id =#{userId,jdbcType=VARCHAR} and status=1 
+    </select>
+    
+</mapper>

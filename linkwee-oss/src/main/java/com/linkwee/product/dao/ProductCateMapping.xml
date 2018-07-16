@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.product.dao.ProductCateDao">
+<parameterMap type="com.linkwee.web.model.product.ProductCate" id="ProductCateParameterMap" />	
+<!-- Result Map-->
+<resultMap  type="com.linkwee.web.model.product.ProductCate" id="ProductCateResultMap">
+	<result column="f_cate_id" property="cateId" jdbcType="VARCHAR"/>
+	<result column="f_cate_name" property="cateName" jdbcType="VARCHAR"/>
+	<result column="f_parent_cate_id" property="parentCateId" jdbcType="VARCHAR"/>
+	<result column="f_order_num" property="orderNum" jdbcType="INTEGER"/>
+	<result column="f_hit_count" property="hitCount" jdbcType="INTEGER"/>
+	<result column="f_products_count" property="productsCount" jdbcType="INTEGER"/>
+	<result column="f_child_count" property="childCount" jdbcType="INTEGER"/>
+	<result column="f_cate_logo" property="cateLogo" jdbcType="VARCHAR"/>
+	<result column="f_disabled" property="disabled" jdbcType="CHAR"/>
+	<result column="f_modify_time" property="modifyTime" jdbcType="TIMESTAMP"/>
+	<result column="f_description" property="description" jdbcType="VARCHAR"/>
+	<result column="f_identifier" property="identifier" jdbcType="VARCHAR"/>
+	<result column="f_ispublic" property="ispublic" jdbcType="INTEGER"/>
+</resultMap>
+  <sql id="Base_Column_List">
+    <trim suffixOverrides=",">
+	    	f_cate_id,
+	    	f_cate_name,
+	    	f_parent_cate_id,
+	    	f_order_num,
+	    	f_hit_count,
+	    	f_products_count,
+	    	f_child_count,
+	    	f_cate_logo,
+	    	f_disabled,
+	    	f_modify_time,
+	    	f_description,
+	    	f_identifier,
+	    	f_ispublic,
+    </trim>
+  </sql>  
+  
+   <sql id="Base_Column_List_T">
+    <trim suffixOverrides=",">
+	    	t.f_cate_id,
+	    	t.f_cate_name,
+	    	t.f_parent_cate_id,
+	    	t.f_order_num,
+	    	t.f_hit_count,
+	    	t.f_products_count,
+	    	t.f_child_count,
+	    	t.f_cate_logo,
+	    	t.f_disabled,
+	    	t.f_modify_time,
+	    	t.f_description,
+	    	t.f_identifier,
+	    	t.f_ispublic,
+    </trim>
+  </sql> 
+  	
+  <select id="getByPrimaryKey"  resultMap="ProductCateResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_product_cate where  f_cate_id = #{0}
+  </select>	
+
+  <delete id="deleteByPrimaryKey" >
+    delete from t_product_cate
+	<where>
+		f_cate_id = #{0}
+	</where>
+  </delete>
+  
+  
+  <insert id="add" parameterMap="ProductCateParameterMap" useGeneratedKeys="true" keyProperty="cateId" >
+		INSERT INTO t_product_cate
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != cateId and ''!= cateId  ">
+					f_cate_id,
+				</if>
+			 	<if test=" null != cateName and ''!= cateName  ">
+					f_cate_name,
+				</if>
+			 	<if test=" null != parentCateId and ''!= parentCateId  ">
+					f_parent_cate_id,
+				</if>
+			 	<if test=" null != orderNum ">
+					f_order_num,
+				</if>
+			 	<if test=" null != hitCount ">
+					f_hit_count,
+				</if>
+			 	<if test=" null != productsCount ">
+					f_products_count,
+				</if>
+			 	<if test=" null != childCount ">
+					f_child_count,
+				</if>
+			 	<if test=" null != cateLogo and ''!= cateLogo  ">
+					f_cate_logo,
+				</if>
+			 	<if test=" null != disabled and ''!= disabled  ">
+					f_disabled,
+				</if>
+			 	<if test=" null != modifyTime ">
+					f_modify_time,
+				</if>
+			 	<if test=" null != description and ''!= description  ">
+					f_description,
+				</if>
+			 	<if test=" null != identifier and ''!= identifier  ">
+					f_identifier,
+				</if>
+			 	<if test=" null != ispublic ">
+					f_ispublic,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != cateId and ''!= cateId  ">
+					 	#{cateId},
+				</if>
+			 	<if test=" null != cateName and ''!= cateName  ">
+					 	#{cateName},
+				</if>
+			 	<if test=" null != parentCateId and ''!= parentCateId  ">
+					 	#{parentCateId},
+				</if>
+			 	<if test=" null != orderNum ">
+					 	#{orderNum},
+				</if>
+			 	<if test=" null != hitCount ">
+					 	#{hitCount},
+				</if>
+			 	<if test=" null != productsCount ">
+					 	#{productsCount},
+				</if>
+			 	<if test=" null != childCount ">
+					 	#{childCount},
+				</if>
+			 	<if test=" null != cateLogo and ''!= cateLogo  ">
+					 	#{cateLogo},
+				</if>
+			 	<if test=" null != disabled and ''!= disabled  ">
+					 	#{disabled},
+				</if>
+			 	<if test=" null != modifyTime ">
+					 	#{modifyTime},
+				</if>
+			 	<if test=" null != description and ''!= description  ">
+					 	#{description},
+				</if>
+			 	<if test=" null != identifier and ''!= identifier  ">
+					 	#{identifier},
+				</if>
+			 	<if test=" null != ispublic ">
+					 	#{ispublic},
+				</if>
+		</trim>
+	</insert>
+  
+  
+  <update id="update" parameterMap="ProductCateParameterMap">
+		UPDATE t_product_cate
+		<set>
+			<trim suffixOverrides=",">
+					<if test=" null != cateName and ''!= cateName  ">
+						f_cate_name = #{cateName},
+					</if>
+					<if test=" null != parentCateId and ''!= parentCateId  ">
+						f_parent_cate_id = #{parentCateId},
+					</if>
+					<if test=" null != orderNum ">
+						f_order_num = #{orderNum},
+					</if>
+					<if test=" null != hitCount ">
+						f_hit_count = #{hitCount},
+					</if>
+					<if test=" null != productsCount ">
+						f_products_count = #{productsCount},
+					</if>
+					<if test=" null != childCount ">
+						f_child_count = #{childCount},
+					</if>
+					<if test=" null != cateLogo and ''!= cateLogo  ">
+						f_cate_logo = #{cateLogo},
+					</if>
+					<if test=" null != disabled and ''!= disabled  ">
+						f_disabled = #{disabled},
+					</if>
+					<if test=" null != modifyTime ">
+						f_modify_time = #{modifyTime},
+					</if>
+					<if test=" null != description and ''!= description  ">
+						f_description = #{description},
+					</if>
+					<if test=" null != identifier and ''!= identifier  ">
+						f_identifier = #{identifier},
+					</if>
+					<if test=" null != ispublic ">
+						f_ispublic = #{ispublic},
+					</if>
+			</trim>
+		</set>
+		<where>
+			 f_cate_id = #{cateId}
+		</where>
+	</update>
+  
+  
+   <update id="updateWithEmpty" parameterMap="ProductCateParameterMap">
+		UPDATE t_product_cate
+		<set>
+			<trim suffixOverrides=",">
+						f_cate_name = #{cateName},
+						f_parent_cate_id = #{parentCateId},
+						f_order_num = #{orderNum},
+						f_hit_count = #{hitCount},
+						f_products_count = #{productsCount},
+						f_child_count = #{childCount},
+						f_cate_logo = #{cateLogo},
+						f_disabled = #{disabled},
+						f_modify_time = #{modifyTime},
+						f_description = #{description},
+						f_identifier = #{identifier},
+						f_ispublic = #{ispublic},
+			</trim>
+		</set>
+		<where>
+			 f_cate_id = #{cateId}
+		</where>
+	</update>
+
+  <insert id="addBatch" parameterType="java.util.List">
+	insert into t_product_cate 
+	<trim prefix="(" suffix=")" >
+			<include refid="Base_Column_List" />
+	</trim>
+	VALUES
+	<foreach item="item" index="index" collection="list" separator=",">
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+				#{item.cateId,jdbcType=VARCHAR},
+				#{item.cateName,jdbcType=VARCHAR},
+				#{item.parentCateId,jdbcType=VARCHAR},
+				#{item.orderNum,jdbcType=INTEGER},
+				#{item.hitCount,jdbcType=INTEGER},
+				#{item.productsCount,jdbcType=INTEGER},
+				#{item.childCount,jdbcType=INTEGER},
+				#{item.cateLogo,jdbcType=VARCHAR},
+				#{item.disabled,jdbcType=CHAR},
+				#{item.modifyTime,jdbcType=TIMESTAMP},
+				#{item.description,jdbcType=VARCHAR},
+				#{item.identifier,jdbcType=VARCHAR},
+				#{item.ispublic,jdbcType=INTEGER},
+		</trim>
+	</foreach>
+</insert>
+
+ 
+<update id="updateBatch" parameterType="java.util.List">
+      <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update t_product_cate
+            <set>
+              	<trim suffixOverrides=",">
+					   <if test="item.cateName!=null and ''!= item.cateName  ">
+					        f_cate_name = #{item.cateName,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.parentCateId!=null and ''!= item.parentCateId  ">
+					        f_parent_cate_id = #{item.parentCateId,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.orderNum!=null ">
+					        f_order_num = #{item.orderNum,jdbcType=INTEGER},
+					   </if>
+					   <if test="item.hitCount!=null ">
+					        f_hit_count = #{item.hitCount,jdbcType=INTEGER},
+					   </if>
+					   <if test="item.productsCount!=null ">
+					        f_products_count = #{item.productsCount,jdbcType=INTEGER},
+					   </if>
+					   <if test="item.childCount!=null ">
+					        f_child_count = #{item.childCount,jdbcType=INTEGER},
+					   </if>
+					   <if test="item.cateLogo!=null and ''!= item.cateLogo  ">
+					        f_cate_logo = #{item.cateLogo,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.disabled!=null and ''!= item.disabled  ">
+					        f_disabled = #{item.disabled,jdbcType=CHAR},
+					   </if>
+					   <if test="item.modifyTime!=null ">
+					        f_modify_time = #{item.modifyTime,jdbcType=TIMESTAMP},
+					   </if>
+					   <if test="item.description!=null and ''!= item.description  ">
+					        f_description = #{item.description,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.identifier!=null and ''!= item.identifier  ">
+					        f_identifier = #{item.identifier,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.ispublic!=null ">
+					        f_ispublic = #{item.ispublic,jdbcType=INTEGER},
+					   </if>
+			   </trim>
+            </set>
+             where f_cate_id = #{item.cateId}
+     </foreach>
+</update>
+
+<update id="updateBatchWithEmpty" parameterType="java.util.List">
+      <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update t_product_cate
+            <set>
+              	<trim suffixOverrides=",">
+					        f_cate_name = #{item.cateName,jdbcType=VARCHAR},
+					        f_parent_cate_id = #{item.parentCateId,jdbcType=VARCHAR},
+					        f_order_num = #{item.orderNum,jdbcType=INTEGER},
+					        f_hit_count = #{item.hitCount,jdbcType=INTEGER},
+					        f_products_count = #{item.productsCount,jdbcType=INTEGER},
+					        f_child_count = #{item.childCount,jdbcType=INTEGER},
+					        f_cate_logo = #{item.cateLogo,jdbcType=VARCHAR},
+					        f_disabled = #{item.disabled,jdbcType=CHAR},
+					        f_modify_time = #{item.modifyTime,jdbcType=TIMESTAMP},
+					        f_description = #{item.description,jdbcType=VARCHAR},
+					        f_identifier = #{item.identifier,jdbcType=VARCHAR},
+					        f_ispublic = #{item.ispublic,jdbcType=INTEGER},
+			   </trim>
+            </set>
+             where f_cate_id = #{item.cateId}
+     </foreach>
+</update>         
+
+<delete id="deleteBatch" parameterType="Object">
+	DELETE FROM t_product_cate
+	<where>
+		<foreach item="item" index="index" collection="array"  open="(" separator="or" close=") ">
+			  f_cate_id  = #{item}
+		</foreach>
+	</where>
+</delete>
+    
+ <sql id="Base_Condition">
+		   <if test=" null != cateId and ''!= cateId  ">
+				AND	T.f_cate_id = #{cateId}
+		</if>
+		   <if test=" null != cateName and ''!= cateName  ">
+				AND	T.f_cate_name = #{cateName}
+		</if>
+		   <if test=" null != parentCateId and ''!= parentCateId  ">
+				AND	T.f_parent_cate_id = #{parentCateId}
+		</if>
+		   <if test=" null != orderNum ">
+				AND	T.f_order_num = #{orderNum}
+		</if>
+		   <if test=" null != hitCount ">
+				AND	T.f_hit_count = #{hitCount}
+		</if>
+		   <if test=" null != productsCount ">
+				AND	T.f_products_count = #{productsCount}
+		</if>
+		   <if test=" null != childCount ">
+				AND	T.f_child_count = #{childCount}
+		</if>
+		   <if test=" null != cateLogo and ''!= cateLogo  ">
+				AND	T.f_cate_logo = #{cateLogo}
+		</if>
+		   <if test=" null != disabled and ''!= disabled  ">
+				AND	T.f_disabled = #{disabled}
+		</if>
+		   <if test=" null != modifyTime ">
+				AND	T.f_modify_time = #{modifyTime}
+		</if>
+		   <if test=" null != description and ''!= description  ">
+				AND	T.f_description = #{description}
+		</if>
+		   <if test=" null != identifier and ''!= identifier  ">
+				AND	T.f_identifier = #{identifier}
+		</if>
+		   <if test=" null != ispublic ">
+				AND	T.f_ispublic = #{ispublic}
+		</if>
+ </sql>    
+<select id="list" resultMap="ProductCateResultMap"  >
+		SELECT <include refid="Base_Column_List" /> FROM t_product_cate T WHERE 1=1
+		<include refid="Base_Condition" />
+</select>
+
+<select id="query" resultMap="ProductCateResultMap"  >
+		SELECT <include refid="Base_Column_List" /> FROM t_product_cate T WHERE 1=1
+		<include refid="Base_Condition" />
+</select>
+
+</mapper>

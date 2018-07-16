@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.product.dao.ProductTypeDao">
+<parameterMap type="com.linkwee.web.model.product.ProductType" id="ProductTypeParameterMap" />	
+<!-- Result Map-->
+<resultMap  type="com.linkwee.web.model.product.ProductType" id="ProductTypeResultMap">
+	<result column="f_id" property="id" jdbcType="INTEGER"/>
+	<result column="f_type_name" property="typeName" jdbcType="VARCHAR"/>
+	<result column="f_type_desc" property="typeDesc" jdbcType="VARCHAR"/>
+	<result column="f_business_type" property="businessType" jdbcType="TINYINT"/>
+	<result column="f_manage_way" property="manageWay" jdbcType="TINYINT"/>
+	<result column="f_comprise_content_way" property="compriseContentWay" jdbcType="TINYINT"/>
+	<result column="f_is_auto" property="isAuto" jdbcType="TINYINT"/>
+	<result column="f_type_value" property="typeValue" jdbcType="INTEGER"/>
+	<result column="f_del_status" property="delStatus" jdbcType="INTEGER"/>
+	<result column="f_creator" property="creator" jdbcType="VARCHAR"/>
+	<result column="f_create_time" property="createTime" jdbcType="TIMESTAMP"/>
+	<result column="f_updater" property="updater" jdbcType="VARCHAR"/>
+	<result column="f_update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+	<result column="f_remark" property="remark" jdbcType="VARCHAR"/>
+</resultMap>
+  <sql id="Base_Column_List">
+    <trim suffixOverrides=",">
+	    	f_id,
+	    	f_type_name,
+	    	f_type_desc,
+	    	f_business_type,
+	    	f_manage_way,
+	    	f_comprise_content_way,
+	    	f_is_auto,
+	    	f_type_value,
+	    	f_del_status,
+	    	f_creator,
+	    	f_create_time,
+	    	f_updater,
+	    	f_update_time,
+	    	f_remark,
+    </trim>
+  </sql>  
+  
+   <sql id="Base_Column_List_T">
+    <trim suffixOverrides=",">
+	    	t.f_id,
+	    	t.f_type_name,
+	    	t.f_type_desc,
+	    	t.f_business_type,
+	    	t.f_manage_way,
+	    	t.f_comprise_content_way,
+	    	t.f_is_auto,
+	    	t.f_type_value,
+	    	t.f_del_status,
+	    	t.f_creator,
+	    	t.f_create_time,
+	    	t.f_updater,
+	    	t.f_update_time,
+	    	t.f_remark,
+    </trim>
+  </sql> 
+  	
+  <select id="getByPrimaryKey"  resultMap="ProductTypeResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_product_type where  f_id = #{0}
+  </select>	
+
+  <delete id="deleteByPrimaryKey" >
+    delete from t_product_type
+	<where>
+		f_id = #{0}
+	</where>
+  </delete>
+  
+  
+  <insert id="add" parameterMap="ProductTypeParameterMap" useGeneratedKeys="true" keyProperty="id" >
+		INSERT INTO t_product_type
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					f_id,
+				</if>
+			 	<if test=" null != typeName and ''!= typeName  ">
+					f_type_name,
+				</if>
+			 	<if test=" null != typeDesc and ''!= typeDesc  ">
+					f_type_desc,
+				</if>
+			 	<if test=" null != businessType ">
+					f_business_type,
+				</if>
+			 	<if test=" null != manageWay ">
+					f_manage_way,
+				</if>
+			 	<if test=" null != compriseContentWay ">
+					f_comprise_content_way,
+				</if>
+			 	<if test=" null != isAuto ">
+					f_is_auto,
+				</if>
+			 	<if test=" null != typeValue ">
+					f_type_value,
+				</if>
+			 	<if test=" null != delStatus ">
+					f_del_status,
+				</if>
+			 	<if test=" null != creator and ''!= creator  ">
+					f_creator,
+				</if>
+			 	<if test=" null != createTime ">
+					f_create_time,
+				</if>
+			 	<if test=" null != updater and ''!= updater  ">
+					f_updater,
+				</if>
+			 	<if test=" null != updateTime ">
+					f_update_time,
+				</if>
+			 	<if test=" null != remark and ''!= remark  ">
+					f_remark,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != typeName and ''!= typeName  ">
+					 	#{typeName},
+				</if>
+			 	<if test=" null != typeDesc and ''!= typeDesc  ">
+					 	#{typeDesc},
+				</if>
+			 	<if test=" null != businessType ">
+					 	#{businessType},
+				</if>
+			 	<if test=" null != manageWay ">
+					 	#{manageWay},
+				</if>
+			 	<if test=" null != compriseContentWay ">
+					 	#{compriseContentWay},
+				</if>
+			 	<if test=" null != isAuto ">
+					 	#{isAuto},
+				</if>
+			 	<if test=" null != typeValue ">
+					 	#{typeValue},
+				</if>
+			 	<if test=" null != delStatus ">
+					 	#{delStatus},
+				</if>
+			 	<if test=" null != creator and ''!= creator  ">
+					 	#{creator},
+				</if>
+			 	<if test=" null != createTime ">
+					 	#{createTime},
+				</if>
+			 	<if test=" null != updater and ''!= updater  ">
+					 	#{updater},
+				</if>
+			 	<if test=" null != updateTime ">
+					 	#{updateTime},
+				</if>
+			 	<if test=" null != remark and ''!= remark  ">
+					 	#{remark},
+				</if>
+		</trim>
+	</insert>
+  
+  
+  <update id="update" parameterMap="ProductTypeParameterMap">
+		UPDATE t_product_type
+		<set>
+			<trim suffixOverrides=",">
+					<if test=" null != typeName and ''!= typeName  ">
+						f_type_name = #{typeName},
+					</if>
+					<if test=" null != typeDesc and ''!= typeDesc  ">
+						f_type_desc = #{typeDesc},
+					</if>
+					<if test=" null != businessType ">
+						f_business_type = #{businessType},
+					</if>
+					<if test=" null != manageWay ">
+						f_manage_way = #{manageWay},
+					</if>
+					<if test=" null != compriseContentWay ">
+						f_comprise_content_way = #{compriseContentWay},
+					</if>
+					<if test=" null != isAuto ">
+						f_is_auto = #{isAuto},
+					</if>
+					<if test=" null != typeValue ">
+						f_type_value = #{typeValue},
+					</if>
+					<if test=" null != delStatus ">
+						f_del_status = #{delStatus},
+					</if>
+					<if test=" null != creator and ''!= creator  ">
+						f_creator = #{creator},
+					</if>
+					<if test=" null != createTime ">
+						f_create_time = #{createTime},
+					</if>
+					<if test=" null != updater and ''!= updater  ">
+						f_updater = #{updater},
+					</if>
+					<if test=" null != updateTime ">
+						f_update_time = #{updateTime},
+					</if>
+					<if test=" null != remark and ''!= remark  ">
+						f_remark = #{remark},
+					</if>
+			</trim>
+		</set>
+		<where>
+			 f_id = #{id}
+		</where>
+	</update>
+  
+  
+   <update id="updateWithEmpty" parameterMap="ProductTypeParameterMap">
+		UPDATE t_product_type
+		<set>
+			<trim suffixOverrides=",">
+						f_type_name = #{typeName},
+						f_type_desc = #{typeDesc},
+						f_business_type = #{businessType},
+						f_manage_way = #{manageWay},
+						f_comprise_content_way = #{compriseContentWay},
+						f_is_auto = #{isAuto},
+						f_type_value = #{typeValue},
+						f_del_status = #{delStatus},
+						f_creator = #{creator},
+						f_create_time = #{createTime},
+						f_updater = #{updater},
+						f_update_time = #{updateTime},
+						f_remark = #{remark},
+			</trim>
+		</set>
+		<where>
+			 f_id = #{id}
+		</where>
+	</update>
+
+  <insert id="addBatch" parameterType="java.util.List">
+	insert into t_product_type 
+	<trim prefix="(" suffix=")" >
+			<include refid="Base_Column_List" />
+	</trim>
+	VALUES
+	<foreach item="item" index="index" collection="list" separator=",">
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+				#{item.id,jdbcType=INTEGER},
+				#{item.typeName,jdbcType=VARCHAR},
+				#{item.typeDesc,jdbcType=VARCHAR},
+				#{item.businessType,jdbcType=TINYINT},
+				#{item.manageWay,jdbcType=TINYINT},
+				#{item.compriseContentWay,jdbcType=TINYINT},
+				#{item.isAuto,jdbcType=TINYINT},
+				#{item.typeValue,jdbcType=INTEGER},
+				#{item.delStatus,jdbcType=INTEGER},
+				#{item.creator,jdbcType=VARCHAR},
+				#{item.createTime,jdbcType=TIMESTAMP},
+				#{item.updater,jdbcType=VARCHAR},
+				#{item.updateTime,jdbcType=TIMESTAMP},
+				#{item.remark,jdbcType=VARCHAR},
+		</trim>
+	</foreach>
+</insert>
+
+ 
+<update id="updateBatch" parameterType="java.util.List">
+      <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update t_product_type
+            <set>
+              	<trim suffixOverrides=",">
+					   <if test="item.typeName!=null and ''!= item.typeName  ">
+					        f_type_name = #{item.typeName,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.typeDesc!=null and ''!= item.typeDesc  ">
+					        f_type_desc = #{item.typeDesc,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.businessType!=null ">
+					        f_business_type = #{item.businessType,jdbcType=TINYINT},
+					   </if>
+					   <if test="item.manageWay!=null ">
+					        f_manage_way = #{item.manageWay,jdbcType=TINYINT},
+					   </if>
+					   <if test="item.compriseContentWay!=null ">
+					        f_comprise_content_way = #{item.compriseContentWay,jdbcType=TINYINT},
+					   </if>
+					   <if test="item.isAuto!=null ">
+					        f_is_auto = #{item.isAuto,jdbcType=TINYINT},
+					   </if>
+					   <if test="item.typeValue!=null ">
+					        f_type_value = #{item.typeValue,jdbcType=INTEGER},
+					   </if>
+					   <if test="item.delStatus!=null ">
+					        f_del_status = #{item.delStatus,jdbcType=INTEGER},
+					   </if>
+					   <if test="item.creator!=null and ''!= item.creator  ">
+					        f_creator = #{item.creator,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.createTime!=null ">
+					        f_create_time = #{item.createTime,jdbcType=TIMESTAMP},
+					   </if>
+					   <if test="item.updater!=null and ''!= item.updater  ">
+					        f_updater = #{item.updater,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.updateTime!=null ">
+					        f_update_time = #{item.updateTime,jdbcType=TIMESTAMP},
+					   </if>
+					   <if test="item.remark!=null and ''!= item.remark  ">
+					        f_remark = #{item.remark,jdbcType=VARCHAR},
+					   </if>
+			   </trim>
+            </set>
+             where f_id = #{item.id}
+     </foreach>
+</update>
+
+<update id="updateBatchWithEmpty" parameterType="java.util.List">
+      <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update t_product_type
+            <set>
+              	<trim suffixOverrides=",">
+					        f_type_name = #{item.typeName,jdbcType=VARCHAR},
+					        f_type_desc = #{item.typeDesc,jdbcType=VARCHAR},
+					        f_business_type = #{item.businessType,jdbcType=TINYINT},
+					        f_manage_way = #{item.manageWay,jdbcType=TINYINT},
+					        f_comprise_content_way = #{item.compriseContentWay,jdbcType=TINYINT},
+					        f_is_auto = #{item.isAuto,jdbcType=TINYINT},
+					        f_type_value = #{item.typeValue,jdbcType=INTEGER},
+					        f_del_status = #{item.delStatus,jdbcType=INTEGER},
+					        f_creator = #{item.creator,jdbcType=VARCHAR},
+					        f_create_time = #{item.createTime,jdbcType=TIMESTAMP},
+					        f_updater = #{item.updater,jdbcType=VARCHAR},
+					        f_update_time = #{item.updateTime,jdbcType=TIMESTAMP},
+					        f_remark = #{item.remark,jdbcType=VARCHAR},
+			   </trim>
+            </set>
+             where f_id = #{item.id}
+     </foreach>
+</update>         
+
+<delete id="deleteBatch" parameterType="Object">
+	DELETE FROM t_product_type
+	<where>
+		<foreach item="item" index="index" collection="array"  open="(" separator="or" close=") ">
+			  f_id  = #{item}
+		</foreach>
+	</where>
+</delete>
+    
+ <sql id="Base_Condition">
+		   <if test=" null != id ">
+				AND	T.f_id = #{id}
+		</if>
+		   <if test=" null != typeName and ''!= typeName  ">
+				AND	T.f_type_name = #{typeName}
+		</if>
+		   <if test=" null != typeDesc and ''!= typeDesc  ">
+				AND	T.f_type_desc = #{typeDesc}
+		</if>
+		   <if test=" null != businessType ">
+				AND	T.f_business_type = #{businessType}
+		</if>
+		   <if test=" null != manageWay ">
+				AND	T.f_manage_way = #{manageWay}
+		</if>
+		   <if test=" null != compriseContentWay ">
+				AND	T.f_comprise_content_way = #{compriseContentWay}
+		</if>
+		   <if test=" null != isAuto ">
+				AND	T.f_is_auto = #{isAuto}
+		</if>
+		   <if test=" null != typeValue ">
+				AND	T.f_type_value = #{typeValue}
+		</if>
+		   <if test=" null != delStatus ">
+				AND	T.f_del_status = #{delStatus}
+		</if>
+		   <if test=" null != creator and ''!= creator  ">
+				AND	T.f_creator = #{creator}
+		</if>
+		   <if test=" null != createTime ">
+				AND	T.f_create_time = #{createTime}
+		</if>
+		   <if test=" null != updater and ''!= updater  ">
+				AND	T.f_updater = #{updater}
+		</if>
+		   <if test=" null != updateTime ">
+				AND	T.f_update_time = #{updateTime}
+		</if>
+		   <if test=" null != remark and ''!= remark  ">
+				AND	T.f_remark = #{remark}
+		</if>
+ </sql>    
+<select id="list" resultMap="ProductTypeResultMap"  >
+		SELECT <include refid="Base_Column_List" /> FROM t_product_type T WHERE 1=1
+		<include refid="Base_Condition" />
+</select>
+
+<select id="query" resultMap="ProductTypeResultMap"  >
+		SELECT <include refid="Base_Column_List" /> FROM t_product_type T WHERE 1=1
+		<include refid="Base_Condition" />
+</select>
+<select id="queryFloatTypeId" resultType="int"  >
+		select t.f_id from t_product_type t where t.f_type_value =5 limit 1
+</select>
+
+</mapper>

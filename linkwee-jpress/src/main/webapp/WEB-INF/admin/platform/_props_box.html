@@ -1,0 +1,219 @@
+
+<div class="box box-solid">
+	<div class="box-header with-border">
+		<h3 class="box-title">属性设置</h3>
+
+		<div class="box-tools">
+			<button type="button" class="btn btn-box-tool" data-widget="collapse">
+				<i class="fa fa-minus"></i>
+			</button>
+		</div>
+	</div>
+	<!-- /.box-header -->
+	<div class="box-body no-padding">
+		<!-- Custom Tabs -->
+		<div class="nav-tabs-custom">
+			<ul class="nav nav-tabs">
+				<li class="active">
+					<a href="#tab_1" data-toggle="tab">常用</a>
+				</li>
+				<li>
+					<a href="#tab_seo" data-toggle="tab">SEO</a>
+				</li>
+				<#if module.styles ??>
+				<li>
+					<a href="#tab_style" data-toggle="tab">样式</a>
+				</li>
+				</#if>
+				<!-- <li>
+					<a href="#tab_position" data-toggle="tab">位置</a>
+				</li> -->
+				<li>
+					<a href="#tab_remarks" data-toggle="tab">备注</a>
+				</li>
+				<li>
+					<a href="#tab_metadata" data-toggle="tab">元数据</a>
+				</li>
+
+			</ul>
+			<div class="tab-content">
+				<div class="tab-pane active form-horizontal" id="tab_1">
+                <div class="form-group">
+                  <label for="_flag" class="col-sm-1 control-label">名称：</label>
+                  <div class="col-sm-11">
+                    <input type="text" class="form-control" name="platform.name" id="name"  value="${(platform.name)!}"  placeholder="在此输入网贷平台名称">
+                  </div>
+                </div>
+                
+                <div class="form-group">
+                  <label for="_uname" class="col-sm-1 control-label">安全级别：</label>
+                  <div class="col-sm-11">
+							
+						<select class="form-control" name="platform.grade">
+	                    <option value="1" <#if (platform.grade)?? && 1 == platform.grade > selected="selected" </#if>>B</option>
+	                    <option value="2" <#if (platform.grade)?? && 2 == platform.grade > selected="selected" </#if> >BB</option> 
+	                    <option value="3" <#if (platform.grade)?? && 3 == platform.grade > selected="selected" </#if> >BBB</option> 
+	                    <option value="4" <#if (platform.grade)?? && 4 == platform.grade > selected="selected" </#if> >A</option>
+	                    <option value="5" <#if (platform.grade)?? && 5 == platform.grade > selected="selected" </#if> >AA</option> 
+	                    <option value="6" <#if (platform.grade)?? && 6 == platform.grade > selected="selected" </#if> >AAA</option> 
+	                  </select>
+                  </div>
+                </div>
+
+				<div class="form-group">
+					<label for="_uname" class="col-sm-1 control-label">年化收益：</label>
+					<div class="col-xs-2">
+						<input type="text" class="form-control" name="platform.min_profit" placeholder="最小年化收益" value="${(platform.minProfit)!}">
+						<div style="display: inline;">-</div>
+					</div>
+					<div class="col-xs-3">
+						<input type="text" class="form-control" name="platform.max_profit" placeholder="最大年化收益" value="${(platform.maxProfit)!}">
+						<div style="display: inline;">%</div>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label for="_uname" class="col-sm-1 control-label">产品期限：</label>
+					<div class="col-xs-2">
+						<input type="text" class="form-control" name="platform.min_dead_line" placeholder="产品最新期限" value="${(platform.minDeadLine)!}">-
+					</div>
+					<div class="col-xs-3">
+						<input type="text" class="form-control" name="platform.max_dead_line" placeholder="产品最大期限" value="${(platform.maxDeadLine)!}">天
+					</div>
+				</div>
+				
+				<div class="form-group">
+                  <label for="_uname" class="col-sm-1 control-label">产品期限自定义：</label>
+                  <div class="col-sm-11">
+                    <input type="text" class="form-control" id="capital" name="platform.dead_line_self_defined" value="${(platform.deadLineSelfDefined)!}" placeholder="按此定义的格式显示产品期限">
+                  </div>
+                </div>
+
+                
+                <div class="form-group">
+                  <label for="_uname" class="col-sm-1 control-label">注册资本：</label>
+                  <div class="col-sm-11">
+                    <input type="text" class="form-control" id="capital" name="platform.capital" value="${(platform.capital)!}" placeholder="在此输入注册资本">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="_uname" class="col-sm-1 control-label">平台背景：</label>
+                  <div class="col-sm-11">
+                    <input type="text" class="form-control" id="context" name="platform.context" value="${(platform.context)!}" placeholder="在此输入平台背景">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="_uname" class="col-sm-1 control-label">资金托管：</label>
+                  <div class="col-sm-11">
+                    <input type="text" class="form-control" id="trusteeship" name="platform.trusteeship" value="${(platform.trusteeship)!}" placeholder="在此输入资金托管">
+                  </div>
+                </div>
+                 <div class="form-group">
+                  <label for="_uname" class="col-sm-1 control-label">投标保障：</label>
+                  <div class="col-sm-11">
+                    <input type="text" class="form-control" id="bidSecurity" name="platform.bid_security" value="${(platform.bidSecurity)!}" placeholder="在此输入投标保障">
+                  </div>
+                </div>
+                 <div class="form-group">
+                  <label for="_uname" class="col-sm-1 control-label">保障模式：</label>
+                  <div class="col-sm-11">
+                    <input type="text" class="form-control" id="securityModel" name="platform.security_model" value="${(platform.securityModel)!}" placeholder="在此输入保障模式">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="_uname" class="col-sm-1 control-label">所在城市：</label>
+                  <div class="col-sm-11">
+                    <input type="text" class="form-control" id="city" name="platform.city" value="${(platform.city)!}" placeholder="在此输入所在城市">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="_uname" class="col-sm-1 control-label">上线时间：</label>
+                  <div class="col-sm-11">
+                    <input type="text"  class="form_datetime form-control" id="upTime" name="platform.up_time" value="${(platform.upTime ? string('yyyy-MM-dd HH:mm:ss'))!}">
+                  </div>
+                </div>
+                
+                <div class="form-group">
+                  <label for="_uname" class="col-sm-1 control-label">债券转让：</label>
+                  <div class="col-sm-11">
+	                  <select class="form-control" name="platform.is_transfer">
+						<option value="1" selected="selected">支持</option> 
+						<option value="0">不支持</option> 
+	                  </select>
+                  </div>
+                </div>
+              
+				</div>
+				<!-- /.tab-pane -->
+				<div class="tab-pane " id="tab_seo">
+					<div class="form-group ">
+						<textarea class="form-control " rows="2" name="content.meta_keywords" placeholder="请输入关键字">${(content.meta_keywords)!}</textarea>
+					</div>
+					<div class="form-group ">
+						<textarea class="form-control" rows="2" name="content.meta_description" placeholder="请输入描述内容">${(content.meta_description)!}</textarea>
+					</div>
+				</div>
+				
+				<#if module.styles ??>
+				<div class="tab-pane" id="tab_style">
+					<div class="form-group">
+	                  <div class="radio">
+	                    <label>
+	                      <#if (content.style) ??>
+	                      <input type="radio" name="content.style"  value="" >
+	                      <#else>
+	                      <input type="radio" name="content.style"  value="" checked="checked">
+	                      </#if>
+	                      样式:默认
+	                    </label>
+	                  </div>
+	                  <#list module.styles! as style >
+	                  <#if (content.style)?? && content.style == style>
+		                  <div class="radio">
+		                    <label>
+		                      <input type="radio" name="content.style"  value="${style}" checked="checked">
+		                      样式：${style}
+		                    </label>
+		                  </div>
+	                  <#else>
+	                  	 <div class="radio">
+		                    <label>
+		                      <input type="radio" name="content.style"  value="${style}">
+		                      样式：${style}
+		                    </label>
+		                  </div>
+	                  </#if>
+	                  </#list>
+					</div>
+				</div>
+				</#if>
+				
+				
+				<div class="tab-pane " id="tab_remarks">
+					<div class="form-group">
+						<textarea class="form-control" rows="3" name="platform.remarks" placeholder="请输入备注信息">${(platform.remarks)!}</textarea>
+					</div>
+				</div>
+				
+				
+				<div class="tab-pane form-horizontal" id="tab_metadata">
+				
+				<#list module.metadatas as metadata>
+					 <div class="form-group">
+		                 <label for="meta:${metadata.name!}" class="col-sm-1 control-label" style="width: 10%">${metadata.title!}</label>
+		                 <div class="col-sm-11" style="width: 90%">
+		                   <input type="text" class="form-control" placeholder="${metadata.placeholder!}" id="meta:${metadata.name!}" name="meta:${metadata.name!}" value="${(content.metadata(metadata.name))!}">
+		                 </div>
+		              </div>
+		        <#else>
+		         	模板没有元数据定义
+				</#list>
+				
+				</div>
+				<!-- /.tab-pane -->
+			</div>
+			<!-- /.tab-content -->
+		</div>
+		<!-- nav-tabs-custom -->
+	</div>
+</div>

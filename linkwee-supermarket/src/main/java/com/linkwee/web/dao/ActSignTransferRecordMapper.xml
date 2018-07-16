@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.ActSignTransferRecordMapper">
+	<!-- Result Map-->
+	<resultMap  type="com.linkwee.web.model.ActSignTransferRecord" id="BaseResultMap">
+		<result column="id" property="id" jdbcType="INTEGER"/>
+		<result column="transfer_id" property="transferId" jdbcType="VARCHAR"/>
+		<result column="user_type" property="userType" jdbcType="INTEGER"/>
+		<result column="user_id" property="userId" jdbcType="VARCHAR"/>
+		<result column="transfer_amount" property="transferAmount" jdbcType="DECIMAL"/>
+		<result column="transfer_type" property="transferType" jdbcType="INTEGER"/>
+		<result column="transfer_time" property="transferTime" jdbcType="TIMESTAMP"/>
+		<result column="extend1" property="extend1" jdbcType="VARCHAR"/>
+		<result column="extend2" property="extend2" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+  <sql id="Base_Column_List">
+    <trim suffixOverrides=",">
+	    	id,
+	    	transfer_id,
+	    	user_type,
+	    	user_id,
+	    	transfer_amount,
+	    	transfer_type,
+	    	transfer_time,
+	    	extend1,
+	    	extend2,
+    </trim>
+  </sql>
+  
+ <sql id="Base_Column_List_T">
+    <trim suffixOverrides=",">
+	    	t.id,
+	    	t.transfer_id,
+	    	t.user_type,
+	    	t.user_id,
+	    	t.transfer_amount,
+	    	t.transfer_type,
+	    	t.transfer_time,
+	    	t.extend1,
+	    	t.extend2,
+    </trim>
+  </sql>  
+  
+  <sql id="Base_Condition">
+		<if test=" null != id ">
+			and id = #{id}
+		</if>
+		<if test=" null != transferId and ''!= transferId  ">
+			and transfer_id = #{transferId}
+		</if>
+		<if test=" null != userType ">
+			and user_type = #{userType}
+		</if>
+		<if test=" null != userId and ''!= userId  ">
+			and user_id = #{userId}
+		</if>
+		<if test=" null != transferAmount ">
+			and transfer_amount = #{transferAmount}
+		</if>
+		<if test=" null != transferType ">
+			and transfer_type = #{transferType}
+		</if>
+		<if test=" null != transferTime ">
+			and transfer_time = #{transferTime}
+		</if>
+		<if test=" null != extend1 and ''!= extend1  ">
+			and extend1 = #{extend1}
+		</if>
+		<if test=" null != extend2 and ''!= extend2  ">
+			and extend2 = #{extend2}
+		</if>
+  </sql>
+  
+  <select id="selectOneByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.web.model.ActSignTransferRecord">
+		select <include refid="Base_Column_List" /> from tact_sign_transfer_record 
+		where 1=1 <include refid="Base_Condition" />
+  </select>
+  
+  <select id="selectByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.web.model.ActSignTransferRecord">
+		select <include refid="Base_Column_List" /> from tact_sign_transfer_record 
+		where 1=1 <include refid="Base_Condition" />
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tact_sign_transfer_record
+    where  id = #{0}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tact_sign_transfer_record
+    where id = #{0}
+  </delete>
+
+  <insert id="insert" parameterType="com.linkwee.web.model.ActSignTransferRecord" >
+    INSERT INTO tact_sign_transfer_record
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != transferId and ''!= transferId  ">
+					transfer_id,
+				</if>
+			 	<if test=" null != userType ">
+					user_type,
+				</if>
+			 	<if test=" null != userId and ''!= userId  ">
+					user_id,
+				</if>
+			 	<if test=" null != transferAmount ">
+					transfer_amount,
+				</if>
+			 	<if test=" null != transferType ">
+					transfer_type,
+				</if>
+			 	<if test=" null != transferTime ">
+					transfer_time,
+				</if>
+			 	<if test=" null != extend1 and ''!= extend1  ">
+					extend1,
+				</if>
+			 	<if test=" null != extend2 and ''!= extend2  ">
+					extend2,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != transferId and ''!= transferId  ">
+					 	#{transferId},
+				</if>
+			 	<if test=" null != userType ">
+					 	#{userType},
+				</if>
+			 	<if test=" null != userId and ''!= userId  ">
+					 	#{userId},
+				</if>
+			 	<if test=" null != transferAmount ">
+					 	#{transferAmount},
+				</if>
+			 	<if test=" null != transferType ">
+					 	#{transferType},
+				</if>
+			 	<if test=" null != transferTime ">
+					 	#{transferTime},
+				</if>
+			 	<if test=" null != extend1 and ''!= extend1  ">
+					 	#{extend1},
+				</if>
+			 	<if test=" null != extend2 and ''!= extend2  ">
+					 	#{extend2},
+				</if>
+		</trim>
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.linkwee.web.model.ActSignTransferRecord" useGeneratedKeys="true" keyProperty="id" >
+		INSERT INTO tact_sign_transfer_record
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != transferId and ''!= transferId  ">
+					transfer_id,
+				</if>
+			 	<if test=" null != userType ">
+					user_type,
+				</if>
+			 	<if test=" null != userId and ''!= userId  ">
+					user_id,
+				</if>
+			 	<if test=" null != transferAmount ">
+					transfer_amount,
+				</if>
+			 	<if test=" null != transferType ">
+					transfer_type,
+				</if>
+			 	<if test=" null != transferTime ">
+					transfer_time,
+				</if>
+			 	<if test=" null != extend1 and ''!= extend1  ">
+					extend1,
+				</if>
+			 	<if test=" null != extend2 and ''!= extend2  ">
+					extend2,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != transferId and ''!= transferId  ">
+					 	#{transferId},
+				</if>
+			 	<if test=" null != userType ">
+					 	#{userType},
+				</if>
+			 	<if test=" null != userId and ''!= userId  ">
+					 	#{userId},
+				</if>
+			 	<if test=" null != transferAmount ">
+					 	#{transferAmount},
+				</if>
+			 	<if test=" null != transferType ">
+					 	#{transferType},
+				</if>
+			 	<if test=" null != transferTime ">
+					 	#{transferTime},
+				</if>
+			 	<if test=" null != extend1 and ''!= extend1  ">
+					 	#{extend1},
+				</if>
+			 	<if test=" null != extend2 and ''!= extend2  ">
+					 	#{extend2},
+				</if>
+		</trim>
+	</insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.linkwee.web.model.ActSignTransferRecord" >
+  		UPDATE tact_sign_transfer_record
+		<set>
+			<trim suffixOverrides=",">
+					<if test=" null != transferId and ''!= transferId  ">
+						transfer_id = #{transferId},
+					</if>
+					<if test=" null != userType ">
+						user_type = #{userType},
+					</if>
+					<if test=" null != userId and ''!= userId  ">
+						user_id = #{userId},
+					</if>
+					<if test=" null != transferAmount ">
+						transfer_amount = #{transferAmount},
+					</if>
+					<if test=" null != transferType ">
+						transfer_type = #{transferType},
+					</if>
+					<if test=" null != transferTime ">
+						transfer_time = #{transferTime},
+					</if>
+					<if test=" null != extend1 and ''!= extend1  ">
+						extend1 = #{extend1},
+					</if>
+					<if test=" null != extend2 and ''!= extend2  ">
+						extend2 = #{extend2},
+					</if>
+			</trim>
+		</set>
+		<where>
+			 id = #{id}
+		</where>
+	</update>
+  
+	<update id="updateByPrimaryKey" parameterType="com.linkwee.web.model.ActSignTransferRecord" >
+	    UPDATE tact_sign_transfer_record
+	   <set>
+			<trim suffixOverrides=",">
+					<if test=" null != transferId and ''!= transferId  ">
+						transfer_id = #{transferId},
+					</if>
+					<if test=" null != userType ">
+						user_type = #{userType},
+					</if>
+					<if test=" null != userId and ''!= userId  ">
+						user_id = #{userId},
+					</if>
+					<if test=" null != transferAmount ">
+						transfer_amount = #{transferAmount},
+					</if>
+					<if test=" null != transferType ">
+						transfer_type = #{transferType},
+					</if>
+					<if test=" null != transferTime ">
+						transfer_time = #{transferTime},
+					</if>
+					<if test=" null != extend1 and ''!= extend1  ">
+						extend1 = #{extend1},
+					</if>
+					<if test=" null != extend2 and ''!= extend2  ">
+						extend2 = #{extend2},
+					</if>
+			</trim>
+		</set>
+		<where>
+			id = #{0}
+		</where>
+	</update>
+
+	<!-- 分页条件查询 -->
+    <select id="selectBySearchInfo" resultMap="BaseResultMap" parameterType="com.linkwee.core.datatable.DataTable">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM tact_sign_transfer_record
+        <where> 
+        <if test="dt.search!=null">  
+                name LIKE CONCAT('%','${dt.search.value}','%' )  
+         </if>  
+         <if test="dt.order!=null">  
+               <foreach collection="dt.order" index="index" item="item"
+                    open="order by" separator="," close=" ">
+                    ${item.name} ${item.dir} 
+                </foreach>
+         </if>  
+        </where>
+    </select>
+
+</mapper>

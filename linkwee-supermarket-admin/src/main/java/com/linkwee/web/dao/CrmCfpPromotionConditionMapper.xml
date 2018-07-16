@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.CrmCfpPromotionConditionMapper">
+	<!-- Result Map-->
+	<resultMap  type="com.linkwee.web.model.CrmCfpPromotionCondition" id="BaseResultMap">
+		<result column="id" property="id" jdbcType="INTEGER"/>
+		<result column="level_code" property="levelCode" jdbcType="VARCHAR"/>
+		<result column="max_yearpur_amount" property="maxYearpurAmount" jdbcType="INTEGER"/>
+		<result column="min_yearpur_amount" property="minYearpurAmount" jdbcType="INTEGER"/>
+		<result column="team_count" property="teamCount" jdbcType="INTEGER"/>
+		<result column="child_level_code" property="childLevelCode" jdbcType="VARCHAR"/>
+		<result column="child_level_weight" property="childLevelWeight" jdbcType="INTEGER"/>
+		<result column="child_level_count" property="childLevelCount" jdbcType="INTEGER"/>
+		<result column="remark" property="remark" jdbcType="VARCHAR"/>
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+	</resultMap>
+	
+  <sql id="Base_Column_List">
+    <trim suffixOverrides=",">
+	    	id,
+	    	level_code,
+	    	max_yearpur_amount,
+	    	min_yearpur_amount,
+	    	team_count,
+	    	child_level_code,
+	    	child_level_weight,
+	    	child_level_count,
+	    	remark,
+	    	create_time,
+    </trim>
+  </sql>
+  
+ <sql id="Base_Column_List_T">
+    <trim suffixOverrides=",">
+	    	t.id,
+	    	t.level_code,
+	    	t.max_yearpur_amount,
+	    	t.min_yearpur_amount,
+	    	t.team_count,
+	    	t.child_level_code,
+	    	t.child_level_weight,
+	    	t.child_level_count,
+	    	t.remark,
+	    	t.create_time,
+    </trim>
+  </sql>  
+  
+  <sql id="Base_Condition">
+		<if test=" null != id ">
+			and id = #{id}
+		</if>
+		<if test=" null != levelCode and ''!= levelCode  ">
+			and level_code = #{levelCode}
+		</if>
+		<if test=" null != maxYearpurAmount ">
+			and max_yearpur_amount = #{maxYearpurAmount}
+		</if>
+		<if test=" null != minYearpurAmount ">
+			and min_yearpur_amount = #{minYearpurAmount}
+		</if>
+		<if test=" null != teamCount ">
+			and team_count = #{teamCount}
+		</if>
+		<if test=" null != childLevelCode and ''!= childLevelCode  ">
+			and child_level_code = #{childLevelCode}
+		</if>
+		<if test=" null != childLevelWeight ">
+			and child_level_weight = #{childLevelWeight}
+		</if>
+		<if test=" null != childLevelCount ">
+			and child_level_count = #{childLevelCount}
+		</if>
+		<if test=" null != remark and ''!= remark  ">
+			and remark = #{remark}
+		</if>
+		<if test=" null != createTime ">
+			and create_time = #{createTime}
+		</if>
+  </sql>
+  
+  <select id="selectOneByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.web.model.CrmCfpPromotionCondition">
+		select <include refid="Base_Column_List" /> from tcrm_cfp_promotion_condition 
+		where 1=1 <include refid="Base_Condition" />
+  </select>
+  
+  <select id="selectByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.web.model.CrmCfpPromotionCondition">
+		select <include refid="Base_Column_List" /> from tcrm_cfp_promotion_condition 
+		where 1=1 <include refid="Base_Condition" />
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tcrm_cfp_promotion_condition
+    where  id = #{0}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tcrm_cfp_promotion_condition
+    where id = #{0}
+  </delete>
+
+  <insert id="insert" parameterType="com.linkwee.web.model.CrmCfpPromotionCondition" >
+    INSERT INTO tcrm_cfp_promotion_condition
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != levelCode and ''!= levelCode  ">
+					level_code,
+				</if>
+			 	<if test=" null != maxYearpurAmount ">
+					max_yearpur_amount,
+				</if>
+			 	<if test=" null != minYearpurAmount ">
+					min_yearpur_amount,
+				</if>
+			 	<if test=" null != teamCount ">
+					team_count,
+				</if>
+			 	<if test=" null != childLevelCode and ''!= childLevelCode  ">
+					child_level_code,
+				</if>
+			 	<if test=" null != childLevelWeight ">
+					child_level_weight,
+				</if>
+			 	<if test=" null != childLevelCount ">
+					child_level_count,
+				</if>
+			 	<if test=" null != remark and ''!= remark  ">
+					remark,
+				</if>
+			 	<if test=" null != createTime ">
+					create_time,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != levelCode and ''!= levelCode  ">
+					 	#{levelCode},
+				</if>
+			 	<if test=" null != maxYearpurAmount ">
+					 	#{maxYearpurAmount},
+				</if>
+			 	<if test=" null != minYearpurAmount ">
+					 	#{minYearpurAmount},
+				</if>
+			 	<if test=" null != teamCount ">
+					 	#{teamCount},
+				</if>
+			 	<if test=" null != childLevelCode and ''!= childLevelCode  ">
+					 	#{childLevelCode},
+				</if>
+			 	<if test=" null != childLevelWeight ">
+					 	#{childLevelWeight},
+				</if>
+			 	<if test=" null != childLevelCount ">
+					 	#{childLevelCount},
+				</if>
+			 	<if test=" null != remark and ''!= remark  ">
+					 	#{remark},
+				</if>
+			 	<if test=" null != createTime ">
+					 	#{createTime},
+				</if>
+		</trim>
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.linkwee.web.model.CrmCfpPromotionCondition" useGeneratedKeys="true" keyProperty="id" >
+		INSERT INTO tcrm_cfp_promotion_condition
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != levelCode and ''!= levelCode  ">
+					level_code,
+				</if>
+			 	<if test=" null != maxYearpurAmount ">
+					max_yearpur_amount,
+				</if>
+			 	<if test=" null != minYearpurAmount ">
+					min_yearpur_amount,
+				</if>
+			 	<if test=" null != teamCount ">
+					team_count,
+				</if>
+			 	<if test=" null != childLevelCode and ''!= childLevelCode  ">
+					child_level_code,
+				</if>
+			 	<if test=" null != childLevelWeight ">
+					child_level_weight,
+				</if>
+			 	<if test=" null != childLevelCount ">
+					child_level_count,
+				</if>
+			 	<if test=" null != remark and ''!= remark  ">
+					remark,
+				</if>
+			 	<if test=" null != createTime ">
+					create_time,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != levelCode and ''!= levelCode  ">
+					 	#{levelCode},
+				</if>
+			 	<if test=" null != maxYearpurAmount ">
+					 	#{maxYearpurAmount},
+				</if>
+			 	<if test=" null != minYearpurAmount ">
+					 	#{minYearpurAmount},
+				</if>
+			 	<if test=" null != teamCount ">
+					 	#{teamCount},
+				</if>
+			 	<if test=" null != childLevelCode and ''!= childLevelCode  ">
+					 	#{childLevelCode},
+				</if>
+			 	<if test=" null != childLevelWeight ">
+					 	#{childLevelWeight},
+				</if>
+			 	<if test=" null != childLevelCount ">
+					 	#{childLevelCount},
+				</if>
+			 	<if test=" null != remark and ''!= remark  ">
+					 	#{remark},
+				</if>
+			 	<if test=" null != createTime ">
+					 	#{createTime},
+				</if>
+		</trim>
+	</insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.linkwee.web.model.CrmCfpPromotionCondition" >
+  		UPDATE tcrm_cfp_promotion_condition
+		<set>
+			<trim suffixOverrides=",">
+					<if test=" null != levelCode and ''!= levelCode  ">
+						level_code = #{levelCode},
+					</if>
+					<if test=" null != maxYearpurAmount ">
+						max_yearpur_amount = #{maxYearpurAmount},
+					</if>
+					<if test=" null != minYearpurAmount ">
+						min_yearpur_amount = #{minYearpurAmount},
+					</if>
+					<if test=" null != teamCount ">
+						team_count = #{teamCount},
+					</if>
+					<if test=" null != childLevelCode and ''!= childLevelCode  ">
+						child_level_code = #{childLevelCode},
+					</if>
+					<if test=" null != childLevelWeight ">
+						child_level_weight = #{childLevelWeight},
+					</if>
+					<if test=" null != childLevelCount ">
+						child_level_count = #{childLevelCount},
+					</if>
+					<if test=" null != remark and ''!= remark  ">
+						remark = #{remark},
+					</if>
+					<if test=" null != createTime ">
+						create_time = #{createTime},
+					</if>
+			</trim>
+		</set>
+		<where>
+			 id = #{id}
+		</where>
+	</update>
+  
+	<update id="updateByPrimaryKey" parameterType="com.linkwee.web.model.CrmCfpPromotionCondition" >
+	    UPDATE tcrm_cfp_promotion_condition
+	   <set>
+			<trim suffixOverrides=",">
+					<if test=" null != levelCode and ''!= levelCode  ">
+						level_code = #{levelCode},
+					</if>
+					<if test=" null != maxYearpurAmount ">
+						max_yearpur_amount = #{maxYearpurAmount},
+					</if>
+					<if test=" null != minYearpurAmount ">
+						min_yearpur_amount = #{minYearpurAmount},
+					</if>
+					<if test=" null != teamCount ">
+						team_count = #{teamCount},
+					</if>
+					<if test=" null != childLevelCode and ''!= childLevelCode  ">
+						child_level_code = #{childLevelCode},
+					</if>
+					<if test=" null != childLevelWeight ">
+						child_level_weight = #{childLevelWeight},
+					</if>
+					<if test=" null != childLevelCount ">
+						child_level_count = #{childLevelCount},
+					</if>
+					<if test=" null != remark and ''!= remark  ">
+						remark = #{remark},
+					</if>
+					<if test=" null != createTime ">
+						create_time = #{createTime},
+					</if>
+			</trim>
+		</set>
+		<where>
+			id = #{0}
+		</where>
+	  </update>
+
+	<!-- 分页条件查询 -->
+    <select id="selectBySearchInfo" resultMap="BaseResultMap" parameterType="com.linkwee.core.datatable.DataTable">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM tcrm_cfp_promotion_condition
+        <where> 
+        <if test="dt.search!=null">  
+                remark LIKE CONCAT('%','${dt.search.value}','%' )  
+         </if>  
+         <if test="dt.order!=null">  
+               <foreach collection="dt.order" index="index" item="item"
+                    open="order by" separator="," close=" ">
+                    ${item.name} ${item.dir} 
+                </foreach>
+         </if>  
+        </where>
+    </select>
+    
+     <!-- 职级考核标准列表 -->
+    <select id="getCfpPromotionConditionList" resultMap="BaseResultMap">
+          SELECT
+            t.id,
+	          CASE level_code 
+	                WHEN 'TA' THEN '见习(TA)'
+	                WHEN 'SM1' THEN '顾问(SM1)'
+	                WHEN 'SM2' THEN '经理(SM2)'
+	                WHEN 'SM3' THEN '总监(SM3)'
+	                ELSE '未定义' END level_code,
+	                
+            t.max_yearpur_amount,
+            t.min_yearpur_amount,
+            t.team_count,
+            t.child_level_code,
+            t.child_level_weight,
+            t.child_level_count,
+            t.remark,
+            t.create_time
+                 FROM tcrm_cfp_promotion_condition t
+    </select>
+
+</mapper>

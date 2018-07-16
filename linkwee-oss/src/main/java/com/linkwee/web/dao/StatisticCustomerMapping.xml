@@ -1,0 +1,934 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.StatisticCustomerDao">
+
+<resultMap  type="com.linkwee.web.model.customer.LcsCustCountResp" id="LcsCustCountResp">
+	<result column="dayInvestAmt" property="dayInvestAmt" jdbcType="DOUBLE"/>
+	<result column="monthInvestAmt" property="monthInvestAmt" jdbcType="DOUBLE"/>
+	<result column="totalInvestAmt" property="totalInvestAmt" jdbcType="DOUBLE"/>
+	<result column="dayInvestCount" property="dayInvestCount" jdbcType="INTEGER"/>
+	<result column="monthInvestCount" property="monthInvestCount" jdbcType="INTEGER"/>
+	<result column="totalInvestCount" property="totalInvestCount" jdbcType="INTEGER"/>
+	<result column="dayInvestPersonCount" property="dayInvestPersonCount" jdbcType="INTEGER"/>
+	<result column="monthInvestPersonCount" property="monthInvestPersonCount" jdbcType="INTEGER"/>
+	<result column="totalInvestPersonCount" property="totalInvestPersonCount" jdbcType="INTEGER"/>
+	<result column="tradeCount" property="tradeCount" jdbcType="INTEGER"/>
+</resultMap>
+
+<resultMap  type="com.linkwee.web.model.customer.MycustomersResp" id="MycustomersResp">
+	<result column="customerId" property="customerId" jdbcType="VARCHAR"/>
+	<result column="customerName" property="customerName" jdbcType="VARCHAR"/>
+	<result column="customerMobile" property="customerMobile" jdbcType="VARCHAR"/>
+	<result column="nearInvestAmt" property="nearInvestAmt" jdbcType="DOUBLE"/>
+	<result column="nearInvestDate" property="nearInvestDate" jdbcType="TIMESTAMP"/>
+	<result column="nearEndDate" property="nearEndDate" jdbcType="TIMESTAMP"/>
+	<result column="registerTime" property="registerTime" jdbcType="TIMESTAMP"/>
+	<result column="currInvestAmt" property="currInvestAmt" jdbcType="DOUBLE"/>
+	<result column="totalInvestCount" property="totalInvestCount" jdbcType="INTEGER"/>
+	<result column="important" property="important" jdbcType="INTEGER"/>
+	<result column="f_easemob_acct" property="easemobAcct" jdbcType="VARCHAR"/>
+	<result column="f_easemob_password" property="easemobPassword" jdbcType="VARCHAR"/>
+	<result column="freecustomer" property="freecustomer" jdbcType="INTEGER"/>
+</resultMap>
+
+
+<resultMap  type="com.linkwee.web.model.customer.CustomerTradelistResp" id="CustomerTradelistResp">
+	<result column="tradeType" property="tradeType" jdbcType="INTEGER"/>
+	<result column="time" property="time" jdbcType="TIMESTAMP"/>
+	<result column="profit" property="profit" jdbcType="DOUBLE"/>
+	<result column="customerName" property="customerName" jdbcType="VARCHAR"/>
+	<result column="customerMobile" property="customerMobile" jdbcType="VARCHAR"/>
+	<result column="amt" property="amt" jdbcType="DOUBLE"/>
+	<result column="productName" property="productName" jdbcType="VARCHAR"/>
+	<result column="yearRate" property="yearRate" jdbcType="DOUBLE"/>
+	<result column="feeRate" property="feeRate" jdbcType="DOUBLE"/>
+	<result column="startDate" property="startDate" jdbcType="TIMESTAMP"/>
+	<result column="endDate" property="endDate" jdbcType="TIMESTAMP"/>
+	<result column="feeProfit" property="feeProfit" jdbcType="DOUBLE"/>
+	
+	<result column="id" property="id" jdbcType="INTEGER"/>
+	<result column="product_name" property="productName" jdbcType="VARCHAR"/>
+	<result column="product_desc" property="productDesc" jdbcType="VARCHAR"/>
+	<result column="product_type_id" property="productTypeId" jdbcType="VARCHAR"/>
+	<result column="dead_line_type" property="deadLineType" jdbcType="TINYINT"/>
+	<result column="dead_line_value" property="deadLineValue" jdbcType="INTEGER"/>
+	<result column="fid" property="fid" jdbcType="VARCHAR"/>
+	<result column="fdelstatus" property="fdelstatus" jdbcType="TINYINT"/>
+	<result column="fcreatetime" property="fcreatetime" jdbcType="TIMESTAMP"/>
+	<result column="fupdatetime" property="fupdatetime" jdbcType="TIMESTAMP"/>
+	<result column="COLLECT_BEGIN_TIME" property="collectBeginTime" jdbcType="TIMESTAMP"/>
+	<result column="COLLECT_END_TIME" property="collectEndTime" jdbcType="TIMESTAMP"/>
+	<result column="COLLECT_FINISH_TIME" property="collectFinishTime" jdbcType="TIMESTAMP"/>
+	<result column="INTEREST_WAY" property="interestWay" jdbcType="CHAR"/>
+	<result column="VALID_BEGIN_DATE" property="validBeginDate" jdbcType="TIMESTAMP"/>
+	<result column="VALID_END_DATE" property="validEndDate" jdbcType="TIMESTAMP"/>
+	<result column="FIX_RATE" property="fixRate" jdbcType="DECIMAL"/>
+	<result column="FLOW_MIN_RATE" property="flowMinRate" jdbcType="DECIMAL"/>
+	<result column="FLOW_MAX_RATE" property="flowMaxRate" jdbcType="DECIMAL"/>
+	<result column="IS_FLOW" property="isFlow" jdbcType="CHAR"/>
+	
+	<result column="investCount" property="investCount" jdbcType="INTEGER"/>
+	
+	<result column="readFlag" property="readFlag" jdbcType="BOOLEAN"/>
+	<result column="fregbizfrom" property="regbizfrom" jdbcType="VARCHAR"/>
+	<result column="freecustomer" property="freecustomer" jdbcType="INTEGER"/>
+</resultMap>
+
+<resultMap  type="com.linkwee.web.model.customer.CustomerDetailResp" id="CustomerDetailResp">
+	<result column="registerDate" property="registerDate" jdbcType="TIMESTAMP"/>
+	<result column="firstRcpDate" property="firstRcpDate" jdbcType="TIMESTAMP"/>
+	<result column="totalInvestAmt" property="totalInvestAmt" jdbcType="DOUBLE"/>
+	<result column="currInvestAmt" property="currInvestAmt" jdbcType="DOUBLE"/>
+	<result column="feeAmt" property="feeAmt" jdbcType="DOUBLE"/>
+	<result column="important" property="important" jdbcType="INTEGER"/>
+</resultMap>
+
+<resultMap type="com.linkwee.web.model.customer.CustomerInvestStatisticResp" id="CustomerInvestStatisticResp">
+	<result column="investAmt" property="investAmt" jdbcType="DOUBLE"/>
+	<result column="investCount" property="investCount" jdbcType="INTEGER"/>
+	<result column="investPersonCount" property="investPersonCount" jdbcType="INTEGER"/>
+</resultMap>
+
+
+<resultMap type="com.linkwee.web.model.customer.MycustomersStatisticsResp" id="MycustomersStatisticsResp">
+	<result column="regCustomer" property="regCustomer" jdbcType="INTEGER"/>
+	<result column="investCustomer" property="investCustomer" jdbcType="INTEGER"/>
+</resultMap>
+
+<!-- 理财师客户信息统计 -->
+<select id="queryLcsCustCountResp"  resultMap="LcsCustCountResp">
+SELECT 
+  * 
+FROM
+  (SELECT 
+    COUNT(1) totalInvestPersonCount,
+    SUM(
+      CASE
+        WHEN t.fcustomerid = t.tmp 
+        THEN 1 
+        ELSE 0 
+      END
+    ) monthInvestPersonCount 
+  FROM
+    (SELECT 
+      t.fcustomerid,
+      MAX(
+        CASE
+          WHEN DATE_FORMAT(t.fbizdate, '%Y-%m') = DATE_FORMAT(
+           #{ymd},
+            '%Y-%m'
+          ) 
+          THEN t.fcustomerid 
+          ELSE 0 
+        END
+      ) tmp 
+    FROM
+      trecvrequest t 
+      LEFT JOIN t_sale_user_info k 
+        ON t.fsaleusernumber = k.f_mobile 
+      LEFT JOIN tusercustomerrel t1 
+        ON t1.fcustomerid = t.fcustomerid 
+      LEFT JOIN t_sale_user_info t2 
+        ON t2.f_customer_id = t1.fcustomerid 
+        AND t2.f_is_cfp = 1  AND t2.f_customer_id!=#{customerId}
+    WHERE t2.f_number IS NULL   AND k.f_number = #{userNumber}
+      AND t.foptype = '2' 
+      AND t.fbiznumber != '0002'
+      AND t1.fcustomerid = t.fcustomerid  AND ( t1.fcurrsaleuser = #{userNumber} or t1.fcustomerid = #{customerId})
+    GROUP BY t.fcustomerid) t) a,
+  (SELECT 
+    SUM(
+      CASE
+        WHEN t.fcustomerid = t.tmp 
+        THEN 1 
+        ELSE 0 
+      END
+    ) dayInvestPersonCount 
+  FROM
+    (SELECT 
+      t.fcustomerid,
+      MAX(
+        CASE
+          WHEN DATE_FORMAT(t.fbizdate, '%Y-%m-%d') = DATE_FORMAT(
+          #{ymd},
+            '%Y-%m-%d'
+          ) 
+          THEN t.fcustomerid 
+          ELSE 0 
+        END
+      ) tmp 
+    FROM
+      trecvrequest t 
+      LEFT JOIN t_sale_user_info k 
+        ON t.fsaleusernumber = k.f_mobile 
+      LEFT JOIN tusercustomerrel t1 
+        ON t1.fcustomerid = t.fcustomerid 
+      LEFT JOIN t_sale_user_info t2 
+        ON t2.f_customer_id = t1.fcustomerid 
+        AND t2.f_is_cfp = 1  AND t2.f_customer_id!=#{customerId}
+    WHERE t2.f_number IS NULL    AND k.f_number = #{userNumber}
+      AND t.foptype = '2' 
+      AND t.fbiznumber != '0002'
+      AND t1.fcustomerid = t.fcustomerid  AND ( t1.fcurrsaleuser = #{userNumber} or t1.fcustomerid = #{customerId})
+    GROUP BY t.fcustomerid) t) c,
+  (SELECT 
+    COUNT(1) totalInvestCount,
+    SUM(
+      CASE
+        WHEN DATE_FORMAT(t.fbizdate, '%Y-%m') = DATE_FORMAT(
+         #{ymd},
+          '%Y-%m'
+        ) 
+        THEN 1 
+        ELSE 0 
+      END
+    ) monthInvestCount,
+    SUM(
+      CASE
+        WHEN DATE_FORMAT(t.fbizdate, '%Y-%m-%d') = DATE_FORMAT(
+          #{ymd},
+          '%Y-%m-%d'
+        ) 
+        THEN 1 
+        ELSE 0 
+      END
+    ) dayInvestCount,
+    SUM(fpuramount) totalInvestAmt,
+    SUM(
+      CASE
+        WHEN DATE_FORMAT(t.fbizdate, '%Y-%m') = DATE_FORMAT(
+         #{ymd},
+          '%Y-%m'
+        ) 
+        THEN fpuramount 
+        ELSE 0 
+      END
+    ) monthInvestAmt,
+    SUM(
+      CASE
+        WHEN DATE_FORMAT(t.fbizdate, '%Y-%m-%d') = DATE_FORMAT(#{ymd}, '%Y-%m-%d') 
+        THEN fpuramount 
+        ELSE 0 
+      END
+    ) dayInvestAmt 
+  FROM
+    trecvrequest t,
+    t_sale_user_info t1 
+  WHERE t.foptype = '2' 
+    AND t.fbiznumber != '0002'
+    AND (
+      t.fsaleusernumber = t1.f_mobile 
+      OR t.fsaleusernumber = t1.f_number
+    )   AND t1.f_number = #{userNumber}
+  ) b  
+</select>
+
+
+<!-- 查询交易次数 -->
+<select id="queryTradeCount"  resultType="int" >
+select count(1) tradeCount
+from trecvrequest t,t_sale_user_info t1
+where (t.foptype = '2' or t.foptype = '3') and t.fbiznumber != '0002'
+	and (t.fsaleusernumber = t1.f_mobile or t.fsaleusernumber = t1.f_number) 
+ <if test=" null != userNumber and ''!= userNumber ">
+	   and t1.f_number = #{userNumber}
+</if>
+<if test=" null != time ">
+	<![CDATA[ and t.fbizdate > #{time} ]]> 
+</if>
+<if test=" null != ym ">
+	and DATE_FORMAT(t.fbizdate,'%Y-%m') = DATE_FORMAT(#{ym},'%Y-%m')
+</if>
+<if test=" null != ymd ">
+	and DATE_FORMAT(t.fbizdate,'%Y-%m-%d') = DATE_FORMAT(#{ymd},'%Y-%m-%d')
+</if>
+</select>
+
+
+<!-- 根据交易类别查询交易次数 -->
+<select id="queryTradeCountByType"  resultType="int" >
+select count(1) tradeCount
+from trecvrequest t,t_sale_user_info t1
+where  t.fbiznumber != '0002'
+	and (t.fsaleusernumber = t1.f_mobile or t.fsaleusernumber = t1.f_number) 
+	
+<if test=" null != types ">
+	<foreach item="item" index="index" collection="types"  open="and (" separator="or" close=") ">
+		t.foptype  = #{item}
+	</foreach> 
+</if>
+
+ <if test=" null != userNumber and ''!= userNumber ">
+	   and t1.f_number = #{userNumber}
+</if>
+<if test=" null != time ">
+	<![CDATA[ and t.fbizdate > #{time} ]]> 
+</if>
+<if test=" null != ym ">
+	and DATE_FORMAT(t.fbizdate,'%Y-%m') = DATE_FORMAT(#{ym},'%Y-%m')
+</if>
+<if test=" null != ymd ">
+	and DATE_FORMAT(t.fbizdate,'%Y-%m-%d') = DATE_FORMAT(#{ymd},'%Y-%m-%d')
+</if>
+</select>
+
+<select id="queryMycustomersCount" resultType="int" >
+select count(1)
+from tusercustomerrel a1
+LEFT JOIN t_sale_user_info a3 on a3.f_customer_id = a1.fcustomerid and a3.f_is_cfp=1 and  a1.fcustomerid != #{saleCustomerId}
+where (a1.fcurrsaleuser = #{saleuser} or a1.fcustomerid = #{saleCustomerId})
+  and a3.f_number is null
+<if test=" null != name  and ''!= name ">
+	and (a1.fcustomername like '%${name}%' or a1.fcustomermobile like '%${name}%')
+</if>
+<if test=" null != important ">
+	<if test=" 0 == important ">
+		and a1.fimportant = 0
+	</if>
+	<if test=" 1 == important ">
+		and a1.fimportant = 1
+	</if>
+</if>
+
+<if test=" null != customerType ">
+ <!-- 投资客户 -->
+	<if test=" 1 == customerType ">
+		and  EXISTS (SELECT 1 FROM trecvrequest m WHERE a1.fcustomerid = m.fcustomerid and m.foptype=2 and m.fbiznumber != '0002' and m.fdelstatus=0) 
+	</if>
+	<!-- 未投资客户 -->
+	<if test=" 2 == customerType ">
+		and not EXISTS (SELECT 1 FROM trecvrequest m WHERE a1.fcustomerid = m.fcustomerid and m.foptype=2 and m.fbiznumber != '0002' and m.fdelstatus=0) 
+	</if>
+	<!-- 重要客户 -->
+	<if test=" 3 == customerType ">
+		and a1.fimportant = 1
+	</if>
+</if>
+</select>
+
+<!-- 客户列表 -->
+<select id="queryMycustomers"  resultMap="MycustomersResp">
+<![CDATA[
+select a.fcustomerid customerId,a.fcustomername customerName,a.fcustomermobile customerMobile ,a.fregtime registerTime,a.fimportant important,a.ffreecustomer freecustomer,
+	   b.newInvestTime nearInvestDate ,b.nearestInvestAmount nearInvestAmt,IFNULL(c.investCount,0) totalInvestCount ,IFNULL(c.totalInvestAmount,0) currInvestAmt,d.endDate nearEndDate,
+	   uea.f_easemob_acct,uea.f_easemob_password
+ from 
+(
+select a1.fcustomerid,a1.fcustomername,a1.fcustomermobile,a1.fregtime,a1.fcurrsaleuser,a1.fimportant,a1.ffreecustomer  
+from tusercustomerrel a1
+LEFT JOIN t_sale_user_info a3 on a3.f_customer_id = a1.fcustomerid and a3.f_is_cfp=1 and  a1.fcustomerid != #{saleCustomerId}
+where (a1.fcurrsaleuser = #{saleuser} or a1.fcustomerid = #{saleCustomerId})
+  and a3.f_number is null   
+)a
+LEFT JOIN 
+(
+select a1.fbizdate newInvestTime,SUM(a1.fpuramount) nearestInvestAmount,a1.fcustomerid from trecvrequest a1,
+(select max(t.fbizdate) maxtime,t.fcustomerid from trecvrequest t
+   LEFT JOIN t_sale_user_info k on t.fsaleusernumber = k.f_mobile
+   LEFT JOIN tusercustomerrel t1 ON t1.fcustomerid = t.fcustomerid 
+	 where t.foptype = '2' and t.fbiznumber != '0002'
+    and k.f_number =#{saleuser}
+    and ( t1.fcurrsaleuser = #{saleuser}  or t1.fcustomerid = #{saleCustomerId} )
+	   and t1.fcustomerid = t.fcustomerid 
+    group by t.fcustomerid) b1
+where a1.fbizdate = b1.maxtime
+  and a1.fcustomerid= b1.fcustomerid
+  GROUP BY a1.fbizdate,a1.fcustomerid
+)b on a.fcustomerid = b.fcustomerid
+LEFT JOIN 
+(
+  select count(1) investCount,sum(t.fpuramount) totalInvestAmount,t.fcustomerid from trecvrequest t
+   LEFT JOIN t_sale_user_info k on t.fsaleusernumber = k.f_mobile
+   LEFT JOIN tusercustomerrel t1 ON t1.fcustomerid = t.fcustomerid 
+	 where t.foptype = '2' and t.fbiznumber != '0002'
+	   and k.f_number =#{saleuser}
+	   and ( t1.fcurrsaleuser = #{saleuser}  or t1.fcustomerid = #{saleCustomerId} )
+	   and t1.fcustomerid = t.fcustomerid 
+	  group by t.fcustomerid
+)c on a.fcustomerid = c.fcustomerid
+LEFT JOIN 
+(select a.fcustomerid,min(a.endDate)endDate from (
+		select t.fcustomerid,
+		(case 
+				when tproduct.INTEREST_WAY = 1 and tproduct.dead_line_type=1 then date_add(t.fbizdate, interval tproduct.dead_line_value -1 day) 
+				when tproduct.INTEREST_WAY = 1 and tproduct.dead_line_type=2 then date_add(t.fbizdate, interval tproduct.dead_line_value  month)
+				when tproduct.INTEREST_WAY = 2 and tproduct.dead_line_type=1 then date_add(date_add(t.fbizdate, interval 1 day), interval tproduct.dead_line_value -1 day) 
+				when tproduct.INTEREST_WAY = 2 and tproduct.dead_line_type=2 then date_add(date_add(t.fbizdate, interval 1 day), interval tproduct.dead_line_value  month)
+				when tproduct.INTEREST_WAY = 3 and tproduct.dead_line_type=1 then date_add(tproduct.COLLECT_FINISH_TIME, interval tproduct.dead_line_value -1 day) 
+				when tproduct.INTEREST_WAY = 3 and tproduct.dead_line_type=2 then date_add(tproduct.COLLECT_FINISH_TIME, interval tproduct.dead_line_value  month)
+				when tproduct.INTEREST_WAY = 4 and tproduct.dead_line_type=1 then date_add(date_add(tproduct.COLLECT_FINISH_TIME, interval 1 day), interval tproduct.dead_line_value -1 day) 
+				when tproduct.INTEREST_WAY = 4 and tproduct.dead_line_type=2 then date_add(date_add(tproduct.COLLECT_FINISH_TIME, interval 1 day), interval tproduct.dead_line_value  month)
+				when tproduct.INTEREST_WAY = 5 then tproduct.VALID_END_DATE
+			end) endDate
+		 from trecvrequest t,t_sale_user_info k,tusercustomerrel t1,tproduct tproduct
+		  where t.foptype = '2' and t.fbiznumber != '0002'
+            and k.f_number =#{saleuser}
+	        and t.fsaleusernumber = k.f_mobile
+			and t.fproductnumber = tproduct.fid
+		    and t1.fcustomerid = t.fcustomerid 
+			and '76d96952-92a2-431a-96f9-803bf009a1f5'!=tproduct.fid
+			and ( t1.fcurrsaleuser = #{saleuser} or t1.fcustomerid = #{saleCustomerId})
+		) a where STR_TO_DATE(DATE_FORMAT(a.endDate,'%Y-%m-%d'),'%Y-%m-%d') >= STR_TO_DATE(DATE_FORMAT(now(),'%Y-%m-%d'),'%Y-%m-%d')
+	GROUP BY a.fcustomerid
+) d on a.fcustomerid = d.fcustomerid
+LEFT JOIN t_user_easemob uea on(a.fcustomerid= uea.f_customer_id)
+where 1=1   ]]>
+<if test=" null != name and ''!= name ">
+	and (a.fcustomername like '%${name}%' or a.fcustomermobile like '%${name}%')
+</if>
+<if test=" null != customerType ">
+ <!-- 投资客户 -->
+	<if test=" 1 == customerType ">
+		<![CDATA[and  EXISTS (SELECT 1 FROM trecvrequest m WHERE a.fcustomerid = m.fcustomerid and m.foptype=2 and m.fbiznumber != '0002' and m.fdelstatus=0)  ]]> 
+	</if>
+	<!-- 未投资客户 -->
+	<if test=" 2 == customerType ">
+		<![CDATA[and not EXISTS (SELECT 1 FROM trecvrequest m WHERE a.fcustomerid = m.fcustomerid and m.foptype=2 and m.fbiznumber != '0002' and m.fdelstatus=0) ]]> 
+	</if>
+	<!-- 重要客户 -->
+	<if test=" 3 == customerType ">
+		and a.fimportant = 1
+	</if>
+</if>
+</select>
+
+<!-- 累计注册用户 -->
+<select id="queryRegCustomerCount" resultType="int" >
+	SELECT COUNT(DISTINCT t.fcustomerid) FROM tusercustomerrel t
+	WHERE t.fregrefereetype = 2 
+	<if test=" null != userMobile and ''!= userMobile ">
+		 AND t.fregrefcustomer = #{userMobile} 
+	</if>
+	<if test=" null != ym ">
+		and DATE_FORMAT(t.fregtime,'%Y-%m') = DATE_FORMAT(#{ym},'%Y-%m')
+	</if>
+	<if test=" null != ymd ">
+		and DATE_FORMAT(t.fregtime,'%Y-%m-%d') = DATE_FORMAT(#{ymd},'%Y-%m-%d')
+	</if>
+</select>
+
+
+<!-- 累计投资用户 -->
+<select id="queryInvestCustomerCount" resultType="int" >
+SELECT COUNT(DISTINCT t.fcustomerid) FROM trecvrequest t
+ WHERE t.foptype = '2' and t.fbiznumber != '0002' and
+      EXISTS (SELECT 1 FROM  tusercustomerrel t1 
+				WHERE t1.fregrefereetype = 2  
+				<if test=" null != userMobile and ''!= userMobile ">
+					 AND t1.fregrefcustomer = #{userMobile} 
+				</if>
+				  AND t.fcustomerid = t1.fcustomerid) 
+				<if test=" null != ym ">
+					and DATE_FORMAT(t.fbizdate,'%Y-%m') = DATE_FORMAT(#{ym},'%Y-%m')
+				</if>
+				<if test=" null != ymd ">
+					and DATE_FORMAT(t.fbizdate,'%Y-%m-%d') = DATE_FORMAT(#{ymd},'%Y-%m-%d')
+				</if>
+</select>
+<!-- 查询有效投资客户 -->
+<select id="queryValidCustomerCount" resultType="int" >
+	select count(DISTINCT t.fcustomerid) from trecvrequest t
+	LEFT JOIN t_sale_user_info k on t.fsaleusernumber = k.f_mobile
+    LEFT JOIN tusercustomerrel t1 ON t1.fcustomerid = t.fcustomerid 
+ 	left JOIN t_sale_user_info t2 on t2.f_customer_id = t1.fcustomerid and t2.f_is_cfp=1
+ 	where t2.f_number is null and  t.foptype = '2' and t.fbiznumber != '0002' and t1.fcustomerid = t.fcustomerid 
+	<if test=" null != saleUserNumber and ''!= saleUserNumber ">
+	    and k.f_number = #{saleUserNumber}
+		and ( t1.fcurrsaleuser = #{saleUserNumber} and t1.fcustomerid != #{saleCustomerId} )
+	</if>
+</select>
+
+<!-- 累计投资数 -->
+<select id="queryInvestCount" resultType="int" >
+	select count(1) from trecvrequest t,t_sale_user_info t1
+ 	 where t.foptype = '2' and t.fbiznumber != '0002'
+	   and (t.fsaleusernumber = t1.f_mobile or t.fsaleusernumber = t1.f_number)
+	<if test=" null != userNumber and ''!= userNumber ">
+		and t1.f_number = #{userNumber}
+	</if>
+	<if test=" null != ym ">
+		and DATE_FORMAT(t.fbizdate,'%Y-%m') = DATE_FORMAT(#{ym},'%Y-%m')
+	</if>
+	<if test=" null != ymd ">
+		and DATE_FORMAT(t.fbizdate,'%Y-%m-%d') = DATE_FORMAT(#{ymd},'%Y-%m-%d')
+	</if>
+</select>
+
+<!-- 年化金额 -->
+<select id="queryYearpuramount" resultType="double" >
+	select sum(fyearpuramount) from  trecvrequest t,t_sale_user_info t1
+ 	 where t.foptype = '2' and t.fbiznumber != '0002'
+	   and (t.fsaleusernumber = t1.f_mobile or t.fsaleusernumber = t1.f_number)
+	<if test=" null != userNumber and ''!= userNumber ">
+		and t1.f_number = #{userNumber}
+	</if>
+	<if test=" null != ym ">
+		and DATE_FORMAT(t.fbizdate,'%Y-%m') = DATE_FORMAT(#{ym},'%Y-%m')
+	</if>
+	<if test=" null != ymd ">
+		and DATE_FORMAT(t.fbizdate,'%Y-%m-%d') = DATE_FORMAT(#{ymd},'%Y-%m-%d')
+	</if>
+</select>
+
+<!-- 投资额 -->
+<select id="queryPuramount" resultType="double" >
+	select sum(fpuramount) from  trecvrequest t,t_sale_user_info t1
+ 	 where t.foptype = '2' and t.fbiznumber != '0002'
+	   and (t.fsaleusernumber = t1.f_mobile or t.fsaleusernumber = t1.f_number)
+	<if test=" null != userNumber and ''!= userNumber ">
+		and t1.f_number = #{userNumber}
+	</if>
+	<if test=" null != ym ">
+		and DATE_FORMAT(t.fbizdate,'%Y-%m') = DATE_FORMAT(#{ym},'%Y-%m')
+	</if>
+	<if test=" null != ymd ">
+		and DATE_FORMAT(t.fbizdate,'%Y-%m-%d') = DATE_FORMAT(#{ymd},'%Y-%m-%d')
+	</if>
+</select>
+
+<select id="queryCustomerTradelistCount"  resultType="int">
+	select count(1)
+	from  trecvrequest t
+	LEFT JOIN t_sale_user_info k on t.fsaleusernumber = k.f_mobile
+	LEFT JOIN tusercustomerrel t1 ON t1.fcustomerid = t.fcustomerid 
+	where t.fbiznumber != '0002'
+	   and k.f_number = #{saleuser}
+	   and ( t1.fcurrsaleuser = #{saleuser} or t1.fcustomerid = #{saleCustomerId})
+<if test=" null != types ">
+	<foreach item="item" index="index" collection="types"  open="and (" separator="or" close=") ">
+		t.foptype  = #{item}
+	</foreach> 
+</if>
+<if test=" null != customerId ">
+	   and t.fcustomerid = #{customerId}
+</if>
+<if test=" null != date ">
+	   and DATE_FORMAT(t.fbizdate,'%Y-%m') = DATE_FORMAT(#{date},'%Y-%m')
+</if>
+</select>
+<!-- 交易动态-->
+<select id="queryCustomerTradelistResp"  resultMap="CustomerTradelistResp">
+select 
+		t.foptype tradeType,
+		t.fbizdate time,
+		t.fprofit profit,
+		t1.fcustomername customerName,
+		t1.fcustomermobile customerMobile,
+	<!-- 	CASE WHEN t1.fregbizfrom = '0001' THEN '钱罐子'
+		     WHEN t1.fregbizfrom = '0002' THEN '众筹'
+		     WHEN t1.fregbizfrom = '0003' THEN '领会金服'
+		     WHEN t1.fregbizfrom = '0004' THEN '新财富'
+		     ELSE '' 
+		     END AS  fregbizfrom, -->
+		CASE WHEN t.fbiznumber = '0001' THEN '钱罐子'
+		     WHEN t.fbiznumber = '0002' THEN '众筹'
+		     WHEN t.fbiznumber = '0003' THEN '领会金服'
+		     WHEN t.fbiznumber = '0004' THEN '新财富'
+		     ELSE '' 
+		     END AS  fregbizfrom,
+		t.fpuramount amt,
+		t2.product_name,
+		t2.dead_line_type,
+		t2.dead_line_value,
+		t2.fid,
+		t2.COLLECT_BEGIN_TIME,
+		t2.COLLECT_END_TIME,
+		t2.COLLECT_FINISH_TIME,
+		t2.INTEREST_WAY,
+		CASE  WHEN t2.fid = '76d96952-92a2-431a-96f9-803bf009a1f5' THEN t.fbizdate 
+		      ELSE DATE_ADD(t.fbizdate, INTERVAL 1 DAY) 
+		     END  AS VALID_BEGIN_DATE,
+		CASE  WHEN t2.fid = '76d96952-92a2-431a-96f9-803bf009a1f5' THEN NULL
+		      ELSE fredeemdate 
+		     END  AS VALID_END_DATE,
+		t2.FIX_RATE,
+		t2.FLOW_MIN_RATE,
+		t2.FLOW_MAX_RATE,
+		t2.IS_FLOW,
+	  IFNULL(t3.ffeerate,t4.ffeeratio) feeRate,
+	  t3.ffeeamount feeProfit
+from  trecvrequest t
+LEFT JOIN t_sale_user_info k on t.fsaleusernumber = k.f_mobile
+LEFT JOIN tusercustomerrel t1 ON t1.fcustomerid = t.fcustomerid 
+LEFT JOIN tproduct t2 ON t.fproductnumber = t2.fid 
+LEFT JOIN
+(
+select max(ffeerate) ffeerate,sum(ffeeamount) ffeeamount,frequestid from tfeedetail where ffeetype != '0002' and  fsaleusernumber = #{saleuser}
+ group by frequestid
+) t3 
+on  t.fid = t3.frequestid 
+LEFT JOIN 
+tfeerate t4 on  t4.forgnumber='99999999' and t4.fproductnumber = t.fproductnumber AND t4.fbiznumber = t.fbiznumber  
+where t.fbiznumber != '0002'
+and t4.ffeeratio is not null
+ and k.f_number =#{saleuser}
+ and ( t1.fcurrsaleuser = #{saleuser} or t1.fcustomerid = #{saleCustomerId})
+<if test=" null != types ">
+	<foreach item="item" index="index" collection="types"  open="and (" separator="or" close=") ">
+		t.foptype  = #{item}
+	</foreach> 
+</if>
+<if test=" null != customerId ">
+	   and t.fcustomerid = #{customerId}
+</if>
+<if test=" null != date ">
+	   and DATE_FORMAT(t.fbizdate,'%Y-%m') = DATE_FORMAT(#{date},'%Y-%m')
+</if>
+</select>
+
+<!-- 查询客户详情-->
+<select id="queryCustomerDetailResp"  resultMap="CustomerDetailResp">
+<!-- userNumber='00006767' customerId= 'e1b9a054-767b-4cc8-84b4-4d4181d85fd5' -->
+select * from (
+select t1.fimportant important,t1.fregtime registerDate,MIN(t.fbizdate) firstRcpDate,
+		ifnull(sum(case when t.foptype = '2' then t.fpuramount else 0 end),0)totalInvestAmt
+		from tusercustomerrel t1
+		LEFT JOIN trecvrequest t on t1.fcustomerid = t.fcustomerid and t.foptype=2 and t.fbiznumber != '0002' 
+    where t1.fcustomerid = #{1}
+  GROUP BY  t1.fimportant,t1.fcustomerid  
+)a,
+(select sum(tfeedetail.ffeeamount) feeAmt
+  from tfeedetail 
+ where tfeedetail.ffeetype='1001' 
+   and tfeedetail.fcustomerid = #{1}
+   and tfeedetail.foriginsaleuser = #{0}) b
+</select>
+
+<!-- 查询最小投资记录时间-->
+<select id="queryMinInvestRecordTime"  resultType="java.util.Date">
+select ifnull(min(t.fbizdate),t1.fregtime) minTime
+ from tusercustomerrel t1
+ LEFT JOIN trecvrequest t on  t1.fcustomerid = t.fcustomerid  and t.foptype = '2' and t.fbiznumber != '0002'  
+ <if test=" null != customerId ">
+ 	 and t.fcustomerid = #{customerId}
+  </if>
+where (t1.fcurrsaleuser = #{saleUserNumber} or t1.fcustomerid = #{saleCustomerId})
+</select>
+
+<select id="queryCustomerNum" resultType="int">
+	SELECT COUNT(*) FROM tusercustomerrel WHERE fregtime >#{time}  and   fcurrsaleuser=  #{userNumber}
+</select>
+<!-- 投资统计 -->
+<select id="queryCustomerInvestStatistic" resultMap="CustomerInvestStatisticResp">
+	<!-- 按年、季度、月、日 统计 -->
+	<if test="timeType != 5">
+<![CDATA[	SELECT 
+		  * 
+		FROM
+		  (SELECT 
+		    IFNULL(SUM(
+		      CASE
+		        WHEN t.fcustomerid = t.tmp 
+		        THEN 1 
+		        ELSE 0 
+		      END
+		    ),0) investPersonCount 
+		  FROM
+		    (SELECT 
+		      t.fcustomerid,
+		      MAX(
+		        CASE
+		          WHEN DATE_FORMAT(t.fbizdate, '%Y-%m-%d') >= DATE_FORMAT(#{startTime}, '%Y-%m-%d') and 
+		          DATE_FORMAT(t.fbizdate, '%Y-%m-%d') <= DATE_FORMAT(#{endTime}, '%Y-%m-%d')
+		          THEN t.fcustomerid 
+		          ELSE 0 
+		        END
+		      ) tmp 
+		    FROM
+		      trecvrequest t 
+		      LEFT JOIN t_sale_user_info k 
+		        ON t.fsaleusernumber = k.f_mobile 
+		      LEFT JOIN tusercustomerrel t1 
+		        ON t1.fcustomerid = t.fcustomerid 
+		      LEFT JOIN t_sale_user_info t2 
+		        ON t2.f_customer_id = t1.fcustomerid 
+		        AND t2.f_is_cfp = 1  and t2.f_customer_id!=#{customerId}
+		    WHERE t2.f_number IS NULL    and k.f_number = #{userNumber}
+		      AND t.foptype = '2' 
+		      AND t.fbiznumber != '0002'  
+		      AND t1.fcustomerid = t.fcustomerid  and ( t1.fcurrsaleuser = #{userNumber} or t1.fcustomerid = #{customerId})
+		    GROUP BY t.fcustomerid) t) a,
+		  (SELECT 
+		    IFNULL(SUM(
+		      CASE
+		        WHEN DATE_FORMAT(t.fbizdate, '%Y-%m-%d') >= DATE_FORMAT(#{startTime}, '%Y-%m-%d') and 
+		          DATE_FORMAT(t.fbizdate, '%Y-%m-%d') <= DATE_FORMAT(#{endTime}, '%Y-%m-%d')
+		        THEN 1 
+		        ELSE 0 
+		      END
+		    ),0) investCount,
+		    IFNULL(SUM(
+		      CASE
+		        WHEN DATE_FORMAT(t.fbizdate, '%Y-%m-%d') >= DATE_FORMAT(#{startTime}, '%Y-%m-%d') and 
+		          DATE_FORMAT(t.fbizdate, '%Y-%m-%d') <= DATE_FORMAT(#{endTime}, '%Y-%m-%d')
+		        THEN fpuramount 
+		        ELSE 0 
+		      END
+		    ),0) investAmt
+		  FROM
+		    trecvrequest t,
+		    t_sale_user_info t1 
+		  WHERE t.foptype = '2' 
+		    AND t.fbiznumber != '0002' 
+		    AND (
+		      t.fsaleusernumber = t1.f_mobile 
+		      OR t.fsaleusernumber = t1.f_number
+		    )   and t1.f_number = #{userNumber}
+		  ) b  ]]> 
+	</if>
+	<!-- 统计 全部-->
+	<if test="timeType==5">
+		SELECT 
+		  * 
+		FROM
+		  (SELECT 
+		    COUNT(1) investPersonCount
+		  FROM
+		    (SELECT 
+		      t.fcustomerid 
+		    FROM 
+		      trecvrequest t 
+		      LEFT JOIN t_sale_user_info k 
+		        ON t.fsaleusernumber = k.f_mobile 
+		      LEFT JOIN tusercustomerrel t1 
+		        ON t1.fcustomerid = t.fcustomerid 
+		      LEFT JOIN t_sale_user_info t2 
+		        ON t2.f_customer_id = t1.fcustomerid 
+		        AND t2.f_is_cfp = 1  AND t2.f_customer_id!=#{customerId}
+		    WHERE t2.f_number IS NULL   AND k.f_number = #{userNumber}
+		      AND t.foptype = '2' 
+		      AND t.fbiznumber != '0002' 
+		      AND t1.fcustomerid = t.fcustomerid  AND ( t1.fcurrsaleuser = #{userNumber} or t1.fcustomerid = #{customerId})
+		    GROUP BY t.fcustomerid) t) a,
+		  (SELECT 
+		    COUNT(1) investCount,  
+		    IFNULL(SUM(fpuramount),0) investAmt   
+		  FROM
+		    trecvrequest t,
+		    t_sale_user_info t1 
+		  WHERE t.foptype = '2' 
+		    AND t.fbiznumber != '0002'
+		    AND (
+		      t.fsaleusernumber = t1.f_mobile 
+		      OR t.fsaleusernumber = t1.f_number
+		    )   AND t1.f_number = #{userNumber}
+		  ) b 
+	</if>
+</select>
+<!-- 查询理财师投资统计列表总数 -->
+<select id="queryCustomerInvestStatisticListCount"  resultType="int">
+<!-- 投资记录 -->
+<if test="type == 1">
+		select count(1)
+			from  trecvrequest t
+			LEFT JOIN t_sale_user_info k on t.fsaleusernumber = k.f_mobile
+			LEFT JOIN tusercustomerrel t1 ON t1.fcustomerid = t.fcustomerid 
+			where t.fbiznumber != '0002' 
+			   and  t.foptype = '2' 
+			   
+			   and k.f_number = #{saleuser}
+			   and ( t1.fcurrsaleuser = #{saleuser} or t1.fcustomerid = #{saleCustomerId})
+		<if test=" null != startTime ">
+		<![CDATA[	AND   DATE_FORMAT(t.fbizdate, '%Y-%m-%d') >= DATE_FORMAT(#{startTime}, '%Y-%m-%d') ]]> 
+		</if>
+		<if test=" null != endTime ">
+		<![CDATA[	AND	DATE_FORMAT(t.fbizdate, '%Y-%m-%d') <= DATE_FORMAT(#{endTime}, '%Y-%m-%d')  ]]> 
+		</if>
+	
+</if>
+<!-- 投资客户 -->
+<if test=" type == 2 ">
+	select count(1)  from 
+		(select t.fcustomerid
+				from  trecvrequest t
+				LEFT JOIN t_sale_user_info k on t.fsaleusernumber = k.f_mobile
+				LEFT JOIN tusercustomerrel t1 ON t1.fcustomerid = t.fcustomerid 
+				where t.fbiznumber != '0002'
+				   and  t.foptype = '2' 
+				   
+				   and k.f_number = #{saleuser}
+				   and ( t1.fcurrsaleuser = #{saleuser} or t1.fcustomerid = #{saleCustomerId})
+			<if test=" null != startTime ">
+				<![CDATA[	AND   DATE_FORMAT(t.fbizdate, '%Y-%m-%d') >= DATE_FORMAT(#{startTime}, '%Y-%m-%d') ]]> 
+			</if>
+			<if test=" null != endTime ">
+				<![CDATA[	AND	 DATE_FORMAT(t.fbizdate, '%Y-%m-%d') <= DATE_FORMAT(#{endTime}, '%Y-%m-%d')  ]]> 
+			</if>
+		      group by t.fcustomerid 
+		) a
+</if>
+
+</select>
+<!-- 查询理财师投资统计列表 -->
+<select id="queryCustomerInvestStatisticListResp"  resultMap="CustomerTradelistResp">
+<!-- 投资记录 -->
+<if test=" type == 1 ">
+	SELECT 
+				t.fbizdate time,
+				t1.fcustomername customerName,
+				t1.fcustomermobile customerMobile,
+				t.fpuramount amt,
+				t2.product_name,
+				t2.FIX_RATE,
+				t2.FLOW_MIN_RATE,
+				t2.FLOW_MAX_RATE,
+				t2.IS_FLOW,
+				IFNULL(t4.ffeeratio,0) feeRate
+		FROM  trecvrequest t
+		LEFT JOIN t_sale_user_info k ON t.fsaleusernumber = k.f_mobile
+		LEFT JOIN tusercustomerrel t1 ON t1.fcustomerid = t.fcustomerid 
+	 	LEFT JOIN tproduct t2 ON t.fproductnumber = t2.fid
+		LEFT JOIN 
+		tfeerate t4 ON  (t4.forgnumber='99999999' AND t4.fproductnumber = t.fproductnumber AND t4.fbiznumber = t.fbiznumber) 
+		WHERE t.fbiznumber != '0002'
+		 AND k.f_number =#{saleuser}
+		 AND ( t1.fcurrsaleuser = #{saleuser} or t1.fcustomerid = #{saleCustomerId})
+		 AND t.foptype = '2' 
+		 
+	 	<if test=" null != startTime ">
+			<![CDATA[	AND   DATE_FORMAT(t.fbizdate, '%Y-%m-%d') >= DATE_FORMAT(#{startTime}, '%Y-%m-%d') ]]> 
+		</if>
+		<if test=" null != endTime ">
+			<![CDATA[	AND	 DATE_FORMAT(t.fbizdate, '%Y-%m-%d') <= DATE_FORMAT(#{endTime}, '%Y-%m-%d')  ]]> 
+		</if> 
+		ORDER BY t.fbizdate desc
+		
+</if>
+<!-- 投资客户 -->
+<if test=" type == 2 ">
+select * from 
+	(SELECT 
+				t1.fcustomername customerName,
+				t1.fcustomermobile customerMobile,
+				SUM(IFNULL(t.fpuramount,0)) amt,
+				t.fcustomerid,
+				count(1) investCount
+		FROM  trecvrequest t
+		LEFT JOIN t_sale_user_info k ON t.fsaleusernumber = k.f_mobile
+		LEFT JOIN tusercustomerrel t1 ON t1.fcustomerid = t.fcustomerid 
+		<!-- LEFT JOIN tproduct t2 ON t.fproductnumber = t2.fid
+		LEFT JOIN 
+		tfeerate t4 ON  t4.forgnumber='99999999' AND t4.fproductnumber = t.fproductnumber -->
+		WHERE t.fbiznumber != '0002'
+		 AND k.f_number =#{saleuser}
+		 AND ( t1.fcurrsaleuser = #{saleuser} or t1.fcustomerid = #{saleCustomerId})
+		 AND t.foptype = '2' 
+		 
+		<if test=" null != startTime ">
+			<![CDATA[	AND   DATE_FORMAT(t.fbizdate, '%Y-%m-%d') >= DATE_FORMAT(#{startTime}, '%Y-%m-%d') ]]> 
+		</if>
+		<if test=" null != endTime ">
+			<![CDATA[	AND	 DATE_FORMAT(t.fbizdate, '%Y-%m-%d') <= DATE_FORMAT(#{endTime}, '%Y-%m-%d')  ]]> 
+		</if>
+		group by t.fcustomerid 
+		) a
+</if>
+</select>
+
+<!-- 客户列表-累计 -->
+<select id="queryRegisterMycustomers" resultType="int">
+	  	select count(a1.fcustomerid)
+		from tusercustomerrel a1
+		LEFT JOIN t_sale_user_info a3 on a3.f_customer_id = a1.fcustomerid and a3.f_is_cfp=1 and  a1.fcustomerid !=  #{saleCustomerId}
+		where (a1.fcurrsaleuser = #{saleUserNumber} or a1.fcustomerid = #{saleCustomerId})
+		  and a3.f_number is null   
+</select>
+<!-- 客户列表-累计 -->
+<select id="queryInvestMycustomers" resultType="int">
+	  	select count(a1.fcustomerid)
+		from tusercustomerrel a1
+		LEFT JOIN t_sale_user_info a3 on a3.f_customer_id = a1.fcustomerid and a3.f_is_cfp=1 and  a1.fcustomerid !=  #{saleCustomerId}
+		where (a1.fcurrsaleuser= #{saleUserNumber}or a1.fcustomerid = #{saleCustomerId})
+		  and a3.f_number is null   
+and  EXISTS (SELECT 1 FROM trecvrequest m WHERE a1.fcustomerid = m.fcustomerid and m.foptype=2 and m.fbiznumber != '0002' and m.fdelstatus=0)
+</select>
+
+<select id="querycustomerDetailPageListCount"  resultType="int">
+
+	select 
+			count(1) 
+	from  trecvrequest t
+	LEFT JOIN t_sale_user_info k on t.fsaleusernumber = k.f_mobile
+	LEFT JOIN tusercustomerrel t1 ON t1.fcustomerid = t.fcustomerid 
+	LEFT JOIN tproduct t2 ON t.fproductnumber = t2.fid  AND t2.fid != '76d96952-92a2-431a-96f9-803bf009a1f5'  
+	where t.fbiznumber != '0002'
+	 and k.f_number =#{saleuser}
+	 and ( t1.fcurrsaleuser = #{saleuser} or t1.fcustomerid = #{saleCustomerId})
+	<if test=" null != types ">
+		<foreach item="item" index="index" collection="types"  open="and (" separator="or" close=") ">
+			t.foptype  = #{item}
+		</foreach> 
+	</if>
+	<if test=" null != customerId ">
+		   and t.fcustomerid = #{customerId}
+	</if>
+	<if test=" '2' != type ">
+	  <![CDATA[	AND fredeemdate IS NOT NULL AND DATE_FORMAT(fredeemdate,'%Y-%m-%d') > DATE_FORMAT(now(),'%Y-%m-%d') ]]>
+	</if>
+</select>
+<!-- 客户详情 -到期日程-->
+<select id="queryquerycustomerDetailPageListResp"  resultMap="CustomerTradelistResp">
+select 
+		t.foptype tradeType,
+		t.fbizdate time,
+		t.fprofit profit,
+		t1.fcustomername customerName,
+		t1.fcustomermobile customerMobile,
+		t.fpuramount amt,
+		t2.product_name,
+		t2.dead_line_type,
+		t2.dead_line_value,
+		t2.fid,
+		t2.COLLECT_BEGIN_TIME,
+		t2.COLLECT_END_TIME,
+		t2.COLLECT_FINISH_TIME,
+		t2.INTEREST_WAY,
+	<!-- 	t2.VALID_BEGIN_DATE,
+		t2.VALID_END_DATE,  -->
+		CASE  WHEN t2.fid = '76d96952-92a2-431a-96f9-803bf009a1f5' THEN t.fbizdate 
+		      ELSE DATE_ADD(t.fbizdate, INTERVAL 1 DAY) 
+		     END  AS VALID_BEGIN_DATE,
+		CASE  WHEN t2.fid = '76d96952-92a2-431a-96f9-803bf009a1f5' THEN NULL
+		      ELSE fredeemdate 
+		     END  AS VALID_END_DATE,
+		t2.FIX_RATE,
+		t2.FLOW_MIN_RATE,
+		t2.FLOW_MAX_RATE,
+		t2.IS_FLOW,
+	  IFNULL(t3.ffeerate,t4.ffeeratio) feeRate,
+	  t3.ffeeamount feeProfit
+from  trecvrequest t
+LEFT JOIN t_sale_user_info k on t.fsaleusernumber = k.f_mobile
+LEFT JOIN tusercustomerrel t1 ON t1.fcustomerid = t.fcustomerid 
+LEFT JOIN tproduct t2 ON t.fproductnumber = t2.fid 
+ <if test=" '2' != type ">
+    AND t2.fid != '76d96952-92a2-431a-96f9-803bf009a1f5'  
+ </if>
+LEFT JOIN
+(
+select max(ffeerate) ffeerate,sum(ffeeamount) ffeeamount,frequestid from tfeedetail where ffeetype != '0002' and  fsaleusernumber = #{saleuser}
+ group by frequestid
+) t3 
+on  t.fid = t3.frequestid 
+LEFT JOIN 
+tfeerate t4 on  t4.forgnumber='99999999' and t4.fproductnumber = t.fproductnumber
+where t.fbiznumber != '0002'
+ and k.f_number =#{saleuser}
+ and ( t1.fcurrsaleuser = #{saleuser} or t1.fcustomerid = #{saleCustomerId})
+<if test=" null != types ">
+	<foreach item="item" index="index" collection="types"  open="and (" separator="or" close=") ">
+		t.foptype  = #{item}
+	</foreach> 
+</if>
+<if test=" null != customerId ">
+	   and t.fcustomerid = #{customerId}
+</if>
+<if test=" '2' != type ">
+  <![CDATA[	AND fredeemdate IS NOT NULL AND DATE_FORMAT(fredeemdate,'%Y-%m-%d') > DATE_FORMAT(now(),'%Y-%m-%d') ]]>
+</if>
+</select>
+
+<select id="queryInvitedCustomerNum" resultType="int">
+	select count(fid) from tusercustomerrel t where  t.fregrefereetype=2 and t.fdelstatus=0 and t.fregrefcustomer=#{0}
+</select>
+</mapper>

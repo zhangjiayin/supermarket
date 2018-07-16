@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.ActOneYuanDrawVirtualAddfourtuneRecordMapper">
+	<!-- Result Map-->
+	<resultMap  type="com.linkwee.web.model.ActOneYuanDrawVirtualAddfourtuneRecord" id="BaseResultMap">
+		<result column="id" property="id" jdbcType="INTEGER"/>
+		<result column="biz_id" property="bizId" jdbcType="VARCHAR"/>
+		<result column="operator" property="operator" jdbcType="VARCHAR"/>
+		<result column="add_fourtune" property="addFourtune" jdbcType="INTEGER"/>
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+		<result column="extends1" property="extends1" jdbcType="VARCHAR"/>
+		<result column="extends2" property="extends2" jdbcType="VARCHAR"/>
+		<result column="extends3" property="extends3" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+  <sql id="Base_Column_List">
+    <trim suffixOverrides=",">
+	    	id,
+	    	biz_id,
+	    	operator,
+	    	add_fourtune,
+	    	create_time,
+	    	update_time,
+	    	extends1,
+	    	extends2,
+	    	extends3,
+    </trim>
+  </sql>
+  
+ <sql id="Base_Column_List_T">
+    <trim suffixOverrides=",">
+	    	t.id,
+	    	t.biz_id,
+	    	t.operator,
+	    	t.add_fourtune,
+	    	t.create_time,
+	    	t.update_time,
+	    	t.extends1,
+	    	t.extends2,
+	    	t.extends3,
+    </trim>
+  </sql>  
+  
+  <sql id="Base_Condition">
+		<if test=" null != id ">
+			and id = #{id}
+		</if>
+		<if test=" null != bizId and ''!= bizId  ">
+			and biz_id = #{bizId}
+		</if>
+		<if test=" null != operator and ''!= operator  ">
+			and operator = #{operator}
+		</if>
+		<if test=" null != addFourtune ">
+			and add_fourtune = #{addFourtune}
+		</if>
+		<if test=" null != createTime ">
+			and create_time = #{createTime}
+		</if>
+		<if test=" null != updateTime ">
+			and update_time = #{updateTime}
+		</if>
+		<if test=" null != extends1 and ''!= extends1  ">
+			and extends1 = #{extends1}
+		</if>
+		<if test=" null != extends2 and ''!= extends2  ">
+			and extends2 = #{extends2}
+		</if>
+		<if test=" null != extends3 and ''!= extends3  ">
+			and extends3 = #{extends3}
+		</if>
+  </sql>
+  
+  <select id="selectOneByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.web.model.ActOneYuanDrawVirtualAddfourtuneRecord">
+		select <include refid="Base_Column_List" /> from tact_one_yuan_draw_virtual_addfourtune_record 
+		where 1=1 <include refid="Base_Condition" />
+  </select>
+  
+  <select id="selectByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.web.model.ActOneYuanDrawVirtualAddfourtuneRecord">
+		select <include refid="Base_Column_List" /> from tact_one_yuan_draw_virtual_addfourtune_record 
+		where 1=1 <include refid="Base_Condition" />
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tact_one_yuan_draw_virtual_addfourtune_record
+    where  id = #{0}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tact_one_yuan_draw_virtual_addfourtune_record
+    where id = #{0}
+  </delete>
+
+  <insert id="insert" parameterType="com.linkwee.web.model.ActOneYuanDrawVirtualAddfourtuneRecord" >
+    INSERT INTO tact_one_yuan_draw_virtual_addfourtune_record
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != bizId and ''!= bizId  ">
+					biz_id,
+				</if>
+			 	<if test=" null != operator and ''!= operator  ">
+					operator,
+				</if>
+			 	<if test=" null != addFourtune ">
+					add_fourtune,
+				</if>
+			 	<if test=" null != createTime ">
+					create_time,
+				</if>
+			 	<if test=" null != updateTime ">
+					update_time,
+				</if>
+			 	<if test=" null != extends1 and ''!= extends1  ">
+					extends1,
+				</if>
+			 	<if test=" null != extends2 and ''!= extends2  ">
+					extends2,
+				</if>
+			 	<if test=" null != extends3 and ''!= extends3  ">
+					extends3,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != bizId and ''!= bizId  ">
+					 	#{bizId},
+				</if>
+			 	<if test=" null != operator and ''!= operator  ">
+					 	#{operator},
+				</if>
+			 	<if test=" null != addFourtune ">
+					 	#{addFourtune},
+				</if>
+			 	<if test=" null != createTime ">
+					 	#{createTime},
+				</if>
+			 	<if test=" null != updateTime ">
+					 	#{updateTime},
+				</if>
+			 	<if test=" null != extends1 and ''!= extends1  ">
+					 	#{extends1},
+				</if>
+			 	<if test=" null != extends2 and ''!= extends2  ">
+					 	#{extends2},
+				</if>
+			 	<if test=" null != extends3 and ''!= extends3  ">
+					 	#{extends3},
+				</if>
+		</trim>
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.linkwee.web.model.ActOneYuanDrawVirtualAddfourtuneRecord" useGeneratedKeys="true" keyProperty="id" >
+		INSERT INTO tact_one_yuan_draw_virtual_addfourtune_record
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != bizId and ''!= bizId  ">
+					biz_id,
+				</if>
+			 	<if test=" null != operator and ''!= operator  ">
+					operator,
+				</if>
+			 	<if test=" null != addFourtune ">
+					add_fourtune,
+				</if>
+			 	<if test=" null != createTime ">
+					create_time,
+				</if>
+			 	<if test=" null != updateTime ">
+					update_time,
+				</if>
+			 	<if test=" null != extends1 and ''!= extends1  ">
+					extends1,
+				</if>
+			 	<if test=" null != extends2 and ''!= extends2  ">
+					extends2,
+				</if>
+			 	<if test=" null != extends3 and ''!= extends3  ">
+					extends3,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != bizId and ''!= bizId  ">
+					 	#{bizId},
+				</if>
+			 	<if test=" null != operator and ''!= operator  ">
+					 	#{operator},
+				</if>
+			 	<if test=" null != addFourtune ">
+					 	#{addFourtune},
+				</if>
+			 	<if test=" null != createTime ">
+					 	#{createTime},
+				</if>
+			 	<if test=" null != updateTime ">
+					 	#{updateTime},
+				</if>
+			 	<if test=" null != extends1 and ''!= extends1  ">
+					 	#{extends1},
+				</if>
+			 	<if test=" null != extends2 and ''!= extends2  ">
+					 	#{extends2},
+				</if>
+			 	<if test=" null != extends3 and ''!= extends3  ">
+					 	#{extends3},
+				</if>
+		</trim>
+	</insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.linkwee.web.model.ActOneYuanDrawVirtualAddfourtuneRecord" >
+  		UPDATE tact_one_yuan_draw_virtual_addfourtune_record
+		<set>
+			<trim suffixOverrides=",">
+					<if test=" null != bizId and ''!= bizId  ">
+						biz_id = #{bizId},
+					</if>
+					<if test=" null != operator and ''!= operator  ">
+						operator = #{operator},
+					</if>
+					<if test=" null != addFourtune ">
+						add_fourtune = #{addFourtune},
+					</if>
+					<if test=" null != createTime ">
+						create_time = #{createTime},
+					</if>
+					<if test=" null != updateTime ">
+						update_time = #{updateTime},
+					</if>
+					<if test=" null != extends1 and ''!= extends1  ">
+						extends1 = #{extends1},
+					</if>
+					<if test=" null != extends2 and ''!= extends2  ">
+						extends2 = #{extends2},
+					</if>
+					<if test=" null != extends3 and ''!= extends3  ">
+						extends3 = #{extends3},
+					</if>
+			</trim>
+		</set>
+		<where>
+			 id = #{id}
+		</where>
+	</update>
+  
+	<update id="updateByPrimaryKey" parameterType="com.linkwee.web.model.ActOneYuanDrawVirtualAddfourtuneRecord" >
+	    UPDATE tact_one_yuan_draw_virtual_addfourtune_record
+	   <set>
+			<trim suffixOverrides=",">
+					<if test=" null != bizId and ''!= bizId  ">
+						biz_id = #{bizId},
+					</if>
+					<if test=" null != operator and ''!= operator  ">
+						operator = #{operator},
+					</if>
+					<if test=" null != addFourtune ">
+						add_fourtune = #{addFourtune},
+					</if>
+					<if test=" null != createTime ">
+						create_time = #{createTime},
+					</if>
+					<if test=" null != updateTime ">
+						update_time = #{updateTime},
+					</if>
+					<if test=" null != extends1 and ''!= extends1  ">
+						extends1 = #{extends1},
+					</if>
+					<if test=" null != extends2 and ''!= extends2  ">
+						extends2 = #{extends2},
+					</if>
+					<if test=" null != extends3 and ''!= extends3  ">
+						extends3 = #{extends3},
+					</if>
+			</trim>
+		</set>
+		<where>
+			id = #{0}
+		</where>
+	  </update>
+
+	<!-- 分页条件查询 -->
+    <select id="selectBySearchInfo" resultMap="BaseResultMap" parameterType="com.linkwee.core.datatable.DataTable">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM tact_one_yuan_draw_virtual_addfourtune_record
+        <where> 
+        <if test="dt.search!=null">  
+                name LIKE CONCAT('%','${dt.search.value}','%' )  
+         </if>  
+         <if test="dt.order!=null">  
+               <foreach collection="dt.order" index="index" item="item"
+                    open="order by" separator="," close=" ">
+                    ${item.name} ${item.dir} 
+                </foreach>
+         </if>  
+        </where>
+    </select>
+    
+    <select id="addFourtuneHistory" resultMap="BaseResultMap" parameterType="com.linkwee.web.request.PrizeSendRequest">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM tact_one_yuan_draw_virtual_addfourtune_record
+        <where> 
+         1=1
+        <if test=" null != startTime and ''!= startTime  ">
+              AND  create_time <![CDATA[ >= ]]>  #{startTime}
+         </if>  
+         <if test=" null != endTime and ''!= endTime  ">
+              AND  create_time <![CDATA[ <= ]]>  #{endTime}
+         </if>  
+        </where>
+    </select>
+
+</mapper>

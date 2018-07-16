@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.CimOrgRiskFresGradeMapper">
+	<!-- Result Map-->
+	<resultMap  type="com.linkwee.web.model.CimOrgRiskFresGrade" id="BaseResultMap">
+		<result column="id" property="id" jdbcType="INTEGER"/>
+		<result column="org_number" property="orgNumber" jdbcType="VARCHAR"/>
+		<result column="fres_number" property="fresNumber" jdbcType="VARCHAR"/>
+		<result column="fres_name" property="fresName" jdbcType="VARCHAR"/>
+		<result column="fres_score" property="fresScore" jdbcType="DECIMAL"/>
+		<result column="score_detail" property="scoreDetail" jdbcType="LONGVARCHAR"/>
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+		<result column="remark" property="remark" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+  <sql id="Base_Column_List">
+    <trim suffixOverrides=",">
+	    	id,
+	    	org_number,
+	    	fres_number,
+	    	fres_name,
+	    	fres_score,
+	    	score_detail,
+	    	create_time,
+	    	update_time,
+	    	remark,
+    </trim>
+  </sql>
+  
+ <sql id="Base_Column_List_T">
+    <trim suffixOverrides=",">
+	    	t.id,
+	    	t.org_number,
+	    	t.fres_number,
+	    	t.fres_name,
+	    	t.fres_score,
+	    	t.score_detail,
+	    	t.create_time,
+	    	t.update_time,
+	    	t.remark,
+    </trim>
+  </sql>  
+  
+  <sql id="Base_Condition">
+		<if test=" null != id ">
+			and id = #{id}
+		</if>
+		<if test=" null != orgNumber and ''!= orgNumber  ">
+			and org_number = #{orgNumber}
+		</if>
+		<if test=" null != fresNumber and ''!= fresNumber  ">
+			and fres_number = #{fresNumber}
+		</if>
+		<if test=" null != fresName and ''!= fresName  ">
+			and fres_name = #{fresName}
+		</if>
+		<if test=" null != fresScore ">
+			and fres_score = #{fresScore}
+		</if>
+		<if test=" null != scoreDetail and ''!= scoreDetail  ">
+			and score_detail = #{scoreDetail}
+		</if>
+		<if test=" null != createTime ">
+			and create_time = #{createTime}
+		</if>
+		<if test=" null != updateTime ">
+			and update_time = #{updateTime}
+		</if>
+		<if test=" null != remark and ''!= remark  ">
+			and remark = #{remark}
+		</if>
+  </sql>
+  
+  <select id="selectOneByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.web.model.CimOrgRiskFresGrade">
+		select <include refid="Base_Column_List" /> from tcim_org_risk_fres_grade 
+		where 1=1 <include refid="Base_Condition" />
+  </select>
+  
+  <select id="selectByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.web.model.CimOrgRiskFresGrade">
+		select <include refid="Base_Column_List" /> from tcim_org_risk_fres_grade 
+		where 1=1 <include refid="Base_Condition" />
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tcim_org_risk_fres_grade
+    where  id = #{0}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tcim_org_risk_fres_grade
+    where id = #{0}
+  </delete>
+
+  <insert id="insert" parameterType="com.linkwee.web.model.CimOrgRiskFresGrade" >
+    INSERT INTO tcim_org_risk_fres_grade
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != orgNumber and ''!= orgNumber  ">
+					org_number,
+				</if>
+			 	<if test=" null != fresNumber and ''!= fresNumber  ">
+					fres_number,
+				</if>
+			 	<if test=" null != fresName and ''!= fresName  ">
+					fres_name,
+				</if>
+			 	<if test=" null != fresScore ">
+					fres_score,
+				</if>
+			 	<if test=" null != scoreDetail and ''!= scoreDetail  ">
+					score_detail,
+				</if>
+			 	<if test=" null != createTime ">
+					create_time,
+				</if>
+			 	<if test=" null != updateTime ">
+					update_time,
+				</if>
+			 	<if test=" null != remark and ''!= remark  ">
+					remark,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != orgNumber and ''!= orgNumber  ">
+					 	#{orgNumber},
+				</if>
+			 	<if test=" null != fresNumber and ''!= fresNumber  ">
+					 	#{fresNumber},
+				</if>
+			 	<if test=" null != fresName and ''!= fresName  ">
+					 	#{fresName},
+				</if>
+			 	<if test=" null != fresScore ">
+					 	#{fresScore},
+				</if>
+			 	<if test=" null != scoreDetail and ''!= scoreDetail  ">
+					 	#{scoreDetail},
+				</if>
+			 	<if test=" null != createTime ">
+					 	#{createTime},
+				</if>
+			 	<if test=" null != updateTime ">
+					 	#{updateTime},
+				</if>
+			 	<if test=" null != remark and ''!= remark  ">
+					 	#{remark},
+				</if>
+		</trim>
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.linkwee.web.model.CimOrgRiskFresGrade" useGeneratedKeys="true" keyProperty="id" >
+		INSERT INTO tcim_org_risk_fres_grade
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != orgNumber and ''!= orgNumber  ">
+					org_number,
+				</if>
+			 	<if test=" null != fresNumber and ''!= fresNumber  ">
+					fres_number,
+				</if>
+			 	<if test=" null != fresName and ''!= fresName  ">
+					fres_name,
+				</if>
+			 	<if test=" null != fresScore ">
+					fres_score,
+				</if>
+			 	<if test=" null != scoreDetail and ''!= scoreDetail  ">
+					score_detail,
+				</if>
+			 	<if test=" null != createTime ">
+					create_time,
+				</if>
+			 	<if test=" null != updateTime ">
+					update_time,
+				</if>
+			 	<if test=" null != remark and ''!= remark  ">
+					remark,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != orgNumber and ''!= orgNumber  ">
+					 	#{orgNumber},
+				</if>
+			 	<if test=" null != fresNumber and ''!= fresNumber  ">
+					 	#{fresNumber},
+				</if>
+			 	<if test=" null != fresName and ''!= fresName  ">
+					 	#{fresName},
+				</if>
+			 	<if test=" null != fresScore ">
+					 	#{fresScore},
+				</if>
+			 	<if test=" null != scoreDetail and ''!= scoreDetail  ">
+					 	#{scoreDetail},
+				</if>
+			 	<if test=" null != createTime ">
+					 	#{createTime},
+				</if>
+			 	<if test=" null != updateTime ">
+					 	#{updateTime},
+				</if>
+			 	<if test=" null != remark and ''!= remark  ">
+					 	#{remark},
+				</if>
+		</trim>
+	</insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.linkwee.web.model.CimOrgRiskFresGrade" >
+  		UPDATE tcim_org_risk_fres_grade
+		<set>
+			<trim suffixOverrides=",">
+					<if test=" null != orgNumber and ''!= orgNumber  ">
+						org_number = #{orgNumber},
+					</if>
+					<if test=" null != fresNumber and ''!= fresNumber  ">
+						fres_number = #{fresNumber},
+					</if>
+					<if test=" null != fresName and ''!= fresName  ">
+						fres_name = #{fresName},
+					</if>
+					<if test=" null != fresScore ">
+						fres_score = #{fresScore},
+					</if>
+					<if test=" null != scoreDetail and ''!= scoreDetail  ">
+						score_detail = #{scoreDetail},
+					</if>
+					<if test=" null != createTime ">
+						create_time = #{createTime},
+					</if>
+					<if test=" null != updateTime ">
+						update_time = #{updateTime},
+					</if>
+					<if test=" null != remark and ''!= remark  ">
+						remark = #{remark},
+					</if>
+			</trim>
+		</set>
+		<where>
+			 id = #{id}
+		</where>
+	</update>
+  
+	<update id="updateByPrimaryKey" parameterType="com.linkwee.web.model.CimOrgRiskFresGrade" >
+	    UPDATE tcim_org_risk_fres_grade
+	   <set>
+			<trim suffixOverrides=",">
+					<if test=" null != orgNumber and ''!= orgNumber  ">
+						org_number = #{orgNumber},
+					</if>
+					<if test=" null != fresNumber and ''!= fresNumber  ">
+						fres_number = #{fresNumber},
+					</if>
+					<if test=" null != fresName and ''!= fresName  ">
+						fres_name = #{fresName},
+					</if>
+					<if test=" null != fresScore ">
+						fres_score = #{fresScore},
+					</if>
+					<if test=" null != scoreDetail and ''!= scoreDetail  ">
+						score_detail = #{scoreDetail},
+					</if>
+					<if test=" null != createTime ">
+						create_time = #{createTime},
+					</if>
+					<if test=" null != updateTime ">
+						update_time = #{updateTime},
+					</if>
+					<if test=" null != remark and ''!= remark  ">
+						remark = #{remark},
+					</if>
+			</trim>
+		</set>
+		<where>
+			id = #{0}
+		</where>
+	  </update>
+
+	<!-- 分页条件查询 -->
+    <select id="selectBySearchInfo" resultMap="BaseResultMap" parameterType="com.linkwee.core.datatable.DataTable">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM tcim_org_risk_fres_grade
+        <where> 
+        <if test="dt.search!=null">  
+                name LIKE CONCAT('%','${dt.search.value}','%' )  
+         </if>  
+         <if test="dt.order!=null">  
+               <foreach collection="dt.order" index="index" item="item"
+                    open="order by" separator="," close=" ">
+                    ${item.name} ${item.dir} 
+                </foreach>
+         </if>  
+        </where>
+    </select>
+    
+	<!-- 根据机构编码查询机构风控FRES -->
+    <select id="queryRiskFresGradeExtendsList" resultType="com.linkwee.web.model.cim.CimOrgRiskFresGradeExtends" parameterType="java.lang.String">
+		SELECT
+			torfg.id,
+			torfg.org_number AS orgNumber,
+			torfg.fres_number AS fresNumber,
+			torfg.fres_name AS fresName,
+			torfg.fres_score AS fresScore,
+			torfg.score_detail AS scoreDetail,
+			torfg.create_time AS createTime,
+			torfg.update_time AS updateTime,
+			torfg.remark,
+			tofgt.fres_full_score AS fresFullScore,
+			tofgt.fres_sort AS fresSort
+		FROM
+			tcim_org_risk_fres_grade torfg,
+			tcim_org_fres_grade_type tofgt
+		WHERE
+			torfg.org_number = #{orgNumber}
+		AND tofgt.fres_number = torfg.fres_number
+		ORDER BY
+			tofgt.fres_sort ASC    
+    </select>    
+
+</mapper>

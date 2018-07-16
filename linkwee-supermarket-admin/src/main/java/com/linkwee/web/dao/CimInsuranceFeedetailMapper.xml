@@ -1,0 +1,835 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.CimInsuranceFeedetailMapper">
+	<!-- Result Map-->
+	<resultMap  type="com.linkwee.web.model.CimInsuranceFeedetail" id="BaseResultMap">
+		<result column="id" property="id" jdbcType="INTEGER"/>
+		<result column="biz_id" property="bizId" jdbcType="VARCHAR"/>
+		<result column="bill_id" property="billId" jdbcType="VARCHAR"/>
+		<result column="investor_id" property="investorId" jdbcType="VARCHAR"/>
+		<result column="profit_cfplanner_id" property="profitCfplannerId" jdbcType="VARCHAR"/>
+		<result column="profit_cfplanner_id_low_type" property="profitCfplannerIdLowType" jdbcType="VARCHAR"/>
+		<result column="origin_cfplanner_parent3_id" property="originCfplannerParent3Id" jdbcType="VARCHAR"/>
+		<result column="origin_cfplanner_parent2_id" property="originCfplannerParent2Id" jdbcType="VARCHAR"/>
+		<result column="origin_cfplanner_parent1_id" property="originCfplannerParent1Id" jdbcType="VARCHAR"/>
+		<result column="origin_cfplanner_id" property="originCfplannerId" jdbcType="VARCHAR"/>
+		<result column="product_org_id" property="productOrgId" jdbcType="VARCHAR"/>
+		<result column="product_id" property="productId" jdbcType="VARCHAR"/>
+		<result column="product_amount" property="productAmount" jdbcType="DECIMAL"/>
+		<result column="yearpur_amount" property="yearpurAmount" jdbcType="DECIMAL"/>
+		<result column="remark" property="remark" jdbcType="VARCHAR"/>
+		<result column="succeed_remark" property="succeedRemark" jdbcType="VARCHAR"/>
+		<result column="product_fee_rate" property="productFeeRate" jdbcType="DECIMAL"/>
+		<result column="fee_rate" property="feeRate" jdbcType="DECIMAL"/>
+		<result column="fee_amount" property="feeAmount" jdbcType="DECIMAL"/>
+		<result column="fee_type" property="feeType" jdbcType="VARCHAR"/>
+		<result column="balance_status" property="balanceStatus" jdbcType="TINYINT"/>
+		<result column="balance_number" property="balanceNumber" jdbcType="VARCHAR"/>
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+	</resultMap>
+	
+  <sql id="Base_Column_List">
+    <trim suffixOverrides=",">
+	    	id,
+	    	biz_id,
+	    	bill_id,
+	    	investor_id,
+	    	profit_cfplanner_id,
+	    	profit_cfplanner_id_low_type,
+	    	origin_cfplanner_parent3_id,
+	    	origin_cfplanner_parent2_id,
+	    	origin_cfplanner_parent1_id,
+	    	origin_cfplanner_id,
+	    	product_org_id,
+	    	product_id,
+	    	product_amount,
+	    	yearpur_amount,
+	    	remark,
+	    	succeed_remark,
+	    	product_fee_rate,
+	    	fee_rate,
+	    	fee_amount,
+	    	fee_type,
+	    	balance_status,
+	    	balance_number,
+	    	create_time,
+	    	update_time,
+    </trim>
+  </sql>
+  
+ <sql id="Base_Column_List_T">
+    <trim suffixOverrides=",">
+	    	t.id,
+	    	t.biz_id,
+	    	t.bill_id,
+	    	t.investor_id,
+	    	t.profit_cfplanner_id,
+	    	t.profit_cfplanner_id_low_type,
+	    	t.origin_cfplanner_parent3_id,
+	    	t.origin_cfplanner_parent2_id,
+	    	t.origin_cfplanner_parent1_id,
+	    	t.origin_cfplanner_id,
+	    	t.product_org_id,
+	    	t.product_id,
+	    	t.product_amount,
+	    	t.yearpur_amount,
+	    	t.remark,
+	    	t.succeed_remark,
+	    	t.product_fee_rate,
+	    	t.fee_rate,
+	    	t.fee_amount,
+	    	t.fee_type,
+	    	t.balance_status,
+	    	t.balance_number,
+	    	t.create_time,
+	    	t.update_time,
+    </trim>
+  </sql>  
+  
+  <sql id="Base_Condition">
+		<if test=" null != id ">
+			and id = #{id}
+		</if>
+		<if test=" null != bizId and ''!= bizId  ">
+			and biz_id = #{bizId}
+		</if>
+		<if test=" null != billId and ''!= billId  ">
+			and bill_id = #{billId}
+		</if>
+		<if test=" null != investorId and ''!= investorId  ">
+			and investor_id = #{investorId}
+		</if>
+		<if test=" null != profitCfplannerId and ''!= profitCfplannerId  ">
+			and profit_cfplanner_id = #{profitCfplannerId}
+		</if>
+		<if test=" null != profitCfplannerIdLowType and ''!= profitCfplannerIdLowType  ">
+			and profit_cfplanner_id_low_type = #{profitCfplannerIdLowType}
+		</if>
+		<if test=" null != originCfplannerParent3Id and ''!= originCfplannerParent3Id  ">
+			and origin_cfplanner_parent3_id = #{originCfplannerParent3Id}
+		</if>
+		<if test=" null != originCfplannerParent2Id and ''!= originCfplannerParent2Id  ">
+			and origin_cfplanner_parent2_id = #{originCfplannerParent2Id}
+		</if>
+		<if test=" null != originCfplannerParent1Id and ''!= originCfplannerParent1Id  ">
+			and origin_cfplanner_parent1_id = #{originCfplannerParent1Id}
+		</if>
+		<if test=" null != originCfplannerId and ''!= originCfplannerId  ">
+			and origin_cfplanner_id = #{originCfplannerId}
+		</if>
+		<if test=" null != productOrgId and ''!= productOrgId  ">
+			and product_org_id = #{productOrgId}
+		</if>
+		<if test=" null != productId and ''!= productId  ">
+			and product_id = #{productId}
+		</if>
+		<if test=" null != productAmount ">
+			and product_amount = #{productAmount}
+		</if>
+		<if test=" null != yearpurAmount ">
+			and yearpur_amount = #{yearpurAmount}
+		</if>
+		<if test=" null != remark and ''!= remark  ">
+			and remark = #{remark}
+		</if>
+		<if test=" null != succeedRemark and ''!= succeedRemark  ">
+			and succeed_remark = #{succeedRemark}
+		</if>
+		<if test=" null != productFeeRate ">
+			and product_fee_rate = #{productFeeRate}
+		</if>
+		<if test=" null != feeRate ">
+			and fee_rate = #{feeRate}
+		</if>
+		<if test=" null != feeAmount ">
+			and fee_amount = #{feeAmount}
+		</if>
+		<if test=" null != feeType and ''!= feeType  ">
+			and fee_type = #{feeType}
+		</if>
+		<if test=" null != balanceStatus ">
+			and balance_status = #{balanceStatus}
+		</if>
+		<if test=" null != balanceNumber and ''!= balanceNumber  ">
+			and balance_number = #{balanceNumber}
+		</if>
+		<if test=" null != createTime ">
+			and create_time = #{createTime}
+		</if>
+		<if test=" null != updateTime ">
+			and update_time = #{updateTime}
+		</if>
+  </sql>
+  
+  <select id="selectOneByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.web.model.CimInsuranceFeedetail">
+		select <include refid="Base_Column_List" /> from tcim_insurance_feedetail 
+		where 1=1 <include refid="Base_Condition" />
+  </select>
+  
+  <select id="selectByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.web.model.CimInsuranceFeedetail">
+		select <include refid="Base_Column_List" /> from tcim_insurance_feedetail 
+		where 1=1 <include refid="Base_Condition" />
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tcim_insurance_feedetail
+    where  id = #{0}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tcim_insurance_feedetail
+    where id = #{0}
+  </delete>
+
+  <insert id="insert" parameterType="com.linkwee.web.model.CimInsuranceFeedetail" >
+    INSERT INTO tcim_insurance_feedetail
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != bizId and ''!= bizId  ">
+					biz_id,
+				</if>
+			 	<if test=" null != billId and ''!= billId  ">
+					bill_id,
+				</if>
+			 	<if test=" null != investorId and ''!= investorId  ">
+					investor_id,
+				</if>
+			 	<if test=" null != profitCfplannerId and ''!= profitCfplannerId  ">
+					profit_cfplanner_id,
+				</if>
+			 	<if test=" null != profitCfplannerIdLowType and ''!= profitCfplannerIdLowType  ">
+					profit_cfplanner_id_low_type,
+				</if>
+			 	<if test=" null != originCfplannerParent3Id and ''!= originCfplannerParent3Id  ">
+					origin_cfplanner_parent3_id,
+				</if>
+			 	<if test=" null != originCfplannerParent2Id and ''!= originCfplannerParent2Id  ">
+					origin_cfplanner_parent2_id,
+				</if>
+			 	<if test=" null != originCfplannerParent1Id and ''!= originCfplannerParent1Id  ">
+					origin_cfplanner_parent1_id,
+				</if>
+			 	<if test=" null != originCfplannerId and ''!= originCfplannerId  ">
+					origin_cfplanner_id,
+				</if>
+			 	<if test=" null != productOrgId and ''!= productOrgId  ">
+					product_org_id,
+				</if>
+			 	<if test=" null != productId and ''!= productId  ">
+					product_id,
+				</if>
+			 	<if test=" null != productAmount ">
+					product_amount,
+				</if>
+			 	<if test=" null != yearpurAmount ">
+					yearpur_amount,
+				</if>
+			 	<if test=" null != remark and ''!= remark  ">
+					remark,
+				</if>
+			 	<if test=" null != succeedRemark and ''!= succeedRemark  ">
+					succeed_remark,
+				</if>
+			 	<if test=" null != productFeeRate ">
+					product_fee_rate,
+				</if>
+			 	<if test=" null != feeRate ">
+					fee_rate,
+				</if>
+			 	<if test=" null != feeAmount ">
+					fee_amount,
+				</if>
+			 	<if test=" null != feeType and ''!= feeType  ">
+					fee_type,
+				</if>
+			 	<if test=" null != balanceStatus ">
+					balance_status,
+				</if>
+			 	<if test=" null != balanceNumber and ''!= balanceNumber  ">
+					balance_number,
+				</if>
+			 	<if test=" null != createTime ">
+					create_time,
+				</if>
+			 	<if test=" null != updateTime ">
+					update_time,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != bizId and ''!= bizId  ">
+					 	#{bizId},
+				</if>
+			 	<if test=" null != billId and ''!= billId  ">
+					 	#{billId},
+				</if>
+			 	<if test=" null != investorId and ''!= investorId  ">
+					 	#{investorId},
+				</if>
+			 	<if test=" null != profitCfplannerId and ''!= profitCfplannerId  ">
+					 	#{profitCfplannerId},
+				</if>
+			 	<if test=" null != profitCfplannerIdLowType and ''!= profitCfplannerIdLowType  ">
+					 	#{profitCfplannerIdLowType},
+				</if>
+			 	<if test=" null != originCfplannerParent3Id and ''!= originCfplannerParent3Id  ">
+					 	#{originCfplannerParent3Id},
+				</if>
+			 	<if test=" null != originCfplannerParent2Id and ''!= originCfplannerParent2Id  ">
+					 	#{originCfplannerParent2Id},
+				</if>
+			 	<if test=" null != originCfplannerParent1Id and ''!= originCfplannerParent1Id  ">
+					 	#{originCfplannerParent1Id},
+				</if>
+			 	<if test=" null != originCfplannerId and ''!= originCfplannerId  ">
+					 	#{originCfplannerId},
+				</if>
+			 	<if test=" null != productOrgId and ''!= productOrgId  ">
+					 	#{productOrgId},
+				</if>
+			 	<if test=" null != productId and ''!= productId  ">
+					 	#{productId},
+				</if>
+			 	<if test=" null != productAmount ">
+					 	#{productAmount},
+				</if>
+			 	<if test=" null != yearpurAmount ">
+					 	#{yearpurAmount},
+				</if>
+			 	<if test=" null != remark and ''!= remark  ">
+					 	#{remark},
+				</if>
+			 	<if test=" null != succeedRemark and ''!= succeedRemark  ">
+					 	#{succeedRemark},
+				</if>
+			 	<if test=" null != productFeeRate ">
+					 	#{productFeeRate},
+				</if>
+			 	<if test=" null != feeRate ">
+					 	#{feeRate},
+				</if>
+			 	<if test=" null != feeAmount ">
+					 	#{feeAmount},
+				</if>
+			 	<if test=" null != feeType and ''!= feeType  ">
+					 	#{feeType},
+				</if>
+			 	<if test=" null != balanceStatus ">
+					 	#{balanceStatus},
+				</if>
+			 	<if test=" null != balanceNumber and ''!= balanceNumber  ">
+					 	#{balanceNumber},
+				</if>
+			 	<if test=" null != createTime ">
+					 	#{createTime},
+				</if>
+			 	<if test=" null != updateTime ">
+					 	#{updateTime},
+				</if>
+		</trim>
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.linkwee.web.model.CimInsuranceFeedetail" useGeneratedKeys="true" keyProperty="id" >
+		INSERT INTO tcim_insurance_feedetail
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != bizId and ''!= bizId  ">
+					biz_id,
+				</if>
+			 	<if test=" null != billId and ''!= billId  ">
+					bill_id,
+				</if>
+			 	<if test=" null != investorId and ''!= investorId  ">
+					investor_id,
+				</if>
+			 	<if test=" null != profitCfplannerId and ''!= profitCfplannerId  ">
+					profit_cfplanner_id,
+				</if>
+			 	<if test=" null != profitCfplannerIdLowType and ''!= profitCfplannerIdLowType  ">
+					profit_cfplanner_id_low_type,
+				</if>
+			 	<if test=" null != originCfplannerParent3Id and ''!= originCfplannerParent3Id  ">
+					origin_cfplanner_parent3_id,
+				</if>
+			 	<if test=" null != originCfplannerParent2Id and ''!= originCfplannerParent2Id  ">
+					origin_cfplanner_parent2_id,
+				</if>
+			 	<if test=" null != originCfplannerParent1Id and ''!= originCfplannerParent1Id  ">
+					origin_cfplanner_parent1_id,
+				</if>
+			 	<if test=" null != originCfplannerId and ''!= originCfplannerId  ">
+					origin_cfplanner_id,
+				</if>
+			 	<if test=" null != productOrgId and ''!= productOrgId  ">
+					product_org_id,
+				</if>
+			 	<if test=" null != productId and ''!= productId  ">
+					product_id,
+				</if>
+			 	<if test=" null != productAmount ">
+					product_amount,
+				</if>
+			 	<if test=" null != yearpurAmount ">
+					yearpur_amount,
+				</if>
+			 	<if test=" null != remark and ''!= remark  ">
+					remark,
+				</if>
+			 	<if test=" null != succeedRemark and ''!= succeedRemark  ">
+					succeed_remark,
+				</if>
+			 	<if test=" null != productFeeRate ">
+					product_fee_rate,
+				</if>
+			 	<if test=" null != feeRate ">
+					fee_rate,
+				</if>
+			 	<if test=" null != feeAmount ">
+					fee_amount,
+				</if>
+			 	<if test=" null != feeType and ''!= feeType  ">
+					fee_type,
+				</if>
+			 	<if test=" null != balanceStatus ">
+					balance_status,
+				</if>
+			 	<if test=" null != balanceNumber and ''!= balanceNumber  ">
+					balance_number,
+				</if>
+			 	<if test=" null != createTime ">
+					create_time,
+				</if>
+			 	<if test=" null != updateTime ">
+					update_time,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != bizId and ''!= bizId  ">
+					 	#{bizId},
+				</if>
+			 	<if test=" null != billId and ''!= billId  ">
+					 	#{billId},
+				</if>
+			 	<if test=" null != investorId and ''!= investorId  ">
+					 	#{investorId},
+				</if>
+			 	<if test=" null != profitCfplannerId and ''!= profitCfplannerId  ">
+					 	#{profitCfplannerId},
+				</if>
+			 	<if test=" null != profitCfplannerIdLowType and ''!= profitCfplannerIdLowType  ">
+					 	#{profitCfplannerIdLowType},
+				</if>
+			 	<if test=" null != originCfplannerParent3Id and ''!= originCfplannerParent3Id  ">
+					 	#{originCfplannerParent3Id},
+				</if>
+			 	<if test=" null != originCfplannerParent2Id and ''!= originCfplannerParent2Id  ">
+					 	#{originCfplannerParent2Id},
+				</if>
+			 	<if test=" null != originCfplannerParent1Id and ''!= originCfplannerParent1Id  ">
+					 	#{originCfplannerParent1Id},
+				</if>
+			 	<if test=" null != originCfplannerId and ''!= originCfplannerId  ">
+					 	#{originCfplannerId},
+				</if>
+			 	<if test=" null != productOrgId and ''!= productOrgId  ">
+					 	#{productOrgId},
+				</if>
+			 	<if test=" null != productId and ''!= productId  ">
+					 	#{productId},
+				</if>
+			 	<if test=" null != productAmount ">
+					 	#{productAmount},
+				</if>
+			 	<if test=" null != yearpurAmount ">
+					 	#{yearpurAmount},
+				</if>
+			 	<if test=" null != remark and ''!= remark  ">
+					 	#{remark},
+				</if>
+			 	<if test=" null != succeedRemark and ''!= succeedRemark  ">
+					 	#{succeedRemark},
+				</if>
+			 	<if test=" null != productFeeRate ">
+					 	#{productFeeRate},
+				</if>
+			 	<if test=" null != feeRate ">
+					 	#{feeRate},
+				</if>
+			 	<if test=" null != feeAmount ">
+					 	#{feeAmount},
+				</if>
+			 	<if test=" null != feeType and ''!= feeType  ">
+					 	#{feeType},
+				</if>
+			 	<if test=" null != balanceStatus ">
+					 	#{balanceStatus},
+				</if>
+			 	<if test=" null != balanceNumber and ''!= balanceNumber  ">
+					 	#{balanceNumber},
+				</if>
+			 	<if test=" null != createTime ">
+					 	#{createTime},
+				</if>
+			 	<if test=" null != updateTime ">
+					 	#{updateTime},
+				</if>
+		</trim>
+	</insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.linkwee.web.model.CimInsuranceFeedetail" >
+  		UPDATE tcim_insurance_feedetail
+		<set>
+			<trim suffixOverrides=",">
+					<if test=" null != bizId and ''!= bizId  ">
+						biz_id = #{bizId},
+					</if>
+					<if test=" null != billId and ''!= billId  ">
+						bill_id = #{billId},
+					</if>
+					<if test=" null != investorId and ''!= investorId  ">
+						investor_id = #{investorId},
+					</if>
+					<if test=" null != profitCfplannerId and ''!= profitCfplannerId  ">
+						profit_cfplanner_id = #{profitCfplannerId},
+					</if>
+					<if test=" null != profitCfplannerIdLowType and ''!= profitCfplannerIdLowType  ">
+						profit_cfplanner_id_low_type = #{profitCfplannerIdLowType},
+					</if>
+					<if test=" null != originCfplannerParent3Id and ''!= originCfplannerParent3Id  ">
+						origin_cfplanner_parent3_id = #{originCfplannerParent3Id},
+					</if>
+					<if test=" null != originCfplannerParent2Id and ''!= originCfplannerParent2Id  ">
+						origin_cfplanner_parent2_id = #{originCfplannerParent2Id},
+					</if>
+					<if test=" null != originCfplannerParent1Id and ''!= originCfplannerParent1Id  ">
+						origin_cfplanner_parent1_id = #{originCfplannerParent1Id},
+					</if>
+					<if test=" null != originCfplannerId and ''!= originCfplannerId  ">
+						origin_cfplanner_id = #{originCfplannerId},
+					</if>
+					<if test=" null != productOrgId and ''!= productOrgId  ">
+						product_org_id = #{productOrgId},
+					</if>
+					<if test=" null != productId and ''!= productId  ">
+						product_id = #{productId},
+					</if>
+					<if test=" null != productAmount ">
+						product_amount = #{productAmount},
+					</if>
+					<if test=" null != yearpurAmount ">
+						yearpur_amount = #{yearpurAmount},
+					</if>
+					<if test=" null != remark and ''!= remark  ">
+						remark = #{remark},
+					</if>
+					<if test=" null != succeedRemark and ''!= succeedRemark  ">
+						succeed_remark = #{succeedRemark},
+					</if>
+					<if test=" null != productFeeRate ">
+						product_fee_rate = #{productFeeRate},
+					</if>
+					<if test=" null != feeRate ">
+						fee_rate = #{feeRate},
+					</if>
+					<if test=" null != feeAmount ">
+						fee_amount = #{feeAmount},
+					</if>
+					<if test=" null != feeType and ''!= feeType  ">
+						fee_type = #{feeType},
+					</if>
+					<if test=" null != balanceStatus ">
+						balance_status = #{balanceStatus},
+					</if>
+					<if test=" null != balanceNumber and ''!= balanceNumber  ">
+						balance_number = #{balanceNumber},
+					</if>
+					<if test=" null != createTime ">
+						create_time = #{createTime},
+					</if>
+					<if test=" null != updateTime ">
+						update_time = #{updateTime},
+					</if>
+			</trim>
+		</set>
+		<where>
+			 id = #{id}
+		</where>
+	</update>
+  
+	<update id="updateByPrimaryKey" parameterType="com.linkwee.web.model.CimInsuranceFeedetail" >
+	    UPDATE tcim_insurance_feedetail
+	   <set>
+			<trim suffixOverrides=",">
+					<if test=" null != bizId and ''!= bizId  ">
+						biz_id = #{bizId},
+					</if>
+					<if test=" null != billId and ''!= billId  ">
+						bill_id = #{billId},
+					</if>
+					<if test=" null != investorId and ''!= investorId  ">
+						investor_id = #{investorId},
+					</if>
+					<if test=" null != profitCfplannerId and ''!= profitCfplannerId  ">
+						profit_cfplanner_id = #{profitCfplannerId},
+					</if>
+					<if test=" null != profitCfplannerIdLowType and ''!= profitCfplannerIdLowType  ">
+						profit_cfplanner_id_low_type = #{profitCfplannerIdLowType},
+					</if>
+					<if test=" null != originCfplannerParent3Id and ''!= originCfplannerParent3Id  ">
+						origin_cfplanner_parent3_id = #{originCfplannerParent3Id},
+					</if>
+					<if test=" null != originCfplannerParent2Id and ''!= originCfplannerParent2Id  ">
+						origin_cfplanner_parent2_id = #{originCfplannerParent2Id},
+					</if>
+					<if test=" null != originCfplannerParent1Id and ''!= originCfplannerParent1Id  ">
+						origin_cfplanner_parent1_id = #{originCfplannerParent1Id},
+					</if>
+					<if test=" null != originCfplannerId and ''!= originCfplannerId  ">
+						origin_cfplanner_id = #{originCfplannerId},
+					</if>
+					<if test=" null != productOrgId and ''!= productOrgId  ">
+						product_org_id = #{productOrgId},
+					</if>
+					<if test=" null != productId and ''!= productId  ">
+						product_id = #{productId},
+					</if>
+					<if test=" null != productAmount ">
+						product_amount = #{productAmount},
+					</if>
+					<if test=" null != yearpurAmount ">
+						yearpur_amount = #{yearpurAmount},
+					</if>
+					<if test=" null != remark and ''!= remark  ">
+						remark = #{remark},
+					</if>
+					<if test=" null != succeedRemark and ''!= succeedRemark  ">
+						succeed_remark = #{succeedRemark},
+					</if>
+					<if test=" null != productFeeRate ">
+						product_fee_rate = #{productFeeRate},
+					</if>
+					<if test=" null != feeRate ">
+						fee_rate = #{feeRate},
+					</if>
+					<if test=" null != feeAmount ">
+						fee_amount = #{feeAmount},
+					</if>
+					<if test=" null != feeType and ''!= feeType  ">
+						fee_type = #{feeType},
+					</if>
+					<if test=" null != balanceStatus ">
+						balance_status = #{balanceStatus},
+					</if>
+					<if test=" null != balanceNumber and ''!= balanceNumber  ">
+						balance_number = #{balanceNumber},
+					</if>
+					<if test=" null != createTime ">
+						create_time = #{createTime},
+					</if>
+					<if test=" null != updateTime ">
+						update_time = #{updateTime},
+					</if>
+			</trim>
+		</set>
+		<where>
+			id = #{0}
+		</where>
+	  </update>
+
+	<!-- 分页条件查询 -->
+    <select id="selectBySearchInfo" resultMap="BaseResultMap" parameterType="com.linkwee.core.datatable.DataTable">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM tcim_insurance_feedetail
+        <where> 
+        <if test="dt.search!=null">  
+                name LIKE CONCAT('%','${dt.search.value}','%' )  
+         </if>  
+         <if test="dt.order!=null">  
+               <foreach collection="dt.order" index="index" item="item"
+                    open="order by" separator="," close=" ">
+                    ${item.name} ${item.dir} 
+                </foreach>
+         </if>  
+        </where>
+    </select>
+
+	<!-- 批量插入保险佣金明细 -->
+	<insert id="inserts" parameterType="com.linkwee.web.model.CimInsuranceFeedetail" >		 
+		 INSERT INTO tcim_insurance_feedetail    
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+						biz_id,
+						bill_id,
+						investor_id,
+						profit_cfplanner_id,
+				    	profit_cfplanner_id_low_type,
+				    	origin_cfplanner_parent3_id,
+				    	origin_cfplanner_parent2_id,
+				    	origin_cfplanner_parent1_id,
+						origin_cfplanner_id,
+						product_org_id,
+						product_id,
+						product_amount,
+						yearpur_amount,
+						product_fee_rate,
+						fee_rate,
+						fee_amount,
+						fee_type,
+						remark,
+						succeed_remark,
+						create_time,
+						update_time,
+		</trim>
+		VALUES
+		<foreach item="item" index="index" collection="insuranceFeedetails" separator=",">
+			<trim prefix="(" suffix=")" suffixOverrides=",">
+						 #{item.bizId},
+						 #{item.billId},
+						 #{item.investorId},
+						 #{item.profitCfplannerId},
+ 						 #{item.profitCfplannerIdLowType},
+ 						 #{item.originCfplannerParent3Id},
+ 						 #{item.originCfplannerParent2Id},
+						 #{item.originCfplannerParent1Id},
+						 #{item.originCfplannerId},
+						 #{item.productOrgId},
+						 #{item.productId},
+						 #{item.productAmount},
+						 #{item.yearpurAmount},
+						 #{item.productFeeRate},
+						 #{item.feeRate},
+						 #{item.feeAmount},
+						 #{item.feeType},
+						 #{item.remark},
+						 #{item.succeedRemark},
+						 #{item.createTime},
+						 #{item.updateTime},
+			</trim>
+		</foreach>
+	</insert>
+	
+	<!-- 根据投资记录编号查询最初佣金,推荐津贴,直接管理津贴       feeType 1001  10002  1005 -->
+	<select id="queryInitInsuranceFeeDetailByBillId1005"  parameterType="java.lang.String" resultType="com.linkwee.web.model.CimInsuranceFeedetailExtends" >			
+		SELECT
+			tif.id,
+			tif.biz_id AS bizId,
+			tif.bill_id AS billId,
+			tif.investor_id AS investorId,
+			tif.profit_cfplanner_id AS profitCfplannerId,
+			tif.profit_cfplanner_id_low_type AS profitCfplannerIdLowType,
+			tif.origin_cfplanner_parent3_id AS originCfplannerParent3Id,
+			tif.origin_cfplanner_parent2_id AS originCfplannerParent2Id,
+			tif.origin_cfplanner_parent1_id AS originCfplannerParent1Id,
+			tif.origin_cfplanner_id AS originCfplannerId,
+			tif.product_org_id AS productOrgId,
+			tif.product_id AS productId,
+			tif.product_amount AS productAmount,
+			tif.yearpur_amount AS yearpurAmount,
+			tif.remark,
+			tif.succeed_remark AS succeedRemark,
+			tif.product_fee_rate AS productFeeRate,
+			tif.fee_rate AS feeRate,
+			tif.fee_amount AS feeAmount,
+			tif.fee_type AS feeType,
+			tif.balance_status AS balanceStatus,
+			tif.balance_number AS balanceNumber,
+			tif.create_time AS createTime,
+			tif.update_time AS updateTime,
+			tui.user_name AS userName,
+			tui.mobile,
+			tip.productName
+		FROM
+			tcim_insurance_feedetail tif,
+			tcim_insurance_product tip,
+			tcrm_user_info tui
+		WHERE
+			tif.bill_id = #{billId}
+		AND tif.fee_type IN (1001, 1002, 1005)
+		AND tip.caseCode = tif.product_id
+		AND tui.user_id = tif.investor_id
+		GROUP BY
+			tif.fee_type			
+   </select>
+  
+  	<!-- 根据投资记录编号查询最初佣金,团队管理津贴  feeType 1006 -->
+	<select id="queryInitInsuranceFeeDetailByBillId1006"  parameterType="java.lang.String" resultType="com.linkwee.web.model.CimInsuranceFeedetailExtends" >
+		SELECT
+			tif.id,
+			tif.biz_id AS bizId,
+			tif.bill_id AS billId,
+			tif.investor_id AS investorId,
+			tif.profit_cfplanner_id AS profitCfplannerId,
+			tif.profit_cfplanner_id_low_type AS profitCfplannerIdLowType,
+			tif.origin_cfplanner_parent3_id AS originCfplannerParent3Id,
+			tif.origin_cfplanner_parent2_id AS originCfplannerParent2Id,
+			tif.origin_cfplanner_parent1_id AS originCfplannerParent1Id,
+			tif.origin_cfplanner_id AS originCfplannerId,
+			tif.product_org_id AS productOrgId,
+			tif.product_id AS productId,
+			tif.product_amount AS productAmount,
+			tif.yearpur_amount AS yearpurAmount,
+			tif.remark,
+			tif.succeed_remark AS succeedRemark,
+			tif.product_fee_rate AS productFeeRate,
+			tif.fee_rate AS feeRate,
+			tif.fee_amount AS feeAmount,
+			tif.fee_type AS feeType,
+			tif.balance_status AS balanceStatus,
+			tif.balance_number AS balanceNumber,
+			tif.create_time AS createTime,
+			tif.update_time AS updateTime,
+			tui.user_name AS userName,
+			tui.mobile,
+			tip.productName
+		FROM
+			tcim_insurance_feedetail tif,
+			tcim_insurance_product tip,
+			tcrm_user_info tui
+		WHERE
+			tif.bill_id = #{billId}
+		AND tif.fee_type = 1006
+		AND tip.caseCode = tif.product_id
+		AND tui.user_id = tif.investor_id
+		GROUP BY
+			tif.fee_type,
+			tif.profit_cfplanner_id					
+  </select>
+  
+	<!--  
+	 * 根据理财师编号与佣金类型 批量更新佣金明细结算状态
+	 * @param cfplannerIds 获利理财师userid list
+	 * @param feeType 佣金类型
+	 * @param balanceMaps  获利理财师与结算单号map
+	 * @param balanceStatus 结算状态：0=未结算|1=结算中|2=结算成功|3=结算失败
+	 * @param begintime 开始时间
+	 * @param endTime	结束时间
+	  -->
+	<update id="batchUpdateBalanceStatusBycfplannerIdAndFeeType">
+		update tcim_insurance_feedetail set balance_status=#{balanceStatus},
+		<if test="balanceStatus==2">
+			balance_number = (CASE profit_cfplanner_id
+			<foreach item="item" collection="balanceMaps">
+				when '${item.userId}' then '${item.balanceNumber}'
+			</foreach>
+			END),
+		</if>
+		update_time=NOW() 
+		WHERE create_time BETWEEN #{beginTime} AND #{endTime} AND profit_cfplanner_id
+		<foreach item="cfplannerId" open="IN (" close=")" separator="," collection="cfplannerIds">
+			 #{cfplannerId}
+		</foreach>
+		AND fee_type = #{feeType}
+	</update>  
+</mapper>

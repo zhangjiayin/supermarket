@@ -1,0 +1,727 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.CrmSalesOrgMapper">
+	<!-- Result Map-->
+	<resultMap  type="com.linkwee.web.model.CrmSalesOrg" id="BaseResultMap">
+		<result column="id" property="id" jdbcType="INTEGER"/>
+		<result column="sales_org_id" property="salesOrgId" jdbcType="VARCHAR"/>
+		<result column="name" property="name" jdbcType="VARCHAR"/>
+		<result column="city" property="city" jdbcType="VARCHAR"/>
+		<result column="legal_person" property="legalPerson" jdbcType="VARCHAR"/>
+		<result column="contacts" property="contacts" jdbcType="VARCHAR"/>
+		<result column="contact_mobile" property="contactMobile" jdbcType="VARCHAR"/>
+		<result column="manager_account" property="managerAccount" jdbcType="VARCHAR"/>
+		<result column="password" property="password" jdbcType="VARCHAR"/>
+		<result column="cooperation_time" property="cooperationTime" jdbcType="TIMESTAMP"/>
+		<result column="cooperation_status" property="cooperationStatus" jdbcType="INTEGER"/>
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+		<result column="last_update_time" property="lastUpdateTime" jdbcType="TIMESTAMP"/>
+	</resultMap>
+	
+  <sql id="Base_Column_List">
+    <trim suffixOverrides=",">
+	    	id,
+	    	sales_org_id,
+	    	name,
+	    	city,
+	    	legal_person,
+	    	contacts,
+	    	contact_mobile,
+	    	manager_account,
+	    	password,
+	    	cooperation_time,
+	    	cooperation_status,
+	    	create_time,
+	    	last_update_time,
+    </trim>
+  </sql>  
+  
+  <sql id="Base_Condition">
+		<if test=" null != id ">
+			and id = #{id}
+		</if>
+		<if test=" null != salesOrgId and ''!= salesOrgId  ">
+			and sales_org_id = #{salesOrgId}
+		</if>
+		<if test=" null != name and ''!= name  ">
+			and name = #{name}
+		</if>
+		<if test=" null != city and ''!= city  ">
+			and city = #{city}
+		</if>
+		<if test=" null != legalPerson and ''!= legalPerson  ">
+			and legal_person = #{legalPerson}
+		</if>
+		<if test=" null != contacts and ''!= contacts  ">
+			and contacts = #{contacts}
+		</if>
+		<if test=" null != contactMobile and ''!= contactMobile  ">
+			and contact_mobile = #{contactMobile}
+		</if>
+		<if test=" null != managerAccount and ''!= managerAccount  ">
+			and manager_account = #{managerAccount}
+		</if>
+		<if test=" null != password and ''!= password  ">
+			and password = #{password}
+		</if>
+		<if test=" null != cooperationTime ">
+			and cooperation_time = #{cooperationTime}
+		</if>
+		<if test=" null != cooperationStatus ">
+			and cooperation_status = #{cooperationStatus}
+		</if>
+		<if test=" null != createTime ">
+			and create_time = #{createTime}
+		</if>
+		<if test=" null != lastUpdateTime ">
+			and last_update_time = #{lastUpdateTime}
+		</if>
+  </sql>
+  
+  <select id="selectOneByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.web.model.CrmSalesOrg">
+		select <include refid="Base_Column_List" /> from tcrm_sales_org 
+		where 1=1 <include refid="Base_Condition" /> limit 1
+  </select>
+  
+  <select id="selectByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.web.model.CrmSalesOrg">
+		select <include refid="Base_Column_List" /> from tcrm_sales_org 
+		where 1=1 <include refid="Base_Condition" />
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tcrm_sales_org
+    where  id = #{0}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tcrm_sales_org
+    where id = #{0}
+  </delete>
+
+  <insert id="insert" parameterType="com.linkwee.web.model.CrmSalesOrg" >
+    INSERT INTO tcrm_sales_org
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != salesOrgId and ''!= salesOrgId  ">
+					sales_org_id,
+				</if>
+			 	<if test=" null != name and ''!= name  ">
+					name,
+				</if>
+			 	<if test=" null != city and ''!= city  ">
+					city,
+				</if>
+			 	<if test=" null != legalPerson and ''!= legalPerson  ">
+					legal_person,
+				</if>
+			 	<if test=" null != contacts and ''!= contacts  ">
+					contacts,
+				</if>
+			 	<if test=" null != contactMobile and ''!= contactMobile  ">
+					contact_mobile,
+				</if>
+			 	<if test=" null != managerAccount and ''!= managerAccount  ">
+					manager_account,
+				</if>
+			 	<if test=" null != password and ''!= password  ">
+					password,
+				</if>
+			 	<if test=" null != cooperationTime ">
+					cooperation_time,
+				</if>
+			 	<if test=" null != cooperationStatus ">
+					cooperation_status,
+				</if>
+			 	<if test=" null != createTime ">
+					create_time,
+				</if>
+			 	<if test=" null != lastUpdateTime ">
+					last_update_time,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != salesOrgId and ''!= salesOrgId  ">
+					 	#{salesOrgId},
+				</if>
+			 	<if test=" null != name and ''!= name  ">
+					 	#{name},
+				</if>
+			 	<if test=" null != city and ''!= city  ">
+					 	#{city},
+				</if>
+			 	<if test=" null != legalPerson and ''!= legalPerson  ">
+					 	#{legalPerson},
+				</if>
+			 	<if test=" null != contacts and ''!= contacts  ">
+					 	#{contacts},
+				</if>
+			 	<if test=" null != contactMobile and ''!= contactMobile  ">
+					 	#{contactMobile},
+				</if>
+			 	<if test=" null != managerAccount and ''!= managerAccount  ">
+					 	#{managerAccount},
+				</if>
+			 	<if test=" null != password and ''!= password  ">
+					 	#{password},
+				</if>
+			 	<if test=" null != cooperationTime ">
+					 	#{cooperationTime},
+				</if>
+			 	<if test=" null != cooperationStatus ">
+					 	#{cooperationStatus},
+				</if>
+			 	<if test=" null != createTime ">
+					 	#{createTime},
+				</if>
+			 	<if test=" null != lastUpdateTime ">
+					 	#{lastUpdateTime},
+				</if>
+		</trim>
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.linkwee.web.model.CrmSalesOrg" useGeneratedKeys="true" keyProperty="id" >
+		INSERT INTO tcrm_sales_org
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != salesOrgId and ''!= salesOrgId  ">
+					sales_org_id,
+				</if>
+			 	<if test=" null != name and ''!= name  ">
+					name,
+				</if>
+			 	<if test=" null != city and ''!= city  ">
+					city,
+				</if>
+			 	<if test=" null != legalPerson and ''!= legalPerson  ">
+					legal_person,
+				</if>
+			 	<if test=" null != contacts and ''!= contacts  ">
+					contacts,
+				</if>
+			 	<if test=" null != contactMobile and ''!= contactMobile  ">
+					contact_mobile,
+				</if>
+			 	<if test=" null != managerAccount and ''!= managerAccount  ">
+					manager_account,
+				</if>
+			 	<if test=" null != password and ''!= password  ">
+					password,
+				</if>
+			 	<if test=" null != cooperationTime ">
+					cooperation_time,
+				</if>
+			 	<if test=" null != cooperationStatus ">
+					cooperation_status,
+				</if>
+			 	<if test=" null != createTime ">
+					create_time,
+				</if>
+			 	<if test=" null != lastUpdateTime ">
+					last_update_time,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != salesOrgId and ''!= salesOrgId  ">
+					 	#{salesOrgId},
+				</if>
+			 	<if test=" null != name and ''!= name  ">
+					 	#{name},
+				</if>
+			 	<if test=" null != city and ''!= city  ">
+					 	#{city},
+				</if>
+			 	<if test=" null != legalPerson and ''!= legalPerson  ">
+					 	#{legalPerson},
+				</if>
+			 	<if test=" null != contacts and ''!= contacts  ">
+					 	#{contacts},
+				</if>
+			 	<if test=" null != contactMobile and ''!= contactMobile  ">
+					 	#{contactMobile},
+				</if>
+			 	<if test=" null != managerAccount and ''!= managerAccount  ">
+					 	#{managerAccount},
+				</if>
+			 	<if test=" null != password and ''!= password  ">
+					 	#{password},
+				</if>
+			 	<if test=" null != cooperationTime ">
+					 	#{cooperationTime},
+				</if>
+			 	<if test=" null != cooperationStatus ">
+					 	#{cooperationStatus},
+				</if>
+			 	<if test=" null != createTime ">
+					 	#{createTime},
+				</if>
+			 	<if test=" null != lastUpdateTime ">
+					 	#{lastUpdateTime},
+				</if>
+		</trim>
+	</insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.linkwee.web.model.CrmSalesOrg" >
+  		UPDATE tcrm_sales_org
+		<set>
+			<trim suffixOverrides=",">
+					<if test=" null != salesOrgId and ''!= salesOrgId  ">
+						sales_org_id = #{salesOrgId},
+					</if>
+					<if test=" null != name and ''!= name  ">
+						name = #{name},
+					</if>
+					<if test=" null != city and ''!= city  ">
+						city = #{city},
+					</if>
+					<if test=" null != legalPerson and ''!= legalPerson  ">
+						legal_person = #{legalPerson},
+					</if>
+					<if test=" null != contacts and ''!= contacts  ">
+						contacts = #{contacts},
+					</if>
+					<if test=" null != contactMobile and ''!= contactMobile  ">
+						contact_mobile = #{contactMobile},
+					</if>
+					<if test=" null != managerAccount and ''!= managerAccount  ">
+						manager_account = #{managerAccount},
+					</if>
+					<if test=" null != password and ''!= password  ">
+						password = #{password},
+					</if>
+					<if test=" null != cooperationTime ">
+						cooperation_time = #{cooperationTime},
+					</if>
+					<if test=" null != cooperationStatus ">
+						cooperation_status = #{cooperationStatus},
+					</if>
+					<if test=" null != createTime ">
+						create_time = #{createTime},
+					</if>
+					<if test=" null != lastUpdateTime ">
+						last_update_time = #{lastUpdateTime},
+					</if>
+			</trim>
+		</set>
+		<where>
+			 id = #{id}
+		</where>
+	</update>
+  
+	<update id="updateByPrimaryKey" parameterType="com.linkwee.web.model.CrmSalesOrg" >
+	    UPDATE tcrm_sales_org
+	   <set>
+			<trim suffixOverrides=",">
+					<if test=" null != salesOrgId and ''!= salesOrgId  ">
+						sales_org_id = #{salesOrgId},
+					</if>
+					<if test=" null != name and ''!= name  ">
+						name = #{name},
+					</if>
+					<if test=" null != city and ''!= city  ">
+						city = #{city},
+					</if>
+					<if test=" null != legalPerson and ''!= legalPerson  ">
+						legal_person = #{legalPerson},
+					</if>
+					<if test=" null != contacts and ''!= contacts  ">
+						contacts = #{contacts},
+					</if>
+					<if test=" null != contactMobile and ''!= contactMobile  ">
+						contact_mobile = #{contactMobile},
+					</if>
+					<if test=" null != managerAccount and ''!= managerAccount  ">
+						manager_account = #{managerAccount},
+					</if>
+					<if test=" null != password and ''!= password  ">
+						password = #{password},
+					</if>
+					<if test=" null != cooperationTime ">
+						cooperation_time = #{cooperationTime},
+					</if>
+					<if test=" null != cooperationStatus ">
+						cooperation_status = #{cooperationStatus},
+					</if>
+					<if test=" null != createTime ">
+						create_time = #{createTime},
+					</if>
+					<if test=" null != lastUpdateTime ">
+						last_update_time = #{lastUpdateTime},
+					</if>
+			</trim>
+		</set>
+		<where>
+			id = #{0}
+		</where>
+	  </update>
+	  
+	  
+	  <select id="getLcsStatistical" resultType="com.linkwee.web.response.LcsStatisticalResponse">
+	  	SELECT COUNT(DISTINCT c.user_id) totalCount,	IFNULL(SUM(case when f.fee_type='1001' then f.product_amount else 0 end ),0) totalAmount FROM `tcrm_cfplanner` c LEFT JOIN tcim_fee f ON f.profit_cfplanner_id = c.user_id WHERE
+		c.sales_org_id = #{salesOrgId}
+	  </select>
+	  
+	  <select id="getLcsStatisticalList" resultType="com.linkwee.web.response.LcsStatisticalListResponse">
+		  	SELECT
+				u.user_name name,
+				u.mobile,
+				m.city,
+				c.create_time time,
+				COUNT(DISTINCT i.user_id) customers,
+				IFNULL(SUM(case when f.fee_type='1001' then f.product_amount else 0 end ),0) totalAmount,
+				IFNULL(SUM(case when f.fee_type='1001' then f.fee_amount else 0 end ),0) totalFee,
+				IFNULL(SUM(case when f.fee_type='1001' AND DATE_FORMAT(f.create_time,'%Y-%m')=DATE_FORMAT(now(),'%Y-%m') then f.fee_amount else 0 end),0) monthFee,
+				IFNULL(SUM(case when f.fee_type='1001' AND DATE_FORMAT(f.create_time,'%Y-%m')=DATE_FORMAT(now(),'%Y-%m') then f.product_amount else 0 end),0) monthAmount
+			FROM
+				tcrm_cfplanner c
+			LEFT JOIN tcrm_user_info u ON c.user_id = u.user_id
+			LEFT JOIN tcrm_investor i ON i.cfplanner = c.user_id
+			LEFT JOIN tcim_fee f ON f.profit_cfplanner_id = c.user_id AND f.investor_id = i.user_id
+			LEFT JOIN tsys_mobile_area m ON m.mobile = LEFT (c.mobile, 7)
+			WHERE
+				c.sales_org_id = #{salesOrgId}
+				<if test=" null != nameOrMobile and '' != nameOrMobile">
+					AND (u.mobile = #{nameOrMobile} OR u.user_name= #{nameOrMobile})
+				</if>
+				<if test=" null != city and '' != city">
+					AND m.city = #{city}
+				</if>
+			GROUP BY c.user_id
+			ORDER BY totalAmount DESC
+	  </select>
+	  
+	  <select id="getCustomerStatisticalList" resultType="com.linkwee.web.response.CustomerStatisticalListResponse">
+			SELECT
+			u.user_name name,
+			u.mobile,
+			ab.id_card idcard,
+			a.is_free_customer source,
+			u.create_time time,
+			IFNULL(SUM(i.invest_amt),0) totalAmt,
+			COUNT(i.invest_id) totalCount,
+			IFNULL(SUM(CASE WHEN i.`status`=1 THEN i.invest_amt ELSE NULL END),0) investAmt,
+			COUNT(CASE WHEN i.`status`=1 THEN i.invest_id ELSE NULL END )investCount,
+			IFNULL(SUM(case when f.fee_type='1001' then f.fee_amount else 0 end ),0) fee
+			FROM
+				tcrm_investor a
+			LEFT JOIN tac_account_bind ab ON ab.user_id = a.user_id
+			LEFT JOIN tcrm_user_info u ON u.user_id = a.user_id
+			LEFT JOIN tcim_product_invest_record i ON a.user_id = i.user_id
+			LEFT JOIN tcim_fee f ON a.cfplanner = f.profit_cfplanner_id AND i.invest_id = f.bill_id AND f.fee_type='1001'
+			WHERE 
+				a.cfplanner = (SELECT c.user_id FROM tcrm_cfplanner c where c.mobile = #{mobile} AND c.sales_org_id=#{salesOrgId})
+				<if test=" null != nameOrMobile and '' != nameOrMobile">
+					AND (u.mobile = #{nameOrMobile} OR u.user_name= #{nameOrMobile})
+				</if>
+			GROUP BY a.user_id
+			ORDER BY totalAmt DESC
+	  </select>
+	  
+	  <select id="getStockYearpurAmt" resultType="map">
+	  	SELECT IFNULL(znh,0) znh,IFNULL(gdnh,0) gdnh ,IFNULL(gdinvest,0) gdinvest  FROM 
+			(
+			SELECT
+			  SUM(f.yearpur_amount) gdnh,SUM(f.product_amount) gdinvest
+			FROM
+			  tcrm_cfplanner c
+			LEFT JOIN tcrm_user_info u ON c.user_id = u.user_id
+			LEFT JOIN tsys_mobile_area m ON m.mobile = LEFT(c.mobile,7)
+			LEFT JOIN tcim_fee f ON c.user_id = f.profit_cfplanner_id
+			AND f.fee_type = '1001'
+			AND DATE(f.create_time) BETWEEN #{req.startDate}
+			AND #{req.endDate}
+			AND f.fee_amount > 0
+			<where>
+				c.sales_org_id = #{salesOrgId}
+				<if test=" null != req.city and '' != req.city">
+					AND m.city = #{req.city} 
+				</if>	
+				<if test=" null != req.platfrom and '' != req.platfrom">
+					AND f.product_org_id = #{req.platfrom}
+				</if>
+				<if test=" null != req.nameOrMobile and '' != req.nameOrMobile">
+					AND (u.mobile = #{req.nameOrMobile} OR u.user_name= #{req.nameOrMobile})
+				</if>
+			</where>
+			) a,
+			(
+			SELECT
+			 SUM(f.yearpur_amount) znh
+			FROM
+			  tcrm_cfplanner c
+			LEFT JOIN tcrm_user_info u ON c.user_id = u.user_id
+			LEFT JOIN tsys_mobile_area m ON m.mobile = LEFT(c.mobile,7)
+			LEFT JOIN  tcim_feedetail f ON c.user_id = f.profit_cfplanner_id
+			AND f.fee_type = '1001'
+			AND DATE(f.create_time) BETWEEN #{req.startDate}
+			AND #{req.endDate}
+			AND f.fee_amount > 0
+			<where>
+				c.sales_org_id = #{salesOrgId}
+				<if test=" null != req.city and '' != req.city">
+					AND m.city = #{req.city} 
+				</if>	
+				<if test=" null != req.platfrom and '' != req.platfrom">
+					AND f.product_org_id = #{req.platfrom}
+				</if>
+				<if test=" null != req.nameOrMobile and '' != req.nameOrMobile">
+					AND (u.mobile = #{req.nameOrMobile} OR u.user_name= #{req.nameOrMobile})
+				</if>
+			</where>
+			) b
+	  
+	  </select>
+	  
+	  <select id="getTeamStatistical" resultType="com.linkwee.web.response.TeamStatisticalResponse">
+	  
+	  		SELECT
+					COUNT(*) investCount,
+					COUNT(DISTINCT c.user_id) lcsCount,
+					IFNULL(SUM(f.product_amount),0) totalAmt,
+					IFNULL(SUM(f.yearpur_amount),0) totalYearpurAmt,
+					IFNULL(SUM(f.fee_amount),0) totalFeeAmt
+					FROM
+						tcrm_cfplanner c
+					LEFT JOIN tcrm_user_info u ON c.user_id = u.user_id
+					LEFT JOIN tsys_mobile_area m ON m.mobile = LEFT (c.mobile, 7)
+					LEFT JOIN tcim_fee f ON f.profit_cfplanner_id = c.user_id AND f.fee_type = '1001' 
+					LEFT JOIN tcim_org_info o ON f.product_org_id = o.org_number
+					
+					WHERE
+						c.sales_org_id = #{salesOrgId}	
+						<if test=" null != req.city and '' != req.city">
+							AND m.city = #{req.city} 
+						</if>	
+						<if test=" null != req.platfrom and '' != req.platfrom">
+							AND o.org_number = #{req.platfrom}
+						</if>
+						<if test=" null != req.nameOrMobile and '' != req.nameOrMobile">
+							AND (u.mobile = #{req.nameOrMobile} OR u.user_name= #{req.nameOrMobile})
+						</if>
+						AND DATE(f.create_time) BETWEEN #{req.startDate} AND #{req.endDate}
+						
+						<!-- <if test=" null != req.startDate and '' != req.startDate">
+							<![CDATA[  AND DATE_FORMAT(f.create_time, '%Y-%m-%d')  >= DATE_FORMAT(#{req.startDate}, '%Y-%m-%d') ]]> 
+						</if>
+						<if test=" null != req.endDate and '' != req.endDate">
+							<![CDATA[  AND DATE_FORMAT(f.create_time, '%Y-%m-%d')  <= DATE_FORMAT(#{req.endDate}, '%Y-%m-%d') ]]> 
+						</if> -->	
+					GROUP BY c.user_id HAVING totalAmt>0
+	  
+			<!-- SELECT 
+				COUNT(DISTINCT user_id) lcsCount,
+				IFNULL(SUM(investCount),0) investCount,
+				IFNULL(SUM(investAmt),0) totalAmt,
+				IFNULL(SUM(yearpurAmt),0) totalYearpurAmt,
+				IFNULL(SUM(feeAmt),0) totalFeeAmt
+			 FROM (
+				SELECT
+					COUNT(*)investCount,
+					SUM(f.product_amount) investAmt	,
+					SUM(f.yearpur_amount) yearpurAmt,
+					SUM(f.fee_amount) feeAmt,
+					c.user_id
+					FROM
+						tcrm_cfplanner c
+					LEFT JOIN tcrm_user_info u ON c.user_id = u.user_id
+					LEFT JOIN tsys_mobile_area m ON m.mobile = LEFT (c.mobile, 7)
+					LEFT JOIN tcim_fee f ON f.profit_cfplanner_id = c.user_id AND f.fee_type = '1001' 
+					LEFT JOIN tcim_org_info o ON f.product_org_id = o.org_number
+					LEFT JOIN tcim_product_invest_record ir ON ir.invest_id = f.bill_id
+					
+					WHERE
+						c.sales_org_id = #{salesOrgId}	
+						<if test=" null != req.city and '' != req.city">
+							AND m.city = #{req.city} 
+						</if>	
+						<if test=" null != req.platfrom and '' != req.platfrom">
+							AND o.org_number = #{req.platfrom}
+						</if>
+						<if test=" null != req.nameOrMobile and '' != req.nameOrMobile">
+							AND (u.mobile = #{req.nameOrMobile} OR u.user_name= #{req.nameOrMobile})
+						</if>
+						<if test=" null != req.startDate and '' != req.startDate">
+							<![CDATA[  AND DATE_FORMAT(ir.start_time, '%Y-%m-%d')  >= DATE_FORMAT(#{req.startDate}, '%Y-%m-%d') ]]> 
+						</if>
+						<if test=" null != req.endDate and '' != req.endDate">
+							<![CDATA[  AND DATE_FORMAT(ir.start_time, '%Y-%m-%d')  <= DATE_FORMAT(#{req.endDate}, '%Y-%m-%d') ]]> 
+						</if>	
+					GROUP BY c.user_id HAVING investAmt>0
+					
+				UNION ALL
+				
+					SELECT
+							count(*)investCount,
+							SUM(ui.invest_amt )investAmt,
+							SUM(f.yearpur_amount) yearpurAmt,
+							SUM(ui.fee_amt) feeAmt,
+							c.user_id
+					FROM
+						tcrm_cfplanner c
+					LEFT JOIN tcrm_user_info u ON c.user_id = u.user_id
+					LEFT JOIN tsys_mobile_area m ON m.mobile = LEFT (c.mobile, 7)
+					LEFT JOIN tcim_product_unrecord_invest ui ON ui.cfplanner_id = c.user_id AND ui.`status` = 1
+					LEFT JOIN tcim_fee f ON f.bill_id = ui.invest_id AND f.fee_type = '1001'
+					WHERE
+						c.sales_org_id = #{salesOrgId} 
+						<if test=" null != req.city and '' != req.city">
+							AND m.city = #{req.city} 
+						</if>	
+						<if test=" null != req.platfrom and '' != req.platfrom">
+							AND ui.platfrom = #{req.platfrom}
+						</if>
+						<if test=" null != req.nameOrMobile and '' != req.nameOrMobile">
+							AND (u.mobile = #{req.nameOrMobile} OR u.user_name= #{req.nameOrMobile})
+						</if>
+						<if test=" null != req.startDate and '' != req.startDate">
+							<![CDATA[  AND DATE_FORMAT(ui.invest_time, '%Y-%m-%d')  >= DATE_FORMAT(#{req.startDate}, '%Y-%m-%d') ]]> 
+						</if>
+						<if test=" null != req.endDate and '' != req.endDate">
+							<![CDATA[  AND DATE_FORMAT(ui.invest_time, '%Y-%m-%d')  <= DATE_FORMAT(#{req.endDate}, '%Y-%m-%d') ]]> 
+						</if>
+						GROUP BY c.user_id HAVING investAmt>0
+			) a  -->
+	  </select>
+	  
+	  <select id="getTeamStatisticalList" resultType="com.linkwee.web.response.TeamStatisticalListResponse">
+	  
+	  
+	  		SELECT
+					u.user_name cfpName,
+					u.mobile cfpMobile,
+					m.city,
+					iu.user_name customerName,
+					iu.mobile customerMobile,
+					IFNULL(f.product_amount, 0) investAmt ,
+					o.`name` platfromName,
+					f.create_time time
+				FROM
+					tcrm_cfplanner c
+				LEFT JOIN tcrm_user_info u ON c.user_id = u.user_id
+				LEFT JOIN tsys_mobile_area m ON m.mobile = LEFT (c.mobile, 7)
+				LEFT JOIN tcim_fee f ON f.profit_cfplanner_id = c.user_id
+				AND f.fee_type = '1001'
+				LEFT JOIN tcrm_user_info iu ON f.investor_id = iu.user_id
+				LEFT JOIN tcim_org_info o ON f.product_org_id = o.org_number
+				WHERE
+					c.sales_org_id = #{salesOrgId}	
+					<![CDATA[ AND f.product_amount>0 ]]> 
+					<if test=" null != req.city and '' != req.city">
+						AND m.city = #{req.city} 
+					</if>	
+					<if test=" null != req.platfrom and '' != req.platfrom">
+						AND o.org_number = #{req.platfrom}
+					</if>
+					<if test=" null != req.nameOrMobile and '' != req.nameOrMobile">
+						AND (u.mobile = #{req.nameOrMobile} OR u.user_name= #{req.nameOrMobile})
+					</if>
+					AND DATE(f.create_time) BETWEEN #{req.startDate} AND #{req.endDate}
+					
+				<!-- 	<if test=" null != req.startDate and '' != req.startDate">
+						<![CDATA[  AND DATE_FORMAT(f.create_time, '%Y-%m-%d')  >= DATE_FORMAT(#{req.startDate}, '%Y-%m-%d') ]]> 
+					</if>
+					<if test=" null != req.endDate and '' != req.endDate">
+						<![CDATA[  AND DATE_FORMAT(f.create_time, '%Y-%m-%d')  <= DATE_FORMAT(#{req.endDate}, '%Y-%m-%d') ]]> 
+					</if> -->
+			 ORDER BY f.create_time desc 
+			 
+			<!-- SELECT  
+				cfpName,
+				cfpMobile,
+				city,
+				customerName,
+				customerMobile,
+				IFNULL(investAmt, 0) investAmt,
+				platfromName,
+				time
+			FROM (
+				SELECT
+					u.user_name cfpName,
+					u.mobile cfpMobile,
+					m.city,
+					iu.user_name customerName,
+					iu.mobile customerMobile,
+					ir.invest_amt investAmt,
+					o.`name` platfromName,
+					ir.start_time time
+				FROM
+					tcrm_cfplanner c
+				LEFT JOIN tcrm_user_info u ON c.user_id = u.user_id
+				LEFT JOIN tsys_mobile_area m ON m.mobile = LEFT (c.mobile, 7)
+				LEFT JOIN tcim_fee f ON f.profit_cfplanner_id = c.user_id
+				AND f.fee_type = '1001'
+				LEFT JOIN tcrm_user_info iu ON f.investor_id = iu.user_id
+				LEFT JOIN tcim_org_info o ON f.product_org_id = o.org_number
+				LEFT JOIN tcim_product_invest_record ir ON ir.invest_id = f.bill_id
+				WHERE
+					c.sales_org_id = #{salesOrgId}	
+					<![CDATA[ AND ir.invest_amt>0 ]]> 
+					<if test=" null != req.city and '' != req.city">
+						AND m.city = #{req.city} 
+					</if>	
+					<if test=" null != req.platfrom and '' != req.platfrom">
+						AND o.org_number = #{req.platfrom}
+					</if>
+					<if test=" null != req.nameOrMobile and '' != req.nameOrMobile">
+						AND (u.mobile = #{req.nameOrMobile} OR u.user_name= #{req.nameOrMobile})
+					</if>
+					<if test=" null != req.startDate and '' != req.startDate">
+						<![CDATA[  AND DATE_FORMAT(ir.start_time, '%Y-%m-%d')  >= DATE_FORMAT(#{req.startDate}, '%Y-%m-%d') ]]> 
+					</if>
+					<if test=" null != req.endDate and '' != req.endDate">
+						<![CDATA[  AND DATE_FORMAT(ir.start_time, '%Y-%m-%d')  <= DATE_FORMAT(#{req.endDate}, '%Y-%m-%d') ]]> 
+					</if>	
+					
+				UNION ALL
+				
+				SELECT
+					u.user_name cfpName,
+					u.mobile cfpMobile,
+					m.city,
+					ui.user_name customerName,
+					ui.user_mobile customerMobile,
+					ui.invest_amt investAmt,
+					ui.platfrom_name platfromName,
+					ui.invest_time time
+				FROM
+					tcrm_cfplanner c
+				LEFT JOIN tcrm_user_info u ON c.user_id = u.user_id
+				LEFT JOIN tsys_mobile_area m ON m.mobile = LEFT (c.mobile, 7)
+				LEFT JOIN tcim_product_unrecord_invest ui ON ui.cfplanner_id = c.user_id AND ui.`status` = 1
+				WHERE
+					c.sales_org_id = #{salesOrgId} 
+					<![CDATA[ AND ui.invest_amt>0 ]]> 
+					<if test=" null != req.city and '' != req.city">
+						AND m.city = #{req.city} 
+					</if>	
+					<if test=" null != req.platfrom and '' != req.platfrom">
+						AND ui.platfrom = #{req.platfrom}
+					</if>
+					<if test=" null != req.nameOrMobile and '' != req.nameOrMobile">
+						AND (u.mobile = #{req.nameOrMobile} OR u.user_name= #{req.nameOrMobile})
+					</if>
+					<if test=" null != req.startDate and '' != req.startDate">
+						<![CDATA[  AND DATE_FORMAT(ui.invest_time, '%Y-%m-%d')  >= DATE_FORMAT(#{req.startDate}, '%Y-%m-%d') ]]> 
+					</if>
+					<if test=" null != req.endDate and '' != req.endDate">
+						<![CDATA[  AND DATE_FORMAT(ui.invest_time, '%Y-%m-%d')  <= DATE_FORMAT(#{req.endDate}, '%Y-%m-%d')  ]]> 
+					</if>
+			) a ORDER BY a.time desc -->
+	  </select>
+	  
+	  <select id="getPlatfroms" resultType="map">
+	  		SELECT o.`name`,o.org_number number FROM tcim_org_info o;
+	  </select>
+	  
+</mapper>

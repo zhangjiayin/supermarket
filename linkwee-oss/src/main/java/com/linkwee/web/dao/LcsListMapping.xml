@@ -1,0 +1,495 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.LcsListDao">
+
+<resultMap  type="com.linkwee.web.response.LcsDetailResp" id="LcsDetailResp">
+	<result column="f_number" property="number" />
+	<result column="f_name" property="name" />
+	<result column="f_mobile" property="mobile" />
+	<result column="f_idcard" property="idcard" />
+	<result column="department" property="department" />
+	<result column="f_cfp_level" property="cfplevel" />
+	<result column="team" property="team" />
+	<result column="customer" property="customer" />
+	<result column="f_create_time" property="regTime" jdbcType="TIMESTAMP"/>
+	<result column="userRegTime" property="userRegTime"/>
+</resultMap>
+
+	<resultMap  type="com.linkwee.web.response.LcsDetailResp" id="LcsDetailRespList">
+		<result column="f_number" property="number" />
+		<result column="f_name" property="name" />
+		<result column="f_mobile" property="mobile" />
+		<result column="f_idcard" property="idcard" />
+		<result column="department" property="department" />
+		<result column="f_cfp_level" property="cfplevel" />
+		<result column="team" property="team" />
+		<result column="customer" property="customer" />
+		<result column="parent_name" property="parentName" />
+		<result column="parent_mobile" property="parentMobile" />
+		<result column="f_create_time" property="regTime" jdbcType="TIMESTAMP"/>
+	</resultMap>
+
+<resultMap  type="com.linkwee.web.response.LcsTeamDetailResp" id="LcsTeamDetailResp">
+	<result column="f_number" property="number" />
+	<result column="f_name" property="name" />
+	<result column="f_mobile" property="mobile" />
+	<result column="f_idcard" property="idcard" />
+	<result column="teamLevel" property="teamLevel" />
+	<result column="f_cfp_reg_time" property="bindTime" />
+	<result column="investmentTotalAmount" property="sales" />
+	<result column="investmentCount" property="saleCount" />
+	<result column="tfee" property="earnings"/>
+</resultMap>
+
+<resultMap  type="com.linkwee.web.response.LcsCustomeDetailResp" id="LcsCustomeDetailResp">
+	<result column="f_number" property="number" />
+	<result column="fcustomername" property="name" />
+	<result column="fcustomermobile" property="mobile" />
+	<result column="f_idcard" property="idcard" />
+	<result column="fcreatetime" property="bindTime" />
+	<result column="investmentTotalAmount" property="investmentTotalAmount" />
+	<result column="investmentCount" property="investmentCount" />
+	<result column="nowInvestmentAmount" property="nowInvestmentAmount" />
+	<result column="nowInvestmentCount" property="nowInvestmentCount" />
+	<result column="_from" property="from" />
+	<result column="tfee" property="tfee" />
+</resultMap>
+
+
+
+<select id="exportLcsList" resultMap="LcsDetailResp">
+SELECT a.*,IFNULL(b.customer,0)AS customer,IFNULL(noelevel+twolevel,0)AS team FROM 
+ (SELECT t.f_number,
+	 t.f_name,
+	 t.f_mobile,
+	 t.f_idcard,
+	 t.f_cfp_level,
+	 t.f_create_time,
+	 (SELECT  rg.fname  FROM  torginfo rg  WHERE rg.fnumber = t.f_department) AS department  
+
+ 	FROM t_sale_user_info t
+ 	<where>
+	 	t.f_is_cfp=1
+	 	<if test=" null != nameOrmobile and ''!= nameOrmobile ">
+			and t.f_mobile  = #{nameOrmobile} or t.f_name =#{nameOrmobile}
+		</if>
+		<if test=" null != startDate">
+			and DATE_FORMAT(t.f_create_time, '%Y-%m-%d') &gt;=  DATE_FORMAT(#{startDate}, '%Y-%m-%d')
+		</if>
+		<if test=" null != endDate">
+			and DATE_FORMAT(t.f_create_time, '%Y-%m-%d') &lt;=  DATE_FORMAT(#{endDate}, '%Y-%m-%d')
+		</if>
+	 </where>
+ 	order by t.f_number
+ )a 
+ LEFT JOIN (SELECT  COUNT(fid)AS customer, fcurrsaleuser FROM tusercustomerrel  GROUP BY fcurrsaleuser ORDER BY NULL) b 
+ ON a.f_number = b.fcurrsaleuser
+ LEFT JOIN (SELECT COUNT(f_number)AS noelevel,f_number,f_parent_id FROM  t_sale_user_info )c ON c.f_parent_id=a.f_number
+ LEFT JOIN (SELECT COUNT(f_number)AS twolevel,f_parent_id  FROM  t_sale_user_info )d ON d.f_parent_id=c.f_number
+</select>
+<select id="exportLcsTeamList" resultMap="LcsTeamDetailResp">
+
+SELECT 
+		IFNULL(SUM(b.fpuramount), 0) AS investmentTotalAmount,
+		IFNULL(COUNT(b.fcustomernumber), 0) AS investmentCount,
+		IFNULL(SUM(c.ffeeamount), 0) AS tfee,
+		a.f_number,
+    a.f_name,
+    a.f_mobile,
+    a.f_idcard,
+    a.f_cfp_reg_time,
+     (
+      CASE
+        WHEN a.f_parent_id = #{number}
+        THEN '一级' 
+        ELSE '二级' 
+      END
+    ) AS teamLevel
+
+ FROM (SELECT a.f_number,
+    a.f_name,
+    a.f_mobile,
+    a.f_idcard,
+    a.f_cfp_reg_time,f_parent_id FROM t_sale_user_info a  
+    <where>
+		(a.f_parent_id = #{number}  OR a.f_ancestor LIKE CONCAT('%', #{number}, '!________')) AND a.f_is_cfp = 1
+		<if test=" null != startDate">
+			and DATE_FORMAT(a.f_cfp_reg_time, '%Y-%m-%d') &gt;=  DATE_FORMAT(#{startDate}, '%Y-%m-%d')
+		</if>
+		<if test=" null != endDate">
+			AND DATE_FORMAT(a.f_cfp_reg_time, '%Y-%m-%d') &lt;=  DATE_FORMAT(#{endDate}, '%Y-%m-%d')
+		</if>
+	</where>
+)a 
+
+LEFT JOIN trecvrequest b ON b.fsaleusernumber = a.f_mobile AND b.foptype = 2 AND b.fdelstatus = 0 
+
+LEFT JOIN tfeedetail c ON c.fsaleusernumber= a.f_number AND  c.frequestid = b.fid  
+
+GROUP BY a.f_number
+
+</select>
+
+
+
+<select id="exportLcsCustomerList" resultMap="LcsCustomeDetailResp">
+SELECT 
+
+a.fcustomername,
+    a.fcustomermobile,
+    a.fcreatetime,
+    IFNULL(b.investmentTotalAmount, 0) AS investmentTotalAmount,
+    IFNULL(b.investmentCount, 0) AS investmentCount,
+    IFNULL(c.nowInvestmentAmount, 0) AS nowInvestmentAmount,
+    IFNULL(c.nowInvestmentCount, 0) AS nowInvestmentCount,
+    IFNULL(b.tfee, 0) AS tfee,
+    IF(a.ffreecustomer=1,'邀请','自由客户')AS _from
+
+
+FROM tusercustomerrel a LEFT JOIN 
+    (SELECT 
+      SUM(fpuramount) AS investmentTotalAmount,
+      COUNT(fcustomernumber) AS investmentCount,
+      SUM(ffeeamount) AS tfee,
+      fcustomernumber 
+    FROM
+      tfeedetail 
+    WHERE fsaleusernumber = #{number} 
+    GROUP BY fcustomernumber 
+    ORDER BY NULL) b 
+    ON a.fcustomermobile = b.fcustomernumber 
+    LEFT JOIN 
+    (SELECT 
+      SUM(fpuramount) AS nowInvestmentAmount,
+      COUNT(fcustomerid) AS nowInvestmentCount,
+      fcustomernumber
+    FROM
+      trecvrequest 
+    WHERE fsaleusernumber = #{number}
+      AND foptype = 2 
+    GROUP BY fcustomerid 
+    ORDER BY NULL) c 
+    ON c.fcustomernumber = b.fcustomernumber
+    <where>
+   		a.fcurrsaleuser = #{number}
+  		<if test=" null != startDate">
+			and DATE_FORMAT(a.fcreatetime, '%Y-%m-%d') &gt;=  DATE_FORMAT(#{startDate}, '%Y-%m-%d')
+		</if>
+		<if test=" null != endDate">
+			and DATE_FORMAT(a.fcreatetime, '%Y-%m-%d') &lt;=  DATE_FORMAT(#{endDate}, '%Y-%m-%d')
+		</if>
+  	</where>
+
+</select>
+
+<!-- 查询理财师数量 -->
+<select id="queryLcsListCount"  resultType="int" >
+	 SELECT COUNT(t.f_number) FROM t_sale_user_info t
+	 <where>
+	 	t.f_is_cfp=1
+	 	<if test=" null != nameOrmobile and ''!= nameOrmobile ">
+	 		and t.f_mobile  = #{nameOrmobile} or t.f_name =#{nameOrmobile}
+		</if>
+		<if test=" null != startDate">
+			and DATE_FORMAT(t.f_create_time, '%Y-%m-%d') &gt;=  DATE_FORMAT(#{startDate}, '%Y-%m-%d')
+		</if>
+		<if test=" null != endDate">
+			and DATE_FORMAT(t.f_create_time, '%Y-%m-%d') &lt;=  DATE_FORMAT(#{endDate}, '%Y-%m-%d')
+		</if>
+	 </where>
+</select>
+
+<!-- 查询理财师列表 -->
+<select id="queryLcsList" resultMap="LcsDetailResp" >
+
+SELECT 
+	 t.f_number,
+	 t.f_name,
+	 t.f_mobile,
+	 t.f_idcard,
+	 t.f_cfp_level,
+	t.f_create_time,
+	DATE_FORMAT(t.f_create_time,'%Y-%m-%d %H:%i:%s') as userRegTime,
+	 t.f_level_experience,
+	(SELECT tp.f_name FROM t_sale_user_info tp WHERE  tp.f_number = t.f_parent_id) as parent_name,
+	(SELECT tp.f_mobile FROM t_sale_user_info tp WHERE  tp.f_number = t.f_parent_id) as parent_mobile,
+	 (SELECT  rg.fname  FROM  torginfo rg  WHERE rg.fnumber = t.f_department) department, 
+	 COUNT(t1.fid) customer,
+	 IFNULL((b.childrenCount+c.childrenCount),0) team
+	 FROM
+    t_sale_user_info t LEFT JOIN 
+    
+    tusercustomerrel t1 
+      ON t.f_number = t1.fcurrsaleuser AND t.f_is_cfp =1
+      
+      LEFT JOIN
+      
+      
+      (SELECT t.f_number,COUNT(t1.f_number) childrenCount
+FROM  t_sale_user_info t
+LEFT JOIN t_sale_user_info t1 ON t1.f_parent_id = t.f_number AND t1.f_is_cfp =1
+WHERE t.f_is_cfp =1
+GROUP BY t.f_number)b
+	 ON b.f_number =t.f_number 
+	
+	LEFT JOIN 
+	
+	(
+	SELECT t.f_number,COUNT(t1.f_number) childrenCount
+FROM  t_sale_user_info t LEFT JOIN
+(SELECT curr.f_number,parent.f_parent_id FROM t_sale_user_info curr,t_sale_user_info parent
+WHERE curr.f_parent_id = parent.f_number
+  AND curr.f_is_cfp =1)t1 ON t1.f_parent_id=t.f_number WHERE t.f_is_cfp =1 GROUP BY t.f_number
+
+)c ON c.f_number =t.f_number 
+
+	<where>
+	 	t.f_is_cfp=1
+	 	<if test=" null != query.nameOrmobile and ''!= query.nameOrmobile ">
+	 		and t.f_mobile  = #{query.nameOrmobile} or t.f_name =#{query.nameOrmobile}
+		</if>
+		<if test=" null != query.startDate">
+			and DATE_FORMAT(t.f_create_time, '%Y-%m-%d') &gt;=  DATE_FORMAT(#{query.startDate}, '%Y-%m-%d')
+		</if>
+		<if test=" null != query.endDate">
+			and DATE_FORMAT(t.f_create_time, '%Y-%m-%d') &lt;=  DATE_FORMAT(#{query.endDate}, '%Y-%m-%d')
+		</if>
+	 </where>
+	
+	 GROUP BY t.f_number  ORDER BY t.f_create_time DESC
+ 
+</select>
+
+
+<!-- 查询理财师详情 -->
+<select id="queryLcsDetail" resultType="com.linkwee.web.response.LcsDetailResp" >
+ SELECT a.*,p.f_name as parentName,p.f_mobile as parentMobile,IF(a.rgfancestor='00000002',1,0) as isNew FROM
+ (SELECT t.f_number as number,
+	 t.f_name as `name`,
+	 t.f_mobile as mobile,
+	 t.f_idcard as idcard,
+	 t.f_cfp_level as cfplevel,
+	 t.f_create_time as regTime,
+	 t.f_image as image,
+	 t.f_disabled_login_time as disabledLoginTime,
+	 t.f_parent_id as parentId,
+	 t.f_customer_id as customerId,
+	 t.f_department as departmentId,
+	 (SELECT  rg.fname  FROM  torginfo rg  WHERE t.f_department != '99999999' AND rg.fnumber = t.f_department) AS department,
+	 (SELECT  rg.fparentid  FROM  torginfo rg  WHERE t.f_department != '99999999' AND rg.fnumber = t.f_department) AS departmentParentId,
+	 (SELECT  IF(rg.fancestor IS NULL,rg.fnumber,rg.fancestor)  FROM  torginfo rg  WHERE t.f_department != '99999999' AND rg.fnumber = t.f_department) AS rgfancestor
+ 	FROM t_sale_user_info t
+	 	 WHERE t.f_mobile = #{mobile}
+ 	order by t.f_number
+ )a
+ LEFT JOIN t_sale_user_info p ON p.f_number=a.parentId LIMIT 1;
+</select>
+
+
+
+
+<!-- 查询理财师团队数量 -->
+<select id="queryLcsTeamCount"  resultType="int" >
+	SELECT 
+    	count(t.f_number)
+  FROM
+    t_sale_user_info t 
+    <where>
+    	t.f_parent_id =#{number} OR 
+    	t.f_ancestor LIKE CONCAT('%',#{number},'!________') 
+    	AND t.f_is_cfp=1 
+    	<if test=" null != startDate">
+			AND DATE_FORMAT(t.f_create_time, '%Y-%m-%d') &gt;=  DATE_FORMAT(#{startDate}, '%Y-%m-%d')
+		</if>
+		<if test=" null != endDate">
+			AND DATE_FORMAT(t.f_create_time, '%Y-%m-%d') &lt;=  DATE_FORMAT(#{endDate}, '%Y-%m-%d')
+		</if>
+    </where>
+</select>
+
+<!-- 查询理财师团队成员 -->
+<select id="queryLcsTeamList"  resultMap="LcsTeamDetailResp" >
+SELECT 
+		IFNULL(SUM(b.fpuramount), 0) AS investmentTotalAmount,
+		IFNULL(COUNT(b.fcustomernumber), 0) AS investmentCount,
+		IFNULL(SUM(c.ffeeamount), 0) AS tfee,
+		a.f_number,
+    a.f_name,
+    a.f_mobile,
+    a.f_idcard,
+    a.f_cfp_reg_time,
+     (
+      CASE
+        WHEN a.f_parent_id = #{query.number}
+        THEN '一级' 
+        ELSE '二级' 
+      END
+    ) AS teamLevel
+
+ FROM (SELECT a.f_number,
+    a.f_name,
+    a.f_mobile,
+    a.f_idcard,
+    a.f_cfp_reg_time,f_parent_id FROM t_sale_user_info a  
+    <where>
+		(a.f_parent_id = #{query.number}  OR a.f_ancestor LIKE CONCAT('%', #{query.number}, '!________')) AND a.f_is_cfp = 1
+		<if test=" null != query.startDate">
+			and DATE_FORMAT(a.f_cfp_reg_time, '%Y-%m-%d') &gt;=  DATE_FORMAT(#{query.startDate}, '%Y-%m-%d')
+		</if>
+		<if test=" null != query.endDate">
+			AND DATE_FORMAT(a.f_cfp_reg_time, '%Y-%m-%d') &lt;=  DATE_FORMAT(#{query.endDate}, '%Y-%m-%d')
+		</if>
+	</where>
+)a 
+
+LEFT JOIN trecvrequest b ON b.fsaleusernumber = a.f_mobile AND b.foptype = 2 AND b.fdelstatus = 0 
+
+LEFT JOIN tfeedetail c ON c.fsaleusernumber= a.f_number AND  c.frequestid = b.fid  
+
+GROUP BY a.f_number
+
+
+</select>
+
+
+
+
+<!-- 是否理财师 -->
+<select id="isCfp" resultType="int" >
+SELECT COUNT(f_number) FROM t_sale_user_info t
+	 <where>
+	 	 t.f_mobile = #{mobile} AND t.f_is_cfp=1
+	 </where>
+</select>
+
+<!-- 退出理财师 start -->
+
+<!-- 记录操作 -->
+<insert id="operationRecords">
+INSERT INTO t_unconventional_record(f_lcs_number,f_opt_type,f_effective_time,f_opt_user_number,f_opt_user_name,f_remark,f_extended,f_cfp_mobile)
+SELECT f_number,1,NOW(),'00000000','admin',#{remark},f_department,f_mobile FROM t_sale_user_info WHERE f_mobile=#{mobile};
+</insert>
+
+<!-- 备份 -->
+<insert id="bacRecords">
+INSERT INTO t_sale_user_info_bak SELECT * FROM t_sale_user_info WHERE f_mobile =#{mobile};
+</insert>
+
+<!-- 更新为自由客户 -->
+<update id="changeFreedomCustomer">
+	UPDATE  tusercustomerrel SET ffreecustomer=1,fcurrsaleuser=NULL WHERE fcurrsaleuser = (SELECT f_number FROM t_sale_user_info WHERE f_mobile = #{mobile})
+</update>
+
+
+	<!--删除理财师头像-->
+	<update id="removeSaleUserHeadImage">
+		UPDATE  t_sale_user_info SET f_image = NULL  WHERE f_mobile = #{mobile}
+	</update>
+
+	<!--**************************-->
+	<!--更改为上级理财师客户-->
+	<!--**************************-->
+	<update id="changeFreedomCustomerNew">
+		UPDATE  tusercustomerrel SET fcurrsaleuser=(SELECT f_parent_id FROM t_sale_user_info WHERE f_mobile = #{mobile})
+		WHERE fcurrsaleuser = (SELECT f_number FROM t_sale_user_info WHERE f_mobile = #{mobile})
+	</update>
+
+
+<!-- 删除信息 -->
+<delete id="deleteSaleUser">
+	DELETE FROM t_sale_user_info WHERE f_mobile=#{mobile};
+</delete>
+
+<!-- 退出理财师 end -->
+
+<!-- 查询理财师客户数量 -->
+<select id="queryLcsCustomerCount"  resultType="int">
+	SELECT COUNT(t.fcustomerid) FROM tusercustomerrel t
+	<where>
+	   	t.fcurrsaleuser=#{number}
+	  	<if test=" null != startDate">
+			and DATE_FORMAT(t.fcreatetime, '%Y-%m-%d') &gt;=  DATE_FORMAT(#{startDate}, '%Y-%m-%d')
+		</if>
+		<if test=" null != endDate">
+			AND DATE_FORMAT(t.fcreatetime, '%Y-%m-%d') &lt;=  DATE_FORMAT(#{endDate}, '%Y-%m-%d')
+		</if>
+  	</where>
+</select>
+
+<!-- 查询理财师的客户 -->
+<select id="queryLcsCustomerList"  resultMap="LcsCustomeDetailResp" >
+
+
+SELECT
+a.fcustomername,
+    a.fcustomermobile,
+    a.fcreatetime,
+    IFNULL(b.investmentTotalAmount, 0) AS investmentTotalAmount,
+    IFNULL(b.investmentCount, 0) AS investmentCount,
+    IFNULL(c.nowInvestmentAmount, 0) AS nowInvestmentAmount,
+    IFNULL(c.nowInvestmentCount, 0) AS nowInvestmentCount,
+    IFNULL(b.tfee, 0) AS tfee,
+    IF(a.ffreecustomer=0,'邀请','自由客户')AS _from
+FROM tusercustomerrel a LEFT JOIN 
+    (SELECT 
+      SUM(fpuramount) AS investmentTotalAmount,
+      COUNT(fcustomernumber) AS investmentCount,
+      SUM(ffeeamount) AS tfee,
+      fcustomernumber 
+    FROM
+      tfeedetail 
+    WHERE fsaleusernumber = #{query.number} 
+    GROUP BY fcustomernumber 
+    ORDER BY NULL) b 
+    ON a.fcustomermobile = b.fcustomernumber 
+    LEFT JOIN 
+    (SELECT 
+      SUM(fpuramount) AS nowInvestmentAmount,
+      COUNT(fcustomerid) AS nowInvestmentCount,
+      fcustomernumber
+    FROM
+      trecvrequest 
+    WHERE fsaleusernumber = #{query.number}
+      AND foptype = 2 
+    GROUP BY fcustomerid 
+    ORDER BY NULL) c 
+    ON c.fcustomernumber = b.fcustomernumber
+    <where>
+		a.fcurrsaleuser = #{query.number}
+		<if test="query.nameOrmobile!=null and query.nameOrmobile!=''"> AND  (a.fcustomername = #{query.nameOrmobile} OR a.fcustomermobile = #{query.nameOrmobile})</if>
+
+  		<if test=" null != query.startDate">
+			and DATE_FORMAT(a.fcreatetime, '%Y-%m-%d') &gt;=  DATE_FORMAT(#{query.startDate}, '%Y-%m-%d')
+		</if>
+		<if test=" null != query.endDate">
+			AND DATE_FORMAT(a.fcreatetime, '%Y-%m-%d') &lt;=  DATE_FORMAT(#{query.endDate}, '%Y-%m-%d')
+		</if>
+  	</where>
+
+	ORDER BY a.fcreatetime DESC
+
+</select>
+
+<!-- 解绑客户与理财师的关系 -->
+<update id="unbindByCustomer">
+	UPDATE  tusercustomerrel SET ffreecustomer=1,fcurrsaleuser=NULL WHERE fcustomermobile=#{customerMobile} AND fcurrsaleuser = #{lcsNumber}
+</update>
+
+
+<!-- 更换理财师组织机构 -->
+<update id="unbindByOrganization">
+	UPDATE  t_sale_user_info SET f_department=#{department} WHERE f_number=#{lcsNumber} AND f_department != #{department} AND EXISTS(SELECT fnumber FROM torginfo WHERE fnumber=#{department})
+</update>
+
+	<!--**********************************************************-->
+	<!--获得可否取消理财师的条件-->
+	<!--**********************************************************-->
+	<select id="queryValidCancelCFP" resultType="com.linkwee.web.model.CfpCancelValideModel">
+			SELECT t.f_is_cfp as cfp,
+(SELECT COUNT(*) FROM tusercustomerrel tl WHERE tl.fcustomerid = t.f_customer_id) as customeNums,
+IF(t.f_parent_id is NULL,0,1) as parentId
+ FROM t_sale_user_info as t  WHERE t.f_mobile = #{mobile}
+	</select>
+
+
+</mapper>

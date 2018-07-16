@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.product.dao.ProductManageDao">
+	<parameterMap type="com.linkwee.web.model.product.ProductManageRep"
+		id="ProductManageRepParameterMap" />
+	<resultMap type="com.linkwee.web.model.product.ProductManageResp"
+		id="ProductManageRespResultMap">
+		<result column="f_product_id" property="productId" jdbcType="VARCHAR" />
+		<result column="f_product_name" property="productName"	jdbcType="VARCHAR" />
+		<result column="f_cate_name" property="cateName" jdbcType="VARCHAR" />
+		<result column="f_fix_rate" property="fixRate"	jdbcType="DOUBLE" />
+		<result column="f_dead_line_type" property="deadLineType"	jdbcType="TINYINT" />
+		<result column="f_dead_line_value" property="deadLineValue" jdbcType="INTEGER" />
+		<result column="f_buy_total_money" property="buyTotalMoney"	jdbcType="DOUBLE" />
+		<result column="f_sale_status" property="saleStatus" jdbcType="TINYINT" />
+		<result column="f_begin_sale_time" property="beginSaleTime"	jdbcType="TIMESTAMP" />
+		<result column="f_is_recommended" property="isRecommended" jdbcType="TINYINT" />
+		<result column="f_public_cate_name" property="listRecommended" jdbcType="VARCHAR" />
+		<result column="f_sort" property="listSort" jdbcType="DOUBLE" />
+		<result column="f_grey_flag" property="greyFlag" jdbcType="TINYINT" />
+		<result column="f_flow_min_rate" property="flowMinRate" jdbcType="DOUBLE" />
+		<result column="f_flow_max_rate" property="flowMaxRate" jdbcType="DOUBLE" />
+		<result column="f_collect_line_min_value" property="collectLineMinValue" jdbcType="INTEGER" />
+		<result column="f_collect_line_max_value" property="collectLineMaxValue" jdbcType="INTEGER" />
+		<result column="f_begin_sale_type" property="beginSaleType" jdbcType="TINYINT" />
+	</resultMap>
+
+	<resultMap type="com.linkwee.web.model.product.ProductSaleManageResp"
+		id="ProductSaleManageRespResultMap">
+		
+		<result column="f_product_id" property="productId" jdbcType="VARCHAR" />
+		<result column="productName" property="productName" jdbcType="VARCHAR" />
+		<result column="buyTotalMoney" property="buyTotalMoney"
+			jdbcType="DOUBLE" />
+		<result column="buyedTotalMoney" property="buyedTotalMoney"
+			jdbcType="DOUBLE" />
+		<result column="restMoney" property="restMoney" jdbcType="DOUBLE" />
+		<result column="f_begin_sale_time" property="beginSaleTime" jdbcType="TIMESTAMP" />
+		<result column="f_sale_status" property="saleStatus" jdbcType="TINYINT" />
+		<result column="f_collect_finish_time" property="collectFinishTime" jdbcType="TIMESTAMP" />
+		<result column="f_cate_name" property="cateName" jdbcType="VARCHAR" />
+		
+	</resultMap>
+
+	<resultMap type="com.linkwee.web.model.product.ProductSaleDtlResp"
+		id="ProductSaleDtlRespResultMap">
+		<result column="productName" property="productName" jdbcType="VARCHAR" />
+		<result column="statusName" property="statusName" jdbcType="VARCHAR" />
+		<result column="buyUserId" property="buyUserId" jdbcType="VARCHAR" />
+		<result column="buyedMoney" property="buyedMoney" jdbcType="DOUBLE" />
+		<result column="buyedTime" property="buyedTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<resultMap type="com.linkwee.web.model.product.ProductDetailResp"
+		id="ProductDetailResultMap">
+		<result column="f_product_name" property="productName"
+			jdbcType="VARCHAR" />
+		<result column="f_product_type_name" property="typeName"
+			jdbcType="VARCHAR" />
+		<result column="f_inv_label" property="invLabel" jdbcType="VARCHAR" />
+		<result column="f_lcs_label" property="lcsLabel" jdbcType="VARCHAR" />
+		<result column="f_is_flow" property="isFlow" jdbcType="TINYINT" />
+		<result column="f_fix_rate" property="fixRate" jdbcType="DOUBLE" />
+		<result column="f_flow_min_rate" property="flowMinRate"
+			jdbcType="DOUBLE" />
+		<result column="f_flow_max_rate" property="flowMaxRate"
+			jdbcType="DOUBLE" />
+		<result column="f_repayment_way" property="repaymentWay"
+			jdbcType="TINYINT" />
+		<result column="f_buy_min_money" property="buyMinMoney"
+			jdbcType="DOUBLE" />
+		<result column="f_buy_max_money" property="buyMaxMoney"
+			jdbcType="DOUBLE" />
+		<result column="f_buy_total_money" property="buyTotalMoney"
+			jdbcType="DOUBLE" />
+		<result column="f_status" property="status" jdbcType="TINYINT" />
+		<result column="f_collect_begin_time" property="collectBeginTime"
+			jdbcType="TIMESTAMP" />
+		<result column="f_collect_end_time" property="collectEndTime"
+			jdbcType="TIMESTAMP" />
+		<result column="f_valid_begin_date" property="validBeginDate"
+			jdbcType="TIMESTAMP" />
+		<result column="f_valid_end_date" property="validEndDate"
+			jdbcType="TIMESTAMP" />
+		<result column="f_product_desc" property="productDescStr"
+			jdbcType="VARCHAR" />
+		<result column="f_product_id" property="productId" jdbcType="VARCHAR" />
+		<result column="f_buy_increase_money" property="buyIncreaseMoney"
+			jdbcType="DOUBLE" />
+		<result column="f_product_manage_way" property="productManageWay"
+			jdbcType="TINYINT" />
+		<result column="f_is_redemption" property="isRedemption"
+			jdbcType="TINYINT" />
+		<result column="f_cust_buy_max_money" property="custBuyMaxMoney"
+			jdbcType="DOUBLE" />
+		<result column="f_product_protocal_id" property="productProtocalId"
+			jdbcType="INTEGER" />
+		<result column="f_product_protocal_url" property="productProtocalUrl"
+			jdbcType="VARCHAR" />
+		<result column="f_product_illustration_url" property="productIllustrationUrl"
+			jdbcType="VARCHAR" />
+		<result column="f_security_guarantee_url" property="securityGuaranteeUrl"
+			jdbcType="VARCHAR" />
+		<result column="f_ransfer_protocal_name" property="ransferProtocalName"
+			jdbcType="VARCHAR" />
+		<result column="f_type_value" property="typeValue" jdbcType="INTEGER" />
+		<result column="f_rema_money" property="remaMoney" jdbcType="DOUBLE" />
+		<result column="f_dead_line_type" property="deadLineType"
+			jdbcType="TINYINT" />
+		<result column="f_dead_line_value" property="deadLineValue"
+			jdbcType="DOUBLE" />
+		<result column="f_buyed_total_money" property="buyedTotalMoney"
+			jdbcType="DOUBLE" />
+		<result column="f_buyed_total_people" property="buyedTotalPeople"
+			jdbcType="INTEGER" />
+		<result column="f_sale_reward" property="saleReward" jdbcType="VARCHAR" />
+		<result column="f_product_protocal_name" property="productProtocalName"
+			jdbcType="VARCHAR" />
+		<result column="f_ransfer_protocal_url" property="ransferProtocalUrl"
+			jdbcType="VARCHAR" />
+		<result column="f_product_manage_way" property="productManageWay"
+			jdbcType="TINYINT" />
+		<result column="f_reward_ratio" property="rewardRatio"
+			jdbcType="DOUBLE" />
+		<result column="repaymentTypeName" property="repaymentTypeName"
+			jdbcType="VARCHAR" />
+		<result column="statusName" property="statusName"
+			jdbcType="VARCHAR" />
+	</resultMap>
+
+
+	<sql id="Base_Condition_ProSaleDtlList">
+
+		<if test=" null != productId and '' != productId ">
+			AND t.f_product_id = #{productId}
+		</if>
+		<if test=" null != buyUserId and '' != buyUserId ">
+			AND t.f_user_id = #{buyUserId}
+		</if>
+		<if test="  null != collectBeginTimeStart and ''!= collectBeginTimeStart ">
+			AND DATE_FORMAT(t.f_create_time, '%Y-%m-%d') &gt;= DATE_FORMAT(#{collectBeginTimeStart}, '%Y-%m-%d') 
+		</if>
+		<if test="  null != collectBeginTimeEnd and ''!= collectBeginTimeEnd ">
+			AND DATE_FORMAT(t.f_create_time, '%Y-%m-%d') &lt;= DATE_FORMAT(#{collectBeginTimeEnd}, '%Y-%m-%d') 
+		</if>
+	</sql>
+
+	<!-- 产品列表 -->
+	<select id="productListPageCount" parameterMap="ProductManageRepParameterMap"
+		resultType="int">
+	<choose>
+		<when test="null != proCateId and '' != proCateId">
+			SELECT count(t.f_id) FROM t_product_info t LEFT JOIN (
+			SELECT
+			t1.f_product_id,
+			t1.f_cate_id,
+			t2.f_cate_name
+			FROM
+			t_product_info_cate t1
+			JOIN t_product_cate t2 ON t1.f_cate_id = t2.f_cate_id
+			AND t2.f_ispublic = 1
+			) t5 ON t.f_product_id = t5.f_product_id
+			AND t5.f_cate_id = #{proCateId}
+		</when>
+		<otherwise>
+			SELECT count(t.f_id) FROM t_product_info t where 1=1
+			<if test=" null != productName and '' != productName ">
+				AND t.f_product_name like CONCAT('%',#{productName},'%')
+			</if>
+			<if test=" null != saleStatus and '' != saleStatus ">
+				AND t.f_sale_status = #{saleStatus}
+			</if>
+		</otherwise>
+
+	</choose>
+	</select>
+
+	<select id="productListPage" parameterMap="ProductManageRepParameterMap"
+		resultMap="ProductManageRespResultMap">
+	SELECT
+	t.f_product_id,
+	t5.f_cate_name,
+	t.f_product_name,
+	t.f_fix_rate,
+	t.f_dead_line_type,
+	t.f_dead_line_value,
+	t.f_buy_total_money,
+	t.f_sale_status,
+	t.f_begin_sale_time,
+	t.f_begin_sale_type,
+	t.f_is_recommended,
+	t6.f_cate_name f_public_cate_name,
+	t6.f_sort,
+	t.f_grey_flag,
+	t.f_flow_min_rate,
+	t.f_flow_max_rate,
+	t.f_collect_line_min_value,
+	t.f_collect_line_max_value
+
+	FROM t_product_info t
+	left JOIN (select t1.f_product_id,t1.f_cate_id,t2.f_cate_name
+	from t_product_info_cate
+	t1 JOIN t_product_cate t2 on t1.f_cate_id =
+	t2.f_cate_id and
+	t2.f_ispublic =0) t5
+	on t.f_product_id = t5.f_product_id
+	LEFT JOIN
+
+	(select t1.f_product_id,t2.f_cate_name,t1.f_sort from t_product_info_cate
+	t1
+	JOIN t_product_cate t2 on t1.f_cate_id = t2.f_cate_id and
+	t2.f_ispublic
+	=1 and t2.f_cate_id='1000') t6 on t.f_product_id= t6.f_product_id
+
+	WHERE 1 = 1
+	<if test=" null != productName and '' != productName ">
+		AND t.f_product_name like CONCAT('%',#{productName},'%')
+	</if>
+	<if test=" null != saleStatus and '' != saleStatus ">
+		<if test="saleStatus == 6">
+		AND t.f_grey_flag = 1
+		</if>
+		<if test="saleStatus != 6">
+		AND t.f_sale_status = #{saleStatus}
+		</if>
+	</if>
+	<if test=" null != proCateId and '' != proCateId">
+		AND t5.f_cate_id = #{proCateId}
+	</if>
+	ORDER BY
+	t.f_create_time DESC
+	<if test=" paging ">
+		limit #{startIndex},#{endIndex}
+	</if>
+	</select>
+	<!-- 产品销售 -->
+	<select id="productSalePageCount" parameterMap="ProductManageRepParameterMap"
+		resultType="int">
+	SELECT
+	count(DISTINCT t4.f_product_id)
+	FROM
+	t_fixed_invest_record t4
+	LEFT JOIN t_product_info t ON t4.f_product_id = t.f_product_id
+	LEFT JOIN (
+	SELECT
+	t1.f_product_id,
+	t1.f_cate_id,
+	t2.f_cate_name
+	FROM
+	t_product_info_cate t1
+	JOIN t_product_cate t2 ON t1.f_cate_id = t2.f_cate_id
+	AND
+	t2.f_ispublic = 0
+	) t5 ON t4.f_product_id = t5.f_product_id
+	WHERE t4.f_status BETWEEN 2 and 3
+	<if test=" null != productName and '' != productName ">
+		AND t.f_product_name like CONCAT('%',#{productName},'%')
+	</if>
+	<if test=" null != saleStatus and '' != saleStatus ">
+		AND t.f_sale_status = #{saleStatus}
+	</if>
+	<if test=" null != proCateId and '' != proCateId">
+		AND t5.f_cate_id = #{proCateId}
+	</if>
+	</select>
+	
+	<select id="productSaleListPage" parameterMap="ProductManageRepParameterMap"
+		resultMap="ProductSaleManageRespResultMap">
+		SELECT
+	t5.f_product_id,t5.productName,t5.buyTotalMoney,t5.buyedTotalMoney,t5.restMoney,t5.f_begin_sale_time,t5.f_sale_status,t2.f_collect_finish_time,	t6.f_cate_name
+FROM
+	(
+		SELECT
+			t.f_product_id,
+			t.f_product_name productName,
+			IFNULL(t.f_buy_total_money, 0) buyTotalMoney,
+			IFNULL(sum(t4.f_invest_amt), 0) buyedTotalMoney,
+			(
+				t.f_buy_total_money - IFNULL(sum(t4.f_invest_amt), 0)
+			) restMoney,
+			t.f_begin_sale_time,
+			t.f_sale_status
+			
+		FROM t_fixed_invest_record t4			
+		LEFT JOIN t_product_info t ON t.f_product_id = t4.f_product_id 
+where t4.f_status BETWEEN 2 and 3 
+<if test=" null != productName and '' != productName ">
+		AND t.f_product_name like CONCAT('%',#{productName},'%')
+	</if>
+	<if test=" null != saleStatus and '' != saleStatus ">
+		<if test="saleStatus == 6">
+		AND t.f_grey_flag = 1
+		</if>
+		<if test="saleStatus != 6">
+		AND t.f_sale_status = #{saleStatus}
+		</if>
+	</if>
+		GROUP BY		t4.f_product_id		
+	) t5
+LEFT JOIN t_product_statistics t2 ON t5.f_product_id = t2.f_product_id
+LEFT JOIN (
+	SELECT
+		t1.f_product_id,
+		t1.f_cate_id,
+		t2.f_cate_name
+	FROM
+		t_product_info_cate t1
+	JOIN t_product_cate t2 ON t1.f_cate_id = t2.f_cate_id
+	AND t2.f_ispublic = 0
+) t6 ON t5.f_product_id = t6.f_product_id
+where 1=1
+<if test=" null != proCateId and '' != proCateId">
+		AND t6.f_cate_id = #{proCateId}
+	</if>
+	ORDER BY f_begin_sale_time DESC
+	<if test=" paging ">
+		limit #{startIndex},#{endIndex}
+	</if>
+	</select>
+	
+	<!-- 产品销售明细 -->
+
+	<select id="proSaleDtlCount" parameterMap="ProductManageRepParameterMap"
+		resultType="int">
+		select count(f_id) from t_fixed_invest_record t where t.f_status BETWEEN 2 and 3 
+		<include refid="Base_Condition_ProSaleDtlList" />
+	</select>
+	<select id="proSaleDtlPageList" parameterMap="ProductManageRepParameterMap"
+	resultMap="ProductSaleDtlRespResultMap">
+	SELECT
+	t1.f_product_name productName,	
+	t.f_user_id buyUserId,
+	t.f_invest_amt buyedMoney,
+	t.f_create_time buyedTime
+	FROM
+	t_fixed_invest_record t
+	LEFT JOIN t_product_info t1 ON t.f_product_id = t1.f_product_id
+	WHERE	t.f_status BETWEEN 2 and 3 
+	<include refid="Base_Condition_ProSaleDtlList" />
+	order by buyedTime DESC
+	<if test=" paging ">
+		limit #{startIndex},#{endIndex}
+	</if>
+
+</select>
+	<!-- 产品详情 -->
+	<select id="findProductDetail" resultMap="ProductDetailResultMap">
+		<![CDATA[
+		SELECT
+	p.f_product_name,
+	pt.f_type_name AS f_product_type_name,
+	p.f_inv_label,
+	p.f_lcs_label,
+	p.f_is_flow,
+	p.f_fix_rate,
+	p.f_flow_min_rate,
+	p.f_flow_max_rate,
+	CASE p.f_repayment_way when 1 then '一次性到期' when 2 then '一次性按日' when 3 then '一次性按月' when 4 then '一次性按季' when 5 then '等额本息(按月)' when 6 then '等额本息(按季)' end  repaymentTypeName ,
+	p.f_buy_min_money,
+	p.f_buy_max_money,
+	pr.f_reward_ratio,
+	p.f_dead_line_type,
+	p.f_dead_line_value,
+	p.f_buy_total_money,
+	CASE p.f_sale_status
+	WHEN 1 THEN	'预售'
+	WHEN 2 THEN	'在售'
+	WHEN 3 THEN	'售罄'
+	WHEN 4 THEN	'下架'
+	END statusName,		
+	p.f_collect_begin_time,
+	p.f_collect_end_time,
+	p.f_valid_begin_date,
+	p.f_valid_end_date,
+	p.f_product_desc,
+	p.f_product_id,
+	p.f_buy_increase_money,
+	p.f_product_manage_way,
+	p.f_is_redemption,
+	p.f_cust_buy_max_money,
+	p.f_product_protocal_id,
+	p.f_product_illustration_url,
+	p.f_security_guarantee_url,
+	p.f_ransfer_protocal_name,
+	p.f_ransfer_protocal_url,
+	pt.f_type_value,
+	ps.f_rema_money,
+	ps.f_buyed_total_money,
+	ps.f_buyed_total_people,
+	pp.f_protocal_name AS f_product_protocal_name,
+	pp.f_protocal_file_url AS f_product_protocal_url,
+	pr.f_sale_reward
+
+FROM
+	t_product_info p
+LEFT JOIN t_product_type pt ON (
+	p.f_product_type_id = pt.f_id
+)
+LEFT JOIN t_product_statistics ps ON (
+	p.f_product_id = ps.f_product_id
+)
+LEFT JOIN t_product_protocal pp ON (
+	p.f_product_protocal_id = pp.f_id
+)
+LEFT JOIN t_product_sale_reward pr ON (
+	p.f_product_id = pr.f_product_id
+	AND pr.f_is_reward = 'Y'
+	AND (
+		(
+			pr.f_reward_begin_time < now()
+			AND now() < pr.f_reward_end_time
+		)
+		OR pr.f_reward_end_time IS NULL
+	)
+)
+WHERE
+	p.f_product_id = #{productId}
+
+		 ]]>
+	</select>
+
+</mapper>

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.PushMessageDao">
+<parameterMap type="com.linkwee.web.model.PushMessageInfo" id="PushMessageInfoParameterMap" />	
+<!-- Result Map-->
+<resultMap  type="com.linkwee.web.model.PushMessageInfo" id="PushMessageInfoRespResultMap">
+	<result column="f_id" property="id" jdbcType="INTEGER"/>
+	<result column="f_user_id" property="userId" jdbcType="VARCHAR"/>
+	<result column="f_msg_type" property="msgType" jdbcType="VARCHAR"/>
+	<result column="f_msg_param" property="msgParam" jdbcType="VARCHAR"/>
+	<result column="f_app_type" property="appType" jdbcType="TINYINT"/>
+	<result column="f_is_timing_task" property="isTimingTask" jdbcType="TINYINT"/>
+	<result column="f_send_time" property="sendTime" jdbcType="TIMESTAMP"/>
+	<result column="f_delsatatus" property="delstatus" jdbcType="TINYINT"/>
+	<result column="f_error_info" property="errorInfo" jdbcType="VARCHAR"/>
+	<result column="f_status" property="status" jdbcType="TINYINT"/>
+	<result column="f_chg_time" property="chgTime" jdbcType="TIMESTAMP"/>
+</resultMap>
+
+  
+  
+  <insert id="add" parameterMap="PushMessageInfoParameterMap" useGeneratedKeys="true" keyProperty="id" >
+		INSERT INTO t_push_message_info 
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					f_id,
+				</if>
+			 	<if test=" null != userId and ''!= userId  ">
+					f_user_id,
+				</if>
+			 	<if test=" null != msgType and ''!= msgType  ">
+					f_msg_type,
+				</if>
+			 	<if test=" null != msgParam and ''!=msgParam ">
+					f_msg_param,
+				</if>
+			 	<if test=" null != appType ">
+					f_app_type,
+				</if>
+			 	<if test=" null != isTimingTask ">
+					f_is_timing_task,
+				</if>
+			 	<if test=" null != sendTime ">
+					f_send_time,
+				</if>
+			 	<if test=" null != delstatus ">
+					f_delsatatus,
+				</if>
+			 	<if test=" null != errorInfo and ''!= errorInfo ">
+					f_error_info,
+				</if>
+				<if test=" null != status ">
+					f_status,
+				</if>
+			 	<if test=" null != chgTime ">
+					f_chg_time,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					#{id},
+				</if>
+			 	<if test=" null != userId and ''!= userId  ">
+					#{userId},
+				</if>
+			 	<if test=" null != msgType and ''!= msgType  ">
+					#{msgType},
+				</if>
+			 	<if test=" null != msgParam and ''!=msgParam ">
+					#{msgParam},
+				</if>
+			 	<if test=" null != appType ">
+					#{appType},
+				</if>
+			 	<if test=" null != isTimingTask ">
+					#{isTimingTask},
+				</if>
+			 	<if test=" null != sendTime ">
+					#{sendTime},
+				</if>
+			 	<if test=" null != delstatus ">
+					#{delstatus},
+				</if>
+			 	<if test=" null != errorInfo and ''!= errorInfo ">
+					#{errorInfo},
+				</if>
+				<if test=" null != status ">
+					#{status},
+				</if>
+			 	<if test=" null != chgTime ">
+					#{chgTime},
+				</if>
+		</trim>
+	</insert>
+  
+  
+  <update id="update" parameterMap="PushMessageInfoParameterMap">
+		UPDATE t_push_message_info
+		<set>
+			<trim suffixOverrides=",">
+					<if test=" null != id ">
+					f_id=#{id},
+				</if>
+			 	<if test=" null != userId and ''!= userId  ">
+					f_user_id=#{userId},
+				</if>
+			 	<if test=" null != msgType and ''!= msgType  ">
+					f_msg_type=#{msgType},
+				</if>
+			 	<if test=" null != msgParam and ''!=msgParam ">
+					f_msg_param=#{msgParam},
+				</if>
+			 	<if test=" null != appType ">
+					f_app_type=#{appType},
+				</if>
+			 	<if test=" null != isTimingTask ">
+					f_is_timing_task=#{isTimingTask},
+				</if>
+			 	<if test=" null != sendTime ">
+					f_send_time=#{sendTime},
+				</if>
+			 	<if test=" null != delstatus ">
+					f_delsatatus=#{delstatus},
+				</if>
+			 	<if test=" null != errorInfo and ''!= errorInfo ">
+					f_error_info=#{errorInfo},
+				</if>
+				<if test=" null != status ">
+					f_status=#{status},
+				</if>
+			 	<if test=" null != chgTime ">
+					f_chg_time=#{chgTime},
+				</if>
+			</trim>
+		</set>
+		<where>
+			 f_msg_id = #{msgId}
+		</where>
+	</update>
+  
+ 
+
+</mapper>

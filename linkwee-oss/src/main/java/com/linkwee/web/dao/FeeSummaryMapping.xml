@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.FeeSummaryDao">
+<parameterMap type="com.linkwee.web.model.fee.FeeSummaryEntity" id="FeeDetailParameterMap" />	
+<!-- Result Map-->
+<resultMap  type="com.linkwee.web.model.fee.FeeSummaryEntity" id="FeeDetailParameterMap">
+	<result column="fbillnumber" property="billnumber" jdbcType="VARCHAR"/>
+	<result column="f_number" property="saleusernumber" jdbcType="VARCHAR"/>
+	<result column="f_name" property="saleusername" jdbcType="VARCHAR"/>
+	<result column="f_mobile" property="saleusermobile" jdbcType="VARCHAR"/>
+	<result column="fnumber" property="orgnumber" jdbcType="VARCHAR"/>
+	<result column="fname" property="orgname" jdbcType="LONGVARBINARY"/>
+	<result column="ffeeamount" property="feeamount" jdbcType="VARCHAR"/>
+	<result column="frecommendpeople" property="recommendpeople" jdbcType="VARCHAR"/>
+	<result column="frecommendinvest" property="recommendinvest" jdbcType="VARCHAR"/>
+	<result column="fmonth" property="month" jdbcType="VARCHAR"/>
+	<result column="fbillstatus" property="billstatus" jdbcType="TINYINT"/>
+</resultMap>
+  <sql id="Base_Column_List">
+    <trim suffixOverrides=",">
+	    t1.fnumber,
+		t1.fsaleusernumber,
+		t2.f_name,
+		t2.f_mobile,
+		t3.fnumber,
+		t3.fname,
+		t1.ffeeamount,
+		t1.frecommendpeople,
+		t1.frecommendinvest,
+		t1.fmonth,
+		t1.fbillstatus,
+    </trim>
+  </sql>  
+  
+    
+ <sql id="Base_Condition">
+		<if test=" null != saleusernumber and ''!= saleusernumber  ">
+			AND	t2.f_number = #{saleusernumber}
+		</if>
+	    <if test=" null != saleusermobile and ''!= saleusermobile  ">
+			AND	t2.f_mobile = #{saleusermobile}
+		</if>
+ </sql>    
+ 
+ 
+<select id="queryFeeDetail" resultMap="FeeDetailParameterMap"  >
+		SELECT 
+	<include refid="Base_Column_List" />
+		FROM tfeebalance t1 
+		left join t_sale_user_info t2 on t1.fsaleusernumber = t2.f_number 
+		left join torginfo t3 on t2.f_department = t3.fnumber 
+		WHERE 1=1 
+	<include refid="Base_Condition" />
+	    order by t1.fid desc
+</select>
+
+</mapper>

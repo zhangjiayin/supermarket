@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.InvestorUserInfoDao">
+<parameterMap type="com.linkwee.web.model.InvestorUserInfo" id="InvestorUserInfoParameterMap" />	
+<!-- Result Map-->
+<resultMap  type="com.linkwee.web.model.InvestorUserInfo" id="InvestorUserInfoResultMap">
+	<result column="f_id" property="id" jdbcType="INTEGER"/>
+	<result column="f_user_id" property="userId" jdbcType="VARCHAR"/>
+	<result column="f_user_name" property="userName" jdbcType="VARCHAR"/>
+	<result column="f_mobile" property="mobile" jdbcType="VARCHAR"/>
+	<result column="f_user_source" property="userSource" jdbcType="INTEGER"/>
+	<result column="f_qrcode" property="qrcode" jdbcType="VARCHAR"/>
+	<result column="f_ref_user" property="refUser" jdbcType="VARCHAR"/>
+	<result column="f_crt_time" property="crtTime" jdbcType="TIMESTAMP"/>
+	<result column="f_modify_time" property="modifyTime" jdbcType="TIMESTAMP"/>
+	<result column="f_status" property="status" jdbcType="INTEGER"/>
+	<result column="f_easemob_acct" property="easemobAcct" jdbcType="VARCHAR"/>
+	<result column="f_easemob_password" property="easemobPassword" jdbcType="VARCHAR"/>
+	<result column="f_easemob_status" property="easemobStatus" jdbcType="INTEGER"/>
+	<result column="f_image" property="image" jdbcType="VARCHAR"/>
+</resultMap>
+
+<resultMap  type="com.linkwee.web.model.InvestorDtlResp" id="customerDtlResultMap">
+	<result column="f_user_id" property="customerId" jdbcType="VARCHAR"/>
+	<result column="f_user_name" property="customerName" jdbcType="VARCHAR"/>
+	<result column="f_crt_time" property="regTime" jdbcType="TIMESTAMP"/>
+	<result column="f_mobile" property="customerMobile" jdbcType="VARCHAR"/>
+	<result column="fcurrsaleuser" property="currentSaleUser" jdbcType="VARCHAR"/>
+	<result column="currSaleUserName" property="currentSaleName" jdbcType="VARCHAR"/>
+	<result column="currSaleUserMobile" property="currentSaleMobile" jdbcType="VARCHAR"/>
+	<result column="f_image" property="headImage" jdbcType="VARCHAR"/>
+</resultMap>
+
+  <sql id="Base_Column_List">
+    <trim suffixOverrides=",">
+	    	f_id,
+	    	f_user_id,
+	    	f_user_name,
+	    	f_mobile,
+	    	f_user_source,
+	    	f_qrcode,
+	    	f_ref_user,
+	    	f_crt_time,
+	    	f_modify_time,
+	    	f_status,
+    </trim>
+  </sql>  
+  
+   <sql id="Base_Column_List_T">
+    <trim suffixOverrides=",">
+	    	t.f_id,
+	    	t.f_user_id,
+	    	t.f_user_name,
+	    	t.f_mobile,
+	    	t.f_user_source,
+	    	t.f_qrcode,
+	    	t.f_ref_user,
+	    	t.f_crt_time,
+	    	t.f_modify_time,
+	    	t.f_status,
+    </trim>
+  </sql> 
+  	
+  <select id="getByPrimaryKey"  resultMap="InvestorUserInfoResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_investor_user_info where  f_id = #{0}
+  </select>	
+
+  <delete id="deleteByPrimaryKey" >
+    delete from t_investor_user_info
+	<where>
+		f_id = #{0}
+	</where>
+  </delete>
+  
+  
+  <insert id="add" parameterMap="InvestorUserInfoParameterMap" useGeneratedKeys="true" keyProperty="id" >
+		INSERT INTO t_investor_user_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					f_id,
+				</if>
+			 	<if test=" null != userId and ''!= userId  ">
+					f_user_id,
+				</if>
+			 	<if test=" null != userName and ''!= userName  ">
+					f_user_name,
+				</if>
+			 	<if test=" null != mobile and ''!= mobile  ">
+					f_mobile,
+				</if>
+			 	<if test=" null != userSource ">
+					f_user_source,
+				</if>
+			 	<if test=" null != qrcode and ''!= qrcode  ">
+					f_qrcode,
+				</if>
+			 	<if test=" null != refUser and ''!= refUser  ">
+					f_ref_user,
+				</if>
+			 	<if test=" null != crtTime ">
+					f_crt_time,
+				</if>
+			 	<if test=" null != modifyTime ">
+					f_modify_time,
+				</if>
+			 	<if test=" null != status ">
+					f_status,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != userId and ''!= userId  ">
+					 	#{userId},
+				</if>
+			 	<if test=" null != userName and ''!= userName  ">
+					 	#{userName},
+				</if>
+			 	<if test=" null != mobile and ''!= mobile  ">
+					 	#{mobile},
+				</if>
+			 	<if test=" null != userSource ">
+					 	#{userSource},
+				</if>
+			 	<if test=" null != qrcode and ''!= qrcode  ">
+					 	#{qrcode},
+				</if>
+			 	<if test=" null != refUser and ''!= refUser  ">
+					 	#{refUser},
+				</if>
+			 	<if test=" null != crtTime ">
+					 	#{crtTime},
+				</if>
+			 	<if test=" null != modifyTime ">
+					 	#{modifyTime},
+				</if>
+			 	<if test=" null != status ">
+					 	#{status},
+				</if>
+		</trim>
+	</insert>
+  
+  
+  <update id="update" parameterMap="InvestorUserInfoParameterMap">
+		UPDATE t_investor_user_info
+		<set>
+			<trim suffixOverrides=",">
+					<if test=" null != userId and ''!= userId  ">
+						f_user_id = #{userId},
+					</if>
+					<if test=" null != userName and ''!= userName  ">
+						f_user_name = #{userName},
+					</if>
+					<if test=" null != mobile and ''!= mobile  ">
+						f_mobile = #{mobile},
+					</if>
+					<if test=" null != userSource ">
+						f_user_source = #{userSource},
+					</if>
+					<if test=" null != qrcode and ''!= qrcode  ">
+						f_qrcode = #{qrcode},
+					</if>
+					<if test=" null != refUser and ''!= refUser  ">
+						f_ref_user = #{refUser},
+					</if>
+					<if test=" null != crtTime ">
+						f_crt_time = #{crtTime},
+					</if>
+					<if test=" null != modifyTime ">
+						f_modify_time = #{modifyTime},
+					</if>
+					<if test=" null != status ">
+						f_status = #{status},
+					</if>
+					<if test=" null != image ">
+						f_image = #{image},
+					</if>
+			</trim>
+		</set>
+		<where>
+			 f_id = #{id}
+		</where>
+	</update>
+  
+  
+   <update id="updateWithEmpty" parameterMap="InvestorUserInfoParameterMap">
+		UPDATE t_investor_user_info
+		<set>
+			<trim suffixOverrides=",">
+						f_user_id = #{userId},
+						f_user_name = #{userName},
+						f_mobile = #{mobile},
+						f_user_source = #{userSource},
+						f_qrcode = #{qrcode},
+						f_ref_user = #{refUser},
+						f_crt_time = #{crtTime},
+						f_modify_time = #{modifyTime},
+						f_status = #{status},
+			</trim>
+		</set>
+		<where>
+			 f_id = #{id}
+		</where>
+	</update>
+
+  <insert id="addBatch" parameterType="java.util.List">
+	insert into t_investor_user_info 
+	<trim prefix="(" suffix=")" >
+			<include refid="Base_Column_List" />
+	</trim>
+	VALUES
+	<foreach item="item" index="index" collection="list" separator=",">
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+				#{item.id,jdbcType=INTEGER},
+				#{item.userId,jdbcType=VARCHAR},
+				#{item.userName,jdbcType=VARCHAR},
+				#{item.mobile,jdbcType=VARCHAR},
+				#{item.userSource,jdbcType=INTEGER},
+				#{item.qrcode,jdbcType=VARCHAR},
+				#{item.refUser,jdbcType=VARCHAR},
+				#{item.crtTime,jdbcType=TIMESTAMP},
+				#{item.modifyTime,jdbcType=TIMESTAMP},
+				#{item.status,jdbcType=INTEGER},
+		</trim>
+	</foreach>
+</insert>
+
+ 
+<update id="updateBatch" parameterType="java.util.List">
+      <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update t_investor_user_info
+            <set>
+              	<trim suffixOverrides=",">
+					   <if test="item.userId!=null and ''!= item.userId  ">
+					        f_user_id = #{item.userId,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.userName!=null and ''!= item.userName  ">
+					        f_user_name = #{item.userName,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.mobile!=null and ''!= item.mobile  ">
+					        f_mobile = #{item.mobile,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.userSource!=null ">
+					        f_user_source = #{item.userSource,jdbcType=INTEGER},
+					   </if>
+					   <if test="item.qrcode!=null and ''!= item.qrcode  ">
+					        f_qrcode = #{item.qrcode,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.refUser!=null and ''!= item.refUser  ">
+					        f_ref_user = #{item.refUser,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.crtTime!=null ">
+					        f_crt_time = #{item.crtTime,jdbcType=TIMESTAMP},
+					   </if>
+					   <if test="item.modifyTime!=null ">
+					        f_modify_time = #{item.modifyTime,jdbcType=TIMESTAMP},
+					   </if>
+					   <if test="item.status!=null ">
+					        f_status = #{item.status,jdbcType=INTEGER},
+					   </if>
+			   </trim>
+            </set>
+             where f_id = #{item.id}
+     </foreach>
+</update>
+
+<update id="updateBatchWithEmpty" parameterType="java.util.List">
+      <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update t_investor_user_info
+            <set>
+              	<trim suffixOverrides=",">
+					        f_user_id = #{item.userId,jdbcType=VARCHAR},
+					        f_user_name = #{item.userName,jdbcType=VARCHAR},
+					        f_mobile = #{item.mobile,jdbcType=VARCHAR},
+					        f_user_source = #{item.userSource,jdbcType=INTEGER},
+					        f_qrcode = #{item.qrcode,jdbcType=VARCHAR},
+					        f_ref_user = #{item.refUser,jdbcType=VARCHAR},
+					        f_crt_time = #{item.crtTime,jdbcType=TIMESTAMP},
+					        f_modify_time = #{item.modifyTime,jdbcType=TIMESTAMP},
+					        f_status = #{item.status,jdbcType=INTEGER},
+			   </trim>
+            </set>
+             where f_id = #{item.id}
+     </foreach>
+</update>         
+
+<delete id="deleteBatch" parameterType="Object">
+	DELETE FROM t_investor_user_info
+	<where>
+		<foreach item="item" index="index" collection="array"  open="(" separator="or" close=") ">
+			  f_id  = #{item}
+		</foreach>
+	</where>
+</delete>
+    
+ <sql id="Base_Condition">
+		   <if test=" null != id ">
+				AND	T.f_id = #{id}
+		</if>
+		   <if test=" null != userId and ''!= userId  ">
+				AND	T.f_user_id = #{userId}
+		</if>
+		   <if test=" null != userName and ''!= userName  ">
+				AND	T.f_user_name = #{userName}
+		</if>
+		   <if test=" null != mobile and ''!= mobile  ">
+				AND	T.f_mobile = #{mobile}
+		</if>
+		   <if test=" null != userSource ">
+				AND	T.f_user_source = #{userSource}
+		</if>
+		   <if test=" null != qrcode and ''!= qrcode  ">
+				AND	T.f_qrcode = #{qrcode}
+		</if>
+		   <if test=" null != refUser and ''!= refUser  ">
+				AND	T.f_ref_user = #{refUser}
+		</if>
+		   <if test=" null != crtTime ">
+				AND	T.f_crt_time = #{crtTime}
+		</if>
+		   <if test=" null != modifyTime ">
+				AND	T.f_modify_time = #{modifyTime}
+		</if>
+		   <if test=" null != status ">
+				AND	T.f_status = #{status}
+		</if>
+ </sql>    
+<select id="list" resultMap="InvestorUserInfoResultMap"  >
+		SELECT <include refid="Base_Column_List" /> FROM t_investor_user_info T WHERE 1=1
+		<include refid="Base_Condition" />
+</select>
+
+<select id="query" resultMap="InvestorUserInfoResultMap"  >
+		SELECT 
+		ue.f_easemob_acct, ue.f_easemob_password,ue.f_status as f_easemob_status,
+		<include refid="Base_Column_List_T" /> 
+		FROM t_investor_user_info T
+		left join t_user_easemob ue on(t.f_user_id=ue.f_customer_id and ue.f_type=2)
+		 WHERE 1=1
+		<include refid="Base_Condition" />
+</select>
+
+<select id="isCfp" resultType="Integer"  >
+		select count(f_number) from t_sale_user_info where f_customer_id=#{userId}
+</select>
+
+<!-- 查没有用户id的错误数据 -->
+<select id="queryErrInvestorUserInfo" resultMap="InvestorUserInfoResultMap"  >
+		select * from t_investor_user_info where f_user_id is null ORDER BY f_id LIMIT 1
+</select>
+
+<!-- 查没有关联关系数据的用户 -->
+<select id="queryErrInvestorUserInfoOfRefIsNull" resultMap="InvestorUserInfoResultMap"  >
+		select * from t_investor_user_info i where i.f_mobile  not IN
+		(select fcustomermobile from tusercustomerrel  )
+		ORDER BY i.f_id LIMIT 1
+</select>
+
+<!-- 根据userId查姓名 -->
+<select id="findUserNameById" resultMap="InvestorUserInfoResultMap" parameterType="java.util.List">
+select t.f_user_id,t.f_user_name,t.f_mobile from t_investor_user_info t where t.f_user_id  in 
+<foreach item="item" index="index" collection="list"  open="("  separator="," close=")">
+		#{item,jdbcType=VARCHAR}
+	</foreach>
+</select>
+
+<!-- 投资用户是否已经锁定 -->
+<select id="queryIsLocked" resultType="int">    
+ <![CDATA[
+   select f_locked from t_investor_user_info
+	where f_mobile=#{mobile}
+ ]]>
+</select>
+
+<!--  更新用户实名 -->
+<update id="updateRealName" >
+ update t_investor_user_info set f_user_name=#{name} where f_mobile = #{mobile}
+</update>
+
+<select id="findUserIdByNameOrMobile" resultType="string">
+select t.f_user_id from t_investor_user_info t where t.f_mobile = #{buyUserName} or t.f_user_name=#{buyUserName} limit 1
+</select>
+
+<!-- 后台查用户详情 -->
+<select id="queryInvestorDetail" resultMap="customerDtlResultMap">
+	SELECT 
+	i.f_user_id,
+	i.f_crt_time,
+	i.f_mobile,
+	i.f_image,
+	r.fcustomername as f_user_name,
+	r.fcurrsaleuser,
+	s.f_name as currSaleUserName,
+	s.f_mobile as currSaleUserMobile
+	 from t_investor_user_info i
+	LEFT JOIN tusercustomerrel r on i.f_mobile=r.fcustomermobile
+	left join t_sale_user_info s on r.fcurrsaleuser=s.f_number
+	where i.f_mobile=#{0}
+</select>
+
+<!--删除理财师头像-->
+<update id="removeInvestorHeadImage">
+	UPDATE  t_investor_user_info SET f_image = NULL  WHERE f_mobile = #{mobile}
+</update>
+<select id="queryInvestorUserInfo" resultMap="InvestorUserInfoResultMap">
+	SELECT
+	t.f_user_id,
+	t.f_mobile
+
+	FROM
+	t_investor_user_info t
+	LEFT JOIN t_user_account_info t1 ON t.f_user_id = t1.f_user_id
+	WHERE
+	t.f_status = 0
+	AND t1.f_user_id IS NULL
+</select>
+
+</mapper>

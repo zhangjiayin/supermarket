@@ -1,0 +1,457 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.CimOrgInvestStrategyAMapper">
+	<!-- Result Map-->
+	<resultMap  type="com.linkwee.web.model.CimOrgInvestStrategyA" id="BaseResultMap">
+		<result column="id" property="id" jdbcType="INTEGER"/>
+		<result column="org_number" property="orgNumber" jdbcType="VARCHAR"/>
+		<result column="recommend" property="recommend" jdbcType="INTEGER"/>
+		<result column="strategy_index" property="strategyIndex" jdbcType="INTEGER"/>
+		<result column="min_dead_line" property="minDeadLine" jdbcType="INTEGER"/>
+		<result column="min_invest_amount" property="minInvestAmount" jdbcType="DECIMAL"/>
+		<result column="org_redpacket" property="orgRedpacket" jdbcType="DECIMAL"/>
+		<result column="org_product_ratio" property="orgProductRatio" jdbcType="DECIMAL"/>
+		<result column="remark" property="remark" jdbcType="VARCHAR"/>
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+		<result column="operator" property="operator" jdbcType="VARCHAR"/>
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		<trim suffixOverrides=",">
+			id,
+			org_number,
+			recommend,
+			strategy_index,
+			min_dead_line,
+			min_invest_amount,
+			org_redpacket,
+			org_product_ratio,
+			remark,
+			create_time,
+			update_time,
+			operator,
+		</trim>
+	</sql>
+
+	<sql id="Base_Column_List_T">
+		<trim suffixOverrides=",">
+			t.id,
+			t.org_number,
+			t.recommend,
+			t.strategy_index,
+			t.min_dead_line,
+			t.min_invest_amount,
+			t.org_redpacket,
+			t.org_product_ratio,
+			t.remark,
+			t.create_time,
+			t.update_time,
+			t.operator,
+		</trim>
+	</sql>
+
+	<sql id="Base_Condition">
+		<if test=" null != id ">
+			and id = #{id}
+		</if>
+		<if test=" null != orgNumber and ''!= orgNumber  ">
+			and org_number = #{orgNumber}
+		</if>
+		<if test=" null != recommend ">
+			and recommend = #{recommend}
+		</if>
+		<if test=" null != strategyIndex ">
+			and strategy_index = #{strategyIndex}
+		</if>
+		<if test=" null != minDeadLine ">
+			and min_dead_line = #{minDeadLine}
+		</if>
+		<if test=" null != minInvestAmount ">
+			and min_invest_amount = #{minInvestAmount}
+		</if>
+		<if test=" null != orgRedpacket ">
+			and org_redpacket = #{orgRedpacket}
+		</if>
+		<if test=" null != orgProductRatio ">
+			and org_product_ratio = #{orgProductRatio}
+		</if>
+		<if test=" null != remark and ''!= remark  ">
+			and remark = #{remark}
+		</if>
+		<if test=" null != createTime ">
+			and create_time = #{createTime}
+		</if>
+		<if test=" null != updateTime ">
+			and update_time = #{updateTime}
+		</if>
+		<if test=" null != operator and ''!= operator  ">
+			and operator = #{operator}
+		</if>
+	</sql>
+
+	<select id="selectOneByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.web.model.CimOrgInvestStrategyA">
+		select <include refid="Base_Column_List" /> from tcim_org_invest_strategy_a
+		where 1=1 <include refid="Base_Condition" />
+	</select>
+
+	<select id="selectByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.web.model.CimOrgInvestStrategyA">
+		select <include refid="Base_Column_List" /> from tcim_org_invest_strategy_a
+		where 1=1 <include refid="Base_Condition" />
+	</select>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+		select
+		<include refid="Base_Column_List" />
+		from tcim_org_invest_strategy_a
+		where  id = #{0}
+	</select>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+		delete from tcim_org_invest_strategy_a
+		where id = #{0}
+	</delete>
+
+	<insert id="insert" parameterType="com.linkwee.web.model.CimOrgInvestStrategyA" >
+		INSERT INTO tcim_org_invest_strategy_a
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test=" null != id ">
+				id,
+			</if>
+			<if test=" null != orgNumber and ''!= orgNumber  ">
+				org_number,
+			</if>
+			<if test=" null != recommend ">
+				recommend,
+			</if>
+			<if test=" null != strategyIndex ">
+				strategy_index,
+			</if>
+			<if test=" null != minDeadLine ">
+				min_dead_line,
+			</if>
+			<if test=" null != minInvestAmount ">
+				min_invest_amount,
+			</if>
+			<if test=" null != orgRedpacket ">
+				org_redpacket,
+			</if>
+			<if test=" null != orgProductRatio ">
+				org_product_ratio,
+			</if>
+			<if test=" null != remark and ''!= remark  ">
+				remark,
+			</if>
+			<if test=" null != createTime ">
+				create_time,
+			</if>
+			<if test=" null != updateTime ">
+				update_time,
+			</if>
+			<if test=" null != operator and ''!= operator  ">
+				operator,
+			</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			<if test=" null != id ">
+				#{id},
+			</if>
+			<if test=" null != orgNumber and ''!= orgNumber  ">
+				#{orgNumber},
+			</if>
+			<if test=" null != recommend ">
+				#{recommend},
+			</if>
+			<if test=" null != strategyIndex ">
+				#{strategyIndex},
+			</if>
+			<if test=" null != minDeadLine ">
+				#{minDeadLine},
+			</if>
+			<if test=" null != minInvestAmount ">
+				#{minInvestAmount},
+			</if>
+			<if test=" null != orgRedpacket ">
+				#{orgRedpacket},
+			</if>
+			<if test=" null != orgProductRatio ">
+				#{orgProductRatio},
+			</if>
+			<if test=" null != remark and ''!= remark  ">
+				#{remark},
+			</if>
+			<if test=" null != createTime ">
+				#{createTime},
+			</if>
+			<if test=" null != updateTime ">
+				#{updateTime},
+			</if>
+			<if test=" null != operator and ''!= operator  ">
+				#{operator},
+			</if>
+		</trim>
+	</insert>
+
+	<insert id="insertSelective" parameterType="com.linkwee.web.model.CimOrgInvestStrategyA" useGeneratedKeys="true" keyProperty="id" >
+		INSERT INTO tcim_org_invest_strategy_a
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test=" null != id ">
+				id,
+			</if>
+			<if test=" null != orgNumber and ''!= orgNumber  ">
+				org_number,
+			</if>
+			<if test=" null != recommend ">
+				recommend,
+			</if>
+			<if test=" null != strategyIndex ">
+				strategy_index,
+			</if>
+			<if test=" null != minDeadLine ">
+				min_dead_line,
+			</if>
+			<if test=" null != minInvestAmount ">
+				min_invest_amount,
+			</if>
+			<if test=" null != orgRedpacket ">
+				org_redpacket,
+			</if>
+			<if test=" null != orgProductRatio ">
+				org_product_ratio,
+			</if>
+			<if test=" null != remark and ''!= remark  ">
+				remark,
+			</if>
+			<if test=" null != createTime ">
+				create_time,
+			</if>
+			<if test=" null != updateTime ">
+				update_time,
+			</if>
+			<if test=" null != operator and ''!= operator  ">
+				operator,
+			</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			<if test=" null != id ">
+				#{id},
+			</if>
+			<if test=" null != orgNumber and ''!= orgNumber  ">
+				#{orgNumber},
+			</if>
+			<if test=" null != recommend ">
+				#{recommend},
+			</if>
+			<if test=" null != strategyIndex ">
+				#{strategyIndex},
+			</if>
+			<if test=" null != minDeadLine ">
+				#{minDeadLine},
+			</if>
+			<if test=" null != minInvestAmount ">
+				#{minInvestAmount},
+			</if>
+			<if test=" null != orgRedpacket ">
+				#{orgRedpacket},
+			</if>
+			<if test=" null != orgProductRatio ">
+				#{orgProductRatio},
+			</if>
+			<if test=" null != remark and ''!= remark  ">
+				#{remark},
+			</if>
+			<if test=" null != createTime ">
+				#{createTime},
+			</if>
+			<if test=" null != updateTime ">
+				#{updateTime},
+			</if>
+			<if test=" null != operator and ''!= operator  ">
+				#{operator},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="updateByPrimaryKeySelective" parameterType="com.linkwee.web.model.CimOrgInvestStrategyA" >
+		UPDATE tcim_org_invest_strategy_a
+		<set>
+			<trim suffixOverrides=",">
+				<if test=" null != orgNumber and ''!= orgNumber  ">
+					org_number = #{orgNumber},
+				</if>
+				<if test=" null != recommend ">
+					recommend = #{recommend},
+				</if>
+				<if test=" null != strategyIndex ">
+					strategy_index = #{strategyIndex},
+				</if>
+				<if test=" null != minDeadLine ">
+					min_dead_line = #{minDeadLine},
+				</if>
+				<if test=" null != minInvestAmount ">
+					min_invest_amount = #{minInvestAmount},
+				</if>
+				<if test=" null != orgRedpacket ">
+					org_redpacket = #{orgRedpacket},
+				</if>
+				<if test=" null != orgProductRatio ">
+					org_product_ratio = #{orgProductRatio},
+				</if>
+				<if test=" null != remark and ''!= remark  ">
+					remark = #{remark},
+				</if>
+				<if test=" null != createTime ">
+					create_time = #{createTime},
+				</if>
+				<if test=" null != updateTime ">
+					update_time = #{updateTime},
+				</if>
+				<if test=" null != operator and ''!= operator  ">
+					operator = #{operator},
+				</if>
+			</trim>
+		</set>
+		<where>
+			id = #{id}
+		</where>
+	</update>
+
+	<update id="updateByPrimaryKey" parameterType="com.linkwee.web.model.CimOrgInvestStrategyA" >
+		UPDATE tcim_org_invest_strategy_a
+		<set>
+			<trim suffixOverrides=",">
+				<if test=" null != orgNumber and ''!= orgNumber  ">
+					org_number = #{orgNumber},
+				</if>
+				<if test=" null != recommend ">
+					recommend = #{recommend},
+				</if>
+				<if test=" null != strategyIndex ">
+					strategy_index = #{strategyIndex},
+				</if>
+				<if test=" null != minDeadLine ">
+					min_dead_line = #{minDeadLine},
+				</if>
+				<if test=" null != minInvestAmount ">
+					min_invest_amount = #{minInvestAmount},
+				</if>
+				<if test=" null != orgRedpacket ">
+					org_redpacket = #{orgRedpacket},
+				</if>
+				<if test=" null != orgProductRatio ">
+					org_product_ratio = #{orgProductRatio},
+				</if>
+				<if test=" null != remark and ''!= remark  ">
+					remark = #{remark},
+				</if>
+				<if test=" null != createTime ">
+					create_time = #{createTime},
+				</if>
+				<if test=" null != updateTime ">
+					update_time = #{updateTime},
+				</if>
+				<if test=" null != operator and ''!= operator  ">
+					operator = #{operator},
+				</if>
+			</trim>
+		</set>
+		<where>
+			id = #{0}
+		</where>
+	</update>
+
+	<!-- 分页条件查询 -->
+	<select id="selectBySearchInfo" resultMap="BaseResultMap" parameterType="com.linkwee.core.datatable.DataTable">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM tcim_org_invest_strategy_a
+		<where>
+			<if test="dt.search!=null">
+				name LIKE CONCAT('%','${dt.search.value}','%' )
+			</if>
+			<if test="dt.order!=null">
+				<foreach collection="dt.order" index="index" item="item"
+						 open="order by" separator="," close=" ">
+					${item.name} ${item.dir}
+				</foreach>
+			</if>
+		</where>
+	</select>
+
+	<update id="batchUpdateInvestStrategy" parameterType="java.util.List">
+		update tcim_org_invest_strategy_a
+		set
+		recommend =  (CASE id
+		<foreach item="item" collection="list">
+			when #{item.id} then #{item.recommend}
+		</foreach>
+		END),
+		strategy_index =(CASE id
+		<foreach item="item" collection="list">
+			when #{item.id} then #{item.strategyIndex}
+		</foreach>
+		END),
+		min_dead_line =(CASE id
+		<foreach item="item" collection="list">
+			when #{item.id} then #{item.minDeadLine}
+		</foreach>
+		END),
+		min_invest_amount =(CASE id
+		<foreach item="item" collection="list">
+			when #{item.id} then #{item.minInvestAmount}
+		</foreach>
+		END),
+		org_redpacket =(CASE id
+		<foreach item="item" collection="list">
+			when #{item.id} then #{item.orgRedpacket}
+		</foreach>
+		END),
+		org_product_ratio =(CASE id
+		<foreach item="item" collection="list">
+			when #{item.id} then #{item.orgProductRatio}
+		</foreach>
+		END),
+		operator =(CASE id
+		<foreach item="item" collection="list">
+			when #{item.id} then #{item.operator}
+		</foreach>
+		END),
+		update_time = now()
+		<where>
+			id
+			<foreach item="item" open="IN (" close=")" separator="," collection="list">
+				#{item.id}
+			</foreach>
+		</where>
+	</update>
+
+	<insert id="insertBatch" parameterType="java.util.List">
+		INSERT INTO tcim_org_invest_strategy_a
+		(
+		org_number,
+		recommend,
+		strategy_index,
+		min_dead_line,
+		min_invest_amount,
+		org_redpacket,
+		org_product_ratio,
+		create_time,
+		operator
+		)
+		values
+		<foreach collection="list" item="item" index="index" separator="," >
+			(
+			#{item.orgNumber},
+			#{item.recommend},
+			#{item.strategyIndex},
+			#{item.minDeadLine},
+			#{item.minInvestAmount},
+			#{item.orgRedpacket},
+			#{item.orgProductRatio},
+			now(),
+			#{item.operator}
+			)
+		</foreach>
+	</insert>
+
+</mapper>

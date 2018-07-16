@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.FeePayDao" >
+  <parameterMap type="com.linkwee.web.model.fee.FeePay" id="FeePayParameterMap" />
+  
+  <resultMap type="com.linkwee.web.model.fee.FeePay" id="BaseResultMap">
+    <id column="fid" property="id" jdbcType="INTEGER" />
+    <result column="f_department" property="department" jdbcType="VARCHAR" />
+    <result column="f_emp_no" property="empno" jdbcType="VARCHAR" />
+    <result column="f_mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="f_name" property="name" jdbcType="VARCHAR" />
+    <result column="f_fee_amount" property="feeamount" jdbcType="DOUBLE" />
+    <result column="f_bill_number" property="billnumber" jdbcType="VARCHAR" />
+    <result column="f_month" property="month" jdbcType="VARCHAR" />
+    <result column="f_sale_user_no" property="saleuserno" jdbcType="VARCHAR" />
+    <result column="f_status" property="status" jdbcType="TINYINT" />
+    <result column="f_result_msg" property="resultmsg" jdbcType="VARCHAR" />
+    <result column="f_create_time" property="createtime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    fid, f_department, f_emp_no, f_mobile, f_name, f_fee_amount, f_bill_number, f_month, 
+    f_sale_user_no, f_status, f_result_msg, f_create_time
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select <include refid="Base_Column_List" />
+    from t_fee_pay
+    where fid = #{fid,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectByCondition" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" /> 
+    from t_fee_pay 
+    where f_month = #{month} 
+    <if test=" null != status and status!=-1 ">
+    	and f_status = #{status} 
+	</if>
+	<if test=" null != list and list.size() > 0">
+	    and f_mobile in 
+	    <foreach item="item" index="index" collection="list"  open="("  separator="," close=")">
+			#{item,jdbcType=VARCHAR}
+		</foreach>
+	</if>	
+  </select>
+  
+  <select id="selectByMonthSaleuserNo" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from t_fee_pay
+    where f_month = #{month}  
+    and f_status = 0 
+    <if test=" null != list and list.size() > 0">
+	    and f_sale_user_no in 
+	    <foreach item="item" index="index" collection="list"  open="("  separator="," close=")">
+			#{item,jdbcType=VARCHAR}
+		</foreach>
+	</if>	
+  </select>
+  
+  <select id="countByMonth" resultType="java.lang.Integer" parameterType="java.lang.String" >
+    select count(fid)  from t_fee_pay  where f_month = #{month} 
+    <if test=" null != list and list.size() > 0">
+	    and f_mobile in 
+	    <foreach item="item" index="index" collection="list"  open="("  separator="," close=")">
+			#{item,jdbcType=VARCHAR}
+		</foreach>
+	</if>	
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_fee_pay
+    where fid = #{fid,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterMap="FeePayParameterMap" >
+    insert into t_fee_pay (fid, f_department, f_emp_no, 
+      f_mobile, f_name, f_fee_amount, 
+      f_bill_number, f_month, f_sale_user_no, 
+      f_status, f_result_msg, f_create_time
+      )
+    values (#{fid,jdbcType=INTEGER}, #{fDepartment,jdbcType=VARCHAR}, #{fEmpNo,jdbcType=VARCHAR}, 
+      #{fMobile,jdbcType=VARCHAR}, #{fName,jdbcType=VARCHAR}, #{fFeeAmount,jdbcType=DOUBLE}, 
+      #{fBillNumber,jdbcType=VARCHAR}, #{fMonth,jdbcType=VARCHAR}, #{fSaleUserNo,jdbcType=VARCHAR}, 
+      #{fStatus,jdbcType=TINYINT}, #{fResultMsg,jdbcType=VARCHAR}, #{fCreateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  
+   <insert id="addBatch" parameterType="java.util.List">
+		insert into t_fee_pay(f_department, f_emp_no, f_mobile, f_name, f_fee_amount, f_bill_number, f_month,f_sale_user_no,f_create_time) 
+		VALUES
+		<foreach item="item" index="index" collection="list" separator=",">
+			<trim prefix="(" suffix=")" suffixOverrides=",">
+					#{item.department,jdbcType=VARCHAR},
+					#{item.empno,jdbcType=VARCHAR},
+					#{item.mobile,jdbcType=VARCHAR},
+					#{item.name,jdbcType=TINYINT},
+					#{item.feeamount,jdbcType=DOUBLE},
+					#{item.billnumber,jdbcType=TIMESTAMP},
+					#{item.month,jdbcType=VARCHAR},
+					#{item.saleuserno,jdbcType=TIMESTAMP},
+					#{item.createtime,jdbcType=TIMESTAMP}
+			</trim>
+		</foreach>
+	</insert>
+  
+  <update id="updateByMonthSaleUser">
+    update t_fee_pay
+      set f_status=0,f_result_msg = '' 
+      where f_status = 3 and f_month =#{month} 
+      <if test=" null != list and list.size() > 0">
+	      and f_sale_user_no in 
+		  <foreach item="item" index="index" collection="list"  open="("  separator="," close=")">
+			 #{item,jdbcType=VARCHAR}
+		  </foreach>
+	  </if>	  
+  </update>
+  
+  <update id="update" parameterMap="FeePayParameterMap" >
+     update t_fee_pay
+    set f_department = #{department,jdbcType=VARCHAR},
+      f_emp_no = #{empno,jdbcType=VARCHAR},
+      f_mobile = #{mobile,jdbcType=VARCHAR},
+      f_name = #{name,jdbcType=VARCHAR},
+      f_fee_amount = #{feeamount,jdbcType=DOUBLE},
+      f_bill_number = #{billnumber,jdbcType=VARCHAR},
+      f_month = #{month,jdbcType=VARCHAR},
+      f_sale_user_no = #{saleuserno,jdbcType=VARCHAR},
+      f_status = #{status,jdbcType=TINYINT},
+      f_result_msg = #{resultmsg,jdbcType=VARCHAR},
+      f_create_time = #{createtime,jdbcType=TIMESTAMP}
+    where fid = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <update id="updateBatchStatus" parameterType="java.util.List">
+	  <if test=" null != list and list.size() > 0">
+		    update t_fee_pay set f_status=#{status}  where fid in 
+		    <foreach item="item" index="index" collection="list"  open="("  separator="," close=")">
+				#{item,jdbcType=VARCHAR}
+			</foreach>
+		</if>
+  </update>
+   
+</mapper>

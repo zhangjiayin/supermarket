@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.ActRanklistMapper">
+	<!-- Result Map-->
+	<resultMap  type="com.linkwee.act.rankList.model.ActRanklist" id="BaseResultMap">
+		<result column="id" property="id" jdbcType="INTEGER"/>
+		<result column="ranklist_id" property="ranklistId" jdbcType="VARCHAR"/>
+		<result column="ranklist_code" property="ranklistCode" jdbcType="VARCHAR"/>
+		<result column="ranklist_name" property="ranklistName" jdbcType="VARCHAR"/>
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+		<result column="operator" property="operator" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+  <sql id="Base_Column_List">
+    <trim suffixOverrides=",">
+	    	id,
+	    	ranklist_id,
+	    	ranklist_code,
+	    	ranklist_name,
+	    	create_time,
+	    	update_time,
+	    	operator,
+    </trim>
+  </sql>
+  
+ <sql id="Base_Column_List_T">
+    <trim suffixOverrides=",">
+	    	t.id,
+	    	t.ranklist_id,
+	    	t.ranklist_name,
+	    	t.create_time,
+	    	t.update_time,
+	    	t.operator,
+    </trim>
+  </sql>  
+  
+  <sql id="Base_Condition">
+		<if test=" null != id ">
+			and id = #{id}
+		</if>
+		<if test=" null != ranklistId and ''!= ranklistId  ">
+			and ranklist_id = #{ranklistId}
+		</if>
+		<if test=" null != ranklistName and ''!= ranklistName  ">
+			and ranklist_name = #{ranklistName}
+		</if>
+		<if test=" null != createTime ">
+			and create_time = #{createTime}
+		</if>
+		<if test=" null != updateTime ">
+			and update_time = #{updateTime}
+		</if>
+		<if test=" null != operator and ''!= operator  ">
+			and operator = #{operator}
+		</if>
+  </sql>
+  
+  <select id="selectOneByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.act.rankList.model.ActRanklist">
+		select <include refid="Base_Column_List" /> from tact_ranklist 
+		where 1=1 <include refid="Base_Condition" />
+  </select>
+  
+  <select id="selectByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.act.rankList.model.ActRanklist">
+		select <include refid="Base_Column_List" /> from tact_ranklist 
+		where 1=1 <include refid="Base_Condition" />
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tact_ranklist
+    where  id = #{0}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tact_ranklist
+    where id = #{0}
+  </delete>
+
+  <insert id="insert" parameterType="com.linkwee.act.rankList.model.ActRanklist" >
+    INSERT INTO tact_ranklist
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != ranklistId and ''!= ranklistId  ">
+					ranklist_id,
+				</if>
+			 	<if test=" null != ranklistName and ''!= ranklistName  ">
+					ranklist_name,
+				</if>
+			 	<if test=" null != createTime ">
+					create_time,
+				</if>
+			 	<if test=" null != updateTime ">
+					update_time,
+				</if>
+			 	<if test=" null != operator and ''!= operator  ">
+					operator,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != ranklistId and ''!= ranklistId  ">
+					 	#{ranklistId},
+				</if>
+			 	<if test=" null != ranklistName and ''!= ranklistName  ">
+					 	#{ranklistName},
+				</if>
+			 	<if test=" null != createTime ">
+					 	#{createTime},
+				</if>
+			 	<if test=" null != updateTime ">
+					 	#{updateTime},
+				</if>
+			 	<if test=" null != operator and ''!= operator  ">
+					 	#{operator},
+				</if>
+		</trim>
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.linkwee.act.rankList.model.ActRanklist" useGeneratedKeys="true" keyProperty="id" >
+		INSERT INTO tact_ranklist
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != ranklistId and ''!= ranklistId  ">
+					ranklist_id,
+				</if>
+			 	<if test=" null != ranklistName and ''!= ranklistName  ">
+					ranklist_name,
+				</if>
+			 	<if test=" null != createTime ">
+					create_time,
+				</if>
+			 	<if test=" null != updateTime ">
+					update_time,
+				</if>
+			 	<if test=" null != operator and ''!= operator  ">
+					operator,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != ranklistId and ''!= ranklistId  ">
+					 	#{ranklistId},
+				</if>
+			 	<if test=" null != ranklistName and ''!= ranklistName  ">
+					 	#{ranklistName},
+				</if>
+			 	<if test=" null != createTime ">
+					 	#{createTime},
+				</if>
+			 	<if test=" null != updateTime ">
+					 	#{updateTime},
+				</if>
+			 	<if test=" null != operator and ''!= operator  ">
+					 	#{operator},
+				</if>
+		</trim>
+	</insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.linkwee.act.rankList.model.ActRanklist" >
+  		UPDATE tact_ranklist
+		<set>
+			<trim suffixOverrides=",">
+					<if test=" null != ranklistId and ''!= ranklistId  ">
+						ranklist_id = #{ranklistId},
+					</if>
+					<if test=" null != ranklistName and ''!= ranklistName  ">
+						ranklist_name = #{ranklistName},
+					</if>
+					<if test=" null != createTime ">
+						create_time = #{createTime},
+					</if>
+					<if test=" null != updateTime ">
+						update_time = #{updateTime},
+					</if>
+					<if test=" null != operator and ''!= operator  ">
+						operator = #{operator},
+					</if>
+			</trim>
+		</set>
+		<where>
+			 id = #{id}
+		</where>
+	</update>
+  
+	<update id="updateByPrimaryKey" parameterType="com.linkwee.act.rankList.model.ActRanklist" >
+	    UPDATE tact_ranklist
+	   <set>
+			<trim suffixOverrides=",">
+					<if test=" null != ranklistId and ''!= ranklistId  ">
+						ranklist_id = #{ranklistId},
+					</if>
+					<if test=" null != ranklistName and ''!= ranklistName  ">
+						ranklist_name = #{ranklistName},
+					</if>
+					<if test=" null != createTime ">
+						create_time = #{createTime},
+					</if>
+					<if test=" null != updateTime ">
+						update_time = #{updateTime},
+					</if>
+					<if test=" null != operator and ''!= operator  ">
+						operator = #{operator},
+					</if>
+			</trim>
+		</set>
+		<where>
+			id = #{0}
+		</where>
+	  </update>
+	  
+	  
+	<select id="getCommonRankListsBySql" resultType="com.linkwee.act.rankList.model.CommonRankList" >
+		${sql}
+	</select>
+	<select id="getCommonRankListBySql" resultType="com.linkwee.act.rankList.model.CommonRankList" >
+		${sql}
+	</select>
+	
+	<select id="queryPriftRankListNo1" resultType="String">
+    
+    		SELECT
+				TRUNCATE(IFNULL(a.totalProfit, 0), 2) totalProfit
+			FROM
+				(
+					SELECT
+						(
+							IFNULL(fd.feeProfit, 0) + IFNULL(br.activityProfit, 0) + IFNULL(rd.offlineProfit, 0)
+						) totalProfit
+					FROM
+						tcrm_cfplanner c
+					LEFT JOIN (
+						SELECT
+							fd.profit_cfplanner_id,
+							SUM(fd.fee_amount) feeProfit
+						FROM
+							tcim_feedetail fd
+						WHERE
+							DATE_FORMAT(fd.create_time, '%Y%m') = DATE_FORMAT(NOW(), '%Y%m')
+						GROUP BY
+							fd.profit_cfplanner_id
+					) fd ON c.user_id = fd.profit_cfplanner_id
+					LEFT JOIN (
+						SELECT
+							br.user_id,
+							SUM(br.trans_amount) activityProfit
+						FROM
+							tac_balance_record br
+						WHERE
+						DATE_FORMAT(br.trans_date, '%Y%m') = DATE_FORMAT(NOW(), '%Y%m') AND (
+							br.trans_type = 4
+							OR (
+								br.trans_type = 14
+								AND br.create_type = 0
+							)
+						)
+						 
+						GROUP BY
+							br.user_id
+					) br ON c.user_id = br.user_id
+					LEFT JOIN (
+						SELECT
+							rd.user_id,
+							SUM(rd.trans_amount) offlineProfit
+						FROM
+							tac_offline_reward_draft rd
+						WHERE
+							rd.trans_type IN (12, 14)
+						AND rd.user_type = 1
+						AND DATE_FORMAT(rd.reward_time, '%Y%m') = DATE_FORMAT(NOW(), '%Y%m')
+						GROUP BY
+							rd.user_id
+					) rd ON c.user_id = rd.user_id
+					WHERE
+						fd.feeProfit > 0
+					OR br.activityProfit > 0
+					OR rd.offlineProfit > 0
+					UNION ALL
+						SELECT
+							t.total_profit totalProfit
+						FROM
+							`tact_ranklist_virtual_data` t
+						WHERE
+							t.rank_list_code = 'zyb'
+						AND t.feeMonth = #{feeMonth}
+						AND t.`status` = 1
+				) a
+			ORDER BY
+				a.totalProfit DESC
+			LIMIT 1
+    
+    </select>
+
+</mapper>

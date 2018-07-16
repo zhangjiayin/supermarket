@@ -1,0 +1,563 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.ActActivityEventVoteMapper">
+	<!-- Result Map-->
+	<resultMap  type="com.linkwee.web.model.ActActivityEventVote" id="BaseResultMap">
+		<result column="id" property="id" jdbcType="INTEGER"/>
+		<result column="vote_id" property="voteId" jdbcType="VARCHAR"/>
+		<result column="guess_id" property="guessId" jdbcType="INTEGER"/>
+		<result column="user_id" property="userId" jdbcType="VARCHAR"/>
+		<result column="mobile" property="mobile" jdbcType="VARCHAR"/>
+		<result column="support_vote" property="supportVote" jdbcType="VARCHAR"/>
+		<result column="consume_times" property="consumeTimes" jdbcType="INTEGER"/>
+		<result column="is_virtual" property="isVirtual" jdbcType="INTEGER"/>
+		<result column="vote_number" property="voteNumber" jdbcType="INTEGER"/>
+		<result column="vote_time" property="voteTime" jdbcType="TIMESTAMP"/>
+		<result column="reward" property="reward" jdbcType="DECIMAL"/>
+		<result column="issued" property="issued" jdbcType="INTEGER"/>
+		<result column="send_operator" property="sendOperator" jdbcType="VARCHAR"/>
+		<result column="extends1" property="extends1" jdbcType="VARCHAR"/>
+		<result column="extends2" property="extends2" jdbcType="VARCHAR"/>
+		<result column="extends3" property="extends3" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+  <sql id="Base_Column_List">
+    <trim suffixOverrides=",">
+	    	id,
+	    	vote_id,
+	    	guess_id,
+	    	user_id,
+	    	mobile,
+	    	support_vote,
+	    	consume_times,
+	    	is_virtual,
+	    	vote_number,
+	    	vote_time,
+	    	reward,
+	    	issued,
+	    	send_operator,
+	    	extends1,
+	    	extends2,
+	    	extends3,
+    </trim>
+  </sql>
+  
+ <sql id="Base_Column_List_T">
+    <trim suffixOverrides=",">
+	    	t.id,
+	    	t.vote_id,
+	    	t.guess_id,
+	    	t.user_id,
+	    	t.mobile,
+	    	t.support_vote,
+	    	t.consume_times,
+	    	t.is_virtual,
+	    	t.vote_number,
+	    	t.vote_time,
+	    	t.reward,
+	    	t.issued,
+	    	t.send_operator,
+	    	t.extends1,
+	    	t.extends2,
+	    	t.extends3,
+    </trim>
+  </sql>  
+  
+  <sql id="Base_Condition">
+		<if test=" null != id ">
+			and id = #{id}
+		</if>
+		<if test=" null != voteId and ''!= voteId  ">
+			and vote_id = #{voteId}
+		</if>
+		<if test=" null != guessId ">
+			and guess_id = #{guessId}
+		</if>
+		<if test=" null != userId and ''!= userId  ">
+			and user_id = #{userId}
+		</if>
+		<if test=" null != mobile and ''!= mobile  ">
+			and mobile = #{mobile}
+		</if>
+		<if test=" null != supportVote and ''!= supportVote  ">
+			and support_vote = #{supportVote}
+		</if>
+		<if test=" null != consumeTimes ">
+			and consume_times = #{consumeTimes}
+		</if>
+		<if test=" null != isVirtual ">
+			and is_virtual = #{isVirtual}
+		</if>
+		<if test=" null != voteNumber ">
+			and vote_number = #{voteNumber}
+		</if>
+		<if test=" null != voteTime ">
+			and vote_time = #{voteTime}
+		</if>
+		<if test=" null != reward ">
+			and reward = #{reward}
+		</if>
+		<if test=" null != issued ">
+			and issued = #{issued}
+		</if>
+		<if test=" null != sendOperator and ''!= sendOperator  ">
+			and send_operator = #{sendOperator}
+		</if>
+		<if test=" null != extends1 and ''!= extends1  ">
+			and extends1 = #{extends1}
+		</if>
+		<if test=" null != extends2 and ''!= extends2  ">
+			and extends2 = #{extends2}
+		</if>
+		<if test=" null != extends3 and ''!= extends3  ">
+			and extends3 = #{extends3}
+		</if>
+  </sql>
+  
+  <select id="selectOneByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.web.model.ActActivityEventVote">
+		select <include refid="Base_Column_List" /> from tact_activity_event_vote 
+		where 1=1 <include refid="Base_Condition" />
+  </select>
+  
+  <select id="selectByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.web.model.ActActivityEventVote">
+		select <include refid="Base_Column_List" /> from tact_activity_event_vote 
+		where 1=1 <include refid="Base_Condition" />
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tact_activity_event_vote
+    where  id = #{0}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tact_activity_event_vote
+    where id = #{0}
+  </delete>
+
+  <insert id="insert" parameterType="com.linkwee.web.model.ActActivityEventVote" >
+    INSERT INTO tact_activity_event_vote
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != voteId and ''!= voteId  ">
+					vote_id,
+				</if>
+			 	<if test=" null != guessId ">
+					guess_id,
+				</if>
+			 	<if test=" null != userId and ''!= userId  ">
+					user_id,
+				</if>
+			 	<if test=" null != mobile and ''!= mobile  ">
+					mobile,
+				</if>
+			 	<if test=" null != supportVote and ''!= supportVote  ">
+					support_vote,
+				</if>
+			 	<if test=" null != consumeTimes ">
+					consume_times,
+				</if>
+			 	<if test=" null != isVirtual ">
+					is_virtual,
+				</if>
+			 	<if test=" null != voteNumber ">
+					vote_number,
+				</if>
+			 	<if test=" null != voteTime ">
+					vote_time,
+				</if>
+			 	<if test=" null != reward ">
+					reward,
+				</if>
+			 	<if test=" null != issued ">
+					issued,
+				</if>
+			 	<if test=" null != sendOperator and ''!= sendOperator  ">
+					send_operator,
+				</if>
+			 	<if test=" null != extends1 and ''!= extends1  ">
+					extends1,
+				</if>
+			 	<if test=" null != extends2 and ''!= extends2  ">
+					extends2,
+				</if>
+			 	<if test=" null != extends3 and ''!= extends3  ">
+					extends3,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != voteId and ''!= voteId  ">
+					 	#{voteId},
+				</if>
+			 	<if test=" null != guessId ">
+					 	#{guessId},
+				</if>
+			 	<if test=" null != userId and ''!= userId  ">
+					 	#{userId},
+				</if>
+			 	<if test=" null != mobile and ''!= mobile  ">
+					 	#{mobile},
+				</if>
+			 	<if test=" null != supportVote and ''!= supportVote  ">
+					 	#{supportVote},
+				</if>
+			 	<if test=" null != consumeTimes ">
+					 	#{consumeTimes},
+				</if>
+			 	<if test=" null != isVirtual ">
+					 	#{isVirtual},
+				</if>
+			 	<if test=" null != voteNumber ">
+					 	#{voteNumber},
+				</if>
+			 	<if test=" null != voteTime ">
+					 	#{voteTime},
+				</if>
+			 	<if test=" null != reward ">
+					 	#{reward},
+				</if>
+			 	<if test=" null != issued ">
+					 	#{issued},
+				</if>
+			 	<if test=" null != sendOperator and ''!= sendOperator  ">
+					 	#{sendOperator},
+				</if>
+			 	<if test=" null != extends1 and ''!= extends1  ">
+					 	#{extends1},
+				</if>
+			 	<if test=" null != extends2 and ''!= extends2  ">
+					 	#{extends2},
+				</if>
+			 	<if test=" null != extends3 and ''!= extends3  ">
+					 	#{extends3},
+				</if>
+		</trim>
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.linkwee.web.model.ActActivityEventVote" useGeneratedKeys="true" keyProperty="id" >
+		INSERT INTO tact_activity_event_vote
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != voteId and ''!= voteId  ">
+					vote_id,
+				</if>
+			 	<if test=" null != guessId ">
+					guess_id,
+				</if>
+			 	<if test=" null != userId and ''!= userId  ">
+					user_id,
+				</if>
+			 	<if test=" null != mobile and ''!= mobile  ">
+					mobile,
+				</if>
+			 	<if test=" null != supportVote and ''!= supportVote  ">
+					support_vote,
+				</if>
+			 	<if test=" null != consumeTimes ">
+					consume_times,
+				</if>
+			 	<if test=" null != isVirtual ">
+					is_virtual,
+				</if>
+			 	<if test=" null != voteNumber ">
+					vote_number,
+				</if>
+			 	<if test=" null != voteTime ">
+					vote_time,
+				</if>
+			 	<if test=" null != reward ">
+					reward,
+				</if>
+			 	<if test=" null != issued ">
+					issued,
+				</if>
+			 	<if test=" null != sendOperator and ''!= sendOperator  ">
+					send_operator,
+				</if>
+			 	<if test=" null != extends1 and ''!= extends1  ">
+					extends1,
+				</if>
+			 	<if test=" null != extends2 and ''!= extends2  ">
+					extends2,
+				</if>
+			 	<if test=" null != extends3 and ''!= extends3  ">
+					extends3,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != voteId and ''!= voteId  ">
+					 	#{voteId},
+				</if>
+			 	<if test=" null != guessId ">
+					 	#{guessId},
+				</if>
+			 	<if test=" null != userId and ''!= userId  ">
+					 	#{userId},
+				</if>
+			 	<if test=" null != mobile and ''!= mobile  ">
+					 	#{mobile},
+				</if>
+			 	<if test=" null != supportVote and ''!= supportVote  ">
+					 	#{supportVote},
+				</if>
+			 	<if test=" null != consumeTimes ">
+					 	#{consumeTimes},
+				</if>
+			 	<if test=" null != isVirtual ">
+					 	#{isVirtual},
+				</if>
+			 	<if test=" null != voteNumber ">
+					 	#{voteNumber},
+				</if>
+			 	<if test=" null != voteTime ">
+					 	#{voteTime},
+				</if>
+			 	<if test=" null != reward ">
+					 	#{reward},
+				</if>
+			 	<if test=" null != issued ">
+					 	#{issued},
+				</if>
+			 	<if test=" null != sendOperator and ''!= sendOperator  ">
+					 	#{sendOperator},
+				</if>
+			 	<if test=" null != extends1 and ''!= extends1  ">
+					 	#{extends1},
+				</if>
+			 	<if test=" null != extends2 and ''!= extends2  ">
+					 	#{extends2},
+				</if>
+			 	<if test=" null != extends3 and ''!= extends3  ">
+					 	#{extends3},
+				</if>
+		</trim>
+	</insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.linkwee.web.model.ActActivityEventVote" >
+  		UPDATE tact_activity_event_vote
+		<set>
+			<trim suffixOverrides=",">
+					<if test=" null != voteId and ''!= voteId  ">
+						vote_id = #{voteId},
+					</if>
+					<if test=" null != guessId ">
+						guess_id = #{guessId},
+					</if>
+					<if test=" null != userId and ''!= userId  ">
+						user_id = #{userId},
+					</if>
+					<if test=" null != mobile and ''!= mobile  ">
+						mobile = #{mobile},
+					</if>
+					<if test=" null != supportVote and ''!= supportVote  ">
+						support_vote = #{supportVote},
+					</if>
+					<if test=" null != consumeTimes ">
+						consume_times = #{consumeTimes},
+					</if>
+					<if test=" null != isVirtual ">
+						is_virtual = #{isVirtual},
+					</if>
+					<if test=" null != voteNumber ">
+						vote_number = #{voteNumber},
+					</if>
+					<if test=" null != voteTime ">
+						vote_time = #{voteTime},
+					</if>
+					<if test=" null != reward ">
+						reward = #{reward},
+					</if>
+					<if test=" null != issued ">
+						issued = #{issued},
+					</if>
+					<if test=" null != sendOperator and ''!= sendOperator  ">
+						send_operator = #{sendOperator},
+					</if>
+					<if test=" null != extends1 and ''!= extends1  ">
+						extends1 = #{extends1},
+					</if>
+					<if test=" null != extends2 and ''!= extends2  ">
+						extends2 = #{extends2},
+					</if>
+					<if test=" null != extends3 and ''!= extends3  ">
+						extends3 = #{extends3},
+					</if>
+			</trim>
+		</set>
+		<where>
+			 id = #{id}
+		</where>
+	</update>
+  
+	<update id="updateByPrimaryKey" parameterType="com.linkwee.web.model.ActActivityEventVote" >
+	    UPDATE tact_activity_event_vote
+	   <set>
+			<trim suffixOverrides=",">
+					<if test=" null != voteId and ''!= voteId  ">
+						vote_id = #{voteId},
+					</if>
+					<if test=" null != guessId ">
+						guess_id = #{guessId},
+					</if>
+					<if test=" null != userId and ''!= userId  ">
+						user_id = #{userId},
+					</if>
+					<if test=" null != mobile and ''!= mobile  ">
+						mobile = #{mobile},
+					</if>
+					<if test=" null != supportVote and ''!= supportVote  ">
+						support_vote = #{supportVote},
+					</if>
+					<if test=" null != consumeTimes ">
+						consume_times = #{consumeTimes},
+					</if>
+					<if test=" null != isVirtual ">
+						is_virtual = #{isVirtual},
+					</if>
+					<if test=" null != voteNumber ">
+						vote_number = #{voteNumber},
+					</if>
+					<if test=" null != voteTime ">
+						vote_time = #{voteTime},
+					</if>
+					<if test=" null != reward ">
+						reward = #{reward},
+					</if>
+					<if test=" null != issued ">
+						issued = #{issued},
+					</if>
+					<if test=" null != sendOperator and ''!= sendOperator  ">
+						send_operator = #{sendOperator},
+					</if>
+					<if test=" null != extends1 and ''!= extends1  ">
+						extends1 = #{extends1},
+					</if>
+					<if test=" null != extends2 and ''!= extends2  ">
+						extends2 = #{extends2},
+					</if>
+					<if test=" null != extends3 and ''!= extends3  ">
+						extends3 = #{extends3},
+					</if>
+			</trim>
+		</set>
+		<where>
+			id = #{0}
+		</where>
+	  </update>
+
+	<!-- 分页条件查询 -->
+    <select id="selectBySearchInfo" resultMap="BaseResultMap" parameterType="com.linkwee.core.datatable.DataTable">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM tact_activity_event_vote
+        <where> 
+        <if test="dt.search!=null">  
+                name LIKE CONCAT('%','${dt.search.value}','%' )  
+         </if>  
+         <if test="dt.order!=null">  
+               <foreach collection="dt.order" index="index" item="item"
+                    open="order by" separator="," close=" ">
+                    ${item.name} ${item.dir} 
+                </foreach>
+         </if>  
+        </where>
+    </select>
+
+    <select id="hadVotedNum" resultType="java.lang.Integer">
+		SELECT
+			IFNULL(SUM(consume_times), 0)
+		FROM
+			tact_activity_event_vote
+		WHERE
+			user_id = #{userId}
+		AND guess_id IN (
+			SELECT
+				id
+			FROM
+				tact_activity_event_guessing
+			WHERE
+				activity_code = #{activityCode}
+		)
+	</select>
+
+	<select id="hadVotedGuessNum" resultType="java.lang.Integer">
+		SELECT
+			IFNULL(SUM(consume_times), 0)
+		FROM
+			tact_activity_event_vote
+		WHERE
+			user_id = #{userId}
+		AND guess_id = #{guessingId}
+		AND support_vote = #{supportVote}
+	</select>
+
+	<select id="queryEventGuessingPrize" resultType="java.math.BigDecimal">
+		SELECT
+			IFNULL(SUM(reward), 0)
+		FROM
+			tact_activity_event_vote
+		WHERE
+			user_id = #{userId}
+		AND guess_id = #{guessingId}
+		AND support_vote = #{supportVote}
+	</select>
+
+    <select id="hadVotedTotal" resultType="java.lang.Integer">
+		SELECT
+			IFNULL(SUM(vote_number), 0)
+		FROM
+			tact_activity_event_vote
+		WHERE
+			is_virtual = 0
+		AND guess_id = #{guessingId}
+		AND support_vote = #{supportVote}
+	</select>
+
+	<update id="generatePrize">
+		UPDATE tact_activity_event_vote SET reward = vote_number * #{perVotePrize}
+		WHERE is_virtual = 0
+		AND guess_id = #{guessingId}
+		AND support_vote = #{supportVote}
+	</update>
+
+	<select id="queryEventGuessingPrizeAmount" resultType="java.math.BigDecimal">
+		SELECT
+			IFNULL(SUM(reward), 0)
+		FROM
+			tact_activity_event_vote
+		WHERE
+			is_virtual = 0
+		AND guess_id = #{guessingId}
+		AND support_vote = #{supportVote}
+	</select>
+    <select id="queryEventGuessingPrizeTotal" resultType="com.linkwee.web.response.UserEventGuessingPrizeResponse">
+		SELECT
+			user_id AS userId,
+			IFNULL(SUM(reward), 0) AS amount
+		FROM
+			tact_activity_event_vote
+		WHERE
+			is_virtual = 0
+		AND guess_id = #{guessingId}
+		AND support_vote = #{supportVote}
+		GROUP BY user_id
+	</select>
+
+	<update id="updateEventGuessingStatus">
+		UPDATE tact_activity_event_vote SET issued = 1,send_operator = #{operator}
+		WHERE is_virtual = 0
+		AND guess_id = #{guessingId}
+		AND support_vote = #{supportVote}
+	</update>
+</mapper>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.FeeDetailDao">
+<parameterMap type="com.linkwee.web.model.fee.FeeDetail" id="FeeDetailParameterMap" />	
+<!-- Result Map-->
+<resultMap  type="com.linkwee.web.model.fee.FeeDetail" id="FeeDetailParameterMap">
+	<result column="fbillnumber" property="billnumber" jdbcType="VARCHAR"/>
+	<result column="fcustomername" property="customername" jdbcType="VARCHAR"/>
+	<result column="fcustomernumber" property="customermobile" jdbcType="VARCHAR"/>
+	<result column="fbizdate" property="bizdate" jdbcType="VARCHAR"/>
+	<result column="ffeeamount" property="feeamount" jdbcType="VARCHAR"/>
+	<result column="fnumber" property="orgnumber" jdbcType="VARCHAR"/>
+	<result column="fname" property="orgname" jdbcType="LONGVARBINARY"/>
+	<result column="f_number" property="saleusernumber" jdbcType="VARCHAR"/>
+	<result column="f_name" property="saleusername" jdbcType="VARCHAR"/>
+	<result column="f_mobile" property="saleusermobile" jdbcType="VARCHAR"/>
+	<result column="product_name" property="productname" jdbcType="TINYINT"/>
+	<result column="fpuramount" property="puramount" jdbcType="FLOAT"/>
+</resultMap>
+  <sql id="Base_Column_List">
+    <trim suffixOverrides=",">
+	    	t1.fbillnumber,
+	    	t4.fcustomername,
+	    	t1.fcustomernumber,
+	    	t1.fbizdate,
+	    	t1.ffeeamount,
+	    	t3.fnumber,
+	    	t3.fname,
+	    	t2.f_number,
+	    	t2.f_name,
+	    	t2.f_mobile,
+	    	t5.product_name,
+	    	t1.fpuramount,
+    </trim>
+  </sql>  
+  
+    
+ <sql id="Base_Condition">
+		<if test=" null != saleusernumber and ''!= saleusernumber  ">
+			AND	t2.f_number = #{saleusernumber}
+		</if>
+	    <if test=" null != saleusermobile and ''!= saleusermobile  ">
+			AND	t2.f_mobile = #{saleusermobile}
+		</if>
+ </sql>    
+ 
+ 
+<select id="queryFeeDetail" resultMap="FeeDetailParameterMap"  >
+		SELECT 
+	<include refid="Base_Column_List" />
+		FROM tfeedetail t1 
+		LEFT JOIN t_sale_user_info t2 ON t1.fsaleusernumber = t2.f_number
+		LEFT JOIN torginfo t3 ON t2.f_department = t3.fnumber
+		LEFT JOIN tusercustomerrel t4 ON t1.fcustomernumber = t4.fcustomermobile
+		LEFT JOIN tproduct t5 ON t5.fid = t1.fproductnumber
+		WHERE 1=1 
+	<include refid="Base_Condition" />
+	    order by t1.fid desc
+</select>
+
+</mapper>

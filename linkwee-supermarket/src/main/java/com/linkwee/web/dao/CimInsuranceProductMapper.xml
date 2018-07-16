@@ -1,0 +1,592 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.CimInsuranceProductMapper">
+	<!-- Result Map-->
+	<resultMap  type="com.linkwee.web.model.CimInsuranceProduct" id="BaseResultMap">
+		<result column="id" property="id" jdbcType="INTEGER"/>
+		<result column="product_id" property="productId" jdbcType="VARCHAR"/>
+		<result column="org_number" property="orgNumber" jdbcType="VARCHAR"/>
+		<result column="caseCode" property="caseCode" jdbcType="VARCHAR"/>
+		<result column="productName" property="productName" jdbcType="VARCHAR"/>
+		<result column="fullDescription" property="fullDescription" jdbcType="VARCHAR"/>
+		<result column="fristCategory" property="fristCategory" jdbcType="VARCHAR"/>
+		<result column="secondCategory" property="secondCategory" jdbcType="VARCHAR"/>
+		<result column="companyName" property="companyName" jdbcType="VARCHAR"/>
+		<result column="state" property="state" jdbcType="INTEGER"/>
+		<result column="price" property="price" jdbcType="INTEGER"/>
+		<result column="product_bakimg" property="productBakimg" jdbcType="VARCHAR"/>
+		<result column="order_sort" property="orderSort" jdbcType="INTEGER"/>
+		<result column="creat_time" property="creatTime" jdbcType="TIMESTAMP"/>
+		<result column="up_time" property="upTime" jdbcType="TIMESTAMP"/>
+		<result column="fee_ratio" property="feeRatio" jdbcType="DECIMAL"/>
+		<result column="hesitate_date" property="hesitateDate" jdbcType="INTEGER"/>
+	</resultMap>
+	
+  <sql id="Base_Column_List">
+    <trim suffixOverrides=",">
+	    	id,
+	    	product_id,
+	    	org_number,
+	    	caseCode,
+	    	productName,
+	    	fullDescription,
+	    	fristCategory,
+	    	secondCategory,
+	    	companyName,
+	    	state,
+	    	price,
+	    	product_bakimg,
+	    	order_sort,
+	    	creat_time,
+	    	up_time,
+	    	fee_ratio,
+	    	hesitate_date,
+    </trim>
+  </sql>
+  
+ <sql id="Base_Column_List_T">
+    <trim suffixOverrides=",">
+	    	t.id,
+	    	t.product_id,
+	    	t.org_number,
+	    	t.caseCode,
+	    	t.productName,
+	    	t.fullDescription,
+	    	t.fristCategory,
+	    	t.secondCategory,
+	    	t.companyName,
+	    	t.state,
+	    	t.price,
+	    	t.product_bakimg,
+	    	t.order_sort,
+	    	t.creat_time,
+	    	t.up_time,
+	    	t.fee_ratio,
+	    	t.hesitate_date,
+    </trim>
+  </sql>  
+  
+  <sql id="Base_Condition">
+		<if test=" null != id ">
+			and id = #{id}
+		</if>
+		<if test=" null != productId and ''!= productId  ">
+			and product_id = #{productId}
+		</if>
+		<if test=" null != orgNumber and ''!= orgNumber  ">
+			and org_number = #{orgNumber}
+		</if>
+		<if test=" null != caseCode and ''!= caseCode  ">
+			and caseCode = #{caseCode}
+		</if>
+		<if test=" null != productName and ''!= productName  ">
+			and productName = #{productName}
+		</if>
+		<if test=" null != fullDescription and ''!= fullDescription  ">
+			and fullDescription = #{fullDescription}
+		</if>
+		<if test=" null != fristCategory and ''!= fristCategory  ">
+			and fristCategory = #{fristCategory}
+		</if>
+		<if test=" null != secondCategory and ''!= secondCategory  ">
+			and secondCategory = #{secondCategory}
+		</if>
+		<if test=" null != companyName and ''!= companyName  ">
+			and companyName = #{companyName}
+		</if>
+		<if test=" null != state ">
+			and state = #{state}
+		</if>
+		<if test=" null != price ">
+			and price = #{price}
+		</if>
+		<if test=" null != productBakimg and ''!= productBakimg  ">
+			and product_bakimg = #{productBakimg}
+		</if>
+		<if test=" null != orderSort ">
+			and order_sort = #{orderSort}
+		</if>
+		<if test=" null != creatTime ">
+			and creat_time = #{creatTime}
+		</if>
+		<if test=" null != upTime ">
+			and up_time = #{upTime}
+		</if>
+		<if test=" null != feeRatio ">
+			and fee_ratio = #{feeRatio}
+		</if>
+		<if test=" null != hesitateDate ">
+			and hesitate_date = #{hesitateDate}
+		</if>
+  </sql>
+  
+  <select id="selectOneByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.web.model.CimInsuranceProduct">
+		select <include refid="Base_Column_List" /> from tcim_insurance_product 
+		where 1=1 <include refid="Base_Condition" />
+  </select>
+  
+  <select id="selectByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.web.model.CimInsuranceProduct">
+		select <include refid="Base_Column_List" /> from tcim_insurance_product 
+		where 1=1 <include refid="Base_Condition" />
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tcim_insurance_product
+    where  id = #{0}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tcim_insurance_product
+    where id = #{0}
+  </delete>
+
+  <insert id="insert" parameterType="com.linkwee.web.model.CimInsuranceProduct" >
+    INSERT INTO tcim_insurance_product
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != productId and ''!= productId  ">
+					product_id,
+				</if>
+			 	<if test=" null != orgNumber and ''!= orgNumber  ">
+					org_number,
+				</if>
+			 	<if test=" null != caseCode and ''!= caseCode  ">
+					caseCode,
+				</if>
+			 	<if test=" null != productName and ''!= productName  ">
+					productName,
+				</if>
+			 	<if test=" null != fullDescription and ''!= fullDescription  ">
+					fullDescription,
+				</if>
+			 	<if test=" null != fristCategory and ''!= fristCategory  ">
+					fristCategory,
+				</if>
+			 	<if test=" null != secondCategory and ''!= secondCategory  ">
+					secondCategory,
+				</if>
+			 	<if test=" null != companyName and ''!= companyName  ">
+					companyName,
+				</if>
+			 	<if test=" null != state ">
+					state,
+				</if>
+			 	<if test=" null != price ">
+					price,
+				</if>
+			 	<if test=" null != productBakimg and ''!= productBakimg  ">
+					product_bakimg,
+				</if>
+			 	<if test=" null != orderSort ">
+					order_sort,
+				</if>
+			 	<if test=" null != creatTime ">
+					creat_time,
+				</if>
+			 	<if test=" null != upTime ">
+					up_time,
+				</if>
+			 	<if test=" null != feeRatio ">
+					fee_ratio,
+				</if>
+			 	<if test=" null != hesitateDate ">
+					hesitate_date,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != productId and ''!= productId  ">
+					 	#{productId},
+				</if>
+			 	<if test=" null != orgNumber and ''!= orgNumber  ">
+					 	#{orgNumber},
+				</if>
+			 	<if test=" null != caseCode and ''!= caseCode  ">
+					 	#{caseCode},
+				</if>
+			 	<if test=" null != productName and ''!= productName  ">
+					 	#{productName},
+				</if>
+			 	<if test=" null != fullDescription and ''!= fullDescription  ">
+					 	#{fullDescription},
+				</if>
+			 	<if test=" null != fristCategory and ''!= fristCategory  ">
+					 	#{fristCategory},
+				</if>
+			 	<if test=" null != secondCategory and ''!= secondCategory  ">
+					 	#{secondCategory},
+				</if>
+			 	<if test=" null != companyName and ''!= companyName  ">
+					 	#{companyName},
+				</if>
+			 	<if test=" null != state ">
+					 	#{state},
+				</if>
+			 	<if test=" null != price ">
+					 	#{price},
+				</if>
+			 	<if test=" null != productBakimg and ''!= productBakimg  ">
+					 	#{productBakimg},
+				</if>
+			 	<if test=" null != orderSort ">
+					 	#{orderSort},
+				</if>
+			 	<if test=" null != creatTime ">
+					 	#{creatTime},
+				</if>
+			 	<if test=" null != upTime ">
+					 	#{upTime},
+				</if>
+			 	<if test=" null != feeRatio ">
+					 	#{feeRatio},
+				</if>
+			 	<if test=" null != hesitateDate ">
+					 	#{hesitateDate},
+				</if>
+		</trim>
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.linkwee.web.model.CimInsuranceProduct" useGeneratedKeys="true" keyProperty="id" >
+		INSERT INTO tcim_insurance_product
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != productId and ''!= productId  ">
+					product_id,
+				</if>
+			 	<if test=" null != orgNumber and ''!= orgNumber  ">
+					org_number,
+				</if>
+			 	<if test=" null != caseCode and ''!= caseCode  ">
+					caseCode,
+				</if>
+			 	<if test=" null != productName and ''!= productName  ">
+					productName,
+				</if>
+			 	<if test=" null != fullDescription and ''!= fullDescription  ">
+					fullDescription,
+				</if>
+			 	<if test=" null != fristCategory and ''!= fristCategory  ">
+					fristCategory,
+				</if>
+			 	<if test=" null != secondCategory and ''!= secondCategory  ">
+					secondCategory,
+				</if>
+			 	<if test=" null != companyName and ''!= companyName  ">
+					companyName,
+				</if>
+			 	<if test=" null != state ">
+					state,
+				</if>
+			 	<if test=" null != price ">
+					price,
+				</if>
+			 	<if test=" null != productBakimg and ''!= productBakimg  ">
+					product_bakimg,
+				</if>
+			 	<if test=" null != orderSort ">
+					order_sort,
+				</if>
+			 	<if test=" null != creatTime ">
+					creat_time,
+				</if>
+			 	<if test=" null != upTime ">
+					up_time,
+				</if>
+			 	<if test=" null != feeRatio ">
+					fee_ratio,
+				</if>
+			 	<if test=" null != hesitateDate ">
+					hesitate_date,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != productId and ''!= productId  ">
+					 	#{productId},
+				</if>
+			 	<if test=" null != orgNumber and ''!= orgNumber  ">
+					 	#{orgNumber},
+				</if>
+			 	<if test=" null != caseCode and ''!= caseCode  ">
+					 	#{caseCode},
+				</if>
+			 	<if test=" null != productName and ''!= productName  ">
+					 	#{productName},
+				</if>
+			 	<if test=" null != fullDescription and ''!= fullDescription  ">
+					 	#{fullDescription},
+				</if>
+			 	<if test=" null != fristCategory and ''!= fristCategory  ">
+					 	#{fristCategory},
+				</if>
+			 	<if test=" null != secondCategory and ''!= secondCategory  ">
+					 	#{secondCategory},
+				</if>
+			 	<if test=" null != companyName and ''!= companyName  ">
+					 	#{companyName},
+				</if>
+			 	<if test=" null != state ">
+					 	#{state},
+				</if>
+			 	<if test=" null != price ">
+					 	#{price},
+				</if>
+			 	<if test=" null != productBakimg and ''!= productBakimg  ">
+					 	#{productBakimg},
+				</if>
+			 	<if test=" null != orderSort ">
+					 	#{orderSort},
+				</if>
+			 	<if test=" null != creatTime ">
+					 	#{creatTime},
+				</if>
+			 	<if test=" null != upTime ">
+					 	#{upTime},
+				</if>
+			 	<if test=" null != feeRatio ">
+					 	#{feeRatio},
+				</if>
+			 	<if test=" null != hesitateDate ">
+					 	#{hesitateDate},
+				</if>
+		</trim>
+	</insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.linkwee.web.model.CimInsuranceProduct" >
+  		UPDATE tcim_insurance_product
+		<set>
+			<trim suffixOverrides=",">
+					<if test=" null != productId and ''!= productId  ">
+						product_id = #{productId},
+					</if>
+					<if test=" null != orgNumber and ''!= orgNumber  ">
+						org_number = #{orgNumber},
+					</if>
+					<if test=" null != caseCode and ''!= caseCode  ">
+						caseCode = #{caseCode},
+					</if>
+					<if test=" null != productName and ''!= productName  ">
+						productName = #{productName},
+					</if>
+					<if test=" null != fullDescription and ''!= fullDescription  ">
+						fullDescription = #{fullDescription},
+					</if>
+					<if test=" null != fristCategory and ''!= fristCategory  ">
+						fristCategory = #{fristCategory},
+					</if>
+					<if test=" null != secondCategory and ''!= secondCategory  ">
+						secondCategory = #{secondCategory},
+					</if>
+					<if test=" null != companyName and ''!= companyName  ">
+						companyName = #{companyName},
+					</if>
+					<if test=" null != state ">
+						state = #{state},
+					</if>
+					<if test=" null != price ">
+						price = #{price},
+					</if>
+					<if test=" null != productBakimg and ''!= productBakimg  ">
+						product_bakimg = #{productBakimg},
+					</if>
+					<if test=" null != orderSort ">
+						order_sort = #{orderSort},
+					</if>
+					<if test=" null != creatTime ">
+						creat_time = #{creatTime},
+					</if>
+					<if test=" null != upTime ">
+						up_time = #{upTime},
+					</if>
+					<if test=" null != feeRatio ">
+						fee_ratio = #{feeRatio},
+					</if>
+					<if test=" null != hesitateDate ">
+						hesitate_date = #{hesitateDate},
+					</if>
+			</trim>
+		</set>
+		<where>
+			 id = #{id}
+		</where>
+	</update>
+  
+	<update id="updateByPrimaryKey" parameterType="com.linkwee.web.model.CimInsuranceProduct" >
+	    UPDATE tcim_insurance_product
+	   <set>
+			<trim suffixOverrides=",">
+					<if test=" null != productId and ''!= productId  ">
+						product_id = #{productId},
+					</if>
+					<if test=" null != orgNumber and ''!= orgNumber  ">
+						org_number = #{orgNumber},
+					</if>
+					<if test=" null != caseCode and ''!= caseCode  ">
+						caseCode = #{caseCode},
+					</if>
+					<if test=" null != productName and ''!= productName  ">
+						productName = #{productName},
+					</if>
+					<if test=" null != fullDescription and ''!= fullDescription  ">
+						fullDescription = #{fullDescription},
+					</if>
+					<if test=" null != fristCategory and ''!= fristCategory  ">
+						fristCategory = #{fristCategory},
+					</if>
+					<if test=" null != secondCategory and ''!= secondCategory  ">
+						secondCategory = #{secondCategory},
+					</if>
+					<if test=" null != companyName and ''!= companyName  ">
+						companyName = #{companyName},
+					</if>
+					<if test=" null != state ">
+						state = #{state},
+					</if>
+					<if test=" null != price ">
+						price = #{price},
+					</if>
+					<if test=" null != productBakimg and ''!= productBakimg  ">
+						product_bakimg = #{productBakimg},
+					</if>
+					<if test=" null != orderSort ">
+						order_sort = #{orderSort},
+					</if>
+					<if test=" null != creatTime ">
+						creat_time = #{creatTime},
+					</if>
+					<if test=" null != upTime ">
+						up_time = #{upTime},
+					</if>
+					<if test=" null != feeRatio ">
+						fee_ratio = #{feeRatio},
+					</if>
+					<if test=" null != hesitateDate ">
+						hesitate_date = #{hesitateDate},
+					</if>
+			</trim>
+		</set>
+		<where>
+			id = #{0}
+		</where>
+	  </update>
+
+	<!-- 分页条件查询 -->
+    <select id="selectBySearchInfo" resultMap="BaseResultMap" parameterType="com.linkwee.core.datatable.DataTable">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM tcim_insurance_product
+        <where> 
+        <if test="dt.search!=null">  
+                name LIKE CONCAT('%','${dt.search.value}','%' )  
+         </if>  
+         <if test="dt.order!=null">  
+               <foreach collection="dt.order" index="index" item="item"
+                    open="order by" separator="," close=" ">
+                    ${item.name} ${item.dir} 
+                </foreach>
+         </if>  
+        </where>
+    </select>
+    
+	 <!-- 精选保险-->
+    <select id="selectinsuranceSift" parameterType="com.linkwee.api.request.insurance.qixin.QixinInsuranceSiftRequest" resultType="com.linkwee.web.model.CimInsuranceProductExtends">
+        SELECT
+	    	tip.id,
+	    	tip.org_number AS orgNumber,
+	    	tip.caseCode,
+	    	tip.productName,
+	    	tip.fullDescription,
+	    	tip.fristCategory,
+	    	tip.secondCategory,
+	    	tip.companyName,
+	    	tip.state,
+	    	tip.price,
+	    	tip.product_bakimg AS productBakimg,
+	    	tip.creat_time AS creatTime,
+	    	tip.up_time AS upTime,
+	    	tip.fee_ratio AS feeRatio
+        FROM 
+	        tcim_insurance_product tip,
+	        tcim_insurance_cate tic
+        <where>
+         		tip.state = 1
+			AND tip.fristCategory = tic.cate_id
+			AND tic.disabled = 0         
+         	AND tip.org_number = #{orgCode}
+        	AND tip.caseCode = #{caseCode}
+        </where>
+        ORDER BY tip.order_sort ASC
+    </select>        
+    
+	 <!-- 保险分类列表-->
+    <select id="insuranceList" parameterType="com.linkwee.api.request.insurance.qixin.QixinInsuranceListRequest" resultType="com.linkwee.web.model.CimInsuranceProductExtends">
+        SELECT
+	    	tip.id,
+	    	tip.org_number AS orgNumber,
+	    	tip.caseCode,
+	    	tip.productName,
+	    	tip.fullDescription,
+	    	tip.fristCategory,
+	    	tip.secondCategory,
+	    	tip.companyName,
+	    	tip.state,
+	    	tip.price,
+	    	tip.product_bakimg AS productBakimg,
+	    	tip.creat_time AS creatTime,
+	    	tip.up_time AS upTime,
+	    	tip.fee_ratio AS feeRatio
+        FROM 
+        	tcim_insurance_product tip,
+        	tcim_insurance_cate tic
+        <where>
+         		tip.state = 1
+			AND tip.fristCategory = tic.cate_id
+			AND tic.disabled = 0         
+		<if test=" null != orgCode and ''!= orgCode  ">
+			and tip.org_number = #{orgCode}
+		</if>
+		<if test=" null != insuranceCategory and ''!= insuranceCategory  ">
+			and tip.fristCategory = #{insuranceCategory}
+		</if>		
+        </where>
+        ORDER BY tip.order_sort ASC
+    </select>
+    
+	 <!-- 甄选保险-->
+    <select id="insuranceSelect" resultType="com.linkwee.web.model.CimInsuranceProductExtends">
+      SELECT
+	    	tip.id,
+	    	tip.org_number AS orgNumber,
+	    	tip.caseCode,
+	    	tip.productName,
+	    	tip.fullDescription,
+	    	tip.fristCategory,
+	    	tip.secondCategory,
+	    	tip.companyName,
+	    	tip.state,
+	    	tip.price,
+	    	tip.product_bakimg AS productBakimg,
+	    	tip.creat_time AS creatTime,
+	    	tip.up_time AS upTime,
+	    	tip.fee_ratio AS feeRatio
+        FROM
+        	 tcim_insurance_product tip,
+        	 tcim_insurance_cate tic
+	 WHERE
+         	tip.state = 1
+		AND tip.fristCategory = tic.cate_id
+		AND tic.disabled = 0         
+        AND tip.order_sort = 0	
+    </select>     
+
+</mapper>

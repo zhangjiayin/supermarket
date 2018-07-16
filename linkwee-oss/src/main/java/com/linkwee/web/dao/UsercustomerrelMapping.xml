@@ -1,0 +1,597 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.UsercustomerrelDao">
+
+<parameterMap type="com.linkwee.web.model.Usercustomerrel" id="UsercustomerrelParameterMap" />	
+<!-- Result Map-->
+<resultMap  type="com.linkwee.web.model.Usercustomerrel" id="UsercustomerrelResultMap">
+	<result column="fid" property="id" jdbcType="INTEGER"/>
+	<result column="fcustomerid" property="customerid" jdbcType="VARCHAR"/>
+	<result column="fcustomername" property="customername" jdbcType="VARCHAR"/>
+	<result column="fcustomermobile" property="customermobile" jdbcType="VARCHAR"/>
+	<result column="fregbizfrom" property="regbizfrom" jdbcType="VARCHAR"/>
+	<result column="fregrefereetype" property="regrefereetype" jdbcType="TINYINT"/>
+	<result column="fregrefuser" property="regrefuser" jdbcType="VARCHAR"/>
+	<result column="fregrefcustomer" property="regrefcustomer" jdbcType="VARCHAR"/>
+	<result column="fregtime" property="regtime" jdbcType="TIMESTAMP"/>
+	<result column="fcurrsaleuser" property="currsaleuser" jdbcType="VARCHAR"/>
+	<result column="frectranstime" property="rectranstime" jdbcType="TIMESTAMP"/>
+	<result column="frectlogintime" property="rectlogintime" jdbcType="TIMESTAMP"/>
+	<result column="fcreatetime" property="createtime" jdbcType="TIMESTAMP"/>
+	<result column="fupdatetime" property="updatetime" jdbcType="TIMESTAMP"/>
+	<result column="fdelstatus" property="delstatus" jdbcType="TINYINT"/>
+	<result column="fimportant" property="important" jdbcType="TINYINT"/>
+	<result column="f_easemob_acct" property="easemobAcct" jdbcType="VARCHAR"/>
+	<result column="ffreecustomer" property="freecustomer" jdbcType="TINYINT"/>
+</resultMap>
+
+<resultMap  type="com.linkwee.web.model.Usercustomerrel" id="customerDtlResultMap">
+	
+	<result column="fcustomerid" property="customerid" jdbcType="VARCHAR"/>
+	<result column="fcustomername" property="customername" jdbcType="VARCHAR"/>
+	<result column="fregtime" property="regtime" jdbcType="TIMESTAMP"/>
+	<result column="fcustomermobile" property="customermobile" jdbcType="VARCHAR"/>
+	<result column="fregorgfrom" property="regorgfrom" jdbcType="VARCHAR"/>
+	<result column="fcurrsaleuser" property="currsaleuser" jdbcType="VARCHAR"/>
+	<result column="f_user_source" property="userSource" jdbcType="TINYINT"/>
+	<result column="currsaleuserUUID" property="currsaleuserUUID" jdbcType="VARCHAR"/>
+	<result column="currSaleUserName" property="currSaleUserName" jdbcType="VARCHAR"/>
+	<result column="ffreecustomer" property="freecustomer" jdbcType="TINYINT"/>
+	
+</resultMap>
+  <sql id="Base_Column_List">
+    <trim suffixOverrides=",">
+	    	fid,
+	    	fcustomerid,
+	    	fcustomername,
+	    	fcustomermobile,
+	    	fregbizfrom,
+	    	fregrefereetype,
+	    	fregrefuser,
+	    	fregrefcustomer,
+	    	fregtime,
+	    	fcurrsaleuser,
+	    	frectranstime,
+	    	frectlogintime,
+	    	fcreatetime,
+	    	fupdatetime,
+	    	fdelstatus,
+	    	fimportant,
+	    	ffreecustomer,
+    </trim>
+  </sql>  
+  
+   <sql id="Base_Column_List_T">
+    <trim suffixOverrides=",">
+	    	t.fid,
+	    	t.fcustomerid,
+	    	t.fcustomername,
+	    	t.fcustomermobile,
+	    	t.fregbizfrom,
+	    	t.fregrefereetype,
+	    	t.fregrefuser,
+	    	t.fregrefcustomer,
+	    	t.fregtime,
+	    	t.fcurrsaleuser,
+	    	t.frectranstime,
+	    	t.frectlogintime,
+	    	t.fcreatetime,
+	    	t.fupdatetime,
+	    	t.fdelstatus,
+	    	t.fimportant,
+	    	t.ffreecustomer,
+    </trim>
+  </sql> 
+  	
+  <select id="getByPrimaryKey"  resultMap="UsercustomerrelResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tusercustomerrel where  fid = #{0}
+  </select>	
+
+  <delete id="deleteByPrimaryKey" >
+    delete from tusercustomerrel
+	<where>
+		fid = #{0}
+	</where>
+  </delete>
+  
+  
+  <insert id="add" parameterMap="UsercustomerrelParameterMap" useGeneratedKeys="true" keyProperty="id" >
+		INSERT INTO tusercustomerrel
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					fid,
+				</if>
+			 	<if test=" null != customerid and ''!= customerid  ">
+					fcustomerid,
+				</if>
+			 	<if test=" null != customername and ''!= customername  ">
+					fcustomername,
+				</if>
+			 	<if test=" null != customermobile and ''!= customermobile  ">
+					fcustomermobile,
+				</if>
+			 	<if test=" null != regbizfrom and ''!= regbizfrom  ">
+					fregbizfrom,
+				</if>
+			 	<if test=" null != regrefereetype ">
+					fregrefereetype,
+				</if>
+			 	<if test=" null != regrefuser and ''!= regrefuser  ">
+					fregrefuser,
+				</if>
+			 	<if test=" null != regrefcustomer and ''!= regrefcustomer  ">
+					fregrefcustomer,
+				</if>
+			 	<if test=" null != regtime ">
+					fregtime,
+				</if>
+			 	<if test=" null != currsaleuser and ''!= currsaleuser  ">
+					fcurrsaleuser,
+				</if>
+			 	<if test=" null != rectranstime ">
+					frectranstime,
+				</if>
+			 	<if test=" null != rectlogintime ">
+					frectlogintime,
+				</if>
+			 	<if test=" null != createtime ">
+					fcreatetime,
+				</if>
+			 	<if test=" null != updatetime ">
+					fupdatetime,
+				</if>
+			 	<if test=" null != delstatus ">
+					fdelstatus,
+				</if>
+			 	<if test=" null != important ">
+					fimportant,
+				</if>
+				<if test=" null != freecustomer">
+					ffreecustomer,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != customerid and ''!= customerid  ">
+					 	#{customerid},
+				</if>
+			 	<if test=" null != customername and ''!= customername  ">
+					 	#{customername},
+				</if>
+			 	<if test=" null != customermobile and ''!= customermobile  ">
+					 	#{customermobile},
+				</if>
+			 	<if test=" null != regbizfrom and ''!= regbizfrom  ">
+					 	#{regbizfrom},
+				</if>
+			 	<if test=" null != regrefereetype ">
+					 	#{regrefereetype},
+				</if>
+			 	<if test=" null != regrefuser and ''!= regrefuser  ">
+					 	#{regrefuser},
+				</if>
+			 	<if test=" null != regrefcustomer and ''!= regrefcustomer  ">
+					 	#{regrefcustomer},
+				</if>
+			 	<if test=" null != regtime ">
+					 	#{regtime},
+				</if>
+			 	<if test=" null != currsaleuser and ''!= currsaleuser  ">
+					 	#{currsaleuser},
+				</if>
+			 	<if test=" null != rectranstime ">
+					 	#{rectranstime},
+				</if>
+			 	<if test=" null != rectlogintime ">
+					 	#{rectlogintime},
+				</if>
+			 	<if test=" null != createtime ">
+					 	#{createtime},
+				</if>
+			 	<if test=" null != updatetime ">
+					 	#{updatetime},
+				</if>
+			 	<if test=" null != delstatus ">
+					 	#{delstatus},
+				</if>
+			 	<if test=" null != important ">
+					 	#{important},
+				</if>
+				<if test=" null != freecustomer">
+					#{freecustomer},
+				</if>
+		</trim>
+	</insert>
+  
+  
+  <update id="update" parameterMap="UsercustomerrelParameterMap">
+		UPDATE tusercustomerrel
+		<set>
+			<trim suffixOverrides=",">
+					<if test=" null != customerid and ''!= customerid  ">
+						fcustomerid = #{customerid},
+					</if>
+					<if test=" null != customername and ''!= customername  ">
+						fcustomername = #{customername},
+					</if>
+					<if test=" null != customermobile and ''!= customermobile  ">
+						fcustomermobile = #{customermobile},
+					</if>
+					<if test=" null != regbizfrom and ''!= regbizfrom  ">
+						fregbizfrom = #{regbizfrom},
+					</if>
+					<if test=" null != regrefereetype ">
+						fregrefereetype = #{regrefereetype},
+					</if>
+					<if test=" null != regrefuser and ''!= regrefuser  ">
+						fregrefuser = #{regrefuser},
+					</if>
+					<if test=" null != regrefcustomer and ''!= regrefcustomer  ">
+						fregrefcustomer = #{regrefcustomer},
+					</if>
+					<if test=" null != regtime ">
+						fregtime = #{regtime},
+					</if>
+					<if test=" null != currsaleuser and ''!= currsaleuser  ">
+						fcurrsaleuser = #{currsaleuser},
+					</if>
+					<if test=" null != rectranstime ">
+						frectranstime = #{rectranstime},
+					</if>
+					<if test=" null != rectlogintime ">
+						frectlogintime = #{rectlogintime},
+					</if>
+					<if test=" null != createtime ">
+						fcreatetime = #{createtime},
+					</if>
+					<if test=" null != updatetime ">
+						fupdatetime = #{updatetime},
+					</if>
+					<if test=" null != delstatus ">
+						fdelstatus = #{delstatus},
+					</if>
+					<if test=" null != important ">
+						fimportant = #{important},
+					</if>
+					<if test=" null != freecustomer ">
+						ffreecustomer = #{freecustomer},
+					</if>
+			</trim>
+		</set>
+		<where>
+			 fid = #{id}
+		</where>
+	</update>
+  
+  
+   <update id="updateWithEmpty" parameterMap="UsercustomerrelParameterMap">
+		UPDATE tusercustomerrel
+		<set>
+			<trim suffixOverrides=",">
+						fcustomerid = #{customerid},
+						fcustomername = #{customername},
+						fcustomermobile = #{customermobile},
+						fregbizfrom = #{regbizfrom},
+						fregrefereetype = #{regrefereetype},
+						fregrefuser = #{regrefuser},
+						fregrefcustomer = #{regrefcustomer},
+						fregtime = #{regtime},
+						fcurrsaleuser = #{currsaleuser},
+						frectranstime = #{rectranstime},
+						frectlogintime = #{rectlogintime},
+						fcreatetime = #{createtime},
+						fupdatetime = #{updatetime},
+						fdelstatus = #{delstatus},
+						fimportant = #{important},
+			</trim>
+		</set>
+		<where>
+			 fid = #{id}
+		</where>
+	</update>
+
+  <insert id="addBatch" parameterType="java.util.List">
+	insert into tusercustomerrel 
+	<trim prefix="(" suffix=")" >
+			<include refid="Base_Column_List" />
+	</trim>
+	VALUES
+	<foreach item="item" index="index" collection="list" separator=",">
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+				#{item.id,jdbcType=INTEGER},
+				#{item.customerid,jdbcType=VARCHAR},
+				#{item.customername,jdbcType=VARCHAR},
+				#{item.customermobile,jdbcType=VARCHAR},
+				#{item.regbizfrom,jdbcType=VARCHAR},
+				#{item.regrefereetype,jdbcType=TINYINT},
+				#{item.regrefuser,jdbcType=VARCHAR},
+				#{item.regrefcustomer,jdbcType=VARCHAR},
+				#{item.regtime,jdbcType=TIMESTAMP},
+				#{item.currsaleuser,jdbcType=VARCHAR},
+				#{item.rectranstime,jdbcType=TIMESTAMP},
+				#{item.rectlogintime,jdbcType=TIMESTAMP},
+				#{item.createtime,jdbcType=TIMESTAMP},
+				#{item.updatetime,jdbcType=TIMESTAMP},
+				#{item.delstatus,jdbcType=TINYINT},
+				#{item.important,jdbcType=TINYINT},
+		</trim>
+	</foreach>
+</insert>
+
+ 
+<update id="updateBatch" parameterType="java.util.List">
+      <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update tusercustomerrel
+            <set>
+              	<trim suffixOverrides=",">
+					   <if test="item.customerid!=null and ''!= item.customerid  ">
+					        fcustomerid = #{item.customerid,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.customername!=null and ''!= item.customername  ">
+					        fcustomername = #{item.customername,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.customermobile!=null and ''!= item.customermobile  ">
+					        fcustomermobile = #{item.customermobile,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.regbizfrom!=null and ''!= item.regbizfrom  ">
+					        fregbizfrom = #{item.regbizfrom,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.regrefereetype!=null ">
+					        fregrefereetype = #{item.regrefereetype,jdbcType=TINYINT},
+					   </if>
+					   <if test="item.regrefuser!=null and ''!= item.regrefuser  ">
+					        fregrefuser = #{item.regrefuser,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.regrefcustomer!=null and ''!= item.regrefcustomer  ">
+					        fregrefcustomer = #{item.regrefcustomer,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.regtime!=null ">
+					        fregtime = #{item.regtime,jdbcType=TIMESTAMP},
+					   </if>
+					   <if test="item.currsaleuser!=null and ''!= item.currsaleuser  ">
+					        fcurrsaleuser = #{item.currsaleuser,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.rectranstime!=null ">
+					        frectranstime = #{item.rectranstime,jdbcType=TIMESTAMP},
+					   </if>
+					   <if test="item.rectlogintime!=null ">
+					        frectlogintime = #{item.rectlogintime,jdbcType=TIMESTAMP},
+					   </if>
+					   <if test="item.createtime!=null ">
+					        fcreatetime = #{item.createtime,jdbcType=TIMESTAMP},
+					   </if>
+					   <if test="item.updatetime!=null ">
+					        fupdatetime = #{item.updatetime,jdbcType=TIMESTAMP},
+					   </if>
+					   <if test="item.delstatus!=null ">
+					        fdelstatus = #{item.delstatus,jdbcType=TINYINT},
+					   </if>
+					   <if test="item.important!=null ">
+					        fimportant = #{item.important,jdbcType=TINYINT},
+					   </if>
+			   </trim>
+            </set>
+             where fid = #{item.id}
+     </foreach>
+</update>
+
+<update id="updateBatchWithEmpty" parameterType="java.util.List">
+      <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update tusercustomerrel
+            <set>
+              	<trim suffixOverrides=",">
+					        fcustomerid = #{item.customerid,jdbcType=VARCHAR},
+					        fcustomername = #{item.customername,jdbcType=VARCHAR},
+					        fcustomermobile = #{item.customermobile,jdbcType=VARCHAR},
+					        fregbizfrom = #{item.regbizfrom,jdbcType=VARCHAR},
+					        fregrefereetype = #{item.regrefereetype,jdbcType=TINYINT},
+					        fregrefuser = #{item.regrefuser,jdbcType=VARCHAR},
+					        fregrefcustomer = #{item.regrefcustomer,jdbcType=VARCHAR},
+					        fregtime = #{item.regtime,jdbcType=TIMESTAMP},
+					        fcurrsaleuser = #{item.currsaleuser,jdbcType=VARCHAR},
+					        frectranstime = #{item.rectranstime,jdbcType=TIMESTAMP},
+					        frectlogintime = #{item.rectlogintime,jdbcType=TIMESTAMP},
+					        fcreatetime = #{item.createtime,jdbcType=TIMESTAMP},
+					        fupdatetime = #{item.updatetime,jdbcType=TIMESTAMP},
+					        fdelstatus = #{item.delstatus,jdbcType=TINYINT},
+					        fimportant = #{item.important,jdbcType=TINYINT},
+			   </trim>
+            </set>
+             where fid = #{item.id}
+     </foreach>
+</update>         
+
+<delete id="deleteBatch" parameterType="Object">
+	DELETE FROM tusercustomerrel
+	<where>
+		<foreach item="item" index="index" collection="array"  open="(" separator="or" close=") ">
+			  fid  = #{item}
+		</foreach>
+	</where>
+</delete>
+    
+ <sql id="Base_Condition">
+		   <if test=" null != id ">
+				AND	T.fid = #{id}
+		</if>
+		   <if test=" null != customerid and ''!= customerid  ">
+				AND	T.fcustomerid = #{customerid}
+		</if>
+		   <if test=" null != customername and ''!= customername  ">
+				AND	T.fcustomername = #{customername}
+		</if>
+		   <if test=" null != customermobile and ''!= customermobile  ">
+				AND	T.fcustomermobile = #{customermobile}
+		</if>
+		   <if test=" null != regbizfrom and ''!= regbizfrom  ">
+				AND	T.fregbizfrom = #{regbizfrom}
+		</if>
+		   <if test=" null != regrefereetype ">
+				AND	T.fregrefereetype = #{regrefereetype}
+		</if>
+		   <if test=" null != regrefuser and ''!= regrefuser  ">
+				AND	T.fregrefuser = #{regrefuser}
+		</if>
+		   <if test=" null != regrefcustomer and ''!= regrefcustomer  ">
+				AND	T.fregrefcustomer = #{regrefcustomer}
+		</if>
+		   <if test=" null != regtime ">
+				AND	T.fregtime = #{regtime}
+		</if>
+		   <if test=" null != currsaleuser and ''!= currsaleuser  ">
+				AND	T.fcurrsaleuser = #{currsaleuser}
+		</if>
+		   <if test=" null != rectranstime ">
+				AND	T.frectranstime = #{rectranstime}
+		</if>
+		   <if test=" null != rectlogintime ">
+				AND	T.frectlogintime = #{rectlogintime}
+		</if>
+		   <if test=" null != createtime ">
+				AND	T.fcreatetime = #{createtime}
+		</if>
+		   <if test=" null != updatetime ">
+				AND	T.fupdatetime = #{updatetime}
+		</if>
+		   <if test=" null != delstatus ">
+				AND	T.fdelstatus = #{delstatus}
+		</if>
+		   <if test=" null != important ">
+				AND	T.fimportant = #{important}
+		</if>
+ </sql>    
+<select id="list" resultMap="UsercustomerrelResultMap"  >
+		SELECT <include refid="Base_Column_List" /> FROM tusercustomerrel T WHERE 1=1
+		<include refid="Base_Condition" />
+</select>
+
+<select id="query" resultMap="UsercustomerrelResultMap"  >
+		SELECT <include refid="Base_Column_List" /> FROM tusercustomerrel T WHERE 1=1
+		<include refid="Base_Condition" />
+</select>
+
+<select id="queryByIds" resultMap="UsercustomerrelResultMap" >
+	 select 
+    <include refid="Base_Column_List" />
+    from tusercustomerrel 
+	<where>
+		<foreach item="item" index="index" collection="array"  open="(" separator="or" close=") ">
+			  fcustomerid  = #{item}
+		</foreach>
+	</where>
+ </select>
+ 
+ <select id="getUserInfoByEasemob" resultMap="UsercustomerrelResultMap"  >
+		SELECT 
+		ue.f_easemob_acct,
+		<include refid="Base_Column_List" /> 
+		FROM tusercustomerrel T 
+		left join t_user_easemob ue on (t.fcustomerid=ue.f_customer_id)
+		<where>
+		<foreach item="item" index="index" collection="list"  open="(" separator="or" close=") ">
+			  f_easemob_acct  = #{item}
+		</foreach>
+	</where>
+</select>
+
+<select id="queryNewCustmers" resultMap="UsercustomerrelResultMap">    
+   <![CDATA[
+    SELECT u.* 
+    FROM tusercustomerrel u,t_system_config_new s 
+    WHERE s.f_key= 'new_regist_time' 
+    AND u.fcustomerid = #{0}
+    AND  DATE_FORMAT(u.fregtime,'%Y-%m-%d') >=s.f_value 
+     ]]>
+</select>
+
+<!-- 给客户分配理财师 -->
+  <update id="updateRegreInfo" parameterMap="UsercustomerrelParameterMap">
+		UPDATE tusercustomerrel set fregrefereetype = #{0},fcurrsaleuser = #{1} where fcustomerid =#{2}
+	</update>
+	<!-- 绑定理财师 -->
+	<update id="updateCftForCustomer" parameterMap="UsercustomerrelParameterMap">
+		UPDATE tusercustomerrel 
+		<set>
+			fcurrsaleuser = (
+	SELECT
+		f_number
+	FROM
+		t_sale_user_info 
+	WHERE
+		f_mobile = #{currsaleuser}
+     ) ,fcreatetime = now(),ffreecustomer = 0
+		</set>
+		<where>
+			fcustomermobile = #{customermobile}
+		</where>
+</update>  
+
+<update id="cleanRelForCustomer" parameterType="Object">
+		update tusercustomerrel
+		<set>
+			ffreecustomer = 1,
+			fcurrsaleuser = null
+		</set>
+		<where>
+			<foreach item="item" index="index" collection="array"  open="(" separator="or" close=") ">
+				  fcustomermobile  = #{item}
+			</foreach>
+		</where>
+</update>  
+
+<update id="deleteRelForCustomer" parameterType="Object">
+		update tusercustomerrel
+		<set>
+			ffreecustomer = 1,
+			fcurrsaleuser = null
+		</set>
+		<where>
+			fcustomermobile  = #{customermobile}
+		</where>
+</update>  
+
+ <update id="beFreeCustomer" parameterType="Object">
+ update tusercustomerrel
+		<set>
+			ffreecustomer = 1,
+			fcurrsaleuser = null
+		</set>
+		<where>
+			fcurrsaleuser = #{number}
+		</where>
+ 
+ </update>
+ <select id="findSaleInfoByMobile" resultMap="customerDtlResultMap">
+ SELECT
+    t.fcustomerid,
+	t.fcustomername,
+	t.fregtime,
+	t.fcustomermobile,
+	fregorgfrom,
+	t.fcurrsaleuser,
+	t.ffreecustomer,
+	CONCAT(
+		IFNULL(t1.f_name,''),
+		"(",
+		t1.f_mobile,
+		")"
+	) currSaleUserName,
+	t1.f_customer_id as currsaleuserUUID,
+	t2.f_user_source
+FROM
+	tusercustomerrel t
+LEFT JOIN t_sale_user_info t1 ON t.fcurrsaleuser = t1.f_number
+LEFT JOIN t_investor_user_info t2 ON t.fcustomerid = t2.f_user_id
+WHERE	t.fcustomermobile = #{0}
+ </select>
+ 
+<!--  更新用户实名 -->
+<update id="updateRealName" >
+ update tusercustomerrel set fcustomername=#{name} where fcustomermobile = #{mobile}
+</update>
+ 
+</mapper>

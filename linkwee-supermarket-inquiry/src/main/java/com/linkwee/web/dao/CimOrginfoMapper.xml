@@ -1,0 +1,732 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.CimOrginfoMapper">
+	<!-- Result Map-->
+	<resultMap  type="com.linkwee.web.model.CimOrginfo" id="BaseResultMap">
+		<result column="id" property="id" jdbcType="INTEGER"/>
+		<result column="org_number" property="orgNumber" jdbcType="VARCHAR"/>
+		<result column="name" property="name" jdbcType="VARCHAR"/>
+		<result column="org_password" property="orgPassword" jdbcType="VARCHAR"/>
+		<result column="org_account" property="orgAccount" jdbcType="VARCHAR"/>
+		<result column="context" property="context" jdbcType="VARCHAR"/>
+		<result column="capital" property="capital" jdbcType="VARCHAR"/>
+		<result column="up_time" property="upTime" jdbcType="TIMESTAMP"/>
+		<result column="city" property="city" jdbcType="VARCHAR"/>
+		<result column="icp_filing" property="icpFiling" jdbcType="VARCHAR"/>
+		<result column="representative" property="representative" jdbcType="VARCHAR"/>
+		<result column="contact" property="contact" jdbcType="VARCHAR"/>
+		<result column="platform_ico" property="platformIco" jdbcType="VARCHAR"/>
+		<result column="recommend" property="recommend" jdbcType="INTEGER"/>
+		<result column="grade" property="grade" jdbcType="VARCHAR"/>
+		<result column="top" property="top" jdbcType="INTEGER"/>
+		<result column="status" property="status" jdbcType="INTEGER"/>
+		<result column="remark" property="remark" jdbcType="VARCHAR"/>
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+		<result column="min_profit" property="minProfit" jdbcType="DECIMAL"/>
+		<result column="max_profit" property="maxProfit" jdbcType="DECIMAL"/>
+		<result column="min_dead_line" property="minDeadLine" jdbcType="INTEGER"/>
+		<result column="max_dead_line" property="maxDeadLine" jdbcType="INTEGER"/>
+		<result column="org_url" property="orgUrl" jdbcType="VARCHAR"/>
+		<result column="trusteeship" property="trusteeship" jdbcType="VARCHAR"/>
+		<result column="org_profile" property="orgProfile" jdbcType="LONGVARCHAR"/>
+		<result column="org_security" property="orgSecurity" jdbcType="LONGVARCHAR"/>
+	</resultMap>
+	
+  <sql id="Base_Column_List">
+    <trim suffixOverrides=",">
+	    	id,
+	    	org_number,
+	    	name,
+	    	org_password,
+	    	org_account,
+	    	context,
+	    	capital,
+	    	up_time,
+	    	city,
+	    	icp_filing,
+	    	representative,
+	    	contact,
+	    	platform_ico,
+	    	recommend,
+	    	grade,
+	    	top,
+	    	status,
+	    	remark,
+	    	create_time,
+	    	update_time,
+	    	min_profit,
+	    	max_profit,
+	    	min_dead_line,
+	    	max_dead_line,
+	    	org_url,
+	    	trusteeship,
+	    	org_profile,
+	    	org_security,
+    </trim>
+  </sql>  
+  
+  <sql id="Base_Condition">
+		<if test=" null != id ">
+			and id = #{id}
+		</if>
+		<if test=" null != orgNumber and ''!= orgNumber  ">
+			and org_number = #{orgNumber}
+		</if>
+		<if test=" null != name and ''!= name  ">
+			and name = #{name}
+		</if>
+		<if test=" null != orgPassword and ''!= orgPassword  ">
+			and org_password = #{orgPassword}
+		</if>
+		<if test=" null != orgAccount and ''!= orgAccount  ">
+			and org_account = #{orgAccount}
+		</if>
+		<if test=" null != context and ''!= context  ">
+			and context = #{context}
+		</if>
+		<if test=" null != capital and ''!= capital  ">
+			and capital = #{capital}
+		</if>
+		<if test=" null != upTime ">
+			and up_time = #{upTime}
+		</if>
+		<if test=" null != city and ''!= city  ">
+			and city = #{city}
+		</if>
+		<if test=" null != icpFiling and ''!= icpFiling  ">
+			and icp_filing = #{icpFiling}
+		</if>
+		<if test=" null != representative and ''!= representative  ">
+			and representative = #{representative}
+		</if>
+		<if test=" null != contact and ''!= contact  ">
+			and contact = #{contact}
+		</if>
+		<if test=" null != platformIco and ''!= platformIco  ">
+			and platform_ico = #{platformIco}
+		</if>
+		<if test=" null != recommend ">
+			and recommend = #{recommend}
+		</if>
+		<if test=" null != grade and ''!= grade  ">
+			and grade = #{grade}
+		</if>
+		<if test=" null != top ">
+			and top = #{top}
+		</if>
+		<if test=" null != status ">
+			and status = #{status}
+		</if>
+		<if test=" null != remark and ''!= remark  ">
+			and remark = #{remark}
+		</if>
+		<if test=" null != createTime ">
+			and create_time = #{createTime}
+		</if>
+		<if test=" null != updateTime ">
+			and update_time = #{updateTime}
+		</if>
+		<if test=" null != minProfit ">
+			and min_profit = #{minProfit}
+		</if>
+		<if test=" null != maxProfit ">
+			and max_profit = #{maxProfit}
+		</if>
+		<if test=" null != minDeadLine ">
+			and min_dead_line = #{minDeadLine}
+		</if>
+		<if test=" null != maxDeadLine ">
+			and max_dead_line = #{maxDeadLine}
+		</if>
+		<if test=" null != orgUrl and ''!= orgUrl  ">
+			and org_url = #{orgUrl}
+		</if>
+		<if test=" null != trusteeship and ''!= trusteeship  ">
+			and trusteeship = #{trusteeship}
+		</if>
+		<if test=" null != orgProfile and ''!= orgProfile  ">
+			and org_profile = #{orgProfile}
+		</if>
+		<if test=" null != orgSecurity and ''!= orgSecurity  ">
+			and org_security = #{orgSecurity}
+		</if>
+  </sql>
+  
+  <select id="selectOneByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.web.model.CimOrginfo">
+		select <include refid="Base_Column_List" /> from tcim_org_info 
+		where 1=1 <include refid="Base_Condition" />
+  </select>
+  
+  <select id="selectByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.web.model.CimOrginfo">
+		select <include refid="Base_Column_List" /> from tcim_org_info 
+		where 1=1 <include refid="Base_Condition" />
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tcim_org_info
+    where  id = #{0}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tcim_org_info
+    where id = #{0}
+  </delete>
+
+  <insert id="insert" parameterType="com.linkwee.web.model.CimOrginfo" >
+    INSERT INTO tcim_org_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != orgNumber and ''!= orgNumber  ">
+					org_number,
+				</if>
+			 	<if test=" null != name and ''!= name  ">
+					name,
+				</if>
+			 	<if test=" null != orgPassword and ''!= orgPassword  ">
+					org_password,
+				</if>
+			 	<if test=" null != orgAccount and ''!= orgAccount  ">
+					org_account,
+				</if>
+			 	<if test=" null != context and ''!= context  ">
+					context,
+				</if>
+			 	<if test=" null != capital and ''!= capital  ">
+					capital,
+				</if>
+			 	<if test=" null != upTime ">
+					up_time,
+				</if>
+			 	<if test=" null != city and ''!= city  ">
+					city,
+				</if>
+			 	<if test=" null != icpFiling and ''!= icpFiling  ">
+					icp_filing,
+				</if>
+			 	<if test=" null != representative and ''!= representative  ">
+					representative,
+				</if>
+			 	<if test=" null != contact and ''!= contact  ">
+					contact,
+				</if>
+			 	<if test=" null != platformIco and ''!= platformIco  ">
+					platform_ico,
+				</if>
+			 	<if test=" null != recommend ">
+					recommend,
+				</if>
+			 	<if test=" null != grade and ''!= grade  ">
+					grade,
+				</if>
+			 	<if test=" null != top ">
+					top,
+				</if>
+			 	<if test=" null != status ">
+					status,
+				</if>
+			 	<if test=" null != remark and ''!= remark  ">
+					remark,
+				</if>
+			 	<if test=" null != createTime ">
+					create_time,
+				</if>
+			 	<if test=" null != updateTime ">
+					update_time,
+				</if>
+			 	<if test=" null != minProfit ">
+					min_profit,
+				</if>
+			 	<if test=" null != maxProfit ">
+					max_profit,
+				</if>
+			 	<if test=" null != minDeadLine ">
+					min_dead_line,
+				</if>
+			 	<if test=" null != maxDeadLine ">
+					max_dead_line,
+				</if>
+			 	<if test=" null != orgUrl and ''!= orgUrl  ">
+					org_url,
+				</if>
+			 	<if test=" null != trusteeship and ''!= trusteeship  ">
+					trusteeship,
+				</if>
+			 	<if test=" null != orgProfile and ''!= orgProfile  ">
+					org_profile,
+				</if>
+			 	<if test=" null != orgSecurity and ''!= orgSecurity  ">
+					org_security,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != orgNumber and ''!= orgNumber  ">
+					 	#{orgNumber},
+				</if>
+			 	<if test=" null != name and ''!= name  ">
+					 	#{name},
+				</if>
+			 	<if test=" null != orgPassword and ''!= orgPassword  ">
+					 	#{orgPassword},
+				</if>
+			 	<if test=" null != orgAccount and ''!= orgAccount  ">
+					 	#{orgAccount},
+				</if>
+			 	<if test=" null != context and ''!= context  ">
+					 	#{context},
+				</if>
+			 	<if test=" null != capital and ''!= capital  ">
+					 	#{capital},
+				</if>
+			 	<if test=" null != upTime ">
+					 	#{upTime},
+				</if>
+			 	<if test=" null != city and ''!= city  ">
+					 	#{city},
+				</if>
+			 	<if test=" null != icpFiling and ''!= icpFiling  ">
+					 	#{icpFiling},
+				</if>
+			 	<if test=" null != representative and ''!= representative  ">
+					 	#{representative},
+				</if>
+			 	<if test=" null != contact and ''!= contact  ">
+					 	#{contact},
+				</if>
+			 	<if test=" null != platformIco and ''!= platformIco  ">
+					 	#{platformIco},
+				</if>
+			 	<if test=" null != recommend ">
+					 	#{recommend},
+				</if>
+			 	<if test=" null != grade and ''!= grade  ">
+					 	#{grade},
+				</if>
+			 	<if test=" null != top ">
+					 	#{top},
+				</if>
+			 	<if test=" null != status ">
+					 	#{status},
+				</if>
+			 	<if test=" null != remark and ''!= remark  ">
+					 	#{remark},
+				</if>
+			 	<if test=" null != createTime ">
+					 	#{createTime},
+				</if>
+			 	<if test=" null != updateTime ">
+					 	#{updateTime},
+				</if>
+			 	<if test=" null != minProfit ">
+					 	#{minProfit},
+				</if>
+			 	<if test=" null != maxProfit ">
+					 	#{maxProfit},
+				</if>
+			 	<if test=" null != minDeadLine ">
+					 	#{minDeadLine},
+				</if>
+			 	<if test=" null != maxDeadLine ">
+					 	#{maxDeadLine},
+				</if>
+			 	<if test=" null != orgUrl and ''!= orgUrl  ">
+					 	#{orgUrl},
+				</if>
+			 	<if test=" null != trusteeship and ''!= trusteeship  ">
+					 	#{trusteeship},
+				</if>
+			 	<if test=" null != orgProfile and ''!= orgProfile  ">
+					 	#{orgProfile},
+				</if>
+			 	<if test=" null != orgSecurity and ''!= orgSecurity  ">
+					 	#{orgSecurity},
+				</if>
+		</trim>
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.linkwee.web.model.CimOrginfo" useGeneratedKeys="true" keyProperty="id" >
+		INSERT INTO tcim_org_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != orgNumber and ''!= orgNumber  ">
+					org_number,
+				</if>
+			 	<if test=" null != name and ''!= name  ">
+					name,
+				</if>
+			 	<if test=" null != orgPassword and ''!= orgPassword  ">
+					org_password,
+				</if>
+			 	<if test=" null != orgAccount and ''!= orgAccount  ">
+					org_account,
+				</if>
+			 	<if test=" null != context and ''!= context  ">
+					context,
+				</if>
+			 	<if test=" null != capital and ''!= capital  ">
+					capital,
+				</if>
+			 	<if test=" null != upTime ">
+					up_time,
+				</if>
+			 	<if test=" null != city and ''!= city  ">
+					city,
+				</if>
+			 	<if test=" null != icpFiling and ''!= icpFiling  ">
+					icp_filing,
+				</if>
+			 	<if test=" null != representative and ''!= representative  ">
+					representative,
+				</if>
+			 	<if test=" null != contact and ''!= contact  ">
+					contact,
+				</if>
+			 	<if test=" null != platformIco and ''!= platformIco  ">
+					platform_ico,
+				</if>
+			 	<if test=" null != recommend ">
+					recommend,
+				</if>
+			 	<if test=" null != grade and ''!= grade  ">
+					grade,
+				</if>
+			 	<if test=" null != top ">
+					top,
+				</if>
+			 	<if test=" null != status ">
+					status,
+				</if>
+			 	<if test=" null != remark and ''!= remark  ">
+					remark,
+				</if>
+			 	<if test=" null != createTime ">
+					create_time,
+				</if>
+			 	<if test=" null != updateTime ">
+					update_time,
+				</if>
+			 	<if test=" null != minProfit ">
+					min_profit,
+				</if>
+			 	<if test=" null != maxProfit ">
+					max_profit,
+				</if>
+			 	<if test=" null != minDeadLine ">
+					min_dead_line,
+				</if>
+			 	<if test=" null != maxDeadLine ">
+					max_dead_line,
+				</if>
+			 	<if test=" null != orgUrl and ''!= orgUrl  ">
+					org_url,
+				</if>
+			 	<if test=" null != trusteeship and ''!= trusteeship  ">
+					trusteeship,
+				</if>
+			 	<if test=" null != orgProfile and ''!= orgProfile  ">
+					org_profile,
+				</if>
+			 	<if test=" null != orgSecurity and ''!= orgSecurity  ">
+					org_security,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != orgNumber and ''!= orgNumber  ">
+					 	#{orgNumber},
+				</if>
+			 	<if test=" null != name and ''!= name  ">
+					 	#{name},
+				</if>
+			 	<if test=" null != orgPassword and ''!= orgPassword  ">
+					 	#{orgPassword},
+				</if>
+			 	<if test=" null != orgAccount and ''!= orgAccount  ">
+					 	#{orgAccount},
+				</if>
+			 	<if test=" null != context and ''!= context  ">
+					 	#{context},
+				</if>
+			 	<if test=" null != capital and ''!= capital  ">
+					 	#{capital},
+				</if>
+			 	<if test=" null != upTime ">
+					 	#{upTime},
+				</if>
+			 	<if test=" null != city and ''!= city  ">
+					 	#{city},
+				</if>
+			 	<if test=" null != icpFiling and ''!= icpFiling  ">
+					 	#{icpFiling},
+				</if>
+			 	<if test=" null != representative and ''!= representative  ">
+					 	#{representative},
+				</if>
+			 	<if test=" null != contact and ''!= contact  ">
+					 	#{contact},
+				</if>
+			 	<if test=" null != platformIco and ''!= platformIco  ">
+					 	#{platformIco},
+				</if>
+			 	<if test=" null != recommend ">
+					 	#{recommend},
+				</if>
+			 	<if test=" null != grade and ''!= grade  ">
+					 	#{grade},
+				</if>
+			 	<if test=" null != top ">
+					 	#{top},
+				</if>
+			 	<if test=" null != status ">
+					 	#{status},
+				</if>
+			 	<if test=" null != remark and ''!= remark  ">
+					 	#{remark},
+				</if>
+			 	<if test=" null != createTime ">
+					 	#{createTime},
+				</if>
+			 	<if test=" null != updateTime ">
+					 	#{updateTime},
+				</if>
+			 	<if test=" null != minProfit ">
+					 	#{minProfit},
+				</if>
+			 	<if test=" null != maxProfit ">
+					 	#{maxProfit},
+				</if>
+			 	<if test=" null != minDeadLine ">
+					 	#{minDeadLine},
+				</if>
+			 	<if test=" null != maxDeadLine ">
+					 	#{maxDeadLine},
+				</if>
+			 	<if test=" null != orgUrl and ''!= orgUrl  ">
+					 	#{orgUrl},
+				</if>
+			 	<if test=" null != trusteeship and ''!= trusteeship  ">
+					 	#{trusteeship},
+				</if>
+			 	<if test=" null != orgProfile and ''!= orgProfile  ">
+					 	#{orgProfile},
+				</if>
+			 	<if test=" null != orgSecurity and ''!= orgSecurity  ">
+					 	#{orgSecurity},
+				</if>
+		</trim>
+	</insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.linkwee.web.model.CimOrginfo" >
+  		UPDATE tcim_org_info
+		<set>
+			<trim suffixOverrides=",">
+					<if test=" null != orgNumber and ''!= orgNumber  ">
+						org_number = #{orgNumber},
+					</if>
+					<if test=" null != name and ''!= name  ">
+						name = #{name},
+					</if>
+					<if test=" null != orgPassword and ''!= orgPassword  ">
+						org_password = #{orgPassword},
+					</if>
+					<if test=" null != orgAccount and ''!= orgAccount  ">
+						org_account = #{orgAccount},
+					</if>
+					<if test=" null != context and ''!= context  ">
+						context = #{context},
+					</if>
+					<if test=" null != capital and ''!= capital  ">
+						capital = #{capital},
+					</if>
+					<if test=" null != upTime ">
+						up_time = #{upTime},
+					</if>
+					<if test=" null != city and ''!= city  ">
+						city = #{city},
+					</if>
+					<if test=" null != icpFiling and ''!= icpFiling  ">
+						icp_filing = #{icpFiling},
+					</if>
+					<if test=" null != representative and ''!= representative  ">
+						representative = #{representative},
+					</if>
+					<if test=" null != contact and ''!= contact  ">
+						contact = #{contact},
+					</if>
+					<if test=" null != platformIco and ''!= platformIco  ">
+						platform_ico = #{platformIco},
+					</if>
+					<if test=" null != recommend ">
+						recommend = #{recommend},
+					</if>
+					<if test=" null != grade and ''!= grade  ">
+						grade = #{grade},
+					</if>
+					<if test=" null != top ">
+						top = #{top},
+					</if>
+					<if test=" null != status ">
+						status = #{status},
+					</if>
+					<if test=" null != remark and ''!= remark  ">
+						remark = #{remark},
+					</if>
+					<if test=" null != createTime ">
+						create_time = #{createTime},
+					</if>
+					<if test=" null != updateTime ">
+						update_time = #{updateTime},
+					</if>
+					<if test=" null != minProfit ">
+						min_profit = #{minProfit},
+					</if>
+					<if test=" null != maxProfit ">
+						max_profit = #{maxProfit},
+					</if>
+					<if test=" null != minDeadLine ">
+						min_dead_line = #{minDeadLine},
+					</if>
+					<if test=" null != maxDeadLine ">
+						max_dead_line = #{maxDeadLine},
+					</if>
+					<if test=" null != orgUrl and ''!= orgUrl  ">
+						org_url = #{orgUrl},
+					</if>
+					<if test=" null != trusteeship and ''!= trusteeship  ">
+						trusteeship = #{trusteeship},
+					</if>
+					<if test=" null != orgProfile and ''!= orgProfile  ">
+						org_profile = #{orgProfile},
+					</if>
+					<if test=" null != orgSecurity and ''!= orgSecurity  ">
+						org_security = #{orgSecurity},
+					</if>
+			</trim>
+		</set>
+		<where>
+			 id = #{id}
+		</where>
+	</update>
+  
+	<update id="updateByPrimaryKey" parameterType="com.linkwee.web.model.CimOrginfo" >
+	    UPDATE tcim_org_info
+	   <set>
+			<trim suffixOverrides=",">
+					<if test=" null != orgNumber and ''!= orgNumber  ">
+						org_number = #{orgNumber},
+					</if>
+					<if test=" null != name and ''!= name  ">
+						name = #{name},
+					</if>
+					<if test=" null != orgPassword and ''!= orgPassword  ">
+						org_password = #{orgPassword},
+					</if>
+					<if test=" null != orgAccount and ''!= orgAccount  ">
+						org_account = #{orgAccount},
+					</if>
+					<if test=" null != context and ''!= context  ">
+						context = #{context},
+					</if>
+					<if test=" null != capital and ''!= capital  ">
+						capital = #{capital},
+					</if>
+					<if test=" null != upTime ">
+						up_time = #{upTime},
+					</if>
+					<if test=" null != city and ''!= city  ">
+						city = #{city},
+					</if>
+					<if test=" null != icpFiling and ''!= icpFiling  ">
+						icp_filing = #{icpFiling},
+					</if>
+					<if test=" null != representative and ''!= representative  ">
+						representative = #{representative},
+					</if>
+					<if test=" null != contact and ''!= contact  ">
+						contact = #{contact},
+					</if>
+					<if test=" null != platformIco and ''!= platformIco  ">
+						platform_ico = #{platformIco},
+					</if>
+					<if test=" null != recommend ">
+						recommend = #{recommend},
+					</if>
+					<if test=" null != grade and ''!= grade  ">
+						grade = #{grade},
+					</if>
+					<if test=" null != top ">
+						top = #{top},
+					</if>
+					<if test=" null != status ">
+						status = #{status},
+					</if>
+					<if test=" null != remark and ''!= remark  ">
+						remark = #{remark},
+					</if>
+					<if test=" null != createTime ">
+						create_time = #{createTime},
+					</if>
+					<if test=" null != updateTime ">
+						update_time = #{updateTime},
+					</if>
+					<if test=" null != minProfit ">
+						min_profit = #{minProfit},
+					</if>
+					<if test=" null != maxProfit ">
+						max_profit = #{maxProfit},
+					</if>
+					<if test=" null != minDeadLine ">
+						min_dead_line = #{minDeadLine},
+					</if>
+					<if test=" null != maxDeadLine ">
+						max_dead_line = #{maxDeadLine},
+					</if>
+					<if test=" null != orgUrl and ''!= orgUrl  ">
+						org_url = #{orgUrl},
+					</if>
+					<if test=" null != trusteeship and ''!= trusteeship  ">
+						trusteeship = #{trusteeship},
+					</if>
+					<if test=" null != orgProfile and ''!= orgProfile  ">
+						org_profile = #{orgProfile},
+					</if>
+					<if test=" null != orgSecurity and ''!= orgSecurity  ">
+						org_security = #{orgSecurity},
+					</if>
+			</trim>
+		</set>
+		<where>
+			id = #{0}
+		</where>
+	  </update>
+
+	<!-- 分页条件查询 -->
+    <select id="selectBySearchInfo" resultMap="BaseResultMap" parameterType="com.linkwee.core.datatable.DataTable">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM tcim_org_info
+        <where> 
+        <if test="dt.search!=null">  
+                name LIKE CONCAT('%','${dt.search.value}','%' )  
+         </if>  
+         <if test="dt.order!=null">  
+               <foreach collection="dt.order" index="index" item="item"
+                    open="order by" separator="," close=" ">
+                    ${item.name} ${item.dir} 
+                </foreach>
+         </if>  
+        </where>
+    </select>
+
+</mapper>

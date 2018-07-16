@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.CimOrgRiskManageSynthesizeMapper">
+	<!-- Result Map-->
+	<resultMap  type="com.linkwee.web.model.CimOrgRiskManageSynthesize" id="BaseResultMap">
+		<result column="id" property="id" jdbcType="INTEGER"/>
+		<result column="org_number" property="orgNumber" jdbcType="VARCHAR"/>
+		<result column="compliance_progress" property="complianceProgress" jdbcType="VARCHAR"/>
+		<result column="total_score" property="totalScore" jdbcType="DECIMAL"/>
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+		<result column="remark" property="remark" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+  <sql id="Base_Column_List">
+    <trim suffixOverrides=",">
+	    	id,
+	    	org_number,
+	    	compliance_progress,
+	    	total_score,
+	    	create_time,
+	    	update_time,
+	    	remark,
+    </trim>
+  </sql>
+  
+ <sql id="Base_Column_List_T">
+    <trim suffixOverrides=",">
+	    	t.id,
+	    	t.org_number,
+	    	t.compliance_progress,
+	    	t.total_score,
+	    	t.create_time,
+	    	t.update_time,
+	    	t.remark,
+    </trim>
+  </sql>  
+  
+  <sql id="Base_Condition">
+		<if test=" null != id ">
+			and id = #{id}
+		</if>
+		<if test=" null != orgNumber and ''!= orgNumber  ">
+			and org_number = #{orgNumber}
+		</if>
+		<if test=" null != complianceProgress and ''!= complianceProgress  ">
+			and compliance_progress = #{complianceProgress}
+		</if>
+		<if test=" null != totalScore ">
+			and total_score = #{totalScore}
+		</if>
+		<if test=" null != createTime ">
+			and create_time = #{createTime}
+		</if>
+		<if test=" null != updateTime ">
+			and update_time = #{updateTime}
+		</if>
+		<if test=" null != remark and ''!= remark  ">
+			and remark = #{remark}
+		</if>
+  </sql>
+  
+  <select id="selectOneByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.web.model.CimOrgRiskManageSynthesize">
+		select <include refid="Base_Column_List" /> from tcim_org_risk_manage_synthesize 
+		where 1=1 <include refid="Base_Condition" />
+  </select>
+  
+  <select id="selectByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.web.model.CimOrgRiskManageSynthesize">
+		select <include refid="Base_Column_List" /> from tcim_org_risk_manage_synthesize 
+		where 1=1 <include refid="Base_Condition" />
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tcim_org_risk_manage_synthesize
+    where  id = #{0}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tcim_org_risk_manage_synthesize
+    where id = #{0}
+  </delete>
+
+  <insert id="insert" parameterType="com.linkwee.web.model.CimOrgRiskManageSynthesize" >
+    INSERT INTO tcim_org_risk_manage_synthesize
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != orgNumber and ''!= orgNumber  ">
+					org_number,
+				</if>
+			 	<if test=" null != complianceProgress and ''!= complianceProgress  ">
+					compliance_progress,
+				</if>
+			 	<if test=" null != totalScore ">
+					total_score,
+				</if>
+			 	<if test=" null != createTime ">
+					create_time,
+				</if>
+			 	<if test=" null != updateTime ">
+					update_time,
+				</if>
+			 	<if test=" null != remark and ''!= remark  ">
+					remark,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != orgNumber and ''!= orgNumber  ">
+					 	#{orgNumber},
+				</if>
+			 	<if test=" null != complianceProgress and ''!= complianceProgress  ">
+					 	#{complianceProgress},
+				</if>
+			 	<if test=" null != totalScore ">
+					 	#{totalScore},
+				</if>
+			 	<if test=" null != createTime ">
+					 	#{createTime},
+				</if>
+			 	<if test=" null != updateTime ">
+					 	#{updateTime},
+				</if>
+			 	<if test=" null != remark and ''!= remark  ">
+					 	#{remark},
+				</if>
+		</trim>
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.linkwee.web.model.CimOrgRiskManageSynthesize" useGeneratedKeys="true" keyProperty="id" >
+		INSERT INTO tcim_org_risk_manage_synthesize
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != orgNumber and ''!= orgNumber  ">
+					org_number,
+				</if>
+			 	<if test=" null != complianceProgress and ''!= complianceProgress  ">
+					compliance_progress,
+				</if>
+			 	<if test=" null != totalScore ">
+					total_score,
+				</if>
+			 	<if test=" null != createTime ">
+					create_time,
+				</if>
+			 	<if test=" null != updateTime ">
+					update_time,
+				</if>
+			 	<if test=" null != remark and ''!= remark  ">
+					remark,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != orgNumber and ''!= orgNumber  ">
+					 	#{orgNumber},
+				</if>
+			 	<if test=" null != complianceProgress and ''!= complianceProgress  ">
+					 	#{complianceProgress},
+				</if>
+			 	<if test=" null != totalScore ">
+					 	#{totalScore},
+				</if>
+			 	<if test=" null != createTime ">
+					 	#{createTime},
+				</if>
+			 	<if test=" null != updateTime ">
+					 	#{updateTime},
+				</if>
+			 	<if test=" null != remark and ''!= remark  ">
+					 	#{remark},
+				</if>
+		</trim>
+	</insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.linkwee.web.model.CimOrgRiskManageSynthesize" >
+  		UPDATE tcim_org_risk_manage_synthesize
+		<set>
+			<trim suffixOverrides=",">
+					<if test=" null != orgNumber and ''!= orgNumber  ">
+						org_number = #{orgNumber},
+					</if>
+					<if test=" null != complianceProgress and ''!= complianceProgress  ">
+						compliance_progress = #{complianceProgress},
+					</if>
+					<if test=" null != totalScore ">
+						total_score = #{totalScore},
+					</if>
+					<if test=" null != createTime ">
+						create_time = #{createTime},
+					</if>
+					<if test=" null != updateTime ">
+						update_time = #{updateTime},
+					</if>
+					<if test=" null != remark and ''!= remark  ">
+						remark = #{remark},
+					</if>
+			</trim>
+		</set>
+		<where>
+			 id = #{id}
+		</where>
+	</update>
+  
+	<update id="updateByPrimaryKey" parameterType="com.linkwee.web.model.CimOrgRiskManageSynthesize" >
+	    UPDATE tcim_org_risk_manage_synthesize
+	   <set>
+			<trim suffixOverrides=",">
+					<if test=" null != orgNumber and ''!= orgNumber  ">
+						org_number = #{orgNumber},
+					</if>
+					<if test=" null != complianceProgress and ''!= complianceProgress  ">
+						compliance_progress = #{complianceProgress},
+					</if>
+					<if test=" null != totalScore ">
+						total_score = #{totalScore},
+					</if>
+					<if test=" null != createTime ">
+						create_time = #{createTime},
+					</if>
+					<if test=" null != updateTime ">
+						update_time = #{updateTime},
+					</if>
+					<if test=" null != remark and ''!= remark  ">
+						remark = #{remark},
+					</if>
+			</trim>
+		</set>
+		<where>
+			id = #{0}
+		</where>
+	  </update>
+
+	<!-- 分页条件查询 -->
+    <select id="selectBySearchInfo" resultMap="BaseResultMap" parameterType="com.linkwee.core.datatable.DataTable">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM tcim_org_risk_manage_synthesize
+        <where> 
+        <if test="dt.search!=null">  
+                name LIKE CONCAT('%','${dt.search.value}','%' )  
+         </if>  
+         <if test="dt.order!=null">  
+               <foreach collection="dt.order" index="index" item="item"
+                    open="order by" separator="," close=" ">
+                    ${item.name} ${item.dir} 
+                </foreach>
+         </if>  
+        </where>
+    </select>
+
+</mapper>

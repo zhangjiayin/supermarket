@@ -1,0 +1,505 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.linkwee.web.dao.CfplannerMapper">
+  <resultMap id="BaseResultMap" type="com.linkwee.web.model.Cfplanner">
+    <id column="f_number" jdbcType="VARCHAR" property="fNumber" />
+    <result column="f_name" jdbcType="VARCHAR" property="fName" />
+    <result column="f_email" jdbcType="VARCHAR" property="fEmail" />
+    <result column="f_mobile" jdbcType="VARCHAR" property="fMobile" />
+    <result column="f_qrcode" jdbcType="VARCHAR" property="fQrcode" />
+    <result column="f_idcard" jdbcType="VARCHAR" property="fIdcard" />
+    <result column="f_password" jdbcType="VARCHAR" property="fPassword" />
+    <result column="f_sign_pwd" jdbcType="VARCHAR" property="fSignPwd" />
+    <result column="f_parent_id" jdbcType="VARCHAR" property="fParentId" />
+    <result column="f_is_lock" jdbcType="TINYINT" property="fIsLock" />
+    <result column="f_remark" jdbcType="VARCHAR" property="fRemark" />
+    <result column="f_emp_no" jdbcType="VARCHAR" property="fEmpNo" />
+    <result column="f_department" jdbcType="VARCHAR" property="fDepartment" />
+    <result column="f_customer_id" jdbcType="VARCHAR" property="fCustomerId" />
+    <result column="f_settlement_type" jdbcType="TINYINT" property="fSettlementType" />
+    <result column="f_enable" jdbcType="TINYINT" property="fEnable" />
+    <result column="f_ancestor" jdbcType="VARCHAR" property="fAncestor" />
+    <result column="f_is_cfp" jdbcType="TINYINT" property="fIsCfp" />
+    <result column="f_cfp_level" jdbcType="VARCHAR" property="fCfpLevel" />
+    <result column="f_cfp_reg_time" jdbcType="TIMESTAMP" property="fCfpRegTime" />
+    <result column="f_cfp_benormal_time" jdbcType="TIMESTAMP" property="fCfpBenormalTime" />
+    <result column="f_cfp_update_time" jdbcType="TIMESTAMP" property="fCfpUpdateTime" />
+    <result column="f_is_partner" jdbcType="TINYINT" property="fIsPartner" />
+    <result column="f_partner_level" jdbcType="VARCHAR" property="fPartnerLevel" />
+    <result column="f_partner_reg_time" jdbcType="TIMESTAMP" property="fPartnerRegTime" />
+    <result column="f_partner_up_time" jdbcType="TIMESTAMP" property="fPartnerUpTime" />
+    <result column="f_join_time" jdbcType="TIMESTAMP" property="fJoinTime" />
+    <result column="f_create_time" jdbcType="TIMESTAMP" property="fCreateTime" />
+    <result column="f_update_time" jdbcType="TIMESTAMP" property="fUpdateTime" />
+    <result column="f_del_status" jdbcType="TINYINT" property="fDelStatus" />
+    <result column="f_type" jdbcType="TINYINT" property="fType" />
+    <result column="f_locked" jdbcType="TINYINT" property="fLocked" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.linkwee.web.model.Cfplanner">
+    <result column="f_head_image" jdbcType="LONGVARBINARY" property="fHeadImage" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    f_number, f_name, f_email, f_mobile, f_qrcode, f_idcard, f_password, f_sign_pwd, 
+    f_parent_id, f_is_lock, f_remark, f_emp_no, f_department, f_customer_id, f_settlement_type, 
+    f_enable, f_ancestor, f_is_cfp, f_cfp_level, f_cfp_reg_time, f_cfp_benormal_time, 
+    f_cfp_update_time, f_is_partner, f_partner_level, f_partner_reg_time, f_partner_up_time, 
+    f_join_time, f_create_time, f_update_time, f_del_status, f_type, f_locked
+  </sql>
+  <sql id="Blob_Column_List">
+    f_head_image
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_sale_user_info
+    where f_number = #{fNumber,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_sale_user_info
+    where f_number = #{fNumber,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.linkwee.web.model.Cfplanner">
+    insert into t_sale_user_info (f_number, f_name, f_email, 
+      f_mobile, f_qrcode, f_idcard, 
+      f_password, f_sign_pwd, f_parent_id, 
+      f_is_lock, f_remark, f_emp_no, 
+      f_department, f_customer_id, f_settlement_type, 
+      f_enable, f_ancestor, f_is_cfp, 
+      f_cfp_level, f_cfp_reg_time, f_cfp_benormal_time, 
+      f_cfp_update_time, f_is_partner, f_partner_level, 
+      f_partner_reg_time, f_partner_up_time, f_join_time, 
+      f_create_time, f_update_time, f_del_status, 
+      f_type, f_locked, f_head_image
+      )
+    values (#{fNumber,jdbcType=VARCHAR}, #{fName,jdbcType=VARCHAR}, #{fEmail,jdbcType=VARCHAR}, 
+      #{fMobile,jdbcType=VARCHAR}, #{fQrcode,jdbcType=VARCHAR}, #{fIdcard,jdbcType=VARCHAR}, 
+      #{fPassword,jdbcType=VARCHAR}, #{fSignPwd,jdbcType=VARCHAR}, #{fParentId,jdbcType=VARCHAR}, 
+      #{fIsLock,jdbcType=TINYINT}, #{fRemark,jdbcType=VARCHAR}, #{fEmpNo,jdbcType=VARCHAR}, 
+      #{fDepartment,jdbcType=VARCHAR}, #{fCustomerId,jdbcType=VARCHAR}, #{fSettlementType,jdbcType=TINYINT}, 
+      #{fEnable,jdbcType=TINYINT}, #{fAncestor,jdbcType=VARCHAR}, #{fIsCfp,jdbcType=TINYINT}, 
+      #{fCfpLevel,jdbcType=VARCHAR}, #{fCfpRegTime,jdbcType=TIMESTAMP}, #{fCfpBenormalTime,jdbcType=TIMESTAMP}, 
+      #{fCfpUpdateTime,jdbcType=TIMESTAMP}, #{fIsPartner,jdbcType=TINYINT}, #{fPartnerLevel,jdbcType=VARCHAR}, 
+      #{fPartnerRegTime,jdbcType=TIMESTAMP}, #{fPartnerUpTime,jdbcType=TIMESTAMP}, #{fJoinTime,jdbcType=TIMESTAMP}, 
+      #{fCreateTime,jdbcType=TIMESTAMP}, #{fUpdateTime,jdbcType=TIMESTAMP}, #{fDelStatus,jdbcType=TINYINT}, 
+      #{fType,jdbcType=TINYINT}, #{fLocked,jdbcType=TINYINT}, #{fHeadImage,jdbcType=LONGVARBINARY}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.linkwee.web.model.Cfplanner">
+    insert into t_sale_user_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="fNumber != null">
+        f_number,
+      </if>
+      <if test="fName != null">
+        f_name,
+      </if>
+      <if test="fEmail != null">
+        f_email,
+      </if>
+      <if test="fMobile != null">
+        f_mobile,
+      </if>
+      <if test="fQrcode != null">
+        f_qrcode,
+      </if>
+      <if test="fIdcard != null">
+        f_idcard,
+      </if>
+      <if test="fPassword != null">
+        f_password,
+      </if>
+      <if test="fSignPwd != null">
+        f_sign_pwd,
+      </if>
+      <if test="fParentId != null">
+        f_parent_id,
+      </if>
+      <if test="fIsLock != null">
+        f_is_lock,
+      </if>
+      <if test="fRemark != null">
+        f_remark,
+      </if>
+      <if test="fEmpNo != null">
+        f_emp_no,
+      </if>
+      <if test="fDepartment != null">
+        f_department,
+      </if>
+      <if test="fCustomerId != null">
+        f_customer_id,
+      </if>
+      <if test="fSettlementType != null">
+        f_settlement_type,
+      </if>
+      <if test="fEnable != null">
+        f_enable,
+      </if>
+      <if test="fAncestor != null">
+        f_ancestor,
+      </if>
+      <if test="fIsCfp != null">
+        f_is_cfp,
+      </if>
+      <if test="fCfpLevel != null">
+        f_cfp_level,
+      </if>
+      <if test="fCfpRegTime != null">
+        f_cfp_reg_time,
+      </if>
+      <if test="fCfpBenormalTime != null">
+        f_cfp_benormal_time,
+      </if>
+      <if test="fCfpUpdateTime != null">
+        f_cfp_update_time,
+      </if>
+      <if test="fIsPartner != null">
+        f_is_partner,
+      </if>
+      <if test="fPartnerLevel != null">
+        f_partner_level,
+      </if>
+      <if test="fPartnerRegTime != null">
+        f_partner_reg_time,
+      </if>
+      <if test="fPartnerUpTime != null">
+        f_partner_up_time,
+      </if>
+      <if test="fJoinTime != null">
+        f_join_time,
+      </if>
+      <if test="fCreateTime != null">
+        f_create_time,
+      </if>
+      <if test="fUpdateTime != null">
+        f_update_time,
+      </if>
+      <if test="fDelStatus != null">
+        f_del_status,
+      </if>
+      <if test="fType != null">
+        f_type,
+      </if>
+      <if test="fLocked != null">
+        f_locked,
+      </if>
+      <if test="fHeadImage != null">
+        f_head_image,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="fNumber != null">
+        #{fNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="fName != null">
+        #{fName,jdbcType=VARCHAR},
+      </if>
+      <if test="fEmail != null">
+        #{fEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="fMobile != null">
+        #{fMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="fQrcode != null">
+        #{fQrcode,jdbcType=VARCHAR},
+      </if>
+      <if test="fIdcard != null">
+        #{fIdcard,jdbcType=VARCHAR},
+      </if>
+      <if test="fPassword != null">
+        #{fPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="fSignPwd != null">
+        #{fSignPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="fParentId != null">
+        #{fParentId,jdbcType=VARCHAR},
+      </if>
+      <if test="fIsLock != null">
+        #{fIsLock,jdbcType=TINYINT},
+      </if>
+      <if test="fRemark != null">
+        #{fRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="fEmpNo != null">
+        #{fEmpNo,jdbcType=VARCHAR},
+      </if>
+      <if test="fDepartment != null">
+        #{fDepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="fCustomerId != null">
+        #{fCustomerId,jdbcType=VARCHAR},
+      </if>
+      <if test="fSettlementType != null">
+        #{fSettlementType,jdbcType=TINYINT},
+      </if>
+      <if test="fEnable != null">
+        #{fEnable,jdbcType=TINYINT},
+      </if>
+      <if test="fAncestor != null">
+        #{fAncestor,jdbcType=VARCHAR},
+      </if>
+      <if test="fIsCfp != null">
+        #{fIsCfp,jdbcType=TINYINT},
+      </if>
+      <if test="fCfpLevel != null">
+        #{fCfpLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="fCfpRegTime != null">
+        #{fCfpRegTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fCfpBenormalTime != null">
+        #{fCfpBenormalTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fCfpUpdateTime != null">
+        #{fCfpUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fIsPartner != null">
+        #{fIsPartner,jdbcType=TINYINT},
+      </if>
+      <if test="fPartnerLevel != null">
+        #{fPartnerLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="fPartnerRegTime != null">
+        #{fPartnerRegTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fPartnerUpTime != null">
+        #{fPartnerUpTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fJoinTime != null">
+        #{fJoinTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fCreateTime != null">
+        #{fCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fUpdateTime != null">
+        #{fUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fDelStatus != null">
+        #{fDelStatus,jdbcType=TINYINT},
+      </if>
+      <if test="fType != null">
+        #{fType,jdbcType=TINYINT},
+      </if>
+      <if test="fLocked != null">
+        #{fLocked,jdbcType=TINYINT},
+      </if>
+      <if test="fHeadImage != null">
+        #{fHeadImage,jdbcType=LONGVARBINARY},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.linkwee.web.model.Cfplanner">
+    update t_sale_user_info
+    <set>
+      <if test="fName != null">
+        f_name = #{fName,jdbcType=VARCHAR},
+      </if>
+      <if test="fEmail != null">
+        f_email = #{fEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="fMobile != null">
+        f_mobile = #{fMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="fQrcode != null">
+        f_qrcode = #{fQrcode,jdbcType=VARCHAR},
+      </if>
+      <if test="fIdcard != null">
+        f_idcard = #{fIdcard,jdbcType=VARCHAR},
+      </if>
+      <if test="fPassword != null">
+        f_password = #{fPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="fSignPwd != null">
+        f_sign_pwd = #{fSignPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="fParentId != null">
+        f_parent_id = #{fParentId,jdbcType=VARCHAR},
+      </if>
+      <if test="fIsLock != null">
+        f_is_lock = #{fIsLock,jdbcType=TINYINT},
+      </if>
+      <if test="fRemark != null">
+        f_remark = #{fRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="fEmpNo != null">
+        f_emp_no = #{fEmpNo,jdbcType=VARCHAR},
+      </if>
+      <if test="fDepartment != null">
+        f_department = #{fDepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="fCustomerId != null">
+        f_customer_id = #{fCustomerId,jdbcType=VARCHAR},
+      </if>
+      <if test="fSettlementType != null">
+        f_settlement_type = #{fSettlementType,jdbcType=TINYINT},
+      </if>
+      <if test="fEnable != null">
+        f_enable = #{fEnable,jdbcType=TINYINT},
+      </if>
+      <if test="fAncestor != null">
+        f_ancestor = #{fAncestor,jdbcType=VARCHAR},
+      </if>
+      <if test="fIsCfp != null">
+        f_is_cfp = #{fIsCfp,jdbcType=TINYINT},
+      </if>
+      <if test="fCfpLevel != null">
+        f_cfp_level = #{fCfpLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="fCfpRegTime != null">
+        f_cfp_reg_time = #{fCfpRegTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fCfpBenormalTime != null">
+        f_cfp_benormal_time = #{fCfpBenormalTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fCfpUpdateTime != null">
+        f_cfp_update_time = #{fCfpUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fIsPartner != null">
+        f_is_partner = #{fIsPartner,jdbcType=TINYINT},
+      </if>
+      <if test="fPartnerLevel != null">
+        f_partner_level = #{fPartnerLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="fPartnerRegTime != null">
+        f_partner_reg_time = #{fPartnerRegTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fPartnerUpTime != null">
+        f_partner_up_time = #{fPartnerUpTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fJoinTime != null">
+        f_join_time = #{fJoinTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fCreateTime != null">
+        f_create_time = #{fCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fUpdateTime != null">
+        f_update_time = #{fUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fDelStatus != null">
+        f_del_status = #{fDelStatus,jdbcType=TINYINT},
+      </if>
+      <if test="fType != null">
+        f_type = #{fType,jdbcType=TINYINT},
+      </if>
+      <if test="fLocked != null">
+        f_locked = #{fLocked,jdbcType=TINYINT},
+      </if>
+      <if test="fHeadImage != null">
+        f_head_image = #{fHeadImage,jdbcType=LONGVARBINARY},
+      </if>
+    </set>
+    where f_number = #{fNumber,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.linkwee.web.model.Cfplanner">
+    update t_sale_user_info
+    set f_name = #{fName,jdbcType=VARCHAR},
+      f_email = #{fEmail,jdbcType=VARCHAR},
+      f_mobile = #{fMobile,jdbcType=VARCHAR},
+      f_qrcode = #{fQrcode,jdbcType=VARCHAR},
+      f_idcard = #{fIdcard,jdbcType=VARCHAR},
+      f_password = #{fPassword,jdbcType=VARCHAR},
+      f_sign_pwd = #{fSignPwd,jdbcType=VARCHAR},
+      f_parent_id = #{fParentId,jdbcType=VARCHAR},
+      f_is_lock = #{fIsLock,jdbcType=TINYINT},
+      f_remark = #{fRemark,jdbcType=VARCHAR},
+      f_emp_no = #{fEmpNo,jdbcType=VARCHAR},
+      f_department = #{fDepartment,jdbcType=VARCHAR},
+      f_customer_id = #{fCustomerId,jdbcType=VARCHAR},
+      f_settlement_type = #{fSettlementType,jdbcType=TINYINT},
+      f_enable = #{fEnable,jdbcType=TINYINT},
+      f_ancestor = #{fAncestor,jdbcType=VARCHAR},
+      f_is_cfp = #{fIsCfp,jdbcType=TINYINT},
+      f_cfp_level = #{fCfpLevel,jdbcType=VARCHAR},
+      f_cfp_reg_time = #{fCfpRegTime,jdbcType=TIMESTAMP},
+      f_cfp_benormal_time = #{fCfpBenormalTime,jdbcType=TIMESTAMP},
+      f_cfp_update_time = #{fCfpUpdateTime,jdbcType=TIMESTAMP},
+      f_is_partner = #{fIsPartner,jdbcType=TINYINT},
+      f_partner_level = #{fPartnerLevel,jdbcType=VARCHAR},
+      f_partner_reg_time = #{fPartnerRegTime,jdbcType=TIMESTAMP},
+      f_partner_up_time = #{fPartnerUpTime,jdbcType=TIMESTAMP},
+      f_join_time = #{fJoinTime,jdbcType=TIMESTAMP},
+      f_create_time = #{fCreateTime,jdbcType=TIMESTAMP},
+      f_update_time = #{fUpdateTime,jdbcType=TIMESTAMP},
+      f_del_status = #{fDelStatus,jdbcType=TINYINT},
+      f_type = #{fType,jdbcType=TINYINT},
+      f_locked = #{fLocked,jdbcType=TINYINT},
+      f_head_image = #{fHeadImage,jdbcType=LONGVARBINARY}
+    where f_number = #{fNumber,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.linkwee.web.model.Cfplanner">
+    update t_sale_user_info
+    set f_name = #{fName,jdbcType=VARCHAR},
+      f_email = #{fEmail,jdbcType=VARCHAR},
+      f_mobile = #{fMobile,jdbcType=VARCHAR},
+      f_qrcode = #{fQrcode,jdbcType=VARCHAR},
+      f_idcard = #{fIdcard,jdbcType=VARCHAR},
+      f_password = #{fPassword,jdbcType=VARCHAR},
+      f_sign_pwd = #{fSignPwd,jdbcType=VARCHAR},
+      f_parent_id = #{fParentId,jdbcType=VARCHAR},
+      f_is_lock = #{fIsLock,jdbcType=TINYINT},
+      f_remark = #{fRemark,jdbcType=VARCHAR},
+      f_emp_no = #{fEmpNo,jdbcType=VARCHAR},
+      f_department = #{fDepartment,jdbcType=VARCHAR},
+      f_customer_id = #{fCustomerId,jdbcType=VARCHAR},
+      f_settlement_type = #{fSettlementType,jdbcType=TINYINT},
+      f_enable = #{fEnable,jdbcType=TINYINT},
+      f_ancestor = #{fAncestor,jdbcType=VARCHAR},
+      f_is_cfp = #{fIsCfp,jdbcType=TINYINT},
+      f_cfp_level = #{fCfpLevel,jdbcType=VARCHAR},
+      f_cfp_reg_time = #{fCfpRegTime,jdbcType=TIMESTAMP},
+      f_cfp_benormal_time = #{fCfpBenormalTime,jdbcType=TIMESTAMP},
+      f_cfp_update_time = #{fCfpUpdateTime,jdbcType=TIMESTAMP},
+      f_is_partner = #{fIsPartner,jdbcType=TINYINT},
+      f_partner_level = #{fPartnerLevel,jdbcType=VARCHAR},
+      f_partner_reg_time = #{fPartnerRegTime,jdbcType=TIMESTAMP},
+      f_partner_up_time = #{fPartnerUpTime,jdbcType=TIMESTAMP},
+      f_join_time = #{fJoinTime,jdbcType=TIMESTAMP},
+      f_create_time = #{fCreateTime,jdbcType=TIMESTAMP},
+      f_update_time = #{fUpdateTime,jdbcType=TIMESTAMP},
+      f_del_status = #{fDelStatus,jdbcType=TINYINT},
+      f_type = #{fType,jdbcType=TINYINT},
+      f_locked = #{fLocked,jdbcType=TINYINT}
+    where f_number = #{fNumber,jdbcType=VARCHAR}
+  </update>
+  <!-- datatable查询 -->
+    <select id="selectBySearchInfo" parameterType="com.linkwee.core.datatable.DataTable" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from t_sale_user_info
+        <where> 
+        <if test="dt.search!=null">  
+                f_name like CONCAT('%','${dt.search.value}','%' )  
+                or
+                f_mobile like CONCAT('%','${dt.search.value}','%' ) 
+         </if>  
+        <if test="dt.order!=null">  
+               <foreach collection="dt.order" index="index" item="item"
+                    open="order by" separator="," close=" ">
+                    ${item.name} ${item.dir}
+                </foreach>
+         </if>  
+        </where>
+        limit ${dt.length} offset ${dt.start}
+    </select>
+    <select id="countBySearchInfo" parameterType="com.linkwee.core.datatable.DataTable" resultType="java.lang.Integer">
+        select
+       	count(1)
+        from t_sale_user_info
+        <where> 
+        <if test="dt.search!=null">  
+                f_name like CONCAT('%','${dt.search.value}','%' )  
+                or
+                f_mobile like CONCAT('%','${dt.search.value}','%' )  
+         </if>  
+        <if test="dt.order!=null">  
+               <foreach collection="dt.order" index="index" item="item"
+                    open="order by" separator="," close=" ">
+                    ${item.name} ${item.dir}
+                </foreach>
+         </if>  
+         </where>
+    </select>
+</mapper>

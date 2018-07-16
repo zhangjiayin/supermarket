@@ -1,0 +1,669 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.CimJfqzPushRecordMapper">
+	<!-- Result Map-->
+	<resultMap  type="com.linkwee.web.model.CimJfqzPushRecord" id="BaseResultMap">
+		<result column="id" property="id" jdbcType="INTEGER"/>
+		<result column="user_id" property="userId" jdbcType="VARCHAR"/>
+		<result column="invest_id" property="investId" jdbcType="VARCHAR"/>
+		<result column="repayment_id" property="repaymentId" jdbcType="VARCHAR"/>
+		<result column="amount" property="amount" jdbcType="DECIMAL"/>
+		<result column="pay_amount" property="payAmount" jdbcType="DECIMAL"/>
+		<result column="profit" property="expctedEarning" jdbcType="DECIMAL"/>
+		<result column="earnings" property="earnings" jdbcType="DECIMAL"/>
+		<result column="product_id" property="productId" jdbcType="VARCHAR"/>
+		<result column="issue_preiod" property="issuePreiod" jdbcType="VARCHAR"/>
+		<result column="rate" property="rate" jdbcType="DECIMAL"/>
+		<result column="period" property="period" jdbcType="VARCHAR"/>
+		<result column="order_no" property="orderNo" jdbcType="VARCHAR"/>
+		<result column="sub_order_no" property="subOrderNo" jdbcType="VARCHAR"/>
+		<result column="bank_name" property="bankName" jdbcType="VARCHAR"/>
+		<result column="bank_card_no" property="bankCardNo" jdbcType="VARCHAR"/>
+		<result column="exprie_process_mode" property="exprieProcessMode" jdbcType="VARCHAR"/>
+		<result column="interest_time" property="interestTime" jdbcType="TIMESTAMP"/>
+		<result column="redemption_time" property="redemptionTime" jdbcType="TIMESTAMP"/>
+		<result column="spend_time" property="spendTime" jdbcType="TIMESTAMP"/>
+		<result column="cash_time" property="cashTime" jdbcType="TIMESTAMP"/>
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+		<result column="code" property="code" jdbcType="VARCHAR"/>
+		<result column="update_status" property="updateStatus" jdbcType="INTEGER"/>
+		<result column="remark" property="remark" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+  <sql id="Base_Column_List">
+    <trim suffixOverrides=",">
+	    	id,
+	    	user_id,
+	    	invest_id,
+	    	repayment_id,
+	    	amount,
+	    	pay_amount,
+	    	earnings,
+	    	profit,
+	    	product_id,
+	    	issue_preiod,
+	    	rate,
+	    	period,
+	    	order_no,
+	    	sub_order_no,
+	    	bank_name,
+	    	bank_card_no,
+	    	exprie_process_mode,
+	    	interest_time,
+	    	redemption_time,
+	    	spend_time,
+	    	cash_time,
+	    	create_time,
+	    	update_time,
+	    	code,
+	    	update_status,
+	    	remark,
+    </trim>
+  </sql>  
+  
+  <sql id="Base_Condition">
+		<if test=" null != id ">
+			and id = #{id}
+		</if>
+		<if test=" null != userId and ''!= userId  ">
+			and user_id = #{userId}
+		</if>
+		<if test=" null != investId and ''!= investId  ">
+			and invest_id = #{investId}
+		</if>
+		<if test=" null != repaymentId and ''!= repaymentId  ">
+			and repayment_id = #{repaymentId}
+		</if>
+		<if test=" null != amount ">
+			and amount = #{amount}
+		</if>
+		<if test=" null != payAmount ">
+			and pay_amount = #{payAmount}
+		</if>
+		<if test=" null != expctedEarning and ''!= expctedEarning  ">
+			and profit = #{expctedEarning}
+		</if>
+		<if test=" null != earnings ">
+			and earnings = #{earnings}
+		</if>
+		<if test=" null != productId and ''!= productId  ">
+			and product_id = #{productId}
+		</if>
+		<if test=" null != issuePreiod and ''!= issuePreiod  ">
+			and issue_preiod = #{issuePreiod}
+		</if>
+		<if test=" null != rate ">
+			and rate = #{rate}
+		</if>
+		<if test=" null != period ">
+			and period = #{period}
+		</if>
+		<if test=" null != orderNo and ''!= orderNo  ">
+			and order_no = #{orderNo}
+		</if>
+		<if test=" null != subOrderNo and ''!= subOrderNo  ">
+			and sub_order_no = #{subOrderNo}
+		</if>
+		<if test=" null != bankName and ''!= bankName  ">
+			and bank_name = #{bankName}
+		</if>
+		<if test=" null != bankCardNo and ''!= bankCardNo  ">
+			and bank_card_no = #{bankCardNo}
+		</if>
+		<if test=" null != exprieProcessMode ">
+			and exprie_process_mode = #{exprieProcessMode}
+		</if>
+		<if test=" null != interestTime ">
+			and interest_time = #{interestTime}
+		</if>
+		<if test=" null != redemptionTime ">
+			and redemption_time = #{redemptionTime}
+		</if>
+		<if test=" null != spendTime ">
+			and spend_time = #{spendTime}
+		</if>
+		<if test=" null != cashTime ">
+			and cash_time = #{cashTime}
+		</if>
+		<if test=" null != createTime ">
+			and create_time = #{createTime}
+		</if>
+		<if test=" null != updateTime ">
+			and update_time = #{updateTime}
+		</if>
+		<if test=" null != code ">
+			and code = #{code}
+		</if>
+		 <if test=" null != updateStatus and ''!= updateStatus  ">
+			and update_status = #{updateStatus}
+		</if>
+		<if test=" null != remark and ''!= remark  ">
+			and remark = #{remark}
+		</if>
+  </sql>
+  
+  <select id="selectOneByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.web.model.CimJfqzPushRecord">
+		select <include refid="Base_Column_List" /> from tcim_jfqz_push_record 
+		where 1=1 <include refid="Base_Condition" />
+  </select>
+  
+  <select id="selectByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.web.model.CimJfqzPushRecord">
+		select <include refid="Base_Column_List" /> from tcim_jfqz_push_record 
+		where 1=1 <include refid="Base_Condition" />
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tcim_jfqz_push_record
+    where  id = #{0}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tcim_jfqz_push_record
+    where id = #{0}
+  </delete>
+
+  <insert id="insert" parameterType="com.linkwee.web.model.CimJfqzPushRecord" >
+    INSERT INTO tcim_jfqz_push_record
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != userId and ''!= userId  ">
+					user_id,
+				</if>
+				<if test=" null != investId and ''!= investId  ">
+					invest_id,
+				</if>
+				<if test=" null != repaymentId and ''!= repaymentId  ">
+					repayment_id,
+				</if>
+			 	<if test=" null != amount ">
+					amount,
+				</if>
+			 	<if test=" null != payAmount ">
+					pay_amount,
+				</if>
+				<if test=" null != expctedEarning and ''!= expctedEarning  ">
+					profit,
+				</if>
+			 	<if test=" null != earnings ">
+					earnings,
+				</if>
+			 	<if test=" null != productId and ''!= productId  ">
+					product_id,
+				</if>
+			 	<if test=" null != issuePreiod and ''!= issuePreiod  ">
+					issue_preiod,
+				</if>
+			 	<if test=" null != rate ">
+					rate,
+				</if>
+			 	<if test=" null != period ">
+					period,
+				</if>
+			 	<if test=" null != orderNo and ''!= orderNo  ">
+					order_no,
+				</if>
+			 	<if test=" null != subOrderNo and ''!= subOrderNo  ">
+					sub_order_no,
+				</if>
+			 	<if test=" null != bankName and ''!= bankName  ">
+					bank_name,
+				</if>
+			 	<if test=" null != bankCardNo and ''!= bankCardNo  ">
+					bank_card_no,
+				</if>
+			 	<if test=" null != exprieProcessMode ">
+					exprie_process_mode,
+				</if>
+			 	<if test=" null != interestTime ">
+					interest_time,
+				</if>
+			 	<if test=" null != redemptionTime ">
+					redemption_time,
+				</if>
+			 	<if test=" null != spendTime ">
+					spend_time,
+				</if>
+			 	<if test=" null != cashTime ">
+					cash_time,
+				</if>
+			 	<if test=" null != createTime ">
+					create_time,
+				</if>
+			 	<if test=" null != updateTime ">
+					update_time,
+				</if>
+			 	<if test=" null != code ">
+					code,
+				</if>
+				<if test=" null != updateStatus and ''!= updateStatus  ">
+					update_status,
+				</if>
+				<if test=" null != remark and ''!= remark  ">
+					remark,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != userId and ''!= userId  ">
+					 	#{userId},
+				</if>
+				<if test=" null != investId and ''!= investId  ">
+					    #{investId},
+				</if>
+				<if test=" null != repaymentId and ''!= repaymentId  ">
+						#{repaymentId},
+				</if>
+			 	<if test=" null != amount ">
+					 	#{amount},
+				</if>
+			 	<if test=" null != payAmount ">
+					 	#{payAmount},
+				</if>
+				<if test=" null != expctedEarning and ''!= expctedEarning  ">
+						#{expctedEarning},
+				</if>
+			 	<if test=" null != earnings ">
+					 	#{earnings},
+				</if>
+			 	<if test=" null != productId and ''!= productId  ">
+					 	#{productId},
+				</if>
+			 	<if test=" null != issuePreiod and ''!= issuePreiod  ">
+					 	#{issuePreiod},
+				</if>
+			 	<if test=" null != rate ">
+					 	#{rate},
+				</if>
+			 	<if test=" null != period ">
+					 	#{period},
+				</if>
+			 	<if test=" null != orderNo and ''!= orderNo  ">
+					 	#{orderNo},
+				</if>
+			 	<if test=" null != subOrderNo and ''!= subOrderNo  ">
+					 	#{subOrderNo},
+				</if>
+			 	<if test=" null != bankName and ''!= bankName  ">
+					 	#{bankName},
+				</if>
+			 	<if test=" null != bankCardNo and ''!= bankCardNo  ">
+					 	#{bankCardNo},
+				</if>
+			 	<if test=" null != exprieProcessMode ">
+					 	#{exprieProcessMode},
+				</if>
+			 	<if test=" null != interestTime ">
+					 	#{interestTime},
+				</if>
+			 	<if test=" null != redemptionTime ">
+					 	#{redemptionTime},
+				</if>
+			 	<if test=" null != spendTime ">
+					 	#{spendTime},
+				</if>
+			 	<if test=" null != cashTime ">
+					 	#{cashTime},
+				</if>
+			 	<if test=" null != createTime ">
+					 	#{createTime},
+				</if>
+			 	<if test=" null != updateTime ">
+					 	#{updateTime},
+				</if>
+			 	<if test=" null != code ">
+					 	#{code},
+				</if>
+				<if test=" null != updateStatus and ''!= updateStatus  ">
+						#{updateStatus},
+				</if>
+				<if test=" null != remark and ''!= remark  ">
+						#{remark},
+				</if>
+		</trim>
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.linkwee.web.model.CimJfqzPushRecord" useGeneratedKeys="true" keyProperty="id" >
+		INSERT INTO tcim_jfqz_push_record
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != userId and ''!= userId  ">
+					user_id,
+				</if>
+				<if test=" null != investId and ''!= investId  ">
+					invest_id,
+				</if>
+				<if test=" null != repaymentId and ''!= repaymentId  ">
+					repayment_id,
+				</if>
+			 	<if test=" null != amount ">
+					amount,
+				</if>
+			 	<if test=" null != payAmount ">
+					pay_amount,
+				</if>
+				<if test=" null != expctedEarning and ''!= expctedEarning  ">
+					profit,
+				</if>
+			 	<if test=" null != earnings ">
+					earnings,
+				</if>
+			 	<if test=" null != productId and ''!= productId  ">
+					product_id,
+				</if>
+			 	<if test=" null != issuePreiod and ''!= issuePreiod  ">
+					issue_preiod,
+				</if>
+			 	<if test=" null != rate ">
+					rate,
+				</if>
+			 	<if test=" null != period ">
+					period,
+				</if>
+			 	<if test=" null != orderNo and ''!= orderNo  ">
+					order_no,
+				</if>
+			 	<if test=" null != subOrderNo and ''!= subOrderNo  ">
+					sub_order_no,
+				</if>
+			 	<if test=" null != bankName and ''!= bankName  ">
+					bank_name,
+				</if>
+			 	<if test=" null != bankCardNo and ''!= bankCardNo  ">
+					bank_card_no,
+				</if>
+			 	<if test=" null != exprieProcessMode ">
+					exprie_process_mode,
+				</if>
+			 	<if test=" null != interestTime ">
+					interest_time,
+				</if>
+			 	<if test=" null != redemptionTime ">
+					redemption_time,
+				</if>
+			 	<if test=" null != spendTime ">
+					spend_time,
+				</if>
+			 	<if test=" null != cashTime ">
+					cash_time,
+				</if>
+			 	<if test=" null != createTime ">
+					create_time,
+				</if>
+			 	<if test=" null != updateTime ">
+					update_time,
+				</if>
+			 	<if test=" null != code ">
+					code,
+				</if>
+				<if test=" null != updateStatus ">
+					update_status,
+				</if>
+				<if test=" null != remark and ''!= remark  ">
+					remark,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != userId and ''!= userId  ">
+					 	#{userId},
+				</if>
+				<if test=" null != investId and ''!= investId  ">
+						#{investId},
+				</if>
+				<if test=" null != repaymentId and ''!= repaymentId  ">
+						#{repaymentId},
+				</if>
+			 	<if test=" null != amount ">
+					 	#{amount},
+				</if>
+			 	<if test=" null != payAmount ">
+					 	#{payAmount},
+				</if>
+				<if test=" null != expctedEarning and ''!= expctedEarning  ">
+						#{expctedEarning},
+				</if>
+			 	<if test=" null != earnings ">
+					 	#{earnings},
+				</if>
+			 	<if test=" null != productId and ''!= productId  ">
+					 	#{productId},
+				</if>
+			 	<if test=" null != issuePreiod and ''!= issuePreiod  ">
+					 	#{issuePreiod},
+				</if>
+			 	<if test=" null != rate ">
+					 	#{rate},
+				</if>
+			 	<if test=" null != period ">
+					 	#{period},
+				</if>
+			 	<if test=" null != orderNo and ''!= orderNo  ">
+					 	#{orderNo},
+				</if>
+			 	<if test=" null != subOrderNo and ''!= subOrderNo  ">
+					 	#{subOrderNo},
+				</if>
+			 	<if test=" null != bankName and ''!= bankName  ">
+					 	#{bankName},
+				</if>
+			 	<if test=" null != bankCardNo and ''!= bankCardNo  ">
+					 	#{bankCardNo},
+				</if>
+			 	<if test=" null != exprieProcessMode ">
+					 	#{exprieProcessMode},
+				</if>
+			 	<if test=" null != interestTime ">
+					 	#{interestTime},
+				</if>
+			 	<if test=" null != redemptionTime ">
+					 	#{redemptionTime},
+				</if>
+			 	<if test=" null != spendTime ">
+					 	#{spendTime},
+				</if>
+			 	<if test=" null != cashTime ">
+					 	#{cashTime},
+				</if>
+			 	<if test=" null != createTime ">
+					 	#{createTime},
+				</if>
+			 	<if test=" null != updateTime ">
+					 	#{updateTime},
+				</if>
+			 	<if test=" null != code ">
+					 	#{code},
+				</if>
+				<if test=" null != updateStatus and ''!= updateStatus  ">
+						#{updateStatus},
+				</if>
+				<if test=" null != remark and ''!= remark  ">
+						#{remark},
+				</if>
+		</trim>
+	</insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.linkwee.web.model.CimJfqzPushRecord" >
+  		UPDATE tcim_jfqz_push_record
+		<set>
+			<trim suffixOverrides=",">
+					<if test=" null != userId and ''!= userId  ">
+						user_id = #{userId},
+					</if>
+					<if test=" null != investId and ''!= investId  ">
+						invest_id = #{investId},
+					</if>
+					<if test=" null != repaymentId and ''!= repaymentId  ">
+						repayment_id = #{repaymentId},
+					</if>
+					<if test=" null != amount ">
+						amount = #{amount},
+					</if>
+					<if test=" null != payAmount ">
+						pay_amount = #{payAmount},
+					</if>
+					<if test=" null != expctedEarning and ''!= expctedEarning  ">
+						profit = #{expctedEarning},
+					</if>
+					<if test=" null != earnings ">
+						earnings = #{earnings},
+					</if>
+					<if test=" null != productId and ''!= productId  ">
+						product_id = #{productId},
+					</if>
+					<if test=" null != issuePreiod and ''!= issuePreiod  ">
+						issue_preiod = #{issuePreiod},
+					</if>
+					<if test=" null != rate ">
+						rate = #{rate},
+					</if>
+					<if test=" null != period ">
+						period = #{period},
+					</if>
+					<if test=" null != orderNo and ''!= orderNo  ">
+						order_no = #{orderNo},
+					</if>
+					<if test=" null != subOrderNo and ''!= subOrderNo  ">
+						sub_order_no = #{subOrderNo},
+					</if>
+					<if test=" null != bankName and ''!= bankName  ">
+						bank_name = #{bankName},
+					</if>
+					<if test=" null != bankCardNo and ''!= bankCardNo  ">
+						bank_card_no = #{bankCardNo},
+					</if>
+					<if test=" null != exprieProcessMode ">
+						exprie_process_mode = #{exprieProcessMode},
+					</if>
+					<if test=" null != interestTime ">
+						interest_time = #{interestTime},
+					</if>
+					<if test=" null != redemptionTime ">
+						redemption_time = #{redemptionTime},
+					</if>
+					<if test=" null != spendTime ">
+						spend_time = #{spendTime},
+					</if>
+					<if test=" null != cashTime ">
+						cash_time = #{cashTime},
+					</if>
+					<if test=" null != createTime ">
+						create_time = #{createTime},
+					</if>
+					<if test=" null != updateTime ">
+						update_time = #{updateTime},
+					</if>
+					<if test=" null != code ">
+						code = #{code},
+					</if>
+					<if test=" null != updateStatus and ''!= updateStatus  ">
+						update_status = #{updateStatus},
+					</if>
+					<if test=" null != remark and ''!= remark  ">
+						remark = #{remark},
+					</if>
+			</trim>
+		</set>
+		<where>
+			 id = #{id}
+		</where>
+	</update>
+  
+	<update id="updateByPrimaryKey" parameterType="com.linkwee.web.model.CimJfqzPushRecord" >
+	    UPDATE tcim_jfqz_push_record
+	   <set>
+			<trim suffixOverrides=",">
+					<if test=" null != userId and ''!= userId  ">
+						user_id = #{userId},
+					</if>
+					<if test=" null != investId and ''!= investId  ">
+						invest_id = #{investId},
+					</if>
+					<if test=" null != repaymentId and ''!= repaymentId  ">
+						repayment_id = #{repaymentId},
+					</if>
+					<if test=" null != amount ">
+						amount = #{amount},
+					</if>
+					<if test=" null != payAmount ">
+						pay_amount = #{payAmount},
+					</if>
+					<if test=" null != expctedEarning and ''!= expctedEarning  ">
+						profit = #{expctedEarning},
+					</if>
+					<if test=" null != earnings ">
+						earnings = #{earnings},
+					</if>
+					<if test=" null != productId and ''!= productId  ">
+						product_id = #{productId},
+					</if>
+					<if test=" null != issuePreiod and ''!= issuePreiod  ">
+						issue_preiod = #{issuePreiod},
+					</if>
+					<if test=" null != rate ">
+						rate = #{rate},
+					</if>
+					<if test=" null != period ">
+						period = #{period},
+					</if>
+					<if test=" null != orderNo and ''!= orderNo  ">
+						order_no = #{orderNo},
+					</if>
+					<if test=" null != subOrderNo and ''!= subOrderNo  ">
+						sub_order_no = #{subOrderNo},
+					</if>
+					<if test=" null != bankName and ''!= bankName  ">
+						bank_name = #{bankName},
+					</if>
+					<if test=" null != bankCardNo and ''!= bankCardNo  ">
+						bank_card_no = #{bankCardNo},
+					</if>
+					<if test=" null != exprieProcessMode ">
+						exprie_process_mode = #{exprieProcessMode},
+					</if>
+					<if test=" null != interestTime ">
+						interest_time = #{interestTime},
+					</if>
+					<if test=" null != redemptionTime ">
+						redemption_time = #{redemptionTime},
+					</if>
+					<if test=" null != spendTime ">
+						spend_time = #{spendTime},
+					</if>
+					<if test=" null != cashTime ">
+						cash_time = #{cashTime},
+					</if>
+					<if test=" null != createTime ">
+						create_time = #{createTime},
+					</if>
+					<if test=" null != updateTime ">
+						update_time = #{updateTime},
+					</if>
+					<if test=" null != code ">
+						code = #{code},
+					</if>
+					<if test=" null != updateStatus and ''!= updateStatus  ">
+						update_status = #{updateStatus},
+					</if>
+					<if test=" null != remark and ''!= remark  ">
+						remark = #{remark},
+					</if>
+					
+			</trim>
+		</set>
+		<where>
+			id = #{0}
+		</where>
+	  </update>
+
+</mapper>

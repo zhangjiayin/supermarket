@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.RcCustomerDao">
+<resultMap  type="com.linkwee.web.model.customer.UnRcLcsCustomersResp" id="UnRcLcsCustomersResp">
+	<result column="customerId" property="customerId" jdbcType="VARCHAR"/>
+	<result column="customerName" property="customerName" jdbcType="VARCHAR"/>
+	<result column="customerMobile" property="customerMobile" jdbcType="VARCHAR"/>
+	<result column="registerTime" property="registerTime" jdbcType="TIMESTAMP"/>
+	<result column="nearEndDate" property="nearEndDate" jdbcType="TIMESTAMP"/>
+	<result column="nearInvest" property="nearInvestAmt" jdbcType="DOUBLE"/>
+	<result column="currInvestAmt" property="totalInvestAmt" jdbcType="INTEGER"/>
+	<result column="totalInvestCount" property="totalInvestCount" jdbcType="INTEGER"/>
+	<result column="important" property="important" jdbcType="INTEGER"/>
+	<result column="freecustomer" property="freecustomer" jdbcType="INTEGER"/>
+</resultMap>
+
+
+<resultMap  type="com.linkwee.web.model.customer.RcLcsCustomersResp" id="RcLcsCustomersResp">
+	<result column="rcId" property="rcId" jdbcType="INTEGER"/>
+	<result column="userNumber" property="userNumber" jdbcType="VARCHAR"/>
+	<result column="customerId" property="customerId" jdbcType="VARCHAR"/>
+	<result column="customerName" property="customerName" jdbcType="VARCHAR"/>
+	<result column="customerMobile" property="customerMobile" jdbcType="VARCHAR"/>
+	<result column="rcCode" property="rcCode" jdbcType="VARCHAR"/>
+	<result column="rcDate" property="rcDate" jdbcType="TIMESTAMP"/>
+	<result column="registerDate" property="registerDate" jdbcType="TIMESTAMP"/>
+	<result column="firstRcpDate" property="firstRcpDate" jdbcType="TIMESTAMP"/>
+	<result column="rcWay" property="rcWay" jdbcType="INTEGER"/>
+	<result column="regFlag" property="regFlag" jdbcType="INTEGER"/>
+</resultMap>
+
+<resultMap  type="com.linkwee.web.model.customer.RcCustomersResp" id="RcCustomersResp">
+	<result column="customerId" property="customerId" jdbcType="VARCHAR"/>
+	<result column="customerName" property="customerName" jdbcType="VARCHAR"/>
+	<result column="customerMobile" property="customerMobile" jdbcType="VARCHAR"/>
+	<result column="registerDate" property="registerDate" jdbcType="TIMESTAMP"/>
+	<result column="firstRcpDate" property="firstRcpDate" jdbcType="TIMESTAMP"/>
+</resultMap>
+
+<!-- 统计未被邀请为理财师的客户情况 -->
+<select id="queryUnRcLcsCustomersCount"  resultType="int">
+select count(1)
+ from tusercustomerrel a1 
+ where a1.fcurrsaleuser = #{saleuser} and a1.fcustomerid != #{saleCustomerId}
+   and NOT EXISTS (select 1 from t_recommend_record where f_customer_id = a1.fcustomerid and  (f_rc_time &lt; DATE_ADD(now(),INTERVAL -24 HOUR) or f_rc_type=1) )
+   and NOT EXISTS (select 1 from t_sale_user_info where f_customer_id = a1.fcustomerid and f_is_cfp=1)
+<if test=" null != name and ''!= name ">
+		and (a1.fcustomername like '%${name}%' or a1.fcustomermobile like '%${name}%')
+</if>
+</select>
+
+<!-- 统计未被邀请为理财师的客户情况 -->
+<select id="queryUnRcLcsCustomers"  resultMap="UnRcLcsCustomersResp">
+select a.fcustomerid customerId,a.fcustomername customerName,a.fcustomermobile customerMobile ,a.fregtime registerTime,a.fimportant important,a.ffreecustomer freecustomer,
+	   d.nearEndDate nearEndDate,
+	   ifnull(b.nearestInvestAmount,0) nearInvest,
+	   ifnull(c.investCount,0) totalInvestCount,
+	   ifnull(c.totalInvestAmount,0) currInvestAmt
+ from 
+(
+select a1.fcustomerid,a1.fcustomername,a1.fcustomermobile,a1.fregtime,a1.fcurrsaleuser,a1.fimportant,a1.ffreecustomer  from tusercustomerrel a1 
+ where a1.fcurrsaleuser = #{saleuser} and a1.fcustomerid != #{saleCustomerId}
+   and NOT EXISTS (select 1 from t_recommend_record where f_customer_id = a1.fcustomerid and  (f_rc_time &lt; DATE_ADD(now(),INTERVAL -24 HOUR) or f_rc_type=1))
+   and NOT EXISTS (select 1 from t_sale_user_info where f_customer_id = a1.fcustomerid and f_is_cfp=1)
+)a
+LEFT JOIN 
+(
+select a1.fbizdate newInvestTime,sum(a1.fpuramount) nearestInvestAmount,a1.fcustomerid from trecvrequest a1,
+(select max(t.fbizdate) maxtime,t.fcustomerid from trecvrequest t
+	 LEFT JOIN t_sale_user_info k on t.fsaleusernumber = k.f_mobile
+     LEFT JOIN tusercustomerrel t1 ON t1.fcustomerid = t.fcustomerid 
+	 where t.foptype = '2' and t.fbiznumber != '0002'
+	   and k.f_number = #{saleuser}
+       and ( t1.fcurrsaleuser = #{saleuser})
+	   and t1.fcustomerid = t.fcustomerid 
+    group by t.fcustomerid) b1
+where a1.fbizdate = b1.maxtime
+  and a1.fcustomerid= b1.fcustomerid
+  GROUP BY a1.fbizdate,a1.fcustomerid
+)b on a.fcustomerid = b.fcustomerid
+LEFT JOIN 
+(
+  select count(1) investCount,sum(t.fpuramount) totalInvestAmount,t.fcustomerid from trecvrequest t
+  LEFT JOIN t_sale_user_info k on t.fsaleusernumber = k.f_mobile
+  LEFT JOIN tusercustomerrel t1 ON t1.fcustomerid = t.fcustomerid 
+	 where t.foptype = '2' and t.fbiznumber!= '0002'
+	 and k.f_number =#{saleuser}
+     and ( t1.fcurrsaleuser = #{saleuser})
+	 and t1.fcustomerid = t.fcustomerid 
+    group by t.fcustomerid
+)c on a.fcustomerid = c.fcustomerid 
+left join 
+(
+  SELECT 
+    MIN(t.fredeemdate) nearEndDate,
+    t.fcustomerid 
+  FROM
+    trecvrequest t 
+    LEFT JOIN t_sale_user_info k 
+      ON t.fsaleusernumber = k.f_mobile 
+    LEFT JOIN tusercustomerrel t1 
+      ON t1.fcustomerid = t.fcustomerid 
+  WHERE t.foptype = '2' 
+    AND t.fbiznumber != '0002' 
+    AND k.f_number = #{saleuser} 
+    AND (t1.fcurrsaleuser = #{saleuser}) 
+    AND t1.fcustomerid = t.fcustomerid 
+    AND t.fredeemdate IS NOT NULL 
+    AND DATE_FORMAT(t.fredeemdate, '%Y-%m-%d') > DATE_FORMAT(now(), '%Y-%m-%d') 
+  GROUP BY t.fcustomerid
+) d on a.fcustomerid = d.fcustomerid 
+where 1=1
+<if test=" null != name and ''!= name ">
+	and (a.fcustomername like '%${name}%' or a.fcustomermobile like '%${name}%')
+</if>
+order by a.fcustomerid
+</select>
+
+
+<!-- 统计邀请人数  -->
+<select id="statisticRcCustCount" resultType="hashmap" >
+	   select count(DISTINCT t.f_mobile) rcPersons,
+			  ifnull(count(DISTINCT (case when t1.f_number is not null then t1.f_mobile else null end)),0) regPersons 
+		 from t_recommend_record t
+		LEFT JOIN t_sale_user_info t1 on t.f_mobile = t1.f_mobile
+	  where t.f_user_number = #{userNumber}
+	  <if test=" null != types ">
+		  <foreach item="item" index="index" collection="types"  open=" and (" separator="or" close=") ">
+				 t.f_rc_type = #{item}
+		 </foreach>
+	 </if>
+</select>
+
+<!-- 统计被邀请为理财师的客户情况 -->	
+<select id="queryRcLcsCustomers" resultMap="RcLcsCustomersResp">
+SELECT a.f_id rcId,a.f_rc_time rcDate,a.f_rc_type rcWay,<!-- a.f_rc_code rcCode, -->a.f_status regFlag,b.f_cfp_reg_time registerDate,b.f_number userNumber,
+	   c.fcustomerid customerId,a.f_mobile customerMobile,
+		 (CASE when a.f_rc_type=2 then c.fcustomername else b.f_name end) customerName,d.firstRcpDate firstRcpDate
+from 
+(select t1.f_id ,t1.f_rc_time ,t1.f_rc_type ,t1.f_status,t1.f_mobile,t1.f_user_number<!-- ,t1.f_rc_code --> from t_recommend_record t1,
+(
+ select f_mobile,max(f_rc_time),f_user_number from t_recommend_record where f_user_number = #{userNumber}  GROUP BY f_mobile
+) t2
+where t1.f_mobile = t2.f_mobile and t1.f_user_number = #{userNumber}
+) a
+LEFT JOIN t_sale_user_info b 
+on a.f_mobile = b.f_mobile and b.f_parent_id = #{userNumber} and b.f_is_cfp =1
+LEFT JOIN tusercustomerrel c
+on a.f_mobile = c.fcustomermobile
+LEFT JOIN
+(
+select min(tfeedetail.fbizdate) firstRcpDate,t_sale_user_info.f_mobile,t_sale_user_info.f_parent_id from t_sale_user_info,tfeedetail,t_recommend_record
+where tfeedetail.foriginsaleuser = t_sale_user_info.f_number
+and t_sale_user_info.f_mobile = t_recommend_record.f_mobile
+and t_sale_user_info.f_parent_id = t_recommend_record.f_user_number
+and t_sale_user_info.f_is_cfp =1
+and t_sale_user_info.f_parent_id = #{userNumber}
+and tfeedetail.ffeetype = 1001
+group by t_sale_user_info.f_mobile
+)d
+on a.f_mobile = d.f_mobile 
+where 1=1
+<if test=" null != name and ''!= name ">
+	and (c.fcustomername like '%${name}%' or c.fcustomermobile like '%${name}%')
+</if>
+<if test=" null != types ">
+	  <foreach item="item" index="index" collection="types"  open=" and (" separator="or" close=") ">
+			  a.f_rc_type = #{item}
+	 </foreach>
+ </if>
+ order by a.f_status
+</select>
+
+
+<!-- 统计未被邀请为理财师的客户情况 -->
+<select id="queryRcCustomers"  resultMap="RcCustomersResp">
+SELECT a.fcustomerid customerId,a.fcustomername customerName,a.fcustomermobile customerMobile,
+	   a.fregtime registerDate FROM tusercustomerrel a
+	WHERE a.fregrefereetype = 2 
+	<if test=" null != userMobile and ''!= userMobile ">
+		 AND a.fregrefcustomer = #{userMobile} 
+	</if>
+<!-- select a.fcustomerid customerId,a.fcustomername customerName,a.fcustomermobile customerMobile,
+	   a.fregtime registerDate,b.firstRcpDate firstRcpDate
+ from 
+(
+ select a1.fcustomerid,a1.fcustomername,a1.fcustomermobile,a1.fregtime,a1.fcurrsaleuser from tusercustomerrel a1 
+ where (a1.fcurrsaleuser = #{saleuser} )
+ and NOT EXISTS (select 1 from t_sale_user_info where f_customer_id = a1.fcustomerid and f_is_cfp=1 )
+)a
+LEFT JOIN 
+(
+select min(t.fbizdate) firstRcpDate,t.fcustomerid from trecvrequest t
+LEFT JOIN t_sale_user_info k on t.fsaleusernumber = k.f_mobile
+LEFT JOIN tusercustomerrel t1 ON t1.fcustomerid = t.fcustomerid 
+	 where t.foptype = '2' and t.fbiznumber!= '0002'
+	  and k.f_number = #{saleuser}
+     and ( t1.fcurrsaleuser = #{saleuser} )
+	   and t1.fcustomerid = t.fcustomerid 
+    group by t.fcustomerid
+)b on a.fcustomerid = b.fcustomerid
+where 1=1
+<if test=" null != name ">
+	and (a.fcustomername like '%${name}%' or a.fcustomermobile like '%${name}%')
+</if>
+ order by a.fcustomerid -->
+</select>
+
+</mapper>

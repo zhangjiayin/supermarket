@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.activity.dao.RedpacketMapper" >
+ 	<parameterMap type="com.linkwee.activity.model.Redpacket" id="redpacket" />
+	
+	<resultMap type="com.linkwee.activity.model.Redpacket" id="redpacketMap">
+		<result column="id" property="id"  javaType="Long" jdbcType="BIGINT" />
+		<result column="fid" property="fid"  javaType="String" jdbcType="VARCHAR" />
+		<result column="red_paper_type" property="redPaperType"  javaType="String" jdbcType="VARCHAR" />
+		<result column="redpaper_money" property="redpaperMoney"  javaType="Double" jdbcType="DECIMAL" />
+		<result column="bus_type" property="busType"  javaType="Integer" jdbcType="CHAR" />
+		<result column="activity_id" property="activityId"  javaType="String" jdbcType="VARCHAR" />
+		<result column="activity_name" property="activityName"  javaType="String" jdbcType="VARCHAR" />
+		<result column="user_mobile" property="userMobile"  javaType="String" jdbcType="VARCHAR" />
+		<result column="user_name" property="userName"  javaType="String" jdbcType="VARCHAR" />
+		<result column="user_id" property="userId"  javaType="String" jdbcType="VARCHAR" />
+		<result column="sale_user_mobile" property="saleUserMobile"  javaType="String" jdbcType="VARCHAR" />
+		<result column="sale_user_name" property="saleUserName"  javaType="String" jdbcType="VARCHAR" />
+		<result column="sale_user_id" property="saleUserId"  javaType="String" jdbcType="VARCHAR" />
+		<result column="expire_date" property="expireDate"  javaType="Date" jdbcType="TIMESTAMP" />
+		<result column="use_date" property="useDate"  javaType="Date" jdbcType="TIMESTAMP" />
+		<result column="status" property="status"  javaType="Integer" jdbcType="TINYINT" />
+		<result column="show_name" property="showName"  javaType="String" jdbcType="VARCHAR" />
+		<result column="use_remark" property="useRemark"  javaType="String" jdbcType="VARCHAR" />
+		<result column="init_date" property="initDate"  javaType="Date" jdbcType="DECIMAL" />
+		<result column="update_date" property="updateDate"  javaType="Date" jdbcType="TIMESTAMP" />
+		<result column="operator" property="operator"  javaType="String" jdbcType="VARCHAR" />
+		
+	</resultMap>
+	
+	<resultMap type="com.linkwee.activity.model.Redpaper" id="redpacketMapList">
+		<result column="id" property="id" javaType="Long" jdbcType="BIGINT" />
+		<result column="money" property="redpaperMoney"  javaType="Double" jdbcType="DECIMAL" />
+		<result column="name" property="showName"  javaType="String" jdbcType="VARCHAR" />
+		<result column="expire_date" property="expireDate"  javaType="Date" jdbcType="TIMESTAMP" />
+		<result column="red_paper_type" property="redPaperType"  javaType="String" jdbcType="VARCHAR" />
+		<result column="activity_id" property="activityId"  javaType="String" jdbcType="VARCHAR" />
+		<result column="redpaper_count" property="redpaperCount"  javaType="Integer" jdbcType="INTEGER"/>
+		<result column="init_date" property="addTime"  javaType="Date" jdbcType="DECIMAL" />
+		<result column="update_date" property="sendTime" javaType="Date" jdbcType="TIMESTAMP" />  
+		<result column="use_remark" property="remark" javaType="String" jdbcType="VARCHAR" /> 
+		<result column="operator" property="operatorPerson" javaType="String" jdbcType="VARCHAR" /> 
+	</resultMap>
+
+  
+  <insert id="insertSelective" parameterMap="redpacket" >
+		INSERT INTO t_red_paper    
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != fid and '' != fid ">
+					fid,
+				</if>
+			 	<if test=" null != redPaperType and '' != redPaperType ">
+					red_paper_type,
+				</if>
+			 	<if test=" null != redpaperMoney">
+					redpaper_money,
+				</if>
+			 	<if test=" null != busType">
+					bus_type,
+				</if>
+			 	<if test=" null != activityId">
+					activity_id,
+				</if>
+			 	<if test=" null != activityName and '' != activityName ">
+					activity_name,
+				</if>
+			 	<if test=" null != userMobile and '' != userMobile ">
+					user_mobile,
+				</if>
+			 	<if test=" null != userName and '' != userName ">
+					user_name,
+				</if>
+			 	<if test=" null != userId and '' != userId ">
+					user_id,
+				</if>
+			 	<if test=" null != saleUserMobile and '' != saleUserMobile ">
+					sale_user_mobile,
+				</if>
+			 	<if test=" null != saleUserName and '' != saleUserName ">
+					sale_user_name,
+				</if>
+			 	<if test=" null != saleUserId and '' != saleUserId ">
+					sale_user_id,
+				</if>
+			 	<if test=" null != expireDate">
+					expire_date,
+				</if>
+				<if test=" null != useDate">
+					use_date,
+				</if>
+			 	<if test=" null != status">
+					status,
+				</if>
+				<if test=" null != expireDate">
+					show_name,
+				</if>
+			 	<if test=" null != status">
+					use_remark,
+				</if>
+			 	<if test=" null != initDate">
+					init_date,
+				</if>
+			 	<if test=" null != updateDate">
+					update_date,
+				</if>
+				<if test=" null != operator and '' != operator ">
+					operator,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != fid and '' != fid ">
+					 	#{fid},
+				</if>
+			 	<if test=" null != redPaperType and '' != redPaperType ">
+					 	#{redPaperType},
+				</if>
+			 	<if test=" null != redpaperMoney">
+					 	#{redpaperMoney},
+				</if>
+			 	<if test=" null != busType">
+					 	#{busType},
+				</if>
+			 	<if test=" null != activityId">
+					 	#{activityId},
+				</if>
+			 	<if test=" null != activityName and '' != activityName ">
+					 	#{activityName},
+				</if>
+			 	<if test=" null != userMobile and '' != userMobile ">
+					 	#{userMobile},
+				</if>
+			 	<if test=" null != userName and '' != userName ">
+					 	#{userName},
+				</if>
+			 	<if test=" null != userId and '' != userId ">
+					 	#{userId},
+				</if>
+			 	<if test=" null != saleUserMobile and '' != saleUserMobile ">
+					 	#{saleUserMobile},
+				</if>
+			 	<if test=" null != saleUserName and '' != saleUserName ">
+					 	#{saleUserName},
+				</if>
+			 	<if test=" null != saleUserId and '' != saleUserId ">
+					 	#{saleUserId},
+				</if>
+			 	<if test=" null != expireDate">
+					 	#{expireDate},
+				</if>
+				<if test=" null != useDate">
+						#{useDate},
+				</if>
+			 	<if test=" null != status">
+					 	#{status},
+				</if>
+				<if test=" null != showName and '' != showName ">
+					 	#{showName},
+				</if>
+			 	<if test=" null != useRemark and '' != useRemark ">
+					 	#{useRemark},
+				</if>
+			 	<if test=" null != initDate">
+					 	#{initDate,javaType=Date,jdbcType=DECIMAL},
+				</if>
+			 	<if test=" null != updateDate">
+					 	#{updateDate},
+				</if>
+				<if test=" null != operator and '' != operator ">
+					 	#{operator},
+				</if>
+		</trim>
+	</insert>
+	
+	
+	<insert id="insertBatchRedpacket"  parameterType="java.util.ArrayList">
+		INSERT INTO t_red_paper    
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+						fid,
+						red_paper_type,
+						redpaper_money,
+						bus_type,
+						activity_id,
+						activity_name,
+						user_mobile,
+						user_name,
+						user_id,
+						sale_user_mobile,
+						sale_user_name,
+						sale_user_id,
+						expire_date,
+						use_date,
+						status,
+						show_name,
+						use_remark,
+						init_date,
+						update_date,
+						operator,
+		</trim>
+		VALUES
+		<foreach item="item" index="index" collection="list" separator=",">
+			<trim prefix="(" suffix=")" suffixOverrides=",">
+						 #{item.fid},
+						 #{item.redPaperType},
+						 #{item.redpaperMoney},
+						 #{item.busType},
+						 #{item.activityId},
+						 #{item.activityName},
+						 #{item.userMobile},
+						 #{item.userName},
+						 #{item.userId},
+						 #{item.saleUserMobile},
+						 #{item.saleUserName},
+						 #{item.saleUserId},
+						 #{item.expireDate},
+						 #{item.useDate},
+						 #{item.status},
+						 #{item.showName},
+						 #{item.useRemark},
+						 #{item.initDate,javaType=Date,jdbcType=DECIMAL},
+						 #{item.updateDate},
+						 #{item.operator},
+			</trim>
+		</foreach>
+	</insert>
+	
+	<!-- 红包列表 -->
+    <select id="getRedpacketList" resultMap="redpacketMapList" parameterType="com.linkwee.core.datatable.DataTable">
+    	
+    	SELECT t1.id,t1.fid red_paper_type,t1.money,t1.`name`,t2.update_date,t1.init_date,IFNULL(t2.redpaper_count,0) redpaper_count,t2.expire_date,t3.activity_id,t1.operator 
+			FROM t_red_paper_type t1 
+			
+			LEFT JOIN (
+			
+			SELECT red_paper_type,activity_id,COUNT(fid) redpaper_count,expire_date,MAX(update_date) update_date,operator
+			 
+			FROM t_red_paper 
+			GROUP BY red_paper_type,activity_id) t2 
+			ON t1.fid = t2.red_paper_type 
+			LEFT JOIN t_activity_red_paper t3 ON t1.fid=t3.red_paper_id
+			
+			ORDER BY t1.init_date desc
+    </select>
+    
+	<!-- 红包每日统计列表 -->
+    <select id="getRedpaperEveryDayList" parameterType="com.linkwee.core.datatable.DataTable" resultType="com.linkwee.activity.model.RedpacketCal">
+    	SELECT
+    			DATE_FORMAT(a.update_date, '%Y-%m-%d') calDate,
+				COUNT(DISTINCT a.sale_user_mobile) sendRedpacketlcsCounts,
+	      		COUNT(a.fid) lcsSendRedpacketCounts,
+				COUNT(DISTINCT a.user_mobile) lcsSendRedpacketCustomerCounts,
+				SUM(a.redpaper_money) lcsSendRedpacketAmount,
+				COUNT(DISTINCT b.user_mobile) useRedpacketCustomerCounts,
+				COUNT(b.fid) redpacketUseCounts,
+				IFNULL(SUM(b.redpaper_money), 0) redpacketUseAmount
+				
+			FROM
+				t_red_paper a
+			LEFT JOIN t_red_paper_exchange_log b ON a.fid = b.red_paper_id AND a.activity_id = b.activity_id
+			AND a.red_paper_type = b.red_paper_type
+			WHERE DATE_FORMAT(a.update_date, '%Y-%m-%d') = DATE_FORMAT(#{date}, '%Y-%m-%d')
+			GROUP BY DATE_FORMAT(a.update_date, '%Y-%m-%d')
+    </select>
+    
+	<!-- 红包详情 -->
+    <select id="queryRedpaperInfo" resultMap="redpacketMapList">
+    	
+    	SELECT * FROM(
+			SELECT t1.id,t1.fid red_paper_type,t1.money,t1.`name`,t1.init_date,IFNULL(t2.redpaper_count,0) redpaper_count,t2.update_date,t2.expire_date,t3.activity_id,t2.use_remark,t2.operator 
+						FROM t_red_paper_type t1 
+						
+						LEFT JOIN (
+						
+						SELECT red_paper_type,activity_id,COUNT(fid) redpaper_count,expire_date,MAX(update_date) update_date,use_remark,operator
+						 
+						FROM t_red_paper 
+						GROUP BY red_paper_type,activity_id) t2 
+						ON t1.fid = t2.red_paper_type 
+						LEFT JOIN t_activity_red_paper t3 ON t1.fid=t3.red_paper_id		
+			) tt
+
+		WHERE tt.activity_id=#{activityId} and tt.red_paper_type = #{redPacketTypeId}
+    </select>
+    
+    <!-- 单个红包统计 -->
+    <select id="queryRedpaperCal" resultType="com.linkwee.activity.model.RedpacketCal">
+    	SELECT
+				COUNT(DISTINCT a.sale_user_mobile) sendRedpacketlcsCounts,
+	      		COUNT(a.fid) lcsSendRedpacketCounts,
+				COUNT(DISTINCT a.user_mobile) lcsSendRedpacketCustomerCounts,
+				SUM(a.redpaper_money) lcsSendRedpacketAmount,
+				COUNT(DISTINCT b.user_mobile) useRedpacketCustomerCounts,
+				COUNT(b.fid) redpacketUseCounts,
+				IFNULL(SUM(b.redpaper_money), 0) redpacketUseAmount
+				
+			FROM
+				t_red_paper a
+			LEFT JOIN t_red_paper_exchange_log b ON a.activity_id = b.activity_id
+			AND a.red_paper_type = b.red_paper_type 
+			AND a.fid = b.red_paper_id
+		 WHERE a.activity_id=#{activityId} AND a.red_paper_type = #{redPacketTypeId}
+    </select>
+    
+    
+    <insert id="insertBatchSendFailRedpacket"  parameterType="java.util.ArrayList">
+		INSERT INTO t_red_paper_sendfail_log    
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+						fid,
+						red_paper_type,
+						redpaper_money,
+						bus_type,
+						activity_id,
+						activity_name,
+						user_mobile,
+						user_name,
+						user_id,
+						sale_user_mobile,
+						sale_user_name,
+						sale_user_id,
+						expire_date,
+						use_date,
+						status,
+						show_name,
+						use_remark,
+						init_date,
+						update_date,
+						operator,
+		</trim>
+		VALUES
+		<foreach item="item" index="index" collection="list" separator=",">
+			<trim prefix="(" suffix=")" suffixOverrides=",">
+						 #{item.fid},
+						 #{item.redPaperType},
+						 #{item.redpaperMoney},
+						 #{item.busType},
+						 #{item.activityId},
+						 #{item.activityName},
+						 #{item.userMobile},
+						 #{item.userName},
+						 #{item.userId},
+						 #{item.saleUserMobile},
+						 #{item.saleUserName},
+						 #{item.saleUserId},
+						 #{item.expireDate},
+						 #{item.useDate},
+						 #{item.status},
+						 #{item.showName},
+						 #{item.useRemark},
+						 #{item.initDate,javaType=Date,jdbcType=DECIMAL},
+						 #{item.updateDate},
+						 #{item.operator},
+			</trim>
+		</foreach>
+	</insert>
+	
+	
+	<select id="isSendRedpaper" resultType="int">
+		select COUNT(fid) FROM t_red_paper where activity_id=#{activityId} AND red_paper_type=#{redpaperTypeId}
+	</select>
+</mapper>

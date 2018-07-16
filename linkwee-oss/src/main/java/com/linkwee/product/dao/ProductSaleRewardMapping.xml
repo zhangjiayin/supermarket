@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.product.dao.ProductSaleRewardDao">
+<parameterMap type="com.linkwee.web.model.product.ProductSaleReward" id="ProductSaleRewardParameterMap" />	
+<!-- Result Map-->
+<resultMap  type="com.linkwee.web.model.product.ProductSaleReward" id="ProductSaleRewardResultMap">
+	<result column="f_id" property="id" jdbcType="INTEGER"/>
+	<result column="f_product_id" property="productId" jdbcType="VARCHAR"/>
+	<result column="f_sale_reward" property="saleReward" jdbcType="VARCHAR"/>
+	<result column="f_reward_ratio" property="rewardRatio" jdbcType="DOUBLE"/>
+	<result column="f_reward_begin_time" property="rewardBeginTime" jdbcType="TIMESTAMP"/>
+	<result column="f_reward_end_time" property="rewardEndTime" jdbcType="TIMESTAMP"/>
+	<result column="f_is_reward" property="isReward" jdbcType="VARCHAR"/>
+	<result column="fremark" property="fremark" jdbcType="VARCHAR"/>
+	<result column="f_reward_code" property="rewardCode" jdbcType="VARCHAR"/>
+</resultMap>
+  <sql id="Base_Column_List">
+    <trim suffixOverrides=",">
+	    	f_id,
+	    	f_product_id,
+	    	f_sale_reward,
+	    	f_reward_ratio,
+	    	f_reward_begin_time,
+	    	f_reward_end_time,
+	    	f_is_reward,
+	    	fremark,
+	    	f_reward_code,
+    </trim>
+  </sql>  
+  
+   <sql id="Base_Column_List_T">
+    <trim suffixOverrides=",">
+	    	t.f_id,
+	    	t.f_product_id,
+	    	t.f_sale_reward,
+	    	t.f_reward_ratio,
+	    	t.f_reward_begin_time,
+	    	t.f_reward_end_time,
+	    	t.f_is_reward,
+	    	t.fremark,
+	    	t.f_reward_code,
+    </trim>
+  </sql> 
+  	
+  <select id="getByPrimaryKey"  resultMap="ProductSaleRewardResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_product_sale_reward where  f_id = #{0}
+  </select>	
+
+  <delete id="deleteByPrimaryKey" >
+    delete from t_product_sale_reward
+	<where>
+		f_id = #{0}
+	</where>
+  </delete>
+  
+  <delete id="deleteByProId">
+   delete from t_product_sale_reward
+	<where>
+		f_product_id = #{0}
+	</where>
+  
+  </delete>
+  
+  
+  <insert id="add" parameterMap="ProductSaleRewardParameterMap" useGeneratedKeys="true" keyProperty="id" >
+		INSERT INTO t_product_sale_reward
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					f_id,
+				</if>
+			 	<if test=" null != productId and ''!= productId  ">
+					f_product_id,
+				</if>
+			 	<if test=" null != saleReward and ''!= saleReward  ">
+					f_sale_reward,
+				</if>
+			 	<if test=" null != rewardRatio ">
+					f_reward_ratio,
+				</if>
+			 	<if test=" null != rewardBeginTime ">
+					f_reward_begin_time,
+				</if>
+			 	<if test=" null != rewardEndTime ">
+					f_reward_end_time,
+				</if>
+			 	<if test=" null != isReward and ''!= isReward  ">
+					f_is_reward,
+				</if>
+			 	<if test=" null != fremark and ''!= fremark  ">
+					fremark,
+				</if>
+			 	<if test=" null != rewardCode and ''!= rewardCode  ">
+					f_reward_code,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != productId and ''!= productId  ">
+					 	#{productId},
+				</if>
+			 	<if test=" null != saleReward and ''!= saleReward  ">
+					 	#{saleReward},
+				</if>
+			 	<if test=" null != rewardRatio ">
+					 	#{rewardRatio},
+				</if>
+			 	<if test=" null != rewardBeginTime ">
+					 	#{rewardBeginTime},
+				</if>
+			 	<if test=" null != rewardEndTime ">
+					 	#{rewardEndTime},
+				</if>
+			 	<if test=" null != isReward and ''!= isReward  ">
+					 	#{isReward},
+				</if>
+			 	<if test=" null != fremark and ''!= fremark  ">
+					 	#{fremark},
+				</if>
+			 	<if test=" null != rewardCode and ''!= rewardCode  ">
+					 	#{rewardCode},
+				</if>
+		</trim>
+	</insert>
+  
+  
+  <update id="update" parameterMap="ProductSaleRewardParameterMap">
+		UPDATE t_product_sale_reward
+		<set>
+			<trim suffixOverrides=",">
+					<!-- <if test=" null != productId and ''!= productId  ">
+						f_product_id = #{productId},
+					</if> -->
+					<if test=" null != saleReward and ''!= saleReward  ">
+						f_sale_reward = #{saleReward},
+					</if>
+					<if test=" null != rewardRatio ">
+						f_reward_ratio = #{rewardRatio},
+					</if>
+					<if test=" null != rewardBeginTime ">
+						f_reward_begin_time = #{rewardBeginTime},
+					</if>
+					<if test=" null != rewardEndTime ">
+						f_reward_end_time = #{rewardEndTime},
+					</if>
+					<if test=" null != isReward and ''!= isReward  ">
+						f_is_reward = #{isReward},
+					</if>
+					<if test=" null != fremark and ''!= fremark  ">
+						fremark = #{fremark},
+					</if>
+					<if test=" null != rewardCode and ''!= rewardCode  ">
+						f_reward_code = #{rewardCode},
+					</if>
+			</trim>
+		</set>
+		<where>
+			 f_product_id = #{productId}
+		</where>
+	</update>
+  
+  
+   <update id="updateWithEmpty" parameterMap="ProductSaleRewardParameterMap">
+		UPDATE t_product_sale_reward
+		<set>
+			<trim suffixOverrides=",">
+						f_product_id = #{productId},
+						f_sale_reward = #{saleReward},
+						f_reward_ratio = #{rewardRatio},
+						f_reward_begin_time = #{rewardBeginTime},
+						f_reward_end_time = #{rewardEndTime},
+						f_is_reward = #{isReward},
+						fremark = #{fremark},
+						f_reward_code = #{rewardCode},
+			</trim>
+		</set>
+		<where>
+			 f_id = #{id}
+		</where>
+	</update>
+
+  <insert id="addBatch" parameterType="java.util.List">
+	insert into t_product_sale_reward 
+	<trim prefix="(" suffix=")" >
+			<include refid="Base_Column_List" />
+	</trim>
+	VALUES
+	<foreach item="item" index="index" collection="list" separator=",">
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+				#{item.id,jdbcType=INTEGER},
+				#{item.productId,jdbcType=VARCHAR},
+				#{item.saleReward,jdbcType=VARCHAR},
+				#{item.rewardRatio,jdbcType=DOUBLE},
+				#{item.rewardBeginTime,jdbcType=TIMESTAMP},
+				#{item.rewardEndTime,jdbcType=TIMESTAMP},
+				#{item.isReward,jdbcType=VARCHAR},
+				#{item.fremark,jdbcType=VARCHAR},
+				#{item.rewardCode,jdbcType=VARCHAR},
+		</trim>
+	</foreach>
+</insert>
+
+ 
+<update id="updateBatch" parameterType="java.util.List">
+      <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update t_product_sale_reward
+            <set>
+              	<trim suffixOverrides=",">
+					   <if test="item.productId!=null and ''!= item.productId  ">
+					        f_product_id = #{item.productId,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.saleReward!=null and ''!= item.saleReward  ">
+					        f_sale_reward = #{item.saleReward,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.rewardRatio!=null ">
+					        f_reward_ratio = #{item.rewardRatio,jdbcType=DOUBLE},
+					   </if>
+					   <if test="item.rewardBeginTime!=null ">
+					        f_reward_begin_time = #{item.rewardBeginTime,jdbcType=TIMESTAMP},
+					   </if>
+					   <if test="item.rewardEndTime!=null ">
+					        f_reward_end_time = #{item.rewardEndTime,jdbcType=TIMESTAMP},
+					   </if>
+					   <if test="item.isReward!=null and ''!= item.isReward  ">
+					        f_is_reward = #{item.isReward,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.fremark!=null and ''!= item.fremark  ">
+					        fremark = #{item.fremark,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.rewardCode!=null and ''!= item.rewardCode  ">
+					        f_reward_code = #{item.rewardCode,jdbcType=VARCHAR},
+					   </if>
+			   </trim>
+            </set>
+             where f_id = #{item.id}
+     </foreach>
+</update>
+
+<update id="updateBatchWithEmpty" parameterType="java.util.List">
+      <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update t_product_sale_reward
+            <set>
+              	<trim suffixOverrides=",">
+					        f_product_id = #{item.productId,jdbcType=VARCHAR},
+					        f_sale_reward = #{item.saleReward,jdbcType=VARCHAR},
+					        f_reward_ratio = #{item.rewardRatio,jdbcType=DOUBLE},
+					        f_reward_begin_time = #{item.rewardBeginTime,jdbcType=TIMESTAMP},
+					        f_reward_end_time = #{item.rewardEndTime,jdbcType=TIMESTAMP},
+					        f_is_reward = #{item.isReward,jdbcType=VARCHAR},
+					        fremark = #{item.fremark,jdbcType=VARCHAR},
+					        f_reward_code = #{item.rewardCode,jdbcType=VARCHAR},
+			   </trim>
+            </set>
+             where f_id = #{item.id}
+     </foreach>
+</update>         
+
+<delete id="deleteBatch" parameterType="Object">
+	DELETE FROM t_product_sale_reward
+	<where>
+		<foreach item="item" index="index" collection="array"  open="(" separator="or" close=") ">
+			  f_id  = #{item}
+		</foreach>
+	</where>
+</delete>
+    
+ <sql id="Base_Condition">
+		   <if test=" null != id ">
+				AND	T.f_id = #{id}
+		</if>
+		   <if test=" null != productId and ''!= productId  ">
+				AND	T.f_product_id = #{productId}
+		</if>
+		   <if test=" null != saleReward and ''!= saleReward  ">
+				AND	T.f_sale_reward = #{saleReward}
+		</if>
+		   <if test=" null != rewardRatio ">
+				AND	T.f_reward_ratio = #{rewardRatio}
+		</if>
+		   <if test=" null != rewardBeginTime ">
+				AND	T.f_reward_begin_time = #{rewardBeginTime}
+		</if>
+		   <if test=" null != rewardEndTime ">
+				AND	T.f_reward_end_time = #{rewardEndTime}
+		</if>
+		   <if test=" null != isReward and ''!= isReward  ">
+				AND	T.f_is_reward = #{isReward}
+		</if>
+		   <if test=" null != fremark and ''!= fremark  ">
+				AND	T.fremark = #{fremark}
+		</if>
+		   <if test=" null != rewardCode and ''!= rewardCode  ">
+				AND	T.f_reward_code = #{rewardCode}
+		</if>
+ </sql>    
+<select id="list" resultMap="ProductSaleRewardResultMap"  >
+		SELECT <include refid="Base_Column_List" /> FROM t_product_sale_reward T WHERE 1=1
+		<include refid="Base_Condition" />
+</select>
+
+<select id="query" resultMap="ProductSaleRewardResultMap"  >
+		SELECT <include refid="Base_Column_List" /> FROM t_product_sale_reward T WHERE 1=1
+		<include refid="Base_Condition" />
+</select>
+<select id="findfeeRaioByProId"  resultMap="ProductSaleRewardResultMap">
+select <include refid="Base_Column_List" /> from t_product_sale_reward t where t.f_product_id = #{productId} limit 1
+</select>
+
+
+</mapper>

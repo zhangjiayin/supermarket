@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.EasemobDao">
+<parameterMap type="com.linkwee.web.model.Easemob" id="EasemobParameterMap" />	
+<!-- Result Map-->
+<resultMap  type="com.linkwee.web.model.Easemob" id="EasemobResultMap">
+	<result column="f_id" property="id" jdbcType="INTEGER"/>
+	<result column="f_customer_id" property="customerId" jdbcType="VARCHAR"/>
+	<result column="f_easemob_acct" property="easemobAcct" jdbcType="VARCHAR"/>
+	<result column="f_easemob_password" property="easemobPassword" jdbcType="VARCHAR"/>
+	<result column="f_status" property="status" jdbcType="INTEGER"/>
+	<result column="f_nickname_status" property="nickNameStatus" jdbcType="INTEGER"/>
+</resultMap>
+  <sql id="Base_Column_List">
+    <trim suffixOverrides=",">
+	    	f_id,
+	    	f_customer_id,
+	    	f_easemob_acct,
+	    	f_easemob_password,
+	    	f_status,
+	    	f_nickname_status,
+    </trim>
+  </sql>  
+  
+   <sql id="Base_Column_List_T">
+    <trim suffixOverrides=",">
+	    	t.f_id,
+	    	t.f_customer_id,
+	    	t.f_easemob_acct,
+	    	t.f_easemob_password,
+	    	t.f_status,
+	    	t.f_nickname_status,
+    </trim>
+  </sql> 
+  	
+  <select id="getByPrimaryKey"  resultMap="EasemobResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_user_easemob where  f_id = #{0}
+  </select>
+  
+  <select id="queryByCustomerId"  resultMap="EasemobResultMap" parameterType="Integer">
+    select 
+    *
+    from t_user_easemob where  f_customer_id = #{customerId}
+  </select>	
+
+  <delete id="deleteByPrimaryKey" >
+    delete from t_user_easemob
+	<where>
+		f_id = #{0}
+	</where>
+  </delete>
+  
+  
+  <insert id="add" parameterMap="EasemobParameterMap" useGeneratedKeys="true" keyProperty="id" >
+		INSERT INTO t_user_easemob
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					f_id,
+				</if>
+			 	<if test=" null != customerId and ''!= customerId  ">
+					f_customer_id,
+				</if>
+			 	<if test=" null != easemobAcct and ''!= easemobAcct  ">
+					f_easemob_acct,
+				</if>
+			 	<if test=" null != easemobPassword and ''!= easemobPassword  ">
+					f_easemob_password,
+				</if>
+				<if test=" null != status and 0 != status ">
+					f_status,
+				</if>
+				<if test=" null != nickNameStatus and 0 != nickNameStatus ">
+					f_nickname_status,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != customerId and ''!= customerId  ">
+					 	#{customerId},
+				</if>
+			 	<if test=" null != easemobAcct and ''!= easemobAcct  ">
+					 	#{easemobAcct},
+				</if>
+			 	<if test=" null != easemobPassword and ''!= easemobPassword  ">
+					 	#{easemobPassword},
+				</if>
+				<if test=" null != status and 0 != status ">
+					 	#{status},
+				</if>
+				<if test=" null != nickNameStatus and 0 != nickNameStatus ">
+					 	#{nickNameStatus},
+				</if>
+		</trim>
+	</insert>
+  
+  
+  <update id="update" parameterMap="EasemobParameterMap">
+		UPDATE t_user_easemob
+		<set>
+			<trim suffixOverrides=",">
+					<if test=" null != customerId and ''!= customerId  ">
+						f_customer_id = #{customerId},
+					</if>
+					<if test=" null != easemobAcct and ''!= easemobAcct  ">
+						f_easemob_acct = #{easemobAcct},
+					</if>
+					<if test=" null != easemobPassword and ''!= easemobPassword  ">
+						f_easemob_password = #{easemobPassword},
+					</if>
+					<if test=" null != status and 0 != status ">
+					 	f_status = #{status},
+					</if>
+					<if test=" null != nickNameStatus and 0 != nickNameStatus  ">
+					 	f_nickname_status = #{nickNameStatus},
+					</if>
+			</trim>
+		</set>
+		<where>
+			 f_id = #{id}
+		</where>
+	</update>
+	
+	<update id="updateByCustomerId" parameterMap="EasemobParameterMap">
+		UPDATE t_user_easemob
+		<set>
+			<trim suffixOverrides=",">
+					<if test=" null != easemobAcct and ''!= easemobAcct  ">
+						f_easemob_acct = #{easemobAcct},
+					</if>
+					<if test=" null != easemobPassword and ''!= easemobPassword  ">
+						f_easemob_password = #{easemobPassword},
+					</if>
+					<if test=" null != status and 0 != status ">
+					 	f_status = #{status},
+					</if>
+					<if test=" null != nickNameStatus and 0 != nickNameStatus ">
+					 	f_nickname_status = #{nickNameStatus},
+					</if>
+			</trim>
+		</set>
+		<where>
+			 f_customer_id = #{customerId}
+		</where>
+	</update>
+  
+
+  <insert id="addBatch" parameterType="java.util.List">
+	insert into t_user_easemob 
+		<trim prefix="(" suffix=")" >
+				f_customer_id,
+		    	f_easemob_acct,
+		    	f_easemob_password,
+		    	f_nickname_status
+		</trim>
+	VALUES
+	<foreach item="item" index="index" collection="list" separator=",">
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+				 #{item.customerId,jdbcType=VARCHAR}
+				 , #{item.easemobAcct,jdbcType=VARCHAR}
+				 , #{item.easemobPassword,jdbcType=VARCHAR}
+				 , #{item.nickNameStatus,jdbcType=INTEGER}
+		</trim>
+	</foreach>
+</insert>
+
+ 
+<update id="updateBatch" parameterType="java.util.List">
+      <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update t_user_easemob
+            <set>
+              	<trim suffixOverrides=",">
+					   <if test="item.customerId!=null and ''!= item.customerId  ">
+					        f_customer_id = #{item.customerId,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.easemobAcct!=null and ''!= item.easemobAcct  ">
+					        f_easemob_acct = #{item.easemobAcct,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.easemobPassword!=null and ''!= item.easemobPassword  ">
+					        f_easemob_password = #{item.easemobPassword,jdbcType=VARCHAR},
+					   </if>
+					   <if test=" null != status and 0 != status ">
+					 	    f_status = #{item.status,jdbcType=INTEGER},
+						</if>
+						<if test=" null != nickNameStatus and 0 != nickNameStatus ">
+						 	f_nickname_status = #{item.nickNameStatus,jdbcType=INTEGER},
+						</if>
+			   </trim>
+            </set>
+             where f_id = #{item.id}
+     </foreach>
+</update>         
+
+<delete id="deleteBatch" parameterType="Object">
+	DELETE from t_user_easemob
+	<where>
+		<foreach item="item" index="index" collection="array"  open="(" separator="or" close=") ">
+			  f_id  = #{item}
+		</foreach>
+	</where>
+</delete>
+    
+ <sql id="Base_Condition">
+		   <if test=" null != id ">
+				AND	T.f_id = #{id}
+		</if>
+		   <if test=" null != customerId and ''!= customerId  ">
+				AND	T.f_customer_id = #{customerId}
+		</if>
+		   <if test=" null != easemobAcct and ''!= easemobAcct  ">
+				AND	T.f_easemob_acct = #{easemobAcct}
+		</if>
+		   <if test=" null != easemobPassword and ''!= easemobPassword  ">
+				AND	T.f_easemob_password = #{easemobPassword}
+		</if>
+		<if test=" null != status ">
+				AND	T.f_status = #{status}
+		</if>
+		<if test=" null != nickNameStatus ">
+				AND	T.f_nickname_status = #{nickNameStatus}
+		</if>
+ </sql>    
+<select id="list" resultMap="EasemobResultMap"  >
+		SELECT <include refid="Base_Column_List" /> from t_user_easemob T WHERE 1=1
+		<include refid="Base_Condition" />
+</select>
+
+<select id="query" resultMap="EasemobResultMap"  >
+		SELECT <include refid="Base_Column_List" /> from t_user_easemob T WHERE 1=1
+		<include refid="Base_Condition" />
+</select>
+
+<!-- 更新环信管理员token -->
+<update id="updateEaseToken" parameterType="String">
+		UPDATE t_easemob_token set f_token = #{token} where f_id = 1;
+</update>
+<!-- 查环信管理员token -->
+<select id="queryEaseToken" resultType="HashMap" >
+select 
+   f_token as token, f_last_update_time as lastUpdateTime
+FROM
+   t_easemob_token
+where f_id = 1
+</select>
+ 
+<!--  查没有环信数据的用户id（40个） -->
+<select id="query40CustomerIdList"  resultType="HashMap">
+   select u.f_customer_id as customerId, u.f_name as nickName from t_sale_user_info u 
+   left join t_user_easemob e on(u.f_customer_id=e.f_customer_id) 
+   where  u.f_customer_id is not null and e.f_status is null order by u.f_number limit 40
+</select>
+ 
+<!--  查没有环信数据或注册失败的用户id -->
+<select id="queryNotRegUserIds"  resultType="HashMap">
+   select u.f_customer_id as customerId, u.f_name as nickName from t_sale_user_info u 
+   left join t_user_easemob e on(u.f_customer_id=e.f_customer_id) 
+   where  u.f_customer_id is not null and (e.f_status is null or e.f_status=0) order by u.f_number limit 100
+</select>
+
+<!--  批量修改成功状态 -->
+ <delete id="updateStatusBatch" parameterType="java.util.List">
+	<foreach collection="list" item="item" index="index" open="" close="" separator=";">
+        update t_user_easemob
+        set f_status=1
+        where f_customer_id = #{item}
+     </foreach>
+</delete>
+
+<!--  查未设置昵称用户，未设置昵称，已注册环信，已实名认证 -->
+<select id="queryNotModifyNick"  resultType="HashMap">
+   <![CDATA[
+   select u.fcustomerid as customerId, u.fcustomername as nickName from tusercustomerrel u 
+   join t_user_easemob e on(u.fcustomerid=e.f_customer_id) 
+   where e.f_nickname_status=0 and e.f_status=1 and length(u.fcustomername) <> char_length(u.fcustomername) order by u.fid 
+   limit 10
+   ]]>
+</select>
+
+</mapper>

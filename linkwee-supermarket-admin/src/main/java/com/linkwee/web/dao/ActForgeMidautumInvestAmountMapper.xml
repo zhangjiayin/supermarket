@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.ActForgeMidautumInvestAmountMapper">
+	<!-- Result Map-->
+	<resultMap  type="com.linkwee.web.model.ActForgeMidautumInvestAmount" id="BaseResultMap">
+		<result column="id" property="id" jdbcType="INTEGER"/>
+		<result column="user_name" property="userName" jdbcType="VARCHAR"/>
+		<result column="head_image" property="headImage" jdbcType="VARCHAR"/>
+		<result column="mobile" property="mobile" jdbcType="VARCHAR"/>
+		<result column="invest_amt" property="investAmt" jdbcType="DECIMAL"/>
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+		<result column="updater" property="updater" jdbcType="VARCHAR"/>
+		<result column="extend1" property="extend1" jdbcType="VARCHAR"/>
+		<result column="extend2" property="extend2" jdbcType="VARCHAR"/>
+		<result column="extend3" property="extend3" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+  <sql id="Base_Column_List">
+    <trim suffixOverrides=",">
+	    	id,
+	    	user_name,
+	    	head_image,
+	    	mobile,
+	    	invest_amt,
+	    	create_time,
+	    	update_time,
+	    	updater,
+	    	extend1,
+	    	extend2,
+	    	extend3,
+    </trim>
+  </sql>
+  
+ <sql id="Base_Column_List_T">
+    <trim suffixOverrides=",">
+	    	t.id,
+	    	t.user_name,
+	    	t.head_image,
+	    	t.mobile,
+	    	t.invest_amt,
+	    	t.create_time,
+	    	t.update_time,
+	    	t.updater,
+	    	t.extend1,
+	    	t.extend2,
+	    	t.extend3,
+    </trim>
+  </sql>  
+  
+  <sql id="Base_Condition">
+		<if test=" null != id ">
+			and id = #{id}
+		</if>
+		<if test=" null != userName and ''!= userName  ">
+			and user_name = #{userName}
+		</if>
+		<if test=" null != headImage and ''!= headImage  ">
+			and head_image = #{headImage}
+		</if>
+		<if test=" null != mobile and ''!= mobile  ">
+			and mobile = #{mobile}
+		</if>
+		<if test=" null != investAmt ">
+			and invest_amt = #{investAmt}
+		</if>
+		<if test=" null != createTime ">
+			and create_time = #{createTime}
+		</if>
+		<if test=" null != updateTime ">
+			and update_time = #{updateTime}
+		</if>
+		<if test=" null != updater and ''!= updater  ">
+			and updater = #{updater}
+		</if>
+		<if test=" null != extend1 and ''!= extend1  ">
+			and extend1 = #{extend1}
+		</if>
+		<if test=" null != extend2 and ''!= extend2  ">
+			and extend2 = #{extend2}
+		</if>
+		<if test=" null != extend3 and ''!= extend3  ">
+			and extend3 = #{extend3}
+		</if>
+  </sql>
+  
+  <select id="selectOneByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.web.model.ActForgeMidautumInvestAmount">
+		select <include refid="Base_Column_List" /> from tact_forge_midautum_invest_amount 
+		where 1=1 <include refid="Base_Condition" />
+  </select>
+  
+  <select id="selectByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.web.model.ActForgeMidautumInvestAmount">
+		select <include refid="Base_Column_List" /> from tact_forge_midautum_invest_amount 
+		where 1=1 <include refid="Base_Condition" />
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tact_forge_midautum_invest_amount
+    where  id = #{0}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tact_forge_midautum_invest_amount
+    where id = #{0}
+  </delete>
+
+  <insert id="insert" parameterType="com.linkwee.web.model.ActForgeMidautumInvestAmount" >
+    INSERT INTO tact_forge_midautum_invest_amount
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != userName and ''!= userName  ">
+					user_name,
+				</if>
+			 	<if test=" null != headImage and ''!= headImage  ">
+					head_image,
+				</if>
+			 	<if test=" null != mobile and ''!= mobile  ">
+					mobile,
+				</if>
+			 	<if test=" null != investAmt ">
+					invest_amt,
+				</if>
+			 	<if test=" null != createTime ">
+					create_time,
+				</if>
+			 	<if test=" null != updateTime ">
+					update_time,
+				</if>
+			 	<if test=" null != updater and ''!= updater  ">
+					updater,
+				</if>
+			 	<if test=" null != extend1 and ''!= extend1  ">
+					extend1,
+				</if>
+			 	<if test=" null != extend2 and ''!= extend2  ">
+					extend2,
+				</if>
+			 	<if test=" null != extend3 and ''!= extend3  ">
+					extend3,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != userName and ''!= userName  ">
+					 	#{userName},
+				</if>
+			 	<if test=" null != headImage and ''!= headImage  ">
+					 	#{headImage},
+				</if>
+			 	<if test=" null != mobile and ''!= mobile  ">
+					 	#{mobile},
+				</if>
+			 	<if test=" null != investAmt ">
+					 	#{investAmt},
+				</if>
+			 	<if test=" null != createTime ">
+					 	#{createTime},
+				</if>
+			 	<if test=" null != updateTime ">
+					 	#{updateTime},
+				</if>
+			 	<if test=" null != updater and ''!= updater  ">
+					 	#{updater},
+				</if>
+			 	<if test=" null != extend1 and ''!= extend1  ">
+					 	#{extend1},
+				</if>
+			 	<if test=" null != extend2 and ''!= extend2  ">
+					 	#{extend2},
+				</if>
+			 	<if test=" null != extend3 and ''!= extend3  ">
+					 	#{extend3},
+				</if>
+		</trim>
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.linkwee.web.model.ActForgeMidautumInvestAmount" useGeneratedKeys="true" keyProperty="id" >
+		INSERT INTO tact_forge_midautum_invest_amount
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != userName and ''!= userName  ">
+					user_name,
+				</if>
+			 	<if test=" null != headImage and ''!= headImage  ">
+					head_image,
+				</if>
+			 	<if test=" null != mobile and ''!= mobile  ">
+					mobile,
+				</if>
+			 	<if test=" null != investAmt ">
+					invest_amt,
+				</if>
+			 	<if test=" null != createTime ">
+					create_time,
+				</if>
+			 	<if test=" null != updateTime ">
+					update_time,
+				</if>
+			 	<if test=" null != updater and ''!= updater  ">
+					updater,
+				</if>
+			 	<if test=" null != extend1 and ''!= extend1  ">
+					extend1,
+				</if>
+			 	<if test=" null != extend2 and ''!= extend2  ">
+					extend2,
+				</if>
+			 	<if test=" null != extend3 and ''!= extend3  ">
+					extend3,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != userName and ''!= userName  ">
+					 	#{userName},
+				</if>
+			 	<if test=" null != headImage and ''!= headImage  ">
+					 	#{headImage},
+				</if>
+			 	<if test=" null != mobile and ''!= mobile  ">
+					 	#{mobile},
+				</if>
+			 	<if test=" null != investAmt ">
+					 	#{investAmt},
+				</if>
+			 	<if test=" null != createTime ">
+					 	#{createTime},
+				</if>
+			 	<if test=" null != updateTime ">
+					 	#{updateTime},
+				</if>
+			 	<if test=" null != updater and ''!= updater  ">
+					 	#{updater},
+				</if>
+			 	<if test=" null != extend1 and ''!= extend1  ">
+					 	#{extend1},
+				</if>
+			 	<if test=" null != extend2 and ''!= extend2  ">
+					 	#{extend2},
+				</if>
+			 	<if test=" null != extend3 and ''!= extend3  ">
+					 	#{extend3},
+				</if>
+		</trim>
+	</insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.linkwee.web.model.ActForgeMidautumInvestAmount" >
+  		UPDATE tact_forge_midautum_invest_amount
+		<set>
+			<trim suffixOverrides=",">
+					<if test=" null != userName and ''!= userName  ">
+						user_name = #{userName},
+					</if>
+					<if test=" null != headImage and ''!= headImage  ">
+						head_image = #{headImage},
+					</if>
+					<if test=" null != mobile and ''!= mobile  ">
+						mobile = #{mobile},
+					</if>
+					<if test=" null != investAmt ">
+						invest_amt = #{investAmt},
+					</if>
+					<if test=" null != createTime ">
+						create_time = #{createTime},
+					</if>
+					<if test=" null != updateTime ">
+						update_time = #{updateTime},
+					</if>
+					<if test=" null != updater and ''!= updater  ">
+						updater = #{updater},
+					</if>
+					<if test=" null != extend1 and ''!= extend1  ">
+						extend1 = #{extend1},
+					</if>
+					<if test=" null != extend2 and ''!= extend2  ">
+						extend2 = #{extend2},
+					</if>
+					<if test=" null != extend3 and ''!= extend3  ">
+						extend3 = #{extend3},
+					</if>
+			</trim>
+		</set>
+		<where>
+			 id = #{id}
+		</where>
+	</update>
+  
+	<update id="updateByPrimaryKey" parameterType="com.linkwee.web.model.ActForgeMidautumInvestAmount" >
+	    UPDATE tact_forge_midautum_invest_amount
+	   <set>
+			<trim suffixOverrides=",">
+					<if test=" null != userName and ''!= userName  ">
+						user_name = #{userName},
+					</if>
+					<if test=" null != headImage and ''!= headImage  ">
+						head_image = #{headImage},
+					</if>
+					<if test=" null != mobile and ''!= mobile  ">
+						mobile = #{mobile},
+					</if>
+					<if test=" null != investAmt ">
+						invest_amt = #{investAmt},
+					</if>
+					<if test=" null != createTime ">
+						create_time = #{createTime},
+					</if>
+					<if test=" null != updateTime ">
+						update_time = #{updateTime},
+					</if>
+					<if test=" null != updater and ''!= updater  ">
+						updater = #{updater},
+					</if>
+					<if test=" null != extend1 and ''!= extend1  ">
+						extend1 = #{extend1},
+					</if>
+					<if test=" null != extend2 and ''!= extend2  ">
+						extend2 = #{extend2},
+					</if>
+					<if test=" null != extend3 and ''!= extend3  ">
+						extend3 = #{extend3},
+					</if>
+			</trim>
+		</set>
+		<where>
+			id = #{0}
+		</where>
+	  </update>
+
+	<!-- 分页条件查询 -->
+    <select id="selectBySearchInfo" resultMap="BaseResultMap" parameterType="com.linkwee.core.datatable.DataTable">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM tact_forge_midautum_invest_amount
+        <where> 
+        <if test="dt.search!=null">  
+                name LIKE CONCAT('%','${dt.search.value}','%' )  
+         </if>  
+         <if test="dt.order!=null">  
+               <foreach collection="dt.order" index="index" item="item"
+                    open="order by" separator="," close=" ">
+                    ${item.name} ${item.dir} 
+                </foreach>
+         </if>  
+        </where>
+    </select>
+    
+    <select id="findForgeinvestamountList" resultMap="BaseResultMap"  parameterType="com.linkwee.web.model.ActForgeMidautumInvestAmount">
+		select <include refid="Base_Column_List" /> from tact_forge_midautum_invest_amount 
+		where 1=1 <include refid="Base_Condition" />
+  	</select>
+
+</mapper>

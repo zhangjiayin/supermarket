@@ -1,0 +1,701 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.LcsSalesAndEarningDao">
+
+ <resultMap  type="com.linkwee.web.response.LcsSalesAndEarningDetailResp" id="LcsSalesAndEarningDetailResp">
+	<result column="f_number" property="number" />
+	<result column="f_name" property="name" />
+	<result column="f_mobile" property="mobile" />
+	<result column="investmentTotalAmount" property="investmentTotalAmount" />
+	<result column="investmentCount" property="investmentCount" />
+	<result column="profitTotalAmount" property="profitTotalAmount" />
+	<result column="recommendedAmount" property="recommendedAmount" />
+	<result column="tfee" property="tfee" />
+</resultMap>
+
+
+<resultMap  type="com.linkwee.web.response.LcsActivityProfitDetailResp" id="LcsActivityProfitDetailResp">
+	<result column="f_name" property="name" />
+	<result column="f_activity_name" property="activity" />
+	<result column="f_profit" property="profit" />
+	<result column="f_start_date" property="startDate" />
+	<result column="f_end_date" property="endDate" />
+</resultMap>
+
+<resultMap  type="com.linkwee.web.response.LcsCustomerInvestmentDetailResp" id="LcsCustomerInvestmentDetailResp">
+	<result column="fcustomername" property="name" />
+	<result column="fpuramount" property="investmentTotalAmount" />
+	<result column="product_name" property="productName" />
+	<result column="ffeeamount" property="tfee" />
+	<result column="faccrualdate" property="startDate" />
+	<result column="fredeemdate" property="endDate" />
+	<result column="dead_line_value" property="deadLine" />
+</resultMap>
+
+<resultMap  type="com.linkwee.web.response.LcsCommissionDetailResp" id="LcsCommissionDetailResp">
+	<result column="fcustomername" property="name" />
+	<result column="fcustomermobile" property="mobile" />
+	<result column="fpuramount" property="investmentAmount" />
+	<result column="ffeeamount" property="tfee" />
+	<result column="product_name" property="productName" />
+	<result column="fix" property="fix" />
+	<result column="faccrualdate" property="startDate" />
+	<result column="fredeemdate" property="endDate" />
+	<result column="foptype" property="foptype" />
+</resultMap>
+
+
+<resultMap  type="com.linkwee.web.response.LcsRecommendedIncomeDetailResp" id="LcsRecommendedIncomeDetailResp">
+	<result column="fcustomermobile" property="mobile" />
+	<result column="fcustomername" property="name" />
+	<result column="level" property="level" />
+	<result column="ffeerate" property="proportion" />
+	<result column="product_name" property="productName" />
+	<result column="fpuramount" property="sales" />
+	<result column="ffeeamount" property="earnings" />
+	<result column="faccrualdate" property="startDate" />
+	<result column="fredeemdate" property="endDate" />
+</resultMap>
+
+
+
+<select id="exportLcsSalesAndEarningDetail" resultMap="LcsSalesAndEarningDetailResp">
+	 SELECT
+		a.*, IFNULL(SUM(b.fpuramount), 0) AS investmentTotalAmount,
+		IFNULL(COUNT(b.fcustomernumber), 0) AS investmentCount
+	FROM
+		(
+			SELECT
+				a.f_number,
+				a.f_name,
+				a.f_mobile,
+				IFNULL(
+					SUM(
+						CASE
+						WHEN b.ffeetype = '1001' THEN
+							IFNULL(b.ffeeamount, 0)
+						ELSE
+							0
+						END
+					),
+					0
+				) AS tfee,
+				IFNULL(
+					SUM(
+						CASE
+						WHEN b.ffeetype = '1008' THEN
+							IFNULL(b.ffeeamount, 0)
+						ELSE
+							0
+						END
+					),
+					0
+				) AS profitTotalAmount,
+				IFNULL(
+					SUM(
+						CASE
+						WHEN b.ffeetype = '1002' THEN
+							IFNULL(b.ffeeamount, 0)
+						ELSE
+							0
+						END
+					),
+					0
+				) AS recommendedAmount
+			FROM
+				t_sale_user_info a LEFT JOIN tfeedetail b ON b.fsaleusernumber = a.f_number <!-- AND b.ffeetype IN ('1001', '1002', '1008') -->
+				<where>
+				 	a.f_is_cfp=1
+				 	<if test=" null != nameOrmobile and ''!= nameOrmobile ">
+						and a.f_mobile  =#{nameOrmobile} or a.f_name = #{nameOrmobile}
+					</if>
+					<if test=" null != startDate">
+						and DATE_FORMAT(a.f_create_time, '%Y-%m-%d') &gt;=  DATE_FORMAT(#{startDate}, '%Y-%m-%d')
+					</if>
+					<if test=" null != endDate">
+						and DATE_FORMAT(a.f_create_time, '%Y-%m-%d') &lt;=  DATE_FORMAT(#{endDate}, '%Y-%m-%d')
+					</if>
+			 	</where>
+			GROUP BY a.f_number
+		) a
+	LEFT JOIN trecvrequest b ON b.fsaleusernumber = a.f_mobile
+	AND b.foptype = 2
+	AND b.fdelstatus = 0
+	GROUP BY a.f_mobile
+
+</select>
+<select id="exportLcsCommissionDetail" resultMap="LcsCommissionDetailResp">
+	SELECT
+			e.fcustomername,
+			e.fcustomermobile,
+			IFNULL(b.fpuramount, 0) AS fpuramount,
+			IFNULL(b.ffeeamount, 0) AS ffeeamount,
+			d.product_name,
+		(
+			CASE
+			WHEN d.IS_FLOW = '1' THEN
+				d.FIX_RATE
+			ELSE
+				CONCAT(
+					d.FLOW_MIN_RATE,
+					'-',
+					d.FLOW_MAX_RATE
+				)
+			END
+		) AS fix,
+		c.faccrualdate,
+		c.fredeemdate,
+		c.foptype
+	FROM
+		t_sale_user_info a
+	
+	LEFT JOIN tfeedetail b ON a.f_number = b.fsaleusernumber AND b.ffeetype='1001'
+	
+	LEFT JOIN trecvrequest c ON c.fsaleusernumber = a.f_mobile AND c.fid=b.frequestid
+	
+	LEFT JOIN tproduct d ON b.fproductnumber = d.fid
+	
+	LEFT JOIN tusercustomerrel e ON a.f_number=e.fcurrsaleuser AND b.fcustomernumber=e.fcustomermobile
+	
+	WHERE a.f_mobile = #{mobile} AND a.f_is_cfp = 1 
+	
+	<if test=" null != startDate">
+		AND DATE_FORMAT(c.faccrualdate, '%Y-%m-%d') &gt;=  DATE_FORMAT(#{startDate}, '%Y-%m-%d')
+	</if>
+	<if test=" null != endDate">
+		AND DATE_FORMAT(c.fredeemdate, '%Y-%m-%d') &lt;=  DATE_FORMAT(#{endDate}, '%Y-%m-%d')
+	</if>
+
+</select>
+
+<select id="exportLcsRecommendedIncomeDetail" resultMap="LcsRecommendedIncomeDetailResp">
+
+	SELECT
+		c.fcustomermobile,c.fcustomername,
+		(CASE 
+	 WHEN d.f_number=#{number} THEN '一级'
+	 WHEN d.f_parent_id=#{number} THEN '二级'
+	 ELSE '三级' END)as level,
+	 a.ffeerate,
+	 e.product_name,
+	 a.fpuramount,
+	 a.ffeeamount,
+	 b.faccrualdate,
+	 b.fredeemdate
+	FROM
+		tfeedetail a
+	LEFT JOIN trecvrequest b ON a.frequestid = b.fid
+	LEFT JOIN tusercustomerrel c ON a.fcustomernumber = c.fcustomermobile
+	LEFT JOIN t_sale_user_info d ON c.fcurrsaleuser = d.f_number
+	 LEFT JOIN tproduct e 
+	    ON e.fid = a.fproductnumber 
+	WHERE
+		a.fsaleusernumber = #{number}
+	AND a.ffeetype = '1002'
+	
+	 <if test=" null != startDate">
+		AND DATE_FORMAT(b.faccrualdate, '%Y-%m-%d') &gt;=  DATE_FORMAT(#{startDate}, '%Y-%m-%d')
+	 </if>
+	 <if test=" null != endDate">
+		AND DATE_FORMAT(b.fredeemdate, '%Y-%m-%d') 	&lt;=  DATE_FORMAT(#{endDate}, '%Y-%m-%d')
+	 </if>
+</select>
+
+<select id="exportLcsActivityProfitDetail" resultMap="LcsActivityProfitDetailResp">
+ SELECT a.f_name,b.f_profit,c.f_activity_name,c.f_start_date,c.f_end_date FROM (SELECT f_number,f_name FROM t_sale_user_info WHERE f_mobile=#{mobile}) a 
+ 
+  LEFT JOIN t_activity_profit b ON a.f_number=b.f_user_number 
+  
+  LEFT JOIN t_activity_list c ON b.f_activity_code=c.f_activity_code
+	
+<if test=" null != startDate">
+	AND DATE_FORMAT(c.f_start_date, '%Y-%m-%d') &gt;=  DATE_FORMAT(#{startDate}, '%Y-%m-%d')
+</if>
+<if test=" null != endDate">
+	AND DATE_FORMAT(c.f_end_date, '%Y-%m-%d') &lt;=  DATE_FORMAT(#{endDate}, '%Y-%m-%d')
+</if>
+
+</select>
+<select id="exportLcsCustomerInvestmentDetail" resultMap="LcsCustomerInvestmentDetailResp">
+
+	SELECT a.fcustomername,a.fpuramount,a.product_name,IFNULL(b.ffeeamount,0) ffeeamount,a.faccrualdate,a.fredeemdate,a.dead_line_value FROM 
+	(SELECT
+		t.fid,
+		t1.fcurrsaleuser,
+		t.fpuramount,
+		COUNT(*) invstorStatus,
+		t.faccrualdate,
+		t.fredeemdate,
+		t1.fcustomername,
+		p.product_name,
+		p.dead_line_value
+	FROM
+		trecvrequest t LEFT JOIN tusercustomerrel t1 ON t.fcustomernumber=t1.fcustomermobile
+		LEFT JOIN tproduct p ON t.fproductnumber = p.fid
+	WHERE
+		t.fsaleusernumber = #{mobile}
+	AND t.foptype BETWEEN 2 AND 3
+	GROUP BY t.fbillnumber)a LEFT JOIN tfeedetail b ON a.fcurrsaleuser=b.fsaleusernumber AND a.fid=b.frequestid where invstorStatus=1;
+
+</select>
+
+
+<!-- 查询理收益列表 数量 -->
+<select id="queryLcsSalesAndEarningDetailListCount"  resultType="int" >
+	 SELECT COUNT(t.f_number) FROM t_sale_user_info t
+	 <where>
+	 	t.f_is_cfp=1
+	 <if test=" null != nameOrmobile and ''!= nameOrmobile ">
+			and t.f_mobile  =#{nameOrmobile} or t.f_name = #{nameOrmobile}
+		</if>
+		<if test=" null != startDate">
+			and DATE_FORMAT(t.f_create_time, '%Y-%m-%d') &gt;=  DATE_FORMAT(#{startDate}, '%Y-%m-%d')
+		</if>
+		<if test=" null != endDate">
+			and DATE_FORMAT(t.f_create_time, '%Y-%m-%d') &lt;=  DATE_FORMAT(#{endDate}, '%Y-%m-%d')
+		</if>
+	 </where>
+</select>
+
+<!-- 查询理收益列表 -->
+<select id="queryLcsSalesAndEarningDetailList" resultMap="LcsSalesAndEarningDetailResp" >
+	SELECT
+		a.*, IFNULL(SUM(b.fpuramount), 0) AS investmentTotalAmount,
+		IFNULL(COUNT(b.fcustomernumber), 0) AS investmentCount
+	FROM
+		(
+			SELECT
+				a.f_number,
+				a.f_name,
+				a.f_mobile,
+				IFNULL(
+					SUM(
+						CASE
+						WHEN b.ffeetype = '1001' THEN
+							IFNULL(b.ffeeamount, 0)
+						ELSE
+							0
+						END
+					),
+					0
+				) AS tfee,
+				IFNULL(
+					SUM(
+						CASE
+						WHEN b.ffeetype = '1008' THEN
+							IFNULL(b.ffeeamount, 0)
+						ELSE
+							0
+						END
+					),
+					0
+				) AS profitTotalAmount,
+				IFNULL(
+					SUM(
+						CASE
+						WHEN b.ffeetype = '1002' THEN
+							IFNULL(b.ffeeamount, 0)
+						ELSE
+							0
+						END
+					),
+					0
+				) AS recommendedAmount
+			FROM
+				t_sale_user_info a LEFT JOIN tfeedetail b ON b.fsaleusernumber = a.f_number <!-- AND b.ffeetype IN ('1001', '1002', '1008') -->
+				<where>
+				 	a.f_is_cfp=1
+				 	<if test=" null != query.nameOrmobile and ''!= query.nameOrmobile ">
+						and a.f_mobile  =#{query.nameOrmobile} or a.f_name = #{query.nameOrmobile}
+					</if>
+					<if test=" null != query.startDate">
+						and DATE_FORMAT(a.f_create_time, '%Y-%m-%d') &gt;=  DATE_FORMAT(#{query.startDate}, '%Y-%m-%d')
+					</if>
+					<if test=" null != query.endDate">
+						and DATE_FORMAT(a.f_create_time, '%Y-%m-%d') &lt;=  DATE_FORMAT(#{query.endDate}, '%Y-%m-%d')
+					</if>
+			 	</where>
+			GROUP BY a.f_number
+		) a
+	LEFT JOIN trecvrequest b ON b.fsaleusernumber = a.f_mobile
+	AND b.foptype = 2
+	AND b.fdelstatus = 0
+	GROUP BY a.f_mobile
+
+</select>
+
+<!-- 查询活动奖励列表数量 -->
+<select id="queryLcsActivityDetailCount" resultType="int">
+
+ SELECT count(f_name) FROM ( SELECT a.f_name,b.f_profit,c.f_activity_name,c.f_start_date,c.f_end_date FROM (SELECT f_number,f_name FROM t_sale_user_info WHERE f_mobile=#{mobile}) a 
+ 
+  LEFT JOIN t_activity_profit b ON a.f_number=b.f_user_number 
+  
+  LEFT JOIN t_activity_list c ON b.f_activity_code=c.f_activity_code
+	
+<if test=" null != startDate">
+	AND DATE_FORMAT(c.f_start_date, '%Y-%m-%d') &gt;=  DATE_FORMAT(#{startDate}, '%Y-%m-%d')
+</if>
+<if test=" null != endDate">
+	AND DATE_FORMAT(c.f_end_date, '%Y-%m-%d') &lt;=  DATE_FORMAT(#{endDate}, '%Y-%m-%d')
+</if>
+)t
+
+</select>
+
+<!-- ****************************** -->
+<!--查询理财师活动奖励 @Author libin-->
+<!-- ****************************** -->
+<select id="queryLcsActivityDetail" resultType="com.linkwee.web.response.LcsActivityProfitDetailResp" >
+
+	SELECT
+	b.f_id as id,
+	a.f_name as `name`,
+	b.f_profit as `profit`,
+	c.f_activity_name as activityName,
+	DATE_FORMAT(b.f_issue_time,'%Y-%m-%d %H:%i:%s') as issueTime
+	FROM t_sale_user_info a
+	RIGHT JOIN t_activity_profit b ON a.f_number=b.f_user_number
+	LEFT JOIN t_activity_list c ON b.f_activity_code=c.f_activity_code
+	WHERE (a.f_mobile=#{query.mobile} OR a.f_name = #{query.mobile}) AND  a.f_is_cfp = 1
+	<if test=" null != query.startDate and query.startDate!=''">
+		AND DATE_FORMAT(b.f_issue_time, '%Y-%m-%d') &gt;=  DATE_FORMAT(#{query.startDate}, '%Y-%m-%d')
+	</if>
+	<if test=" null != query.endDate and query.endDate!=''">
+		AND DATE_FORMAT(b.f_issue_time, '%Y-%m-%d') &lt;=  DATE_FORMAT(#{query.endDate}, '%Y-%m-%d')
+	</if>
+	ORDER BY b.f_issue_time DESC
+</select>
+
+<!-- ********************** -->
+<!--查询理财师活动奖励总计 @Author libin-->
+<!-- ********************** -->
+<select id="queryLcsActivityDetailTotalAmount" resultType="double" >
+
+	SELECT
+	 IFNULL(SUM(b.f_profit),0) as amount
+	FROM t_sale_user_info  a
+	RIGHT JOIN t_activity_profit b ON a.f_number=b.f_user_number
+	LEFT JOIN t_activity_list c ON b.f_activity_code=c.f_activity_code
+	WHERE (a.f_mobile=#{query.mobile} OR a.f_name = #{query.mobile}) AND  a.f_is_cfp = 1
+	<if test=" null != query.startDate and query.startDate!=''">
+		AND DATE_FORMAT(b.f_issue_time, '%Y-%m-%d') &gt;=  DATE_FORMAT(#{query.startDate}, '%Y-%m-%d')
+	</if>
+	<if test=" null != query.endDate and query.endDate!=''">
+		AND DATE_FORMAT(b.f_issue_time, '%Y-%m-%d') &lt;=  DATE_FORMAT(#{query.endDate}, '%Y-%m-%d')
+	</if>
+	ORDER BY b.f_issue_time DESC
+
+</select>
+
+<!-- 理财师客户在投数据总金额 -->
+<select id="querylcsCustomerInvestmentListTotalAmount" resultType="double" >
+
+	SELECT IFNULL(SUM(a.fpuramount),0) FROM 
+	(SELECT
+		t.fbillnumber,
+		IFNULL(t.fpuramount,0) as fpuramount,
+		COUNT(*) invstorStatus
+	
+	FROM
+		trecvrequest t 
+		
+	WHERE
+		t.fsaleusernumber = #{mobile}
+	AND t.foptype BETWEEN 2
+	AND 3
+	GROUP BY
+		t.fbillnumber)a where invstorStatus=1 <!-- GROUP BY invstorStatus -->;
+
+</select>
+
+<!-- 理财师客户在投数据总数 -->
+<select id="querylcsCustomerInvestmentListCount" resultType="int" >
+
+	SELECT count(*) FROM 
+	(SELECT
+		t.fbillnumber,
+		COUNT(*) invstorStatus
+	FROM
+		trecvrequest t 
+	WHERE
+		t.fsaleusernumber = #{mobile}
+	AND t.foptype BETWEEN 2
+	AND 3
+	GROUP BY
+		t.fbillnumber)a where invstorStatus=1;
+
+</select>
+
+<!-- 查询理财师客户在投数据 -->
+<select id="querylcsCustomerInvestmentList" resultMap="LcsCustomerInvestmentDetailResp" >
+
+	SELECT a.fcustomername,a.fpuramount,a.product_name,IFNULL(b.ffeeamount,0) ffeeamount,a.faccrualdate,a.fredeemdate,a.dead_line_value FROM 
+	(SELECT
+		t.fid,
+		t1.fcurrsaleuser,
+		t.fpuramount,
+		COUNT(*) invstorStatus,
+		t.faccrualdate,
+		t.fredeemdate,
+		t1.fcustomername,
+		p.product_name,
+		p.dead_line_value
+	FROM
+		trecvrequest t LEFT JOIN tusercustomerrel t1 ON t.fcustomernumber=t1.fcustomermobile
+		LEFT JOIN tproduct p ON t.fproductnumber = p.fid
+	WHERE
+		t.fsaleusernumber = #{mobile}
+	AND t.foptype BETWEEN 2 AND 3
+	GROUP BY t.fbillnumber)a LEFT JOIN tfeedetail b ON a.fcurrsaleuser=b.fsaleusernumber AND a.fid=b.frequestid where invstorStatus=1;
+</select>
+
+<!-- 理财师佣金收益总金额 -->
+<select id="queryLcsCommissionTotalAmount" resultType="double">
+
+	SELECT
+		IFNULL(SUM(b.ffeeamount) ,0)
+	FROM
+		t_sale_user_info a
+	
+	LEFT JOIN tfeedetail b ON a.f_number = b.fsaleusernumber AND b.ffeetype='1001'
+	
+	LEFT JOIN trecvrequest c ON c.fsaleusernumber = a.f_mobile AND c.fid=b.frequestid
+	
+	WHERE a.f_mobile =  #{mobile} AND a.f_is_cfp = 1 
+	
+	<if test=" null != startDate">
+		AND DATE_FORMAT(c.faccrualdate, '%Y-%m-%d') &gt;=  DATE_FORMAT(#{startDate}, '%Y-%m-%d')
+	</if>
+	<if test=" null != endDate">
+		AND DATE_FORMAT(c.fredeemdate, '%Y-%m-%d') &lt;=  DATE_FORMAT(#{endDate}, '%Y-%m-%d')
+	</if>
+
+</select>
+
+<!-- 理财师佣金收益总数 -->
+<select id="queryLcsCommissionListCount" resultType="int">
+
+SELECT
+		count(*)
+FROM
+	t_sale_user_info a
+
+LEFT JOIN tfeedetail b ON a.f_number = b.fsaleusernumber AND b.ffeetype='1001'
+
+LEFT JOIN trecvrequest c ON c.fsaleusernumber = a.f_mobile AND c.fid=b.frequestid
+
+WHERE a.f_mobile =  #{mobile} AND a.f_is_cfp = 1 
+
+<if test=" null != startDate">
+	AND DATE_FORMAT(c.faccrualdate, '%Y-%m-%d') &gt;=  DATE_FORMAT(#{startDate}, '%Y-%m-%d')
+</if>
+<if test=" null != endDate">
+	AND DATE_FORMAT(c.fredeemdate, '%Y-%m-%d') &lt;=  DATE_FORMAT(#{endDate}, '%Y-%m-%d')
+</if>
+
+</select>
+
+	<!--**************************-->
+	<!--理财师佣金收益列表 @Author libin-->
+	<!--**************************-->
+	<select id="queryCfpCommissionList" resultType="com.linkwee.web.response.CfpCommissionListResp">
+		SELECT
+			e.fid as id,
+			b.fbillnumber,
+			e.fcustomername as customerName,
+			e.fcustomermobile as customerMobile,
+			d.product_name as productName,
+			d.dead_line_value as deadLineValue,
+			IFNULL(b.fpuramount, 0) AS saleAmount,
+			b.ffeerate as commissionRate,
+			IFNULL(b.ffeeamount, 0) AS commissionAmount,
+			DATE_FORMAT(c.fbizdate,'%Y-%m-%d %H:%i:%s') as saleTime
+FROM
+	t_sale_user_info a
+LEFT JOIN tfeedetail b ON a.f_number = b.fsaleusernumber AND b.ffeetype='1001'
+LEFT JOIN trecvrequest c ON c.fsaleusernumber = a.f_mobile AND c.fid=b.frequestid
+LEFT JOIN tproduct d ON b.fproductnumber = d.fid
+LEFT JOIN tusercustomerrel e ON a.f_number=e.fcurrsaleuser AND b.fcustomernumber=e.fcustomermobile
+WHERE  a.f_mobile=#{searchValue}
+		<if test="params!=null and params.customerName !=null and params.customerName!=''">
+			AND (e.fcustomermobile LIKE  CONCAT(CONCAT('%',#{params.customerName}),'%') OR e.fcustomername LIKE CONCAT(CONCAT('%',#{params.customerName}),'%') )
+		</if>
+		AND a.f_is_cfp = 1  and b.fbillnumber is not null and e.fid is not null
+		<if test=" null != startDate and startDate!=''">
+			AND DATE_FORMAT(c.fbizdate, '%Y-%m-%d') &gt;=  DATE_FORMAT(#{startDate}, '%Y-%m-%d')
+		</if>
+		<if test=" null != endDate and endDate!=''">
+			AND DATE_FORMAT(c.fbizdate, '%Y-%m-%d') &lt;=  DATE_FORMAT(#{endDate}, '%Y-%m-%d')
+		</if>
+		ORDER BY c.fbizdate DESC
+	</select>
+
+	<!--**************************-->
+	<!--理财师佣金收益合计 @Author libin-->
+	<!--**************************-->
+	<select id="queryCfpCommissionTotalAmount" resultType="java.lang.Double">
+		SELECT
+		IFNULL(SUM(b.ffeeamount) , 0)
+		FROM
+		t_sale_user_info a
+		LEFT JOIN tfeedetail b ON a.f_number = b.fsaleusernumber AND b.ffeetype='1001'
+		LEFT JOIN trecvrequest c ON c.fsaleusernumber = a.f_mobile AND c.fid=b.frequestid
+		LEFT JOIN tproduct d ON b.fproductnumber = d.fid
+		LEFT JOIN tusercustomerrel e ON a.f_number=e.fcurrsaleuser AND b.fcustomernumber=e.fcustomermobile
+		WHERE (a.f_mobile =  #{searchValue} OR a.f_name = #{searchValue}) AND a.f_is_cfp = 1
+		<if test=" null != startDate and startDate!=''">
+			AND DATE_FORMAT(c.fbizdate, '%Y-%m-%d') &gt;=  DATE_FORMAT(#{startDate}, '%Y-%m-%d')
+		</if>
+		<if test=" null != endDate and endDate!=''">
+			AND DATE_FORMAT(c.fbizdate, '%Y-%m-%d') &lt;=  DATE_FORMAT(#{endDate}, '%Y-%m-%d')
+		</if>
+
+		<if test="params!=null and params.customerName !=null and params.customerName!=''">
+			AND (e.fcustomermobile LIKE  CONCAT(CONCAT('%',#{params.customerName}),'%') OR e.fcustomername LIKE CONCAT(CONCAT('%',#{params.customerName}),'%') )
+		</if>
+
+		ORDER BY c.fbizdate DESC
+	</select>
+
+<!-- 理财师佣金收益 -->
+<select id="queryLcsCommissionList" resultMap="LcsCommissionDetailResp">
+
+SELECT
+		e.fcustomername,
+		e.fcustomermobile,
+		IFNULL(b.fpuramount, 0) AS fpuramount,
+		IFNULL(b.ffeeamount, 0) AS ffeeamount,
+		d.product_name,
+	(
+		CASE
+		WHEN d.IS_FLOW = '1' THEN
+			d.FIX_RATE
+		ELSE
+			CONCAT(
+				d.FLOW_MIN_RATE,
+				'-',
+				d.FLOW_MAX_RATE
+			)
+		END
+	) AS fix,
+	c.faccrualdate,
+	c.fredeemdate,
+	c.foptype
+FROM
+	t_sale_user_info a
+
+LEFT JOIN tfeedetail b ON a.f_number = b.fsaleusernumber AND b.ffeetype='1001'
+
+LEFT JOIN trecvrequest c ON c.fsaleusernumber = a.f_mobile AND c.fid=b.frequestid
+
+LEFT JOIN tproduct d ON b.fproductnumber = d.fid
+
+LEFT JOIN tusercustomerrel e ON a.f_number=e.fcurrsaleuser AND b.fcustomernumber=e.fcustomermobile
+
+WHERE a.f_mobile = #{query.mobile} AND a.f_is_cfp = 1 
+
+<if test=" null != query.startDate">
+	AND DATE_FORMAT(c.faccrualdate, '%Y-%m-%d') &gt;=  DATE_FORMAT(#{query.startDate}, '%Y-%m-%d')
+</if>
+<if test=" null != query.endDate">
+	AND DATE_FORMAT(c.fredeemdate, '%Y-%m-%d') &lt;=  DATE_FORMAT(#{query.endDate}, '%Y-%m-%d')
+</if>
+
+</select>
+
+<!-- ***************** -->
+<!--推荐收益总总额-->
+<!-- ***************** -->
+<select id="queryRecommendedIncomeDetailTotal" resultType="double">
+
+	SELECT
+	  IFNULL(SUM(a.ffeeamount),0 ) as earnings
+	FROM
+	tfeedetail a
+	LEFT JOIN tusercustomerrel c ON a.fcustomernumber = c.fcustomermobile
+	LEFT JOIN t_sale_user_info d ON c.fcurrsaleuser = d.f_number
+	LEFT JOIN tproduct e
+	ON e.fid = a.fproductnumber
+	WHERE a.ffeetype = '1002'
+	<if test=" null != query.startDate and query.startDate !=''">
+		AND DATE_FORMAT(a.fbizdate, '%Y-%m-%d') &gt;=  DATE_FORMAT(#{query.startDate}, '%Y-%m-%d')
+	</if>
+	<if test=" null != query.endDate and query.endDate!=''">
+		AND DATE_FORMAT(a.fbizdate, '%Y-%m-%d') 	&lt;=  DATE_FORMAT(#{query.endDate}, '%Y-%m-%d')
+	</if>
+
+	<if test="query.nameOrmobile!=null and query.nameOrmobile!=''">
+		AND (c.fcustomername LIKE CONCAT(CONCAT('%',#{query.nameOrmobile}),'%') OR c.fcustomermobile LIKE CONCAT(CONCAT('%',#{query.nameOrmobile}),'%'))
+	</if>
+
+	and a.fsaleusernumber = (select f_number from t_sale_user_info s where s.f_mobile = #{query.mobile} OR s.f_name = #{query.mobile})
+	order BY  a.fbizdate DESC
+
+</select>
+
+<!-- 推荐收益总数 -->
+<select id="queryRecommendedIncomeDetailCount" resultType="int">
+	SELECT
+		count(*)
+	FROM
+		tfeedetail a
+		LEFT JOIN trecvrequest b ON a.frequestid = b.fid
+	WHERE
+		a.fsaleusernumber = #{number}
+	AND a.ffeetype = '1002'
+
+	 <if test=" null != startDate">
+		AND DATE_FORMAT(b.faccrualdate, '%Y-%m-%d') &gt;=  DATE_FORMAT(#{startDate}, '%Y-%m-%d')
+	 </if>
+	 <if test=" null != endDate">
+		AND DATE_FORMAT(b.fredeemdate, '%Y-%m-%d') 	&lt;=  DATE_FORMAT(#{endDate}, '%Y-%m-%d')
+	 </if>
+
+</select>
+
+
+<!--***********************************-->
+<!--推荐收益列表 @Author libin -->
+<!--***********************************-->
+<select id="queryRecommendedIncomeDetail" resultType="com.linkwee.web.response.LcsRecommendedIncomeDetailResp">
+
+	SELECT
+	d.f_number as id,
+	d.f_mobile as `mobile`,
+	d.f_name as `name`,
+	(CASE  WHEN d.f_parent_id=a.fsaleusernumber THEN 'v1' ELSE 'v2' END) as `level`,
+	(CASE  WHEN d.f_parent_id=a.fsaleusernumber THEN '15%' ELSE '5%' END) as `proportion`,
+	e.product_name as productName,
+	a.fpuramount as sales,
+	a.ffeeamount as earnings,
+	DATE_FORMAT(a.fbizdate,'%Y-%m-%d %H:%i') as startDate
+	FROM
+	tfeedetail a
+	LEFT JOIN tusercustomerrel c ON a.fcustomernumber = c.fcustomermobile
+	LEFT JOIN t_sale_user_info d ON c.fcurrsaleuser = d.f_number
+	LEFT JOIN tproduct e
+	ON e.fid = a.fproductnumber
+	WHERE a.ffeetype = '1002'
+	 <if test=" null != query.startDate and query.startDate !=''">
+		AND DATE_FORMAT(a.fbizdate, '%Y-%m-%d') &gt;=  DATE_FORMAT(#{query.startDate}, '%Y-%m-%d')
+	 </if>
+	 <if test=" null != query.endDate and query.endDate!=''">
+		AND DATE_FORMAT(a.fbizdate, '%Y-%m-%d') 	&lt;=  DATE_FORMAT(#{query.endDate}, '%Y-%m-%d')
+	 </if>
+
+	 <if test="query.nameOrmobile!=null and query.nameOrmobile!=''">
+		 AND (c.fcustomername LIKE CONCAT(CONCAT('%',#{query.nameOrmobile}),'%') OR c.fcustomermobile LIKE CONCAT(CONCAT('%',#{query.nameOrmobile}),'%'))
+	 </if>
+
+	and a.fsaleusernumber = (select f_number from t_sale_user_info s where (s.f_mobile = #{query.mobile} OR s.f_name = #{query.mobile}) AND  s.f_is_cfp = 1 limit 1)
+	order BY  a.fbizdate DESC
+</select>
+
+<select id="getNumberByMobile" resultType="string">
+
+SELECT f_number FROM t_sale_user_info WHERE f_mobile=#{mobile} and f_is_cfp=1
+
+</select>
+
+</mapper>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.CustomerInvestMapper">
+<parameterMap type="com.linkwee.web.model.CustomerInvest" id="CustomerInvestParameterMap" />	
+<!-- Result Map-->
+<resultMap  type="com.linkwee.web.model.CustomerInvest" id="CustomerInvestResultMap">
+	<result column="f_id" property="id" jdbcType="INTEGER"/>
+	<result column="f_user_id" property="userId" jdbcType="VARCHAR"/>
+	<result column="f_user_name" property="userName" jdbcType="VARCHAR"/>
+	<result column="f_mobile" property="mobile" jdbcType="VARCHAR"/>
+	<result column="f_user_source" property="userSource" jdbcType="INTEGER"/>
+	<result column="f_qrcode" property="qrcode" jdbcType="VARCHAR"/>
+	<result column="f_ref_user" property="refUser" jdbcType="VARCHAR"/>
+	<result column="f_crt_time" property="crtTime" jdbcType="TIMESTAMP"/>
+	<result column="f_modify_time" property="modifyTime" jdbcType="TIMESTAMP"/>
+	<result column="f_status" property="status" jdbcType="INTEGER"/>
+	<result column="f_locked" property="locked" jdbcType="TINYINT"/>
+	<result column="f_image" property="image" jdbcType="VARCHAR"/>
+	<result column="totalProfit" property="totalProfit" jdbcType="DOUBLE"/>
+	<result column="investCount" property="investCount" jdbcType="DOUBLE"/>
+	<result column="investingTotal" property="investingTotal" jdbcType="DOUBLE"/>
+	<result column="investTotal" property="investTotal" jdbcType="DOUBLE"/>
+	<result column="otherRward" property="otherRward" jdbcType="DOUBLE"/>
+	<result column="recentDate" property="recentDate" jdbcType="TIMESTAMP"/>
+	
+</resultMap>
+
+<!-- 分页条件查询 -->
+<select id="selectBySearchInfo" resultMap="CustomerInvestResultMap" parameterType="com.linkwee.core.datatable.DataTable">
+  SELECT
+	ret.f_user_id,
+	ret.investTotal,
+	ret.randamTotal,
+	0 as otherRward,
+	(investTotal - randamTotal)  investingTotal,
+	ret.investCount,
+	ret.totalProfit,
+	ret.recentDate,
+	f_user_name,
+	f_mobile,
+	f_crt_time
+from 
+(SELECT
+	i.f_user_id,
+	SUM(
+		CASE
+		WHEN r.foptype = 2 THEN
+			r.fpuramount
+		ELSE
+			0
+		END
+	) investTotal,
+	SUM(
+		CASE
+		WHEN r.foptype = 3 THEN
+			r.fpuramount
+		ELSE
+			0
+		END
+	) randamTotal,
+	count(
+		CASE
+		WHEN r.foptype = 2 THEN
+			1
+		ELSE
+			NULL
+		END
+	) investCount,
+	SUM(r.fprofit) totalProfit,
+	MAX(r.fbizdate) recentDate,
+	i.f_user_name,
+	i.f_mobile,
+	i.f_crt_time
+FROM
+	t_investor_user_info i
+LEFT JOIN trecvrequest r ON r.fcustomerid = i.f_user_id
+AND r.fdelstatus = 0
+AND r.foptype BETWEEN 2
+AND 3
+ <where> 
+        1=1
+        and r.fbiznumber='0003'
+  <if test="dt.search!=null">  
+         and (
+         i.f_user_name LIKE CONCAT('%','${dt.search.value}','%' )
+         or i.f_mobile LIKE CONCAT('%','${dt.search.value}','%' )
+         )
+   </if>  
+  </where>
+GROUP BY
+	i.f_user_id
+)ret
+where 1=1
+<!-- <if test="dt.search==null or dt.search.value==null or dt.search.value=='' ">
+   and 
+   recentDate <![CDATA[ >= ]]> date_sub(date(sysdate()), interval 7 day)
+   </if>   -->
+ORDER BY recentDate desc
+
+ </select>
+ 
+ 
+ <!--用户使用红包总额 -->
+<select id="queryTotalUsedHongbao" resultType="Double">
+select IFNULL(sum(t.f_profit),0) total from t_activity_profit t   where t.f_profit_type='1'  and t.f_customerid =#{customerId};
+</select>
+
+</mapper>

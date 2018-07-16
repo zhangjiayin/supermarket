@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.product.dao.ProductProtocalDao">
+<parameterMap type="com.linkwee.web.model.product.ProductProtocal" id="ProductProtocalParameterMap" />	
+<!-- Result Map-->
+<resultMap  type="com.linkwee.web.model.product.ProductProtocal" id="ProductProtocalResultMap">
+	<result column="f_id" property="id" jdbcType="INTEGER"/>
+	<result column="f_protocal_name" property="protocalName" jdbcType="VARCHAR"/>
+	<result column="f_protocal_desc" property="protocalDesc" jdbcType="VARCHAR"/>
+	<result column="f_protocal_file_url" property="protocalFileUrl" jdbcType="VARCHAR"/>
+	<result column="f_del_status" property="delStatus" jdbcType="TINYINT"/>
+	<result column="f_creator" property="creator" jdbcType="VARCHAR"/>
+	<result column="f_create_time" property="createTime" jdbcType="TIMESTAMP"/>
+	<result column="f_updater" property="updater" jdbcType="VARCHAR"/>
+	<result column="f_update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+	<result column="f_remark" property="remark" jdbcType="VARCHAR"/>
+</resultMap>
+  <sql id="Base_Column_List">
+    <trim suffixOverrides=",">
+	    	f_id,
+	    	f_protocal_name,
+	    	f_protocal_desc,
+	    	f_protocal_file_url,
+	    	f_del_status,
+	    	f_creator,
+	    	f_create_time,
+	    	f_updater,
+	    	f_update_time,
+	    	f_remark,
+    </trim>
+  </sql>  
+  
+   <sql id="Base_Column_List_T">
+    <trim suffixOverrides=",">
+	    	t.f_id,
+	    	t.f_protocal_name,
+	    	t.f_protocal_desc,
+	    	t.f_protocal_file_url,
+	    	t.f_del_status,
+	    	t.f_creator,
+	    	t.f_create_time,
+	    	t.f_updater,
+	    	t.f_update_time,
+	    	t.f_remark,
+    </trim>
+  </sql> 
+  	
+  <select id="getByPrimaryKey"  resultMap="ProductProtocalResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_product_protocal where  f_id = #{0}
+  </select>	
+
+  <delete id="deleteByPrimaryKey" >
+    delete from t_product_protocal
+	<where>
+		f_id = #{0}
+	</where>
+  </delete>
+  
+  
+  <insert id="add" parameterMap="ProductProtocalParameterMap" useGeneratedKeys="true" keyProperty="id" >
+		INSERT INTO t_product_protocal
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					f_id,
+				</if>
+			 	<if test=" null != protocalName and ''!= protocalName  ">
+					f_protocal_name,
+				</if>
+			 	<if test=" null != protocalDesc and ''!= protocalDesc  ">
+					f_protocal_desc,
+				</if>
+			 	<if test=" null != protocalFileUrl and ''!= protocalFileUrl  ">
+					f_protocal_file_url,
+				</if>
+			 	<if test=" null != delStatus ">
+					f_del_status,
+				</if>
+			 	<if test=" null != creator and ''!= creator  ">
+					f_creator,
+				</if>
+			 	<if test=" null != createTime ">
+					f_create_time,
+				</if>
+			 	<if test=" null != updater and ''!= updater  ">
+					f_updater,
+				</if>
+			 	<if test=" null != updateTime ">
+					f_update_time,
+				</if>
+			 	<if test=" null != remark and ''!= remark  ">
+					f_remark,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != protocalName and ''!= protocalName  ">
+					 	#{protocalName},
+				</if>
+			 	<if test=" null != protocalDesc and ''!= protocalDesc  ">
+					 	#{protocalDesc},
+				</if>
+			 	<if test=" null != protocalFileUrl and ''!= protocalFileUrl  ">
+					 	#{protocalFileUrl},
+				</if>
+			 	<if test=" null != delStatus ">
+					 	#{delStatus},
+				</if>
+			 	<if test=" null != creator and ''!= creator  ">
+					 	#{creator},
+				</if>
+			 	<if test=" null != createTime ">
+					 	#{createTime},
+				</if>
+			 	<if test=" null != updater and ''!= updater  ">
+					 	#{updater},
+				</if>
+			 	<if test=" null != updateTime ">
+					 	#{updateTime},
+				</if>
+			 	<if test=" null != remark and ''!= remark  ">
+					 	#{remark},
+				</if>
+		</trim>
+	</insert>
+  <update id="update" parameterMap="ProductProtocalParameterMap">
+		UPDATE t_product_protocal
+		<set>
+			<trim suffixOverrides=",">
+					<if test=" null != protocalName and ''!= protocalName  ">
+						f_protocal_name = #{protocalName},
+					</if>
+					<if test=" null != protocalDesc and ''!= protocalDesc  ">
+						f_protocal_desc = #{protocalDesc},
+					</if>
+					<if test=" null != protocalFileUrl and ''!= protocalFileUrl  ">
+						f_protocal_file_url = #{protocalFileUrl},
+					</if>
+					<if test=" null != delStatus ">
+						f_del_status = #{delStatus},
+					</if>
+					<if test=" null != creator and ''!= creator  ">
+						f_creator = #{creator},
+					</if>
+					<if test=" null != createTime ">
+						f_create_time = #{createTime},
+					</if>
+					<if test=" null != updater and ''!= updater  ">
+						f_updater = #{updater},
+					</if>
+					<if test=" null != updateTime ">
+						f_update_time = #{updateTime},
+					</if>
+					<if test=" null != remark and ''!= remark  ">
+						f_remark = #{remark},
+					</if>
+			</trim>
+		</set>
+		<where>
+			 f_id = #{id}
+		</where>
+	</update>
+  
+  
+   <update id="updateWithEmpty" parameterMap="ProductProtocalParameterMap">
+		UPDATE t_product_protocal
+		<set>
+			<trim suffixOverrides=",">
+						f_protocal_name = #{protocalName},
+						f_protocal_desc = #{protocalDesc},
+						f_protocal_file_url = #{protocalFileUrl},
+						f_del_status = #{delStatus},
+						f_creator = #{creator},
+						f_create_time = #{createTime},
+						f_updater = #{updater},
+						f_update_time = #{updateTime},
+						f_remark = #{remark},
+			</trim>
+		</set>
+		<where>
+			 f_id = #{id}
+		</where>
+	</update>
+
+  <insert id="addBatch" parameterType="java.util.List">
+	insert into t_product_protocal 
+	<trim prefix="(" suffix=")" >
+			<include refid="Base_Column_List" />
+	</trim>
+	VALUES
+	<foreach item="item" index="index" collection="list" separator=",">
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+				#{item.id,jdbcType=INTEGER},
+				#{item.protocalName,jdbcType=VARCHAR},
+				#{item.protocalDesc,jdbcType=VARCHAR},
+				#{item.protocalFileUrl,jdbcType=VARCHAR},
+				#{item.delStatus,jdbcType=TINYINT},
+				#{item.creator,jdbcType=VARCHAR},
+				#{item.createTime,jdbcType=TIMESTAMP},
+				#{item.updater,jdbcType=VARCHAR},
+				#{item.updateTime,jdbcType=TIMESTAMP},
+				#{item.remark,jdbcType=VARCHAR},
+		</trim>
+	</foreach>
+</insert>
+
+ 
+<update id="updateBatch" parameterType="java.util.List">
+      <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update t_product_protocal
+            <set>
+              	<trim suffixOverrides=",">
+					   <if test="item.protocalName!=null and ''!= item.protocalName  ">
+					        f_protocal_name = #{item.protocalName,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.protocalDesc!=null and ''!= item.protocalDesc  ">
+					        f_protocal_desc = #{item.protocalDesc,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.protocalFileUrl!=null and ''!= item.protocalFileUrl  ">
+					        f_protocal_file_url = #{item.protocalFileUrl,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.delStatus!=null ">
+					        f_del_status = #{item.delStatus,jdbcType=TINYINT},
+					   </if>
+					   <if test="item.creator!=null and ''!= item.creator  ">
+					        f_creator = #{item.creator,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.createTime!=null ">
+					        f_create_time = #{item.createTime,jdbcType=TIMESTAMP},
+					   </if>
+					   <if test="item.updater!=null and ''!= item.updater  ">
+					        f_updater = #{item.updater,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.updateTime!=null ">
+					        f_update_time = #{item.updateTime,jdbcType=TIMESTAMP},
+					   </if>
+					   <if test="item.remark!=null and ''!= item.remark  ">
+					        f_remark = #{item.remark,jdbcType=VARCHAR},
+					   </if>
+			   </trim>
+            </set>
+             where f_id = #{item.id}
+     </foreach>
+</update>
+
+<update id="updateBatchWithEmpty" parameterType="java.util.List">
+      <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update t_product_protocal
+            <set>
+              	<trim suffixOverrides=",">
+					        f_protocal_name = #{item.protocalName,jdbcType=VARCHAR},
+					        f_protocal_desc = #{item.protocalDesc,jdbcType=VARCHAR},
+					        f_protocal_file_url = #{item.protocalFileUrl,jdbcType=VARCHAR},
+					        f_del_status = #{item.delStatus,jdbcType=TINYINT},
+					        f_creator = #{item.creator,jdbcType=VARCHAR},
+					        f_create_time = #{item.createTime,jdbcType=TIMESTAMP},
+					        f_updater = #{item.updater,jdbcType=VARCHAR},
+					        f_update_time = #{item.updateTime,jdbcType=TIMESTAMP},
+					        f_remark = #{item.remark,jdbcType=VARCHAR},
+			   </trim>
+            </set>
+             where f_id = #{item.id}
+     </foreach>
+</update>         
+
+<delete id="deleteBatch" parameterType="Object">
+	DELETE FROM t_product_protocal
+	<where>
+		<foreach item="item" index="index" collection="array"  open="(" separator="or" close=") ">
+			  f_id  = #{item}
+		</foreach>
+	</where>
+</delete>
+    
+ <sql id="Base_Condition">
+		   <if test=" null != id ">
+				AND	T.f_id = #{id}
+		</if>
+		   <if test=" null != protocalName and ''!= protocalName  ">
+				AND	T.f_protocal_name = #{protocalName}
+		</if>
+		   <if test=" null != protocalDesc and ''!= protocalDesc  ">
+				AND	T.f_protocal_desc = #{protocalDesc}
+		</if>
+		   <if test=" null != protocalFileUrl and ''!= protocalFileUrl  ">
+				AND	T.f_protocal_file_url = #{protocalFileUrl}
+		</if>
+		   <if test=" null != delStatus ">
+				AND	T.f_del_status = #{delStatus}
+		</if>
+		   <if test=" null != creator and ''!= creator  ">
+				AND	T.f_creator = #{creator}
+		</if>
+		   <if test=" null != createTime ">
+				AND	T.f_create_time = #{createTime}
+		</if>
+		   <if test=" null != updater and ''!= updater  ">
+				AND	T.f_updater = #{updater}
+		</if>
+		   <if test=" null != updateTime ">
+				AND	T.f_update_time = #{updateTime}
+		</if>
+		   <if test=" null != remark and ''!= remark  ">
+				AND	T.f_remark = #{remark}
+		</if>
+ </sql>    
+<select id="list" resultMap="ProductProtocalResultMap"  >
+		SELECT <include refid="Base_Column_List" /> FROM t_product_protocal T WHERE 1=1
+		<include refid="Base_Condition" />
+</select>
+
+<select id="query" resultMap="ProductProtocalResultMap"  >
+		SELECT <include refid="Base_Column_List" /> FROM t_product_protocal T WHERE 1=1
+		<include refid="Base_Condition" />
+</select>
+<select id="findProtocals" resultMap="ProductProtocalResultMap">
+	SELECT <include refid="Base_Column_List" /> FROM t_product_protocal T WHERE  f_protocal_name is not null
+</select>
+
+<select id="findNullNameProtocal"  resultType="int">
+select t.f_id from t_product_protocal t where t.f_protocal_name is null limit 1
+</select>
+</mapper>

@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.product.dao.ProductRuleDao">
+<parameterMap type="com.linkwee.web.model.product.ProductRule" id="ProductRuleParameterMap" />	
+<!-- Result Map-->
+<resultMap  type="com.linkwee.web.model.product.ProductRule" id="ProductRuleResultMap">
+	<result column="t_rule_id" property="tRuleId" jdbcType="INTEGER"/>
+	<result column="t_rule_name" property="tRuleName" jdbcType="VARCHAR"/>
+	<result column="f_fix_rate" property="fixRate" jdbcType="DECIMAL"/>
+	<result column="f_line_min_value" property="lineMinValue" jdbcType="INTEGER"/>
+	<result column="f_line_max_value" property="lineMaxValue" jdbcType="INTEGER"/>
+	<result column="f_modify_time" property="modifyTime" jdbcType="TIMESTAMP"/>
+	<result column="f_rule_description" property="ruleDescription" jdbcType="VARCHAR"/>
+	<result column="f_rule_disabled" property="ruleDisabled" jdbcType="CHAR"/>
+	<result column="f_fee_rate" property="feeRate" jdbcType="DECIMAL"/>
+</resultMap>
+  <sql id="Base_Column_List">
+    <trim suffixOverrides=",">
+	    	t_rule_id,
+	    	t_rule_name,
+	    	f_fix_rate,
+	    	f_line_min_value,
+	    	f_line_max_value,
+	    	f_modify_time,
+	    	f_rule_description,
+	    	f_rule_disabled,
+	    	f_fee_rate,
+    </trim>
+  </sql>  
+  
+   <sql id="Base_Column_List_T">
+    <trim suffixOverrides=",">
+	    	t.t_rule_id,
+	    	t.t_rule_name,
+	    	t.f_fix_rate,
+	    	t.f_line_min_value,
+	    	t.f_line_max_value,
+	    	t.f_modify_time,
+	    	t.f_rule_description,
+	    	t.f_rule_disabled,
+	    	t.f_fee_rate,
+    </trim>
+  </sql> 
+  	
+  <select id="getByPrimaryKey"  resultMap="ProductRuleResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_product_rule where  t_rule_id = #{0}
+  </select>	
+
+  <delete id="deleteByPrimaryKey" >
+    delete from t_product_rule
+	<where>
+		t_rule_id = #{0}
+	</where>
+  </delete>
+  
+  
+  <insert id="add" parameterMap="ProductRuleParameterMap" useGeneratedKeys="true" keyProperty="tRuleId" >
+		INSERT INTO t_product_rule
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != tRuleId ">
+					t_rule_id,
+				</if>
+			 	<if test=" null != tRuleName and ''!= tRuleName  ">
+					t_rule_name,
+				</if>
+			 	<if test=" null != fixRate ">
+					f_fix_rate,
+				</if>
+			 	<if test=" null != lineMinValue ">
+					f_line_min_value,
+				</if>
+			 	<if test=" null != lineMaxValue ">
+					f_line_max_value,
+				</if>
+			 	<if test=" null != modifyTime ">
+					f_modify_time,
+				</if>
+			 	<if test=" null != ruleDescription and ''!= ruleDescription  ">
+					f_rule_description,
+				</if>
+			 	<if test=" null != ruleDisabled and ''!= ruleDisabled  ">
+					f_rule_disabled,
+				</if>
+			 	<if test=" null != feeRate ">
+					f_fee_rate,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != tRuleId ">
+					 	#{tRuleId},
+				</if>
+			 	<if test=" null != tRuleName and ''!= tRuleName  ">
+					 	#{tRuleName},
+				</if>
+			 	<if test=" null != fixRate ">
+					 	#{fixRate},
+				</if>
+			 	<if test=" null != lineMinValue ">
+					 	#{lineMinValue},
+				</if>
+			 	<if test=" null != lineMaxValue ">
+					 	#{lineMaxValue},
+				</if>
+			 	<if test=" null != modifyTime ">
+					 	#{modifyTime},
+				</if>
+			 	<if test=" null != ruleDescription and ''!= ruleDescription  ">
+					 	#{ruleDescription},
+				</if>
+			 	<if test=" null != ruleDisabled and ''!= ruleDisabled  ">
+					 	#{ruleDisabled},
+				</if>
+			 	<if test=" null != feeRate ">
+					 	#{feeRate},
+				</if>
+		</trim>
+	</insert>
+  
+  
+  <update id="update" parameterMap="ProductRuleParameterMap">
+		UPDATE t_product_rule
+		<set>
+			<trim suffixOverrides=",">
+					<if test=" null != tRuleName and ''!= tRuleName  ">
+						t_rule_name = #{tRuleName},
+					</if>
+					<if test=" null != fixRate ">
+						f_fix_rate = #{fixRate},
+					</if>
+					<if test=" null != lineMinValue ">
+						f_line_min_value = #{lineMinValue},
+					</if>
+					<if test=" null != lineMaxValue ">
+						f_line_max_value = #{lineMaxValue},
+					</if>
+					<if test=" null != modifyTime ">
+						f_modify_time = #{modifyTime},
+					</if>
+					<if test=" null != ruleDescription and ''!= ruleDescription  ">
+						f_rule_description = #{ruleDescription},
+					</if>
+					<if test=" null != ruleDisabled and ''!= ruleDisabled  ">
+						f_rule_disabled = #{ruleDisabled},
+					</if>
+					<if test=" null != feeRate ">
+						f_fee_rate = #{feeRate},
+					</if>
+			</trim>
+		</set>
+		<where>
+			 t_rule_id = #{tRuleId}
+		</where>
+	</update>
+  
+  
+   <update id="updateWithEmpty" parameterMap="ProductRuleParameterMap">
+		UPDATE t_product_rule
+		<set>
+			<trim suffixOverrides=",">
+						t_rule_name = #{tRuleName},
+						f_fix_rate = #{fixRate},
+						f_line_min_value = #{lineMinValue},
+						f_line_max_value = #{lineMaxValue},
+						f_modify_time = #{modifyTime},
+						f_rule_description = #{ruleDescription},
+						f_rule_disabled = #{ruleDisabled},
+						f_fee_rate = #{feeRate},
+			</trim>
+		</set>
+		<where>
+			 t_rule_id = #{tRuleId}
+		</where>
+	</update>
+
+  <insert id="addBatch" parameterType="java.util.List">
+	insert into t_product_rule 
+	<trim prefix="(" suffix=")" >
+			<include refid="Base_Column_List" />
+	</trim>
+	VALUES
+	<foreach item="item" index="index" collection="list" separator=",">
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+				#{item.tRuleId,jdbcType=INTEGER},
+				#{item.tRuleName,jdbcType=VARCHAR},
+				#{item.fixRate,jdbcType=DECIMAL},
+				#{item.lineMinValue,jdbcType=INTEGER},
+				#{item.lineMaxValue,jdbcType=INTEGER},
+				#{item.modifyTime,jdbcType=TIMESTAMP},
+				#{item.ruleDescription,jdbcType=VARCHAR},
+				#{item.ruleDisabled,jdbcType=CHAR},
+				#{item.feeRate,jdbcType=DECIMAL},
+		</trim>
+	</foreach>
+</insert>
+
+ 
+<update id="updateBatch" parameterType="java.util.List">
+      <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update t_product_rule
+            <set>
+              	<trim suffixOverrides=",">
+					   <if test="item.tRuleName!=null and ''!= item.tRuleName  ">
+					        t_rule_name = #{item.tRuleName,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.fixRate!=null ">
+					        f_fix_rate = #{item.fixRate,jdbcType=DECIMAL},
+					   </if>
+					   <if test="item.lineMinValue!=null ">
+					        f_line_min_value = #{item.lineMinValue,jdbcType=INTEGER},
+					   </if>
+					   <if test="item.lineMaxValue!=null ">
+					        f_line_max_value = #{item.lineMaxValue,jdbcType=INTEGER},
+					   </if>
+					   <if test="item.modifyTime!=null ">
+					        f_modify_time = #{item.modifyTime,jdbcType=TIMESTAMP},
+					   </if>
+					   <if test="item.ruleDescription!=null and ''!= item.ruleDescription  ">
+					        f_rule_description = #{item.ruleDescription,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.ruleDisabled!=null and ''!= item.ruleDisabled  ">
+					        f_rule_disabled = #{item.ruleDisabled,jdbcType=CHAR},
+					   </if>
+					   <if test="item.feeRate!=null ">
+					        f_fee_rate = #{item.feeRate,jdbcType=DECIMAL},
+					   </if>
+			   </trim>
+            </set>
+             where t_rule_id = #{item.tRuleId}
+     </foreach>
+</update>
+
+<update id="updateBatchWithEmpty" parameterType="java.util.List">
+      <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update t_product_rule
+            <set>
+              	<trim suffixOverrides=",">
+					        t_rule_name = #{item.tRuleName,jdbcType=VARCHAR},
+					        f_fix_rate = #{item.fixRate,jdbcType=DECIMAL},
+					        f_line_min_value = #{item.lineMinValue,jdbcType=INTEGER},
+					        f_line_max_value = #{item.lineMaxValue,jdbcType=INTEGER},
+					        f_modify_time = #{item.modifyTime,jdbcType=TIMESTAMP},
+					        f_rule_description = #{item.ruleDescription,jdbcType=VARCHAR},
+					        f_rule_disabled = #{item.ruleDisabled,jdbcType=CHAR},
+					        f_fee_rate = #{item.feeRate,jdbcType=DECIMAL},
+			   </trim>
+            </set>
+             where t_rule_id = #{item.tRuleId}
+     </foreach>
+</update>         
+
+<delete id="deleteBatch" parameterType="Object">
+	DELETE FROM t_product_rule
+	<where>
+		<foreach item="item" index="index" collection="array"  open="(" separator="or" close=") ">
+			  t_rule_id  = #{item}
+		</foreach>
+	</where>
+</delete>
+    
+ <sql id="Base_Condition">
+		   <if test=" null != tRuleId ">
+				AND	T.t_rule_id = #{tRuleId}
+		</if>
+		   <if test=" null != tRuleName and ''!= tRuleName  ">
+				AND	T.t_rule_name = #{tRuleName}
+		</if>
+		   <if test=" null != fixRate ">
+				AND	T.f_fix_rate = #{fixRate}
+		</if>
+		   <if test=" null != lineMinValue ">
+				AND	T.f_line_min_value = #{lineMinValue}
+		</if>
+		   <if test=" null != lineMaxValue ">
+				AND	T.f_line_max_value = #{lineMaxValue}
+		</if>
+		   <if test=" null != modifyTime ">
+				AND	T.f_modify_time = #{modifyTime}
+		</if>
+		   <if test=" null != ruleDescription and ''!= ruleDescription  ">
+				AND	T.f_rule_description = #{ruleDescription}
+		</if>
+		   <if test=" null != ruleDisabled and ''!= ruleDisabled  ">
+				AND	T.f_rule_disabled = #{ruleDisabled}
+		</if>
+		   <if test=" null != feeRate ">
+				AND	T.f_fee_rate = #{feeRate}
+		</if>
+ </sql>    
+<select id="list" resultMap="ProductRuleResultMap"  >
+		SELECT <include refid="Base_Column_List" /> FROM t_product_rule T WHERE 1=1
+		<include refid="Base_Condition" />
+</select>
+
+<select id="query" resultMap="ProductRuleResultMap"  >
+		SELECT <include refid="Base_Column_List" /> FROM t_product_rule T WHERE 1=1
+		<include refid="Base_Condition" />
+</select>
+
+<select id="queryModeDtlByTypeId" resultMap="ProductRuleResultMap">
+SELECT
+	t1.f_line_min_value,t1.f_line_max_value,t1.f_fix_rate
+FROM
+	t_product_info_rule t
+LEFT JOIN t_product_rule t1 ON t.t_rule_id = t1.t_rule_id
+WHERE
+	t.f_type_id = #{productTypeId}
+</select>
+
+</mapper>

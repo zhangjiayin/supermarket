@@ -1,0 +1,846 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.SaleUserInfoDao">
+<parameterMap type="com.linkwee.web.model.SaleUserInfo" id="SaleUserInfoParameterMap" />	
+<!-- Result Map-->
+<resultMap  type="com.linkwee.web.model.SaleUserInfo" id="SaleUserInfoResultMap">
+	<result column="f_number" property="number" jdbcType="VARCHAR"/>
+	<result column="f_name" property="name" jdbcType="VARCHAR"/>
+	<result column="f_email" property="email" jdbcType="VARCHAR"/>
+	<result column="f_mobile" property="mobile" jdbcType="VARCHAR"/>
+	<result column="f_qrcode" property="qrcode" jdbcType="VARCHAR"/>
+	<result column="f_idcard" property="idcard" jdbcType="VARCHAR"/>
+	<result column="f_head_image" property="headImage" jdbcType="LONGVARBINARY"/>
+	<result column="f_password" property="password" jdbcType="VARCHAR"/>
+	<result column="f_sign_pwd" property="signPwd" jdbcType="VARCHAR"/>
+	<result column="f_parent_id" property="parentId" jdbcType="VARCHAR"/>
+	<result column="f_is_lock" property="isLock" jdbcType="TINYINT"/>
+	<result column="f_remark" property="remark" jdbcType="VARCHAR"/>
+	<result column="f_department" property="department" jdbcType="VARCHAR"/>
+	<result column="f_customer_id" property="customerId" jdbcType="VARCHAR"/>
+	<result column="f_settlement_type" property="settlementType" jdbcType="TINYINT"/>
+	<result column="f_enable" property="enable" jdbcType="TINYINT"/>
+	<result column="f_ancestor" property="ancestor" jdbcType="VARCHAR"/>
+	<result column="f_is_cfp" property="isCfp" jdbcType="TINYINT"/>
+	<result column="f_cfp_level" property="cfpLevel" jdbcType="VARCHAR"/>
+	<result column="f_cfp_reg_time" property="cfpRegTime" jdbcType="TIMESTAMP"/>
+	<result column="f_cfp_benormal_time" property="cfpBenormalTime" jdbcType="TIMESTAMP"/>
+	<result column="f_cfp_update_time" property="cfpUpdateTime" jdbcType="TIMESTAMP"/>
+	<result column="f_is_partner" property="isPartner" jdbcType="TINYINT"/>
+	<result column="f_partner_level" property="partnerLevel" jdbcType="VARCHAR"/>
+	<result column="f_partner_reg_time" property="partnerRegTime" jdbcType="TIMESTAMP"/>
+	<result column="f_partner_up_time" property="partnerUpTime" jdbcType="TIMESTAMP"/>
+	<result column="f_create_time" property="createTime" jdbcType="TIMESTAMP"/>
+	<result column="f_update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+	<result column="f_del_status" property="delStatus" jdbcType="TINYINT"/>
+	<result column="f_type" property="type" jdbcType="TINYINT"/>
+	<result column="f_easemob_acct" property="easemobAcct" jdbcType="VARCHAR"/>
+	<result column="f_easemob_password" property="easemobPassword" jdbcType="VARCHAR"/>
+	<result column="f_easemob_status" property="easemobStatus" jdbcType="TINYINT"/>
+	<result column="f_level_experience" property="levelExperience" jdbcType="DOUBLE"/>
+	<result column="f_image" property="image" jdbcType="VARCHAR"/>
+</resultMap>
+  <sql id="Base_Column_List">
+    <trim suffixOverrides=",">
+	    	f_number,
+	    	f_name,
+	    	f_email,
+	    	f_mobile,
+	    	f_qrcode,
+	    	f_idcard,
+	    	f_head_image,
+	    	f_password,
+	    	f_sign_pwd,
+	    	f_parent_id,
+	    	f_is_lock,
+	    	f_remark,
+	    	f_department,
+	    	f_customer_id,
+	    	f_settlement_type,
+	    	f_enable,
+	    	f_ancestor,
+	    	f_is_cfp,
+	    	f_cfp_level,
+	    	f_cfp_reg_time,
+	    	f_cfp_benormal_time,
+	    	f_cfp_update_time,
+	    	f_is_partner,
+	    	f_partner_level,
+	    	f_partner_reg_time,
+	    	f_partner_up_time,
+	    	f_create_time,
+	    	f_update_time,
+	    	f_del_status,
+	    	f_type,
+	    	f_level_experience,
+    </trim>
+  </sql>  
+  
+  
+    <sql id="Base_Column_List_T">
+    <trim suffixOverrides=",">
+	    	t.f_number,
+	    	t.f_name,
+	    	t.f_email,
+	    	t.f_mobile,
+	    	t.f_qrcode,
+	    	t.f_idcard,
+	    	t.f_head_image,
+	    	t.f_password,
+	    	t.f_sign_pwd,
+	    	t.f_parent_id,
+	    	t.f_is_lock,
+	    	t.f_remark,
+	    	t.f_department,
+	    	t.f_customer_id,
+	    	t.f_settlement_type,
+	    	t.f_enable,
+	    	t.f_ancestor,
+	    	t.f_is_cfp,
+	    	t.f_cfp_level,
+	    	t.f_cfp_reg_time,
+	    	t.f_cfp_benormal_time,
+	    	t.f_cfp_update_time,
+	    	t.f_is_partner,
+	    	t.f_partner_level,
+	    	t.f_partner_reg_time,
+	    	t.f_partner_up_time,
+	    	t.f_create_time,
+	    	t.f_update_time,
+	    	t.f_del_status,
+	    	t.f_type,
+	    	f_level_experience,
+    </trim>
+  </sql>  
+  	
+  <select id="getByPrimaryKey"  resultMap="SaleUserInfoResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_sale_user_info where  f_number = #{0}
+  </select>	
+  
+
+ <update id="deleteByPrimaryKey" >
+		update t_sale_user_info
+		<set>
+			f_del_status = 1
+		</set>
+		<where>
+			f_number = #{0}
+		</where>
+</update>  
+  
+  
+  <insert id="add" parameterMap="SaleUserInfoParameterMap" >
+		INSERT INTO t_sale_user_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != number and ''!= number  ">
+					f_number,
+				</if>
+			 	<if test=" null != name and ''!= name  ">
+					f_name,
+				</if>
+			 	<if test=" null != email and ''!= email  ">
+					f_email,
+				</if>
+			 	<if test=" null != mobile and ''!= mobile  ">
+					f_mobile,
+				</if>
+			 	<if test=" null != qrcode and ''!= qrcode  ">
+					f_qrcode,
+				</if>
+			 	<if test=" null != idcard and ''!= idcard  ">
+					f_idcard,
+				</if>
+			 	<if test=" null != headImage ">
+					f_head_image,
+				</if>
+			 	<if test=" null != password and ''!= password  ">
+					f_password,
+				</if>
+			 	<if test=" null != signPwd and ''!= signPwd  ">
+					f_sign_pwd,
+				</if>
+			 	<if test=" null != parentId and ''!= parentId  ">
+					f_parent_id,
+				</if>
+			 	<if test=" null != isLock ">
+					f_is_lock,
+				</if>
+			 	<if test=" null != remark and ''!= remark  ">
+					f_remark,
+				</if>
+			 	<if test=" null != department and ''!= department  ">
+					f_department,
+				</if>
+			 	<if test=" null != customerId and ''!= customerId  ">
+					f_customer_id,
+				</if>
+			 	<if test=" null != settlementType ">
+					f_settlement_type,
+				</if>
+			 	<if test=" null != enable ">
+					f_enable,
+				</if>
+			 	<if test=" null != ancestor and ''!= ancestor  ">
+					f_ancestor,
+				</if>
+			 	<if test=" null != isCfp ">
+					f_is_cfp,
+				</if>
+			 	<if test=" null != cfpLevel and ''!= cfpLevel  ">
+					f_cfp_level,
+				</if>
+			 	<if test=" null != cfpRegTime ">
+					f_cfp_reg_time,
+				</if>
+			 	<if test=" null != cfpBenormalTime ">
+					f_cfp_benormal_time,
+				</if>
+			 	<if test=" null != cfpUpdateTime ">
+					f_cfp_update_time,
+				</if>
+			 	<if test=" null != isPartner ">
+					f_is_partner,
+				</if>
+			 	<if test=" null != partnerLevel and ''!= partnerLevel  ">
+					f_partner_level,
+				</if>
+			 	<if test=" null != partnerRegTime ">
+					f_partner_reg_time,
+				</if>
+			 	<if test=" null != partnerUpTime ">
+					f_partner_up_time,
+				</if>
+			 	<if test=" null != createTime ">
+					f_create_time,
+				</if>
+			 	<if test=" null != updateTime ">
+					f_update_time,
+				</if>
+			 	<if test=" null != delStatus ">
+					f_del_status,
+				</if>
+			 	<if test=" null != type ">
+					f_type,
+				</if>
+				<if test=" null != levelExperience ">
+					f_level_experience,
+				</if>
+				
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != number and ''!= number  ">
+					 	#{number},
+				</if>
+			 	<if test=" null != name and ''!= name  ">
+					 	#{name},
+				</if>
+			 	<if test=" null != email and ''!= email  ">
+					 	#{email},
+				</if>
+			 	<if test=" null != mobile and ''!= mobile  ">
+					 	#{mobile},
+				</if>
+			 	<if test=" null != qrcode and ''!= qrcode  ">
+					 	#{qrcode},
+				</if>
+			 	<if test=" null != idcard and ''!= idcard  ">
+					 	#{idcard},
+				</if>
+			 	<if test=" null != headImage ">
+					 	#{headImage},
+				</if>
+			 	<if test=" null != password and ''!= password  ">
+					 	#{password},
+				</if>
+			 	<if test=" null != signPwd and ''!= signPwd  ">
+					 	#{signPwd},
+				</if>
+			 	<if test=" null != parentId and ''!= parentId  ">
+					 	#{parentId},
+				</if>
+			 	<if test=" null != isLock ">
+					 	#{isLock},
+				</if>
+			 	<if test=" null != remark and ''!= remark  ">
+					 	#{remark},
+				</if>
+			 	<if test=" null != department and ''!= department  ">
+					 	#{department},
+				</if>
+			 	<if test=" null != customerId and ''!= customerId  ">
+					 	#{customerId},
+				</if>
+			 	<if test=" null != settlementType ">
+					 	#{settlementType},
+				</if>
+			 	<if test=" null != enable ">
+					 	#{enable},
+				</if>
+			 	<if test=" null != ancestor and ''!= ancestor  ">
+					 	#{ancestor},
+				</if>
+			 	<if test=" null != isCfp ">
+					 	#{isCfp},
+				</if>
+			 	<if test=" null != cfpLevel and ''!= cfpLevel  ">
+					 	#{cfpLevel},
+				</if>
+			 	<if test=" null != cfpRegTime ">
+					 	#{cfpRegTime},
+				</if>
+			 	<if test=" null != cfpBenormalTime ">
+					 	#{cfpBenormalTime},
+				</if>
+			 	<if test=" null != cfpUpdateTime ">
+					 	#{cfpUpdateTime},
+				</if>
+			 	<if test=" null != isPartner ">
+					 	#{isPartner},
+				</if>
+			 	<if test=" null != partnerLevel and ''!= partnerLevel  ">
+					 	#{partnerLevel},
+				</if>
+			 	<if test=" null != partnerRegTime ">
+					 	#{partnerRegTime},
+				</if>
+			 	<if test=" null != partnerUpTime ">
+					 	#{partnerUpTime},
+				</if>
+			 	<if test=" null != createTime ">
+					 	#{createTime},
+				</if>
+			 	<if test=" null != updateTime ">
+					 	#{updateTime},
+				</if>
+			 	<if test=" null != delStatus ">
+					 	#{delStatus},
+				</if>
+			 	<if test=" null != type ">
+					 	#{type},
+				</if>
+				<if test=" null != levelExperience ">
+					 	#{levelExperience},
+				</if>
+				
+		</trim>
+	</insert>
+  
+  
+  <update id="update" parameterMap="SaleUserInfoParameterMap">
+		UPDATE t_sale_user_info
+		<set>
+			<trim suffixOverrides=",">
+					<if test=" null != name and ''!= name  ">
+						f_name = #{name},
+					</if>
+					<if test=" null != email and ''!= email  ">
+						f_email = #{email},
+					</if>
+					<if test=" null != mobile and ''!= mobile  ">
+						f_mobile = #{mobile},
+					</if>
+					<if test=" null != qrcode and ''!= qrcode  ">
+						f_qrcode = #{qrcode},
+					</if>
+					<if test=" null != idcard and ''!= idcard  ">
+						f_idcard = #{idcard},
+					</if>
+					<if test=" null != headImage ">
+						f_head_image = #{headImage},
+					</if>
+					<if test=" null != password and ''!= password  ">
+						f_password = #{password},
+					</if>
+					<if test=" null != signPwd and ''!= signPwd  ">
+						f_sign_pwd = #{signPwd},
+					</if>
+					<if test=" null != parentId  ">
+						f_parent_id = #{parentId},
+					</if>
+					<if test=" null != isLock ">
+						f_is_lock = #{isLock},
+					</if>
+					<if test=" null != remark and ''!= remark  ">
+						f_remark = #{remark},
+					</if>
+					<if test=" null != department and ''!= department  ">
+						f_department = #{department},
+					</if>
+					<if test=" null != customerId and ''!= customerId  ">
+						f_customer_id = #{customerId},
+					</if>
+					<if test=" null != settlementType ">
+						f_settlement_type = #{settlementType},
+					</if>
+					<if test=" null != enable ">
+						f_enable = #{enable},
+					</if>
+					<if test=" null != ancestor ">
+						f_ancestor = #{ancestor},
+					</if>
+					<if test=" null != isCfp ">
+						f_is_cfp = #{isCfp},
+					</if>
+					<if test=" null != cfpLevel and ''!= cfpLevel  ">
+						f_cfp_level = #{cfpLevel},
+					</if>
+					<if test=" null != cfpRegTime ">
+						f_cfp_reg_time = #{cfpRegTime},
+					</if>
+					<if test=" null != cfpBenormalTime ">
+						f_cfp_benormal_time = #{cfpBenormalTime},
+					</if>
+					<if test=" null != cfpUpdateTime ">
+						f_cfp_update_time = #{cfpUpdateTime},
+					</if>
+					<if test=" null != isPartner ">
+						f_is_partner = #{isPartner},
+					</if>
+					<if test=" null != partnerLevel and ''!= partnerLevel  ">
+						f_partner_level = #{partnerLevel},
+					</if>
+					<if test=" null != partnerRegTime ">
+						f_partner_reg_time = #{partnerRegTime},
+					</if>
+					<if test=" null != partnerUpTime ">
+						f_partner_up_time = #{partnerUpTime},
+					</if>
+					<if test=" null != createTime ">
+						f_create_time = #{createTime},
+					</if>
+					<if test=" null != updateTime ">
+						f_update_time = #{updateTime},
+					</if>
+					<if test=" null != delStatus ">
+						f_del_status = #{delStatus},
+					</if>
+					<if test=" null != type ">
+						f_type = #{type},
+					</if>
+					<if test=" null != levelExperience ">
+						f_level_experience = #{levelExperience},
+					</if>
+					<if test=" null != image ">
+						f_image = #{image},
+					</if>
+			</trim>
+		</set>
+		<where>
+			 f_number = #{number}
+		</where>
+	</update>
+	
+  <update id="updateByImage" parameterMap="SaleUserInfoParameterMap">
+	UPDATE t_sale_user_info
+	<set>
+		<trim suffixOverrides=",">
+					f_image = #{image},
+		</trim>
+	</set>
+	<where>
+		 f_customer_id = #{customerId} 
+	</where>
+</update>      
+
+  <insert id="addBatch" parameterType="java.util.List">
+	insert into t_sale_user_info 
+	<trim prefix="(" suffix=")" >
+			<include refid="Base_Column_List" />
+	</trim>
+	VALUES
+	<foreach item="item" index="index" collection="list" separator=",">
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+				 #{item.number,jdbcType=VARCHAR}, #{item.name,jdbcType=VARCHAR}, #{item.email,jdbcType=VARCHAR}, #{item.mobile,jdbcType=VARCHAR}, #{item.qrcode,jdbcType=VARCHAR}, #{item.idcard,jdbcType=VARCHAR}, #{item.headImage,jdbcType=LONGVARBINARY}, #{item.password,jdbcType=VARCHAR}, #{item.signPwd,jdbcType=VARCHAR}, #{item.parentId,jdbcType=VARCHAR}, #{item.isLock,jdbcType=TINYINT}, #{item.remark,jdbcType=VARCHAR}, #{item.department,jdbcType=VARCHAR}, #{item.customerId,jdbcType=VARCHAR}, #{item.settlementType,jdbcType=TINYINT}, #{item.enable,jdbcType=TINYINT}, #{item.ancestor,jdbcType=VARCHAR}, #{item.isCfp,jdbcType=TINYINT}, #{item.cfpLevel,jdbcType=VARCHAR}, #{item.cfpRegTime,jdbcType=TIMESTAMP}, #{item.cfpBenormalTime,jdbcType=TIMESTAMP}, #{item.cfpUpdateTime,jdbcType=TIMESTAMP}, #{item.isPartner,jdbcType=TINYINT}, #{item.partnerLevel,jdbcType=VARCHAR}, #{item.partnerRegTime,jdbcType=TIMESTAMP}, #{item.partnerUpTime,jdbcType=TIMESTAMP}, #{item.createTime,jdbcType=TIMESTAMP}, #{item.updateTime,jdbcType=TIMESTAMP}, #{item.delStatus,jdbcType=TINYINT}, #{item.type,jdbcType=TINYINT},
+		</trim>
+	</foreach>
+</insert>
+
+ 
+<update id="updateBatch" parameterType="java.util.List">
+      <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update t_sale_user_info
+            <set>
+              	<trim suffixOverrides=",">
+					   <if test="item.name!=null and ''!= item.name  ">
+					        f_name = #{item.name,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.email!=null and ''!= item.email  ">
+					        f_email = #{item.email,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.mobile!=null and ''!= item.mobile  ">
+					        f_mobile = #{item.mobile,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.qrcode!=null and ''!= item.qrcode  ">
+					        f_qrcode = #{item.qrcode,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.idcard!=null and ''!= item.idcard  ">
+					        f_idcard = #{item.idcard,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.headImage!=null ">
+					        f_head_image = #{item.headImage,jdbcType=LONGVARBINARY},
+					   </if>
+					   <if test="item.password!=null and ''!= item.password  ">
+					        f_password = #{item.password,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.signPwd!=null and ''!= item.signPwd  ">
+					        f_sign_pwd = #{item.signPwd,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.parentId!=null and ''!= item.parentId  ">
+					        f_parent_id = #{item.parentId,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.isLock!=null ">
+					        f_is_lock = #{item.isLock,jdbcType=TINYINT},
+					   </if>
+					   <if test="item.remark!=null and ''!= item.remark  ">
+					        f_remark = #{item.remark,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.department!=null and ''!= item.department  ">
+					        f_department = #{item.department,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.customerId!=null and ''!= item.customerId  ">
+					        f_customer_id = #{item.customerId,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.settlementType!=null ">
+					        f_settlement_type = #{item.settlementType,jdbcType=TINYINT},
+					   </if>
+					   <if test="item.enable!=null ">
+					        f_enable = #{item.enable,jdbcType=TINYINT},
+					   </if>
+					   <if test="item.ancestor!=null and ''!= item.ancestor  ">
+					        f_ancestor = #{item.ancestor,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.isCfp!=null ">
+					        f_is_cfp = #{item.isCfp,jdbcType=TINYINT},
+					   </if>
+					   <if test="item.cfpLevel!=null and ''!= item.cfpLevel  ">
+					        f_cfp_level = #{item.cfpLevel,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.cfpRegTime!=null ">
+					        f_cfp_reg_time = #{item.cfpRegTime,jdbcType=TIMESTAMP},
+					   </if>
+					   <if test="item.cfpBenormalTime!=null ">
+					        f_cfp_benormal_time = #{item.cfpBenormalTime,jdbcType=TIMESTAMP},
+					   </if>
+					   <if test="item.cfpUpdateTime!=null ">
+					        f_cfp_update_time = #{item.cfpUpdateTime,jdbcType=TIMESTAMP},
+					   </if>
+					   <if test="item.isPartner!=null ">
+					        f_is_partner = #{item.isPartner,jdbcType=TINYINT},
+					   </if>
+					   <if test="item.partnerLevel!=null and ''!= item.partnerLevel  ">
+					        f_partner_level = #{item.partnerLevel,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.partnerRegTime!=null ">
+					        f_partner_reg_time = #{item.partnerRegTime,jdbcType=TIMESTAMP},
+					   </if>
+					   <if test="item.partnerUpTime!=null ">
+					        f_partner_up_time = #{item.partnerUpTime,jdbcType=TIMESTAMP},
+					   </if>
+					   <if test="item.createTime!=null ">
+					        f_create_time = #{item.createTime,jdbcType=TIMESTAMP},
+					   </if>
+					   <if test="item.updateTime!=null ">
+					        f_update_time = #{item.updateTime,jdbcType=TIMESTAMP},
+					   </if>
+					   <if test="item.delStatus!=null ">
+					        f_del_status = #{item.delStatus,jdbcType=TINYINT},
+					   </if>
+					   <if test="item.type!=null ">
+					        f_type = #{item.type,jdbcType=TINYINT},
+					   </if>
+					   <if test="item.levelExperience!=null ">
+							f_level_experience = #{item.levelExperience,jdbcType=INTEGER},
+						</if>
+			   </trim>
+            </set>
+             where f_number = #{item.number}
+     </foreach>
+</update>         
+
+<update id="deleteBatch" parameterType="Object">
+		update t_sale_user_info
+		<set>
+			f_del_status = 1
+		</set>
+		<where>
+			<foreach item="item" index="index" collection="array"  open="(" separator="or" close=") ">
+				  f_number  = #{item}
+			</foreach>
+		</where>
+</update>  
+    
+ <sql id="Base_Condition">
+		<if test=" null != number and ''!= number  ">
+				AND	T.f_number = #{number}
+		</if>
+		   <if test=" null != name and ''!= name  ">
+				AND	T.f_name = #{name}
+		</if>
+		   <if test=" null != email and ''!= email  ">
+				AND	T.f_email = #{email}
+		</if>
+		   <if test=" null != mobile and ''!= mobile  ">
+				AND	T.f_mobile = #{mobile}
+		</if>
+		   <if test=" null != qrcode and ''!= qrcode  ">
+				AND	T.f_qrcode = #{qrcode}
+		</if>
+		   <if test=" null != idcard and ''!= idcard  ">
+				AND	T.f_idcard = #{idcard}
+		</if>
+		   <if test=" null != headImage ">
+				AND	T.f_head_image = #{headImage}
+		</if>
+		   <if test=" null != password and ''!= password  ">
+				AND	T.f_password = #{password}
+		</if>
+		   <if test=" null != signPwd and ''!= signPwd  ">
+				AND	T.f_sign_pwd = #{signPwd}
+		</if>
+		   <if test=" null != parentId and ''!= parentId  ">
+				AND	T.f_parent_id = #{parentId}
+		</if>
+		   <if test=" null != isLock ">
+				AND	T.f_is_lock = #{isLock}
+		</if>
+		   <if test=" null != remark and ''!= remark  ">
+				AND	T.f_remark = #{remark}
+		</if>
+		   <if test=" null != department and ''!= department  ">
+				AND	T.f_department = #{department}
+		</if>
+		   <if test=" null != customerId and ''!= customerId  ">
+				AND	T.f_customer_id = #{customerId}
+		</if>
+		   <if test=" null != settlementType ">
+				AND	T.f_settlement_type = #{settlementType}
+		</if>
+		   <if test=" null != enable ">
+				AND	T.f_enable = #{enable}
+		</if>
+		   <if test=" null != ancestor and ''!= ancestor  ">
+				AND	T.f_ancestor = #{ancestor}
+		</if>
+		   <if test=" null != isCfp ">
+				AND	T.f_is_cfp = #{isCfp}
+		</if>
+		   <if test=" null != cfpLevel and ''!= cfpLevel  ">
+				AND	T.f_cfp_level = #{cfpLevel}
+		</if>
+		   <if test=" null != cfpRegTime ">
+				AND	T.f_cfp_reg_time = #{cfpRegTime}
+		</if>
+		   <if test=" null != cfpBenormalTime ">
+				AND	T.f_cfp_benormal_time = #{cfpBenormalTime}
+		</if>
+		   <if test=" null != cfpUpdateTime ">
+				AND	T.f_cfp_update_time = #{cfpUpdateTime}
+		</if>
+		   <if test=" null != isPartner ">
+				AND	T.f_is_partner = #{isPartner}
+		</if>
+		   <if test=" null != partnerLevel and ''!= partnerLevel  ">
+				AND	T.f_partner_level = #{partnerLevel}
+		</if>
+		   <if test=" null != partnerRegTime ">
+				AND	T.f_partner_reg_time = #{partnerRegTime}
+		</if>
+		   <if test=" null != partnerUpTime ">
+				AND	T.f_partner_up_time = #{partnerUpTime}
+		</if>
+		   <if test=" null != createTime ">
+				AND	T.f_create_time = #{createTime}
+		</if>
+		   <if test=" null != updateTime ">
+				AND	T.f_update_time = #{updateTime}
+		</if>
+		   <if test=" null != delStatus ">
+				AND	T.f_del_status = #{delStatus}
+		</if>
+		<if test=" null != type ">
+				AND	T.f_type = #{type}
+		</if>
+		<if test=" null != levelExperience ">
+				AND	T.f_level_experience = #{levelExperience}
+		</if>
+ </sql>    
+<select id="list" resultMap="SaleUserInfoResultMap"  >
+		SELECT 
+		ue.f_easemob_acct, ue.f_easemob_password,ue.f_status as f_easemob_status,
+		<include refid="Base_Column_List_T" />
+		FROM t_sale_user_info t 
+		left join t_user_easemob ue on(t.f_customer_id=ue.f_customer_id and ue.f_type=1)
+		 WHERE 1=1
+		<include refid="Base_Condition" />
+</select>
+
+<select id="query" resultMap="SaleUserInfoResultMap"  >
+		SELECT 
+		<include refid="Base_Column_List" /> 
+		FROM t_sale_user_info T WHERE 1=1
+		<include refid="Base_Condition" />
+</select>
+
+<select id="findNewWealthUser" resultMap="SaleUserInfoResultMap"  >
+		select 
+		<include refid="Base_Column_List_T" />
+		 from torginfo a,t_sale_user_info T
+			where a.fnumber = T.f_department
+			  and EXISTS (select fnumber from torginfo where fname = '新财富管理公司' and  (a.fancestor like concat(fnumber,'%') or a.fnumber = fnumber) 
+		)
+		<include refid="Base_Condition" />
+</select>
+
+<select id="queryCandividendList" resultMap="SaleUserInfoResultMap">
+<![CDATA[	SELECT 
+	  s.f_name,
+	  s.f_number,
+	  s.f_mobile,
+	  s.f_customer_id 
+	FROM
+	  t_sale_user_info s 
+	WHERE s.f_del_status = 0 
+	  AND s.f_is_cfp = 1 
+	  AND s.f_cfp_level <> 'PROBATION' 
+	  AND s.f_mobile IN  
+	  (SELECT 
+	    fsaleusernumber 
+	  FROM
+	    (SELECT 
+	      SUM(r.fpuramount) totalbuy,r.fsaleusernumber 
+	    FROM
+	      trecvrequest r 
+	    WHERE FLOOR(
+	        HOUR(TIMEDIFF(NOW(), r.fbizdate)) / 24
+	      ) < 30 
+	      AND r.fdelstatus = 0 AND r.fbiznumber <> 0002 AND r.foptype =2 
+	     GROUP BY r.fsaleusernumber
+	      ) a 
+	  WHERE a.totalbuy > 1000)
+	AND EXISTS (
+		SELECT 1 FROM tusercustomerrel uc WHERE FLOOR(
+	        HOUR(TIMEDIFF(NOW(), uc.frectlogintime)) / 24
+	      ) < 7 AND uc.fcustomerid = s.f_customer_id 
+	) ]]>
+</select>
+
+<!-- 查理财师下属一级 -->
+<select id="queryLevelOneLcs"  resultType="String">
+	 <![CDATA[
+		SELECT
+			f_mobile
+		FROM
+			t_sale_user_info
+		WHERE
+			f_parent_id = #{saleusernumber}
+	]]>
+</select>
+
+<select id="queryParentByMobile" resultMap="SaleUserInfoResultMap"  >
+		SELECT 
+		<include refid="Base_Column_List" /> 
+		FROM t_sale_user_info T WHERE T.f_number=(select f_parent_id from t_sale_user_info s where s.f_mobile=#{eventCfpmobile})
+		
+</select>
+<update id="beFreeCfp" parameterType="Object">
+		update t_sale_user_info
+		<set>
+			f_department='99999999'
+		</set>
+		<where>
+			<foreach item="item" index="index" collection="array"  open="(" separator="or" close=") ">
+				  f_mobile  = #{item}
+			</foreach>
+		</where>
+</update>
+
+<update id="beXcfCfp"  >
+		update t_sale_user_info
+		<set>
+			f_department = #{0}
+		</set>
+		<where>
+			f_mobile  = #{1}
+		</where>
+</update>  
+<delete id="phDeleteByNumber" >
+		delete from  t_sale_user_info
+		<where>
+			f_number = #{0}
+		</where>
+</delete>  
+
+ <insert id="backSaleUserByNumber" >
+	INSERT INTO t_sale_user_info_bak SELECT
+	*
+	FROM
+	t_sale_user_info
+	WHERE
+	f_number =  #{0}
+</insert> 
+<!-- 理财师是否已经锁定 -->
+<select id="queryIsLocked" resultType="int">    
+ <![CDATA[
+   select f_locked from t_sale_user_info
+	where f_mobile=#{mobile}
+ ]]>
+</select>
+
+<!-- 理财师是否已经锁定 -->
+<select id="listUserList" resultMap="SaleUserInfoResultMap">    
+   select * from t_sale_user_info
+	where 1=1 and f_is_cfp=1
+</select>
+
+<select id="queryLscByInvestMobile" resultMap="SaleUserInfoResultMap"  >
+	SELECT * FROM t_sale_user_info  WHERE f_number=(select fcurrsaleuser from tusercustomerrel  where fcustomermobile=#{mobile})
+</select>
+
+<!--  更新用户实名 -->
+<update id="updateRealName" >
+ update t_sale_user_info set f_name=#{name} where f_mobile = #{mobile}
+</update>
+
+<!--  禁止用户登录时间 -->
+<update id="disabledLogin90days" >
+ update t_sale_user_info set f_disabled_login_time=CURRENT_TIMESTAMP() where f_mobile = #{mobile}
+</update>
+
+<!-- 查询禁止登录90天开始时间 -->
+<select id="queryDisabledLoginTime"  resultType="java.util.Date" >
+	SELECT f_disabled_login_time FROM t_sale_user_info  WHERE f_mobile=#{mobile};
+</select>
+
+<sql id="pageSql">
+		LIMIT #{startPageIndex},#{pageSize}
+</sql>
+	
+<!-- 查询所有理财师信息 -->
+<select id="getAllSaleInfo" resultMap="SaleUserInfoResultMap">
+	SELECT <include refid="Base_Column_List" /> FROM t_sale_user_info
+	WHERE f_is_cfp = 1
+	<if test=" null != cfpLevelList and ''!= cfpLevelList ">
+		AND	f_cfp_level IN
+		<foreach item="cfpLevel" index="index" collection="cfpLevelList"  open="(" separator="," close=")">
+				 '${cfpLevel}'
+		</foreach>
+		
+	</if>
+	<include refid="pageSql" /> <!-- 导入分页sql -->
+</select>
+
+<!-- 查询所有理财师总人数 -->
+<select id="getAllSaleCounts" resultType="int">
+	SELECT IFNULL(COUNT(1),0) FROM t_sale_user_info
+	WHERE f_is_cfp = 1
+	<if test=" null != cfpLevelList and ''!= cfpLevelList ">
+		AND	f_cfp_level IN
+		<foreach item="cfpLevel" index="index" collection="cfpLevelList"  open="(" separator="," close=")">
+				 '${cfpLevel}'
+		</foreach>
+	</if>
+</select>
+	
+</mapper>

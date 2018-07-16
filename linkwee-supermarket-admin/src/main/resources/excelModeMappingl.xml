@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<models>
+	<model class="com.linkwee.act.redpacket.model.RedpacketImportModel">
+		<property name="mobile"  excelTitleName="手机号码"  dataType="mobile"   />
+	</model>
+	
+	<model class="com.linkwee.web.model.crm.SalesOrgCfpImport">
+		<property name="mobile"  excelTitleName="手机号码"  dataType="mobile"    />
+	</model>
+	
+	<model class="com.linkwee.web.model.crm.RewardDataImport">
+		<property name="mobile"  excelTitleName="手机号码"  dataType="mobile"    />
+		<property name="amount"  excelTitleName="金额"  dataType="BigDecimal"   />
+	</model>
+	
+	<model class="com.linkwee.web.model.crm.BatchChangeGrade">
+		<property name="mobile"  excelTitleName="手机号码"  dataType="mobile"    />
+		<property name="grade"  excelTitleName="职级"  dataType="String"   />
+	</model>
+	
+	<model class="com.linkwee.web.model.crm.ActJobGradeVoucher">
+		<property name="mobile"  excelTitleName="手机号码"  dataType="mobile"    />
+	</model>
+	
+	<model class="com.linkwee.web.model.cim.RechargeLimitImport">
+		<property name="bank"  excelTitleName="支持银行"  dataType="String"    />
+		<property name="orderLimit"  excelTitleName="单笔限额（元）"  dataType="String"   />
+		<property name="dayLimit"  excelTitleName="单卡每日限额（元）"  dataType="String"    />
+	</model>
+	
+	<!-- <model class="com.linkwee.act.rankList.model.ActZybRanklistVirtualDetail">
+		<property name="headImg"  excelTitleName="头像"     />
+		<property name="userMobile"  excelTitleName="手机号"     />
+		<property name="userName"  excelTitleName="姓名"     />
+		<property name="activityProfit"  excelTitleName="活动奖励"  dataType="int"   />
+		<property name="maxTotalProfit"  excelTitleName="最大收益"  dataType="int"    />
+		<property name="minTotalProfit"  excelTitleName="最小收益"  dataType="int"    />
+	</model> -->
+
+	<model class="com.linkwee.act.personAddfeeTicket.model.AddFeeTicketImportModel">
+		<property name="mobile"  excelTitleName="手机号码"  dataType="mobile"   />
+	</model>
+	
+	<model class="com.linkwee.web.model.cim.CimProductPayImport">
+		<property name="mobile"  excelTitleName="手机号码"  dataType="mobile"   />
+		<property name="orgNumber"  excelTitleName="投资平台"  dataType="String"   />
+		<property name="productDeadLineValue"  excelTitleName="产品期限(天)"  dataType="int"   />
+		<property name="investAmt"  excelTitleName="投资金额"  dataType="BigDecimal"   />
+		<property name="feeAmt"  excelTitleName="返现金额"  dataType="BigDecimal"   />
+		<property name="investTime"  excelTitleName="投资时间"  dataType="Date"   />
+	</model>
+	
+	
+	
+</models>

@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.SystemConfigDao">
+<parameterMap type="com.linkwee.web.model.SystemConfig" id="SystemConfigParameterMap" />	
+<!-- Result Map-->
+<resultMap  type="com.linkwee.web.model.SystemConfig" id="SystemConfigResultMap">
+	<result column="f_id" property="id" jdbcType="INTEGER"/>
+	<result column="f_name" property="name" jdbcType="VARCHAR"/>
+	<result column="f_type" property="type" jdbcType="VARCHAR"/>
+	<result column="f_key" property="key" jdbcType="VARCHAR"/>
+	<result column="f_value" property="value" jdbcType="VARCHAR"/>
+	<result column="f_remark" property="remark" jdbcType="VARCHAR"/>
+	<result column="f_crt_time" property="crtTime" jdbcType="TIMESTAMP"/>
+	<result column="f_app_type" property="appType" jdbcType="INTEGER"/>
+</resultMap>
+  <sql id="Base_Column_List">
+    <trim suffixOverrides=",">
+	    	f_id,
+	    	f_name,
+	    	f_type,
+	    	f_key,
+	    	f_value,
+	    	f_remark,
+	    	f_crt_time,
+	    	f_app_type,
+    </trim>
+  </sql>  
+  
+   <sql id="Base_Column_List_T">
+    <trim suffixOverrides=",">
+	    	t.f_id,
+	    	t.f_name,
+	    	t.f_type,
+	    	t.f_key,
+	    	t.f_value,
+	    	t.f_remark,
+	    	t.f_crt_time,
+	    	t.f_app_type,
+    </trim>
+  </sql> 
+  	
+  <select id="getByPrimaryKey"  resultMap="SystemConfigResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_system_config_new where  f_id = #{0}
+  </select>	
+
+  <delete id="deleteByPrimaryKey" >
+    delete from t_system_config_new
+	<where>
+		f_id = #{0}
+	</where>
+  </delete>
+  
+  
+  <insert id="add" parameterMap="SystemConfigParameterMap" useGeneratedKeys="true" keyProperty="id" >
+		INSERT INTO t_system_config_new
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					f_id,
+				</if>
+			 	<if test=" null != name and ''!= name  ">
+					f_name,
+				</if>
+			 	<if test=" null != type and ''!= type  ">
+					f_type,
+				</if>
+			 	<if test=" null != key and ''!= key  ">
+					f_key,
+				</if>
+			 	<if test=" null != value and ''!= value  ">
+					f_value,
+				</if>
+			 	<if test=" null != remark and ''!= remark  ">
+					f_remark,
+				</if>
+			 	<if test=" null != crtTime ">
+					f_crt_time,
+				</if>
+			 	<if test=" null != appType ">
+					f_app_type,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != name and ''!= name  ">
+					 	#{name},
+				</if>
+			 	<if test=" null != type and ''!= type  ">
+					 	#{type},
+				</if>
+			 	<if test=" null != key and ''!= key  ">
+					 	#{key},
+				</if>
+			 	<if test=" null != value and ''!= value  ">
+					 	#{value},
+				</if>
+			 	<if test=" null != remark and ''!= remark  ">
+					 	#{remark},
+				</if>
+			 	<if test=" null != crtTime ">
+					 	#{crtTime},
+				</if>
+			 	<if test=" null != appType ">
+					 	#{appType},
+				</if>
+		</trim>
+	</insert>
+  
+  
+  <update id="update" parameterMap="SystemConfigParameterMap">
+		UPDATE t_system_config_new
+		<set>
+			<trim suffixOverrides=",">
+					<if test=" null != name and ''!= name  ">
+						f_name = #{name},
+					</if>
+					<if test=" null != type and ''!= type  ">
+						f_type = #{type},
+					</if>
+					<if test=" null != key and ''!= key  ">
+						f_key = #{key},
+					</if>
+					<if test=" null != value and ''!= value  ">
+						f_value = #{value},
+					</if>
+					<if test=" null != remark and ''!= remark  ">
+						f_remark = #{remark},
+					</if>
+					<if test=" null != crtTime ">
+						f_crt_time = #{crtTime},
+					</if>
+					<if test=" null != appType ">
+						f_app_type = #{appType},
+					</if>
+			</trim>
+		</set>
+		<where>
+			 f_id = #{id}
+		</where>
+	</update>
+  
+  
+   <update id="updateWithEmpty" parameterMap="SystemConfigParameterMap">
+		UPDATE t_system_config_new
+		<set>
+			<trim suffixOverrides=",">
+						f_name = #{name},
+						f_type = #{type},
+						f_key = #{key},
+						f_value = #{value},
+						f_remark = #{remark},
+						f_crt_time = #{crtTime},
+						f_app_type = #{appType},
+			</trim>
+		</set>
+		<where>
+			 f_id = #{id}
+		</where>
+	</update>
+
+  <insert id="addBatch" parameterType="java.util.List">
+	insert into t_system_config_new 
+	<trim prefix="(" suffix=")" >
+			<include refid="Base_Column_List" />
+	</trim>
+	VALUES
+	<foreach item="item" index="index" collection="list" separator=",">
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+				#{item.id,jdbcType=INTEGER},
+				#{item.name,jdbcType=VARCHAR},
+				#{item.type,jdbcType=VARCHAR},
+				#{item.key,jdbcType=VARCHAR},
+				#{item.value,jdbcType=VARCHAR},
+				#{item.remark,jdbcType=VARCHAR},
+				#{item.crtTime,jdbcType=TIMESTAMP},
+				#{item.appType,jdbcType=INTEGER},
+		</trim>
+	</foreach>
+</insert>
+
+ 
+<update id="updateBatch" parameterType="java.util.List">
+      <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update t_system_config_new
+            <set>
+              	<trim suffixOverrides=",">
+					   <if test="item.name!=null and ''!= item.name  ">
+					        f_name = #{item.name,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.type!=null and ''!= item.type  ">
+					        f_type = #{item.type,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.key!=null and ''!= item.key  ">
+					        f_key = #{item.key,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.value!=null and ''!= item.value  ">
+					        f_value = #{item.value,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.remark!=null and ''!= item.remark  ">
+					        f_remark = #{item.remark,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.crtTime!=null ">
+					        f_crt_time = #{item.crtTime,jdbcType=TIMESTAMP},
+					   </if>
+					   <if test="item.appType!=null ">
+					        f_app_type = #{item.appType,jdbcType=INTEGER},
+					   </if>
+			   </trim>
+            </set>
+             where f_id = #{item.id}
+     </foreach>
+</update>
+
+<update id="updateBatchWithEmpty" parameterType="java.util.List">
+      <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update t_system_config_new
+            <set>
+              	<trim suffixOverrides=",">
+					        f_name = #{item.name,jdbcType=VARCHAR},
+					        f_type = #{item.type,jdbcType=VARCHAR},
+					        f_key = #{item.key,jdbcType=VARCHAR},
+					        f_value = #{item.value,jdbcType=VARCHAR},
+					        f_remark = #{item.remark,jdbcType=VARCHAR},
+					        f_crt_time = #{item.crtTime,jdbcType=TIMESTAMP},
+					        f_app_type = #{item.appType,jdbcType=INTEGER},
+			   </trim>
+            </set>
+             where f_id = #{item.id}
+     </foreach>
+</update>         
+
+<delete id="deleteBatch" parameterType="Object">
+	DELETE FROM t_system_config_new
+	<where>
+		<foreach item="item" index="index" collection="array"  open="(" separator="or" close=") ">
+			  f_id  = #{item}
+		</foreach>
+	</where>
+</delete>
+    
+ <sql id="Base_Condition">
+		   <if test=" null != id ">
+				AND	T.f_id = #{id}
+		</if>
+		   <if test=" null != name and ''!= name  ">
+				AND	T.f_name = #{name}
+		</if>
+		   <if test=" null != type and ''!= type  ">
+				AND	T.f_type = #{type}
+		</if>
+		   <if test=" null != key and ''!= key  ">
+				AND	T.f_key = #{key}
+		</if>
+		   <if test=" null != value and ''!= value  ">
+				AND	T.f_value = #{value}
+		</if>
+		   <if test=" null != remark and ''!= remark  ">
+				AND	T.f_remark = #{remark}
+		</if>
+		   <if test=" null != crtTime ">
+				AND	T.f_crt_time = #{crtTime}
+		</if>
+		   <if test=" null != appType ">
+				AND	T.f_app_type = #{appType}
+		</if>
+ </sql>    
+<select id="list" resultMap="SystemConfigResultMap"  >
+		SELECT <include refid="Base_Column_List" /> FROM t_system_config_new T WHERE 1=1
+		<include refid="Base_Condition" />
+</select>
+
+<select id="query" resultMap="SystemConfigResultMap"  >
+		SELECT <include refid="Base_Column_List" /> FROM t_system_config_new T WHERE 1=1
+		<include refid="Base_Condition" />
+</select>
+
+</mapper>

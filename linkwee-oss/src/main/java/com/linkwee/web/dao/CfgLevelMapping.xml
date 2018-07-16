@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.CfgLevelDao">
+<parameterMap type="com.linkwee.web.model.CfgLevel" id="CfgLevelParameterMap" />	
+<!-- Result Map-->
+<resultMap  type="com.linkwee.web.model.CfgLevel" id="CfgLevelResultMap">
+	<result column="f_id" property="id" jdbcType="INTEGER"/>
+	<result column="f_code" property="code" jdbcType="VARCHAR"/>
+	<result column="f_name" property="name" jdbcType="VARCHAR"/>
+	<result column="f_target" property="target" jdbcType="DOUBLE"/>
+	<result column="f_target_text" property="targetText" jdbcType="VARCHAR"/>
+	<result column="f_allowance" property="allowance" jdbcType="DOUBLE"/>
+	<result column="f_sort" property="sort" jdbcType="INTEGER"/>
+</resultMap>
+  <sql id="Base_Column_List">
+    <trim suffixOverrides=",">
+	    	f_id,
+	    	f_code,
+	    	f_name,
+	    	f_target,
+	    	f_target_text,
+	    	f_allowance,
+	    	f_sort,
+    </trim>
+  </sql>  
+   <sql id="Base_Column_List_T">
+    <trim suffixOverrides=",">
+	    	t.f_id,
+	    	t.f_code,
+	    	t.f_name,
+	    	t.f_target,
+	    	t.f_target_text,
+	    	t.f_allowance,
+	    	t.f_sort,
+    </trim>
+  </sql>  
+  	
+  <select id="getByPrimaryKey"  resultMap="CfgLevelResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_cfg_level where  f_id = #{0}
+  </select>	
+  
+
+ <update id="deleteByPrimaryKey" >
+		update t_cfg_level
+		<set>
+			f_del_status = 1
+		</set>
+		<where>
+			f_id = #{0}
+		</where>
+</update>  
+  
+  
+  <insert id="add" parameterMap="CfgLevelParameterMap" >
+		INSERT INTO t_cfg_level
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					f_id,
+				</if>
+			 	<if test=" null != code and ''!= code  ">
+					f_code,
+				</if>
+			 	<if test=" null != name and ''!= name  ">
+					f_name,
+				</if>
+			 	<if test=" null != target ">
+					f_target,
+				</if>
+			 	<if test=" null != targetText and ''!= targetText  ">
+					f_target_text,
+				</if>
+			 	<if test=" null != allowance ">
+					f_allowance,
+				</if>
+			 	<if test=" null != sort ">
+					f_sort,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != code and ''!= code  ">
+					 	#{code},
+				</if>
+			 	<if test=" null != name and ''!= name  ">
+					 	#{name},
+				</if>
+			 	<if test=" null != target ">
+					 	#{target},
+				</if>
+			 	<if test=" null != targetText and ''!= targetText  ">
+					 	#{targetText},
+				</if>
+			 	<if test=" null != allowance ">
+					 	#{allowance},
+				</if>
+			 	<if test=" null != sort ">
+					 	#{sort},
+				</if>
+		</trim>
+	</insert>
+  
+  
+  <update id="update" parameterMap="CfgLevelParameterMap">
+		UPDATE t_cfg_level
+		<set>
+			<trim suffixOverrides=",">
+					<if test=" null != code and ''!= code  ">
+						f_code = #{code},
+					</if>
+					<if test=" null != name and ''!= name  ">
+						f_name = #{name},
+					</if>
+					<if test=" null != target ">
+						f_target = #{target},
+					</if>
+					<if test=" null != targetText and ''!= targetText  ">
+						f_target_text = #{targetText},
+					</if>
+					<if test=" null != allowance ">
+						f_allowance = #{allowance},
+					</if>
+					<if test=" null != sort ">
+						f_sort = #{sort},
+					</if>
+			</trim>
+		</set>
+		<where>
+			 f_id = #{id}
+		</where>
+	</update>
+  
+
+  <insert id="addBatch" parameterType="java.util.List">
+	insert into t_cfg_level 
+	<trim prefix="(" suffix=")" >
+			<include refid="Base_Column_List" />
+	</trim>
+	VALUES
+	<foreach item="item" index="index" collection="list" separator=",">
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+				 #{item.id,jdbcType=INTEGER}, #{item.code,jdbcType=VARCHAR}, #{item.name,jdbcType=VARCHAR}, #{item.target,jdbcType=DOUBLE}, #{item.targetText,jdbcType=VARCHAR}, #{item.allowance,jdbcType=DOUBLE}, #{item.sort,jdbcType=INTEGER},
+		</trim>
+	</foreach>
+</insert>
+
+ 
+<update id="updateBatch" parameterType="java.util.List">
+      <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update t_cfg_level
+            <set>
+              	<trim suffixOverrides=",">
+					   <if test="item.code!=null and ''!= item.code  ">
+					        f_code = #{item.code,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.name!=null and ''!= item.name  ">
+					        f_name = #{item.name,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.target!=null ">
+					        f_target = #{item.target,jdbcType=DOUBLE},
+					   </if>
+					   <if test="item.targetText!=null and ''!= item.targetText  ">
+					        f_target_text = #{item.targetText,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.allowance!=null ">
+					        f_allowance = #{item.allowance,jdbcType=DOUBLE},
+					   </if>
+					   <if test="item.sort!=null ">
+					        f_sort = #{item.sort,jdbcType=INTEGER},
+					   </if>
+			   </trim>
+            </set>
+             where f_id = #{item.id}
+     </foreach>
+</update>         
+
+<update id="deleteBatch" parameterType="Object">
+		update t_cfg_level
+		<set>
+			f_del_status = 1
+		</set>
+		<where>
+			<foreach item="item" index="index" collection="array"  open="(" separator="or" close=") ">
+				  f_id  = #{item}
+			</foreach>
+		</where>
+</update>  
+    
+ <sql id="Base_Condition">
+		   <if test=" null != id ">
+				AND	T.f_id = #{id}
+		</if>
+		   <if test=" null != code and ''!= code  ">
+				AND	T.f_code = #{code}
+		</if>
+		   <if test=" null != name and ''!= name  ">
+				AND	T.f_name = #{name}
+		</if>
+		   <if test=" null != target ">
+				AND	T.f_target = #{target}
+		</if>
+		   <if test=" null != targetText and ''!= targetText  ">
+				AND	T.f_target_text = #{targetText}
+		</if>
+		   <if test=" null != allowance ">
+				AND	T.f_allowance = #{allowance}
+		</if>
+		   <if test=" null != sort ">
+				AND	T.f_sort = #{sort}
+		</if>
+ </sql>    
+<select id="list" resultMap="CfgLevelResultMap"  >
+		SELECT <include refid="Base_Column_List" /> FROM t_cfg_level T WHERE 1=1
+		<include refid="Base_Condition" />
+</select>
+
+<select id="query" resultMap="CfgLevelResultMap"  >
+		SELECT <include refid="Base_Column_List" /> FROM t_cfg_level T WHERE 1=1
+		<include refid="Base_Condition" />
+</select>
+
+<select id="queryAllCfgLevel" resultMap="CfgLevelResultMap"  >
+		SELECT <include refid="Base_Column_List" /> FROM t_cfg_level order by f_sort
+</select>
+
+<select id="queryNextLevelByFee" resultMap="CfgLevelResultMap"  >
+	select 
+	<include refid="Base_Column_List_T" />
+	from t_cfg_level t,(select * from t_cfg_level where f_id = #{0}) b
+	where t.f_sort > b.f_sort
+	  and t.f_target*3 > #{1}
+	order by t.f_sort LIMIT 0,1
+</select>
+<select id="queryNextLevel" resultMap="CfgLevelResultMap"  >
+	select 
+	<include refid="Base_Column_List_T" />
+	from t_cfg_level t,(select * from t_cfg_level where f_id = #{0}) b
+	where t.f_sort > b.f_sort
+	order by t.f_sort LIMIT 0,1
+</select>
+</mapper>

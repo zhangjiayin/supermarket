@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.FeePayLogDao" >
+  <parameterMap type="com.linkwee.web.model.fee.FeePayLog" id="FeePayLogParameterMap" />
+  <resultMap type="com.linkwee.web.model.fee.FeePayLog" id="BaseResultMap">
+    <id column="fid" property="fid" jdbcType="INTEGER" />
+    <result column="f_department" property="fDepartment" jdbcType="VARCHAR" />
+    <result column="f_emp_no" property="fEmpNo" jdbcType="VARCHAR" />
+    <result column="f_mobile" property="fMobile" jdbcType="VARCHAR" />
+    <result column="f_name" property="fName" jdbcType="VARCHAR" />
+    <result column="f_fee_amount" property="fFeeAmount" jdbcType="DOUBLE" />
+    <result column="f_bill_number" property="fBillNumber" jdbcType="VARCHAR" />
+    <result column="f_month" property="fMonth" jdbcType="VARCHAR" />
+    <result column="f_sale_user_no" property="fSaleUserNo" jdbcType="VARCHAR" />
+    <result column="f_customer_id" property="fCustomerId" jdbcType="VARCHAR" />
+    <result column="f_result_code" property="fResultCode" jdbcType="INTEGER" />
+    <result column="f_result_msg" property="fResultMsg" jdbcType="VARCHAR" />
+    <result column="f_total_time" property="fTotalTime" jdbcType="INTEGER" />
+    <result column="f_thread_id" property="fThreadId" jdbcType="VARCHAR" />
+    <result column="f_thread_name" property="fThreadName" jdbcType="VARCHAR" />
+    <result column="f_create_time" property="fCreateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    fid, f_department, f_emp_no, f_mobile, f_name, f_fee_amount, f_bill_number, f_month, 
+    f_sale_user_no, f_customer_id, f_result_code, f_result_msg, f_total_time, f_thread_id, 
+    f_thread_name, f_create_time
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 'false' as QUERYID,
+    <include refid="Base_Column_List" /> 
+    from t_fee_pay_log
+    where fid = #{fid,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_fee_pay_log
+    where fid = #{fid,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterMap="FeePayLogParameterMap" >
+    insert into t_fee_pay_log (fid, f_department, f_emp_no, 
+      f_mobile, f_name, f_fee_amount, 
+      f_bill_number, f_month, f_sale_user_no, 
+      f_customer_id, f_result_code, f_result_msg, 
+      f_total_time, f_thread_id, f_thread_name, 
+      f_create_time)
+    values (#{fid,jdbcType=INTEGER}, #{fDepartment,jdbcType=VARCHAR}, #{fEmpNo,jdbcType=VARCHAR}, 
+      #{fMobile,jdbcType=VARCHAR}, #{fName,jdbcType=VARCHAR}, #{fFeeAmount,jdbcType=DOUBLE}, 
+      #{fBillNumber,jdbcType=VARCHAR}, #{fMonth,jdbcType=VARCHAR}, #{fSaleUserNo,jdbcType=VARCHAR}, 
+      #{fCustomerId,jdbcType=VARCHAR}, #{fResultCode,jdbcType=INTEGER}, #{fResultMsg,jdbcType=VARCHAR}, 
+      #{fTotalTime,jdbcType=INTEGER}, #{fThreadId,jdbcType=VARCHAR}, #{fThreadName,jdbcType=VARCHAR}, 
+      #{fCreateTime,jdbcType=TIMESTAMP})
+  </insert>
+  
+  <insert id="add" parameterMap="FeePayLogParameterMap" >
+    insert into t_fee_pay_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fid != null" >
+        fid,
+      </if>
+      <if test="fDepartment != null" >
+        f_department,
+      </if>
+      <if test="fEmpNo != null" >
+        f_emp_no,
+      </if>
+      <if test="fMobile != null" >
+        f_mobile,
+      </if>
+      <if test="fName != null" >
+        f_name,
+      </if>
+      <if test="fFeeAmount != null" >
+        f_fee_amount,
+      </if>
+      <if test="fBillNumber != null" >
+        f_bill_number,
+      </if>
+      <if test="fMonth != null" >
+        f_month,
+      </if>
+      <if test="fSaleUserNo != null" >
+        f_sale_user_no,
+      </if>
+      <if test="fCustomerId != null" >
+        f_customer_id,
+      </if>
+      <if test="fResultCode != null" >
+        f_result_code,
+      </if>
+      <if test="fResultMsg != null" >
+        f_result_msg,
+      </if>
+      <if test="fTotalTime != null" >
+        f_total_time,
+      </if>
+      <if test="fThreadId != null" >
+        f_thread_id,
+      </if>
+      <if test="fThreadName != null" >
+        f_thread_name,
+      </if>
+      <if test="fCreateTime != null" >
+        f_create_time,
+      </if>
+    </trim>
+    
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fid != null" >
+        #{fid,jdbcType=INTEGER},
+      </if>
+      <if test="fDepartment != null" >
+        #{fDepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="fEmpNo != null" >
+        #{fEmpNo,jdbcType=VARCHAR},
+      </if>
+      <if test="fMobile != null" >
+        #{fMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="fName != null" >
+        #{fName,jdbcType=VARCHAR},
+      </if>
+      <if test="fFeeAmount != null" >
+        #{fFeeAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="fBillNumber != null" >
+        #{fBillNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="fMonth != null" >
+        #{fMonth,jdbcType=VARCHAR},
+      </if>
+      <if test="fSaleUserNo != null" >
+        #{fSaleUserNo,jdbcType=VARCHAR},
+      </if>
+      <if test="fCustomerId != null" >
+        #{fCustomerId,jdbcType=VARCHAR},
+      </if>
+      <if test="fResultCode != null" >
+        #{fResultCode,jdbcType=INTEGER},
+      </if>
+      <if test="fResultMsg != null" >
+        #{fResultMsg,jdbcType=VARCHAR},
+      </if>
+      <if test="fTotalTime != null" >
+        #{fTotalTime,jdbcType=INTEGER},
+      </if>
+      <if test="fThreadId != null" >
+        #{fThreadId,jdbcType=VARCHAR},
+      </if>
+      <if test="fThreadName != null" >
+        #{fThreadName,jdbcType=VARCHAR},
+      </if>
+      <if test="fCreateTime != null" >
+        #{fCreateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+</mapper>

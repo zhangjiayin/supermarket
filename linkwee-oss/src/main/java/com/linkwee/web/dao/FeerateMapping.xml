@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.FeerateDao">
+<parameterMap type="com.linkwee.web.model.Feerate" id="FeerateParameterMap" />	
+<!-- Result Map-->
+<resultMap  type="com.linkwee.web.model.Feerate" id="FeerateResultMap">
+	<result column="fnumber" property="number" jdbcType="VARCHAR"/>
+	<result column="fname" property="name" jdbcType="VARCHAR"/>
+	<result column="fbiznumber" property="biznumber" jdbcType="VARCHAR"/>
+	<result column="fproductnumber" property="productnumber" jdbcType="VARCHAR"/>
+	<result column="forgnumber" property="orgnumber" jdbcType="VARCHAR"/>
+	<result column="fminpuramount" property="minpuramount" jdbcType="INTEGER"/>
+	<result column="ffeeratio" property="feeratio" jdbcType="DOUBLE"/>
+	<result column="collect_ratio" property="collectRatio" jdbcType="DOUBLE"/>
+	<result column="ftriggertype" property="triggertype" jdbcType="TINYINT"/>
+	<result column="ftype" property="type" jdbcType="TINYINT"/>
+	<result column="fenable" property="enable" jdbcType="TINYINT"/>
+	<result column="fcreatetime" property="createtime" jdbcType="TIMESTAMP"/>
+	<result column="fupdatetime" property="updatetime" jdbcType="TIMESTAMP"/>
+	<result column="fdelstatus" property="delstatus" jdbcType="TINYINT"/>
+</resultMap>
+  <sql id="Base_Column_List">
+    <trim suffixOverrides=",">
+	    	fnumber,
+	    	fname,
+	    	fbiznumber,
+	    	fproductnumber,
+	    	forgnumber,
+	    	fminpuramount,
+	    	ffeeratio,
+	    	collect_ratio,
+	    	ftriggertype,
+	    	ftype,
+	    	fenable,
+	    	fcreatetime,
+	    	fupdatetime,
+	    	fdelstatus,
+    </trim>
+  </sql>  
+  
+   <sql id="Base_Column_List_T">
+    <trim suffixOverrides=",">
+	    	t.fnumber,
+	    	t.fname,
+	    	t.fbiznumber,
+	    	t.fproductnumber,
+	    	t.forgnumber,
+	    	t.fminpuramount,
+	    	t.ffeeratio,
+	    	t.collect_ratio,
+	    	t.ftriggertype,
+	    	t.ftype,
+	    	t.fenable,
+	    	t.fcreatetime,
+	    	t.fupdatetime,
+	    	t.fdelstatus,
+    </trim>
+  </sql> 
+  	
+  <select id="getByPrimaryKey"  resultMap="FeerateResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tfeerate where  fnumber = #{0}
+  </select>	
+
+  <delete id="deleteByPrimaryKey" >
+    delete from tfeerate
+	<where>
+		fnumber = #{0}
+	</where>
+  </delete>
+  
+  
+  <insert id="add" parameterMap="FeerateParameterMap" useGeneratedKeys="true" keyProperty="number" >
+		INSERT INTO tfeerate
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != number and ''!= number  ">
+					fnumber,
+				</if>
+			 	<if test=" null != name and ''!= name  ">
+					fname,
+				</if>
+			 	<if test=" null != biznumber and ''!= biznumber  ">
+					fbiznumber,
+				</if>
+			 	<if test=" null != productnumber and ''!= productnumber  ">
+					fproductnumber,
+				</if>
+			 	<if test=" null != orgnumber and ''!= orgnumber  ">
+					forgnumber,
+				</if>
+			 	<if test=" null != minpuramount ">
+					fminpuramount,
+				</if>
+			 	<if test=" null != feeratio ">
+					ffeeratio,
+				</if>
+				<if test=" null != collectRatio ">
+					collect_ratio,
+				</if>
+			 	<if test=" null != triggertype ">
+					ftriggertype,
+				</if>
+			 	<if test=" null != type ">
+					ftype,
+				</if>
+			 	<if test=" null != enable ">
+					fenable,
+				</if>
+			 	<if test=" null != createtime ">
+					fcreatetime,
+				</if>
+			 	<if test=" null != updatetime ">
+					fupdatetime,
+				</if>
+			 	<if test=" null != delstatus ">
+					fdelstatus,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != number and ''!= number  ">
+					 	#{number},
+				</if>
+			 	<if test=" null != name and ''!= name  ">
+					 	#{name},
+				</if>
+			 	<if test=" null != biznumber and ''!= biznumber  ">
+					 	#{biznumber},
+				</if>
+			 	<if test=" null != productnumber and ''!= productnumber  ">
+					 	#{productnumber},
+				</if>
+			 	<if test=" null != orgnumber and ''!= orgnumber  ">
+					 	#{orgnumber},
+				</if>
+			 	<if test=" null != minpuramount ">
+					 	#{minpuramount},
+				</if>
+			 	<if test=" null != feeratio ">
+					 	#{feeratio},
+				</if>
+				<if test=" null != collectRatio ">
+					 	#{collectRatio},
+				</if>
+				
+			 	<if test=" null != triggertype ">
+					 	#{triggertype},
+				</if>
+			 	<if test=" null != type ">
+					 	#{type},
+				</if>
+			 	<if test=" null != enable ">
+					 	#{enable},
+				</if>
+			 	<if test=" null != createtime ">
+					 	#{createtime},
+				</if>
+			 	<if test=" null != updatetime ">
+					 	#{updatetime},
+				</if>
+			 	<if test=" null != delstatus ">
+					 	#{delstatus},
+				</if>
+		</trim>
+	</insert>
+  
+  
+  <update id="update" parameterMap="FeerateParameterMap">
+		UPDATE tfeerate
+		<set>
+			<trim suffixOverrides=",">
+					<if test=" null != name and ''!= name  ">
+						fname = #{name},
+					</if>
+					<if test=" null != biznumber and ''!= biznumber  ">
+						fbiznumber = #{biznumber},
+					</if>
+					<!-- <if test=" null != productnumber and ''!= productnumber  ">
+						fproductnumber = #{productnumber},
+					</if> -->
+					<if test=" null != orgnumber and ''!= orgnumber  ">
+						forgnumber = #{orgnumber},
+					</if>
+					<if test=" null != minpuramount ">
+						fminpuramount = #{minpuramount},
+					</if>
+					<if test=" null != feeratio ">
+						ffeeratio = #{feeratio},
+					</if>
+					<if test=" null != collectRatio ">
+						collect_ratio = #{collectRatio},
+					</if>
+					<if test=" null != triggertype ">
+						ftriggertype = #{triggertype},
+					</if>
+					<if test=" null != type ">
+						ftype = #{type},
+					</if>
+					<if test=" null != enable ">
+						fenable = #{enable},
+					</if>
+					<if test=" null != createtime ">
+						fcreatetime = #{createtime},
+					</if>
+					<if test=" null != updatetime ">
+						fupdatetime = #{updatetime},
+					</if>
+					<if test=" null != delstatus ">
+						fdelstatus = #{delstatus},
+					</if>
+			</trim>
+		</set>
+		<where>
+			 fproductnumber = #{productnumber}
+		</where>
+	</update>
+  
+
+  <insert id="addBatch" parameterType="java.util.List">
+	insert into tfeerate 
+	<trim prefix="(" suffix=")" >
+			<include refid="Base_Column_List" />
+	</trim>
+	VALUES
+	<foreach item="item" index="index" collection="list" separator=",">
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+				 #{item.number,jdbcType=VARCHAR}, #{item.name,jdbcType=VARCHAR}, #{item.biznumber,jdbcType=VARCHAR}, #{item.productnumber,jdbcType=VARCHAR}, #{item.orgnumber,jdbcType=VARCHAR}, #{item.minpuramount,jdbcType=INTEGER}, #{item.feeratio,jdbcType=DOUBLE},#{item.collectRatio,jdbcType=DOUBLE}, #{item.triggertype,jdbcType=TINYINT}, #{item.type,jdbcType=TINYINT}, #{item.enable,jdbcType=TINYINT}, #{item.createtime,jdbcType=TIMESTAMP}, #{item.updatetime,jdbcType=TIMESTAMP}, #{item.delstatus,jdbcType=TINYINT},
+		</trim>
+	</foreach>
+</insert>
+
+ 
+<update id="updateBatch" parameterType="java.util.List">
+      <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update tfeerate
+            <set>
+              	<trim suffixOverrides=",">
+					   <if test="item.name!=null and ''!= item.name  ">
+					        fname = #{item.name,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.biznumber!=null and ''!= item.biznumber  ">
+					        fbiznumber = #{item.biznumber,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.productnumber!=null and ''!= item.productnumber  ">
+					        fproductnumber = #{item.productnumber,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.orgnumber!=null and ''!= item.orgnumber  ">
+					        forgnumber = #{item.orgnumber,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.minpuramount!=null ">
+					        fminpuramount = #{item.minpuramount,jdbcType=INTEGER},
+					   </if>
+					   
+					   <if test="item.feeratio!=null ">
+					        ffeeratio = #{item.feeratio,jdbcType=DOUBLE},
+					   </if>
+					   <if test="item.collectRatio!=null ">
+					        collect_ratio = #{item.collectRatio,jdbcType=DOUBLE},
+					   </if>
+					   <if test="item.triggertype!=null ">
+					        ftriggertype = #{item.triggertype,jdbcType=TINYINT},
+					   </if>
+					   <if test="item.type!=null ">
+					        ftype = #{item.type,jdbcType=TINYINT},
+					   </if>
+					   <if test="item.enable!=null ">
+					        fenable = #{item.enable,jdbcType=TINYINT},
+					   </if>
+					   <if test="item.createtime!=null ">
+					        fcreatetime = #{item.createtime,jdbcType=TIMESTAMP},
+					   </if>
+					   <if test="item.updatetime!=null ">
+					        fupdatetime = #{item.updatetime,jdbcType=TIMESTAMP},
+					   </if>
+					   <if test="item.delstatus!=null ">
+					        fdelstatus = #{item.delstatus,jdbcType=TINYINT},
+					   </if>
+			   </trim>
+            </set>
+             where fnumber = #{item.number}
+     </foreach>
+</update>         
+
+<delete id="deleteBatch" parameterType="Object">
+	DELETE FROM tfeerate
+	<where>
+		<foreach item="item" index="index" collection="array"  open="(" separator="or" close=") ">
+			  fnumber  = #{item}
+		</foreach>
+	</where>
+</delete>
+    
+ <sql id="Base_Condition">
+		   <if test=" null != number and ''!= number  ">
+				AND	T.fnumber = #{number}
+		</if>
+		   <if test=" null != name and ''!= name  ">
+				AND	T.fname = #{name}
+		</if>
+		   <if test=" null != biznumber and ''!= biznumber  ">
+				AND	T.fbiznumber = #{biznumber}
+		</if>
+		   <if test=" null != productnumber and ''!= productnumber  ">
+				AND	T.fproductnumber = #{productnumber}
+		</if>
+		   <if test=" null != orgnumber and ''!= orgnumber  ">
+				AND	T.forgnumber = #{orgnumber}
+		</if>
+		   <if test=" null != minpuramount ">
+				AND	T.fminpuramount = #{minpuramount}
+		</if>
+		 <if test=" null != feeratio ">
+				AND	T.ffeeratio = #{feeratio}
+		</if>
+		<if test=" null != collectRatio ">
+				AND	T.collect_ratio = #{collectRatio}
+		</if>
+		   <if test=" null != triggertype ">
+				AND	T.ftriggertype = #{triggertype}
+		</if>
+		   <if test=" null != type ">
+				AND	T.ftype = #{type}
+		</if>
+		   <if test=" null != enable ">
+				AND	T.fenable = #{enable}
+		</if>
+		   <if test=" null != createtime ">
+				AND	T.fcreatetime = #{createtime}
+		</if>
+		   <if test=" null != updatetime ">
+				AND	T.fupdatetime = #{updatetime}
+		</if>
+		   <if test=" null != delstatus ">
+				AND	T.fdelstatus = #{delstatus}
+		</if>
+ </sql>    
+<select id="list" resultMap="FeerateResultMap"  >
+		SELECT <include refid="Base_Column_List" /> FROM tfeerate T WHERE 1=1
+		<include refid="Base_Condition" />
+</select>
+
+<select id="query" resultMap="FeerateResultMap"  >
+		SELECT <include refid="Base_Column_List" /> FROM tfeerate T WHERE 1=1
+		<include refid="Base_Condition" />
+</select>
+
+<!-- 查询产品佣金费率 -->
+<select id="queryProductFeeRate"  resultType="double">
+<!-- fcb20a7c-78eb-4a59-9132-0a0bf1ff0828 -->
+SELECT tfeerate.ffeeratio feeRate FROM `tfeerate` where tfeerate.forgnumber='99999999' and tfeerate.fproductnumber = #{productNumber} and tfeerate.fbiznumber='0003'
+</select>
+
+<!--查所有上级组织里面最低级的级别的佣金率 -->
+<select id="queryFeeRateByProductAnFancestor"  resultType="double" parameterType="HashMap">
+SELECT
+	ffeeratio
+FROM
+	tfeerate
+WHERE
+	fdelstatus = 0
+AND fenable = 1
+AND ftype = 1
+AND fbiznumber = '0001'
+AND fproductnumber = #{productId}
+AND forgnumber IN (#{fancestorStr})
+ORDER BY
+	forgnumber DESC limit 1
+</select>
+
+<!-- 根据理财师编号查理财师上级组织 -->
+<select id="queryFancestorBySaleNumber"  resultType="HashMap" >
+SELECT
+	u.f_department as department,
+	t.fancestor
+FROM
+	torginfo t
+LEFT JOIN t_sale_user_info u ON (u.f_department = t.fnumber)
+WHERE
+	u.f_number = #{saleNumber}
+</select>
+
+ <insert id="orgFeeRatio" >
+	<![CDATA[
+	INSERT INTO tfeerate (fnumber,fname,fbiznumber,fproductnumber,forgnumber,fminpuramount,ffeeratio,collect_ratio,ftriggertype,ftype,fenable,fcreatetime,fupdatetime,fdelstatus) VALUES 
+(right(concat('00000000', nextseq('tfeerate')), 8),'小牛新财富佣金基础','0003',#{productId},'00000002',0,#{feeratio},#{collectRatio},1,2,1,NOW(),NULL,0),
+(right(concat('00000000', nextseq('tfeerate')), 8),'外部基础佣金','0003',#{productId},'00000007',0,#{feeratio},#{collectRatio},1,2,1,NOW(),NULL,0),
+(right(concat('00000000', nextseq('tfeerate')), 8),'证券投资基础佣金','0003',#{productId},'00000006',0,#{feeratio},#{collectRatio},1,2,1,NOW(),NULL,0),
+(right(concat('00000000', nextseq('tfeerate')), 8),'小牛投资管理基础佣金','0003',#{productId},'00000005',0,#{feeratio},#{collectRatio},1,2,1,NOW(),NULL,0),
+(right(concat('00000000', nextseq('tfeerate')), 8),'普惠投资基础佣金','0003',#{productId},'00000004',0,#{feeratio},#{collectRatio},1,2,1,NOW(),NULL,0),
+(right(concat('00000000', nextseq('tfeerate')), 8),'小牛资本管理基础佣金','0003',#{productId},'00000003',0,#{feeratio},#{collectRatio},1,2,1,NOW(),NULL,0),
+(right(concat('00000000', nextseq('tfeerate')), 8),'小牛在线基础佣金','0003',#{productId},'00000008',0,#{feeratio},#{collectRatio},1,2,1,NOW(),NULL,0),
+(right(concat('00000000', nextseq('tfeerate')), 8),'移动互联网事业部基础佣金','0003',#{productId},'00000009',0,#{feeratio},#{collectRatio},1,2,1,NOW(),NULL,0),
+(right(concat('00000000', nextseq('tfeerate')), 8),'兼职业务员','0003',#{productId},'00000010',0,#{feeratio},#{collectRatio},1,2,1,NOW(),NULL,0),
+(right(concat('00000000', nextseq('tfeerate')), 8),'小牛新财富佣金基础','0003',#{productId},'00000002',0,#{feeratio},#{collectRatio},1,1,1,NOW(),NULL,0),
+(right(concat('00000000', nextseq('tfeerate')), 8),'外部基础佣金','0003',#{productId},'00000007',0,#{feeratio},#{collectRatio},1,1,1,NOW(),NULL,0),
+(right(concat('00000000', nextseq('tfeerate')), 8),'证券投资基础佣金','0003',#{productId},'00000006',0,#{feeratio},#{collectRatio},1,1,1,NOW(),NULL,0),
+(right(concat('00000000', nextseq('tfeerate')), 8),'小牛投资管理基础佣金','0003',#{productId},'00000005',0,#{feeratio},#{collectRatio},1,1,1,NOW(),NULL,0),
+(right(concat('00000000', nextseq('tfeerate')), 8),'普惠投资基础佣金','0003',#{productId},'00000004',0,#{feeratio},#{collectRatio},1,1,1,NOW(),NULL,0),
+(right(concat('00000000', nextseq('tfeerate')), 8),'小牛资本管理基础佣金','0003',#{productId},'00000003',0,#{feeratio},#{collectRatio},1,1,1,NOW(),NULL,0),
+(right(concat('00000000', nextseq('tfeerate')), 8),'小牛在线基础佣金','0003',#{productId},'00000008',0,#{feeratio},#{collectRatio},1,1,1,NOW(),NULL,0),
+(right(concat('00000000', nextseq('tfeerate')), 8),'移动互联网事业部基础佣金','0003',#{productId},'00000009',0,#{feeratio},#{collectRatio},1,1,1,NOW(),NULL,0),
+(right(concat('00000000', nextseq('tfeerate')), 8),'兼职业务员','0003',#{productId},'00000010',0,#{feeratio},#{collectRatio},1,1,1,NOW(),NULL,0),
+(right(concat('00000000', nextseq('tfeerate')), 8),'理财师佣金规则','0003',#{productId},'99999999',0,#{feeratio},#{collectRatio},1,1,1,NOW(),NULL,0),
+(right(concat('00000000', nextseq('tfeerate')), 8),'安弗客业务员佣金','0003',#{productId},'00000483',0,#{feeratio},#{collectRatio},1,2,1,NOW(),NULL,0);
+	]]>
+</insert>
+<select id="isExistByProId" resultType="String">
+select t.fnumber from tfeerate t where t.fproductnumber=#{productId} limit 1
+</select>
+
+</mapper>

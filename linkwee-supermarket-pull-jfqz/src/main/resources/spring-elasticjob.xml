@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:reg="http://www.dangdang.com/schema/ddframe/reg"
+    xmlns:job="http://www.dangdang.com/schema/ddframe/job"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans 
+                        http://www.springframework.org/schema/beans/spring-beans.xsd 
+                        http://www.dangdang.com/schema/ddframe/reg 
+                        http://www.dangdang.com/schema/ddframe/reg/reg.xsd 
+                        http://www.dangdang.com/schema/ddframe/job 
+                        http://www.dangdang.com/schema/ddframe/job/job.xsd 
+                        ">
+    
+    <!-- 分布式定时任务调度 开始 - (基于ZooKeeper)-  -->
+	<!-- 配置作业注册中心 -->
+    <!-- <reg:zookeeper id="regCenter" server-lists="${zookeeperAddress}" namespace="dd-job" base-sleep-time-milliseconds="1000" max-sleep-time-milliseconds="3000" max-retries="3" /> -->
+    <!-- 配置作业注册中心(当当不支持placeholder，所以使用Spring的方式配置) -->
+    <bean id="regCenter" class="com.dangdang.ddframe.reg.zookeeper.ZookeeperRegistryCenter" init-method="init">
+        <constructor-arg>
+            <bean class="com.dangdang.ddframe.reg.zookeeper.ZookeeperConfiguration">
+                <property name="serverLists" value="${zookeeperAddress}" />
+                <property name="namespace" value="supermarket-pull-jfqz-job" />
+                <property name="baseSleepTimeMilliseconds" value="1000" />
+                <property name="maxSleepTimeMilliseconds" value="3000" />
+                <property name="maxRetries" value="3" />
+            </bean>
+        </constructor-arg>
+    </bean>  
+      
+   	<!-- 拉取产品记录  5分钟一次-->
+    <job:simple id="pullProductSimpleJob" class="com.linkwee.job.PullProductSimpleJob" registry-center-ref="regCenter" cron="0 */5 * * * ?"   sharding-total-count="1" sharding-item-parameters="0=A,1=B,2=C" />    
+</beans>

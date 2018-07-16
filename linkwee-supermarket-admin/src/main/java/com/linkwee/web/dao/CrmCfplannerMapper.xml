@@ -1,0 +1,1434 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.CrmCfplannerMapper">
+	<!-- Result Map-->
+	<resultMap  type="com.linkwee.web.model.CrmCfplanner" id="BaseResultMap">
+		<result column="id" property="id" jdbcType="INTEGER"/>
+		<result column="number" property="number" jdbcType="VARCHAR"/>
+		<result column="user_id" property="userId" jdbcType="VARCHAR"/>
+		<result column="mobile" property="mobile" jdbcType="VARCHAR"/>
+		<result column="email" property="email" jdbcType="VARCHAR"/>
+		<result column="parent_id" property="parentId" jdbcType="VARCHAR"/>
+		<result column="qrcode" property="qrcode" jdbcType="VARCHAR"/>
+		<result column="emp_no" property="empNo" jdbcType="VARCHAR"/>
+		<result column="department" property="department" jdbcType="VARCHAR"/>
+		<result column="settlement_type" property="settlementType" jdbcType="TINYINT"/>
+		<result column="cfp_level" property="cfpLevel" jdbcType="VARCHAR"/>
+		<result column="cfp_reg_time" property="cfpRegTime" jdbcType="TIMESTAMP"/>
+		<result column="cfp_benormal_time" property="cfpBenormalTime" jdbcType="TIMESTAMP"/>
+		<result column="cfp_update_time" property="cfpUpdateTime" jdbcType="TIMESTAMP"/>
+		<result column="level_experience" property="levelExperience" jdbcType="INTEGER"/>
+		<result column="head_image" property="headImage" jdbcType="VARCHAR"/>
+		<result column="remark" property="remark" jdbcType="VARCHAR"/>
+		<result column="rect_visit_time" property="rectVisitTime" jdbcType="TIMESTAMP"/>
+		<result column="disabled_login_time" property="disabledLoginTime" jdbcType="TIMESTAMP"/>
+		<result column="register_from_url" property="registerFromUrl" jdbcType="VARCHAR"/>
+		<result column="register_access_url" property="registerAccessUrl" jdbcType="VARCHAR"/>
+		<result column="easemob_acct" property="easemobAcct" jdbcType="VARCHAR"/>
+		<result column="easemob_password" property="easemobPassword" jdbcType="VARCHAR"/>
+		<result column="easemob_reg_status" property="easemobRegStatus" jdbcType="INTEGER"/>
+		<result column="easemob_nickname_status" property="easemobNicknameStatus" jdbcType="INTEGER"/>
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+		<result column="is_locked" property="isLocked" jdbcType="TINYINT"/>
+		<result column="enable" property="enable" jdbcType="TINYINT"/>
+		<result column="del_status" property="delStatus" jdbcType="TINYINT"/>
+		<result column="sales_org_id" property="salesOrgId" jdbcType="VARCHAR"/>
+		<result column="weixin_openid" property="weixinOpenid" jdbcType="VARCHAR"/>
+		<result column="job_grade" property="jobGrade" jdbcType="VARCHAR"/>
+		<result column="job_grade_weight" property="jobGradeWeight" jdbcType="INTEGER"/>
+		<result column="job_grade_temp" property="jobGradeTemp" jdbcType="VARCHAR"/>
+		<result column="job_grade_temp_weight" property="jobGradeTempWeight" jdbcType="INTEGER"/>
+		<result column="sales_org_depth" property="salesOrgDepth" jdbcType="INTEGER"/>
+	</resultMap>
+	
+	<resultMap  type="com.linkwee.web.model.CrmCfplanner" id="BaseResultMap2" extends="BaseResultMap">
+		<result column="user_name" property="userName" jdbcType="VARCHAR"/>
+	</resultMap>
+		
+  <sql id="Base_Column_List">
+    <trim suffixOverrides=",">
+	    	id,
+	    	number,
+	    	user_id,
+	    	mobile,
+	    	email,
+	    	parent_id,
+	    	qrcode,
+	    	emp_no,
+	    	department,
+	    	settlement_type,
+	    	cfp_level,
+	    	cfp_reg_time,
+	    	cfp_benormal_time,
+	    	cfp_update_time,
+	    	level_experience,
+	    	head_image,
+	    	remark,
+	    	rect_visit_time,
+	    	disabled_login_time,
+	    	register_from_url,
+	    	register_access_url,
+	    	easemob_acct,
+	    	easemob_password,
+	    	easemob_reg_status,
+	    	easemob_nickname_status,
+	    	create_time,
+	    	update_time,
+	    	is_locked,
+	    	enable,
+	    	del_status,
+	    	sales_org_id,
+	    	weixin_openid,
+	    	job_grade,
+	    	job_grade_weight,
+	    	job_grade_temp,
+	    	job_grade_temp_weight,
+	    	sales_org_depth,
+    </trim>
+  </sql>
+  
+ <sql id="Base_Column_List_T">
+    <trim suffixOverrides=",">
+	    	t.id,
+	    	t.number,
+	    	t.user_id,
+	    	t.mobile,
+	    	t.email,
+	    	t.parent_id,
+	    	t.qrcode,
+	    	t.emp_no,
+	    	t.department,
+	    	t.settlement_type,
+	    	t.cfp_level,
+	    	t.cfp_reg_time,
+	    	t.cfp_benormal_time,
+	    	t.cfp_update_time,
+	    	t.level_experience,
+	    	t.head_image,
+	    	t.remark,
+	    	t.rect_visit_time,
+	    	t.disabled_login_time,
+	    	t.register_from_url,
+	    	t.register_access_url,
+	    	t.easemob_acct,
+	    	t.easemob_password,
+	    	t.easemob_reg_status,
+	    	t.easemob_nickname_status,
+	    	t.create_time,
+	    	t.update_time,
+	    	t.is_locked,
+	    	t.enable,
+	    	t.del_status,
+	    	t.sales_org_id,
+	    	t.weixin_openid,
+	    	t.job_grade,
+	    	t.job_grade_weight,
+	    	t.job_grade_temp,
+	    	t.job_grade_temp_weight,
+	    	t.sales_org_depth,
+    </trim>
+  </sql>  
+  
+  <sql id="Base_Condition">
+		<if test=" null != id ">
+			and id = #{id}
+		</if>
+		<if test=" null != number and ''!= number  ">
+			and number = #{number}
+		</if>
+		<if test=" null != userId and ''!= userId  ">
+			and user_id = #{userId}
+		</if>
+		<if test=" null != mobile and ''!= mobile  ">
+			and mobile = #{mobile}
+		</if>
+		<if test=" null != email and ''!= email  ">
+			and email = #{email}
+		</if>
+		<if test=" null != parentId and ''!= parentId  ">
+			and parent_id = #{parentId}
+		</if>
+		<if test=" null != qrcode and ''!= qrcode  ">
+			and qrcode = #{qrcode}
+		</if>
+		<if test=" null != empNo and ''!= empNo  ">
+			and emp_no = #{empNo}
+		</if>
+		<if test=" null != department and ''!= department  ">
+			and department = #{department}
+		</if>
+		<if test=" null != settlementType ">
+			and settlement_type = #{settlementType}
+		</if>
+		<if test=" null != cfpLevel and ''!= cfpLevel  ">
+			and cfp_level = #{cfpLevel}
+		</if>
+		<if test=" null != cfpRegTime ">
+			and cfp_reg_time = #{cfpRegTime}
+		</if>
+		<if test=" null != cfpBenormalTime ">
+			and cfp_benormal_time = #{cfpBenormalTime}
+		</if>
+		<if test=" null != cfpUpdateTime ">
+			and cfp_update_time = #{cfpUpdateTime}
+		</if>
+		<if test=" null != levelExperience ">
+			and level_experience = #{levelExperience}
+		</if>
+		<if test=" null != headImage and ''!= headImage  ">
+			and head_image = #{headImage}
+		</if>
+		<if test=" null != remark and ''!= remark  ">
+			and remark = #{remark}
+		</if>
+		<if test=" null != rectVisitTime ">
+			and rect_visit_time = #{rectVisitTime}
+		</if>
+		<if test=" null != disabledLoginTime ">
+			and disabled_login_time = #{disabledLoginTime}
+		</if>
+		<if test=" null != registerFromUrl and ''!= registerFromUrl  ">
+			and register_from_url = #{registerFromUrl}
+		</if>
+		<if test=" null != registerAccessUrl and ''!= registerAccessUrl  ">
+			and register_access_url = #{registerAccessUrl}
+		</if>
+		<if test=" null != easemobAcct and ''!= easemobAcct  ">
+			and easemob_acct = #{easemobAcct}
+		</if>
+		<if test=" null != easemobPassword and ''!= easemobPassword  ">
+			and easemob_password = #{easemobPassword}
+		</if>
+		<if test=" null != easemobRegStatus ">
+			and easemob_reg_status = #{easemobRegStatus}
+		</if>
+		<if test=" null != easemobNicknameStatus ">
+			and easemob_nickname_status = #{easemobNicknameStatus}
+		</if>
+		<if test=" null != createTime ">
+			and create_time = #{createTime}
+		</if>
+		<if test=" null != updateTime ">
+			and update_time = #{updateTime}
+		</if>
+		<if test=" null != isLocked ">
+			and is_locked = #{isLocked}
+		</if>
+		<if test=" null != enable ">
+			and enable = #{enable}
+		</if>
+		<if test=" null != delStatus ">
+			and del_status = #{delStatus}
+		</if>
+		<if test=" null != salesOrgId and ''!= salesOrgId  ">
+			and sales_org_id = #{salesOrgId}
+		</if>
+		<if test=" null != weixinOpenid and ''!= weixinOpenid  ">
+			and weixin_openid = #{weixinOpenid}
+		</if>
+		<if test=" null != jobGrade and ''!= jobGrade  ">
+			and job_grade = #{jobGrade}
+		</if>
+		<if test=" null != jobGradeWeight ">
+			and job_grade_weight = #{jobGradeWeight}
+		</if>
+		<if test=" null != jobGradeTemp and ''!= jobGradeTemp  ">
+			and job_grade_temp = #{jobGradeTemp}
+		</if>
+		<if test=" null != jobGradeTempWeight ">
+			and job_grade_temp_weight = #{jobGradeTempWeight}
+		</if>
+		<if test=" null != salesOrgDepth ">
+			and sales_org_depth = #{salesOrgDepth}
+		</if>
+  </sql>
+  
+  <sql id="Base_Condition_T">
+		<if test=" null != id ">
+			and t.id = #{id}
+		</if>
+		<if test=" null != number and ''!= number  ">
+			and t.number = #{number}
+		</if>
+		<if test=" null != userId and ''!= userId  ">
+			and t.user_id = #{userId}
+		</if>
+		<if test=" null != mobile and ''!= mobile  ">
+			and t.mobile = #{mobile}
+		</if>
+		<if test=" null != email and ''!= email  ">
+			and t.email = #{email}
+		</if>
+		<if test=" null != parentId and ''!= parentId  ">
+			and t.parent_id = #{parentId}
+		</if>
+		<if test=" null != qrcode and ''!= qrcode  ">
+			and t.qrcode = #{qrcode}
+		</if>
+		<if test=" null != empNo and ''!= empNo  ">
+			and t.emp_no = #{empNo}
+		</if>
+		<if test=" null != department and ''!= department  ">
+			and t.department = #{department}
+		</if>
+		<if test=" null != settlementType ">
+			and t.settlement_type = #{settlementType}
+		</if>
+		<if test=" null != cfpLevel and ''!= cfpLevel  ">
+			and t.cfp_level = #{cfpLevel}
+		</if>
+		<if test=" null != cfpRegTime ">
+			and t.cfp_reg_time = #{cfpRegTime}
+		</if>
+		<if test=" null != cfpBenormalTime ">
+			and t.cfp_benormal_time = #{cfpBenormalTime}
+		</if>
+		<if test=" null != cfpUpdateTime ">
+			and t.cfp_update_time = #{cfpUpdateTime}
+		</if>
+		<if test=" null != levelExperience ">
+			and t.level_experience = #{levelExperience}
+		</if>
+		<if test=" null != headImage and ''!= headImage  ">
+			and t.head_image = #{headImage}
+		</if>
+		<if test=" null != remark and ''!= remark  ">
+			and t.remark = #{remark}
+		</if>
+		<if test=" null != rectVisitTime ">
+			and t.rect_visit_time = #{rectVisitTime}
+		</if>
+		<if test=" null != disabledLoginTime ">
+			and t.disabled_login_time = #{disabledLoginTime}
+		</if>
+		<if test=" null != registerFromUrl and ''!= registerFromUrl  ">
+			and t.register_from_url = #{registerFromUrl}
+		</if>
+		<if test=" null != registerAccessUrl and ''!= registerAccessUrl  ">
+			and t.register_access_url = #{registerAccessUrl}
+		</if>
+		<if test=" null != easemobAcct and ''!= easemobAcct  ">
+			and t.easemob_acct = #{easemobAcct}
+		</if>
+		<if test=" null != easemobPassword and ''!= easemobPassword  ">
+			and t.easemob_password = #{easemobPassword}
+		</if>
+		<if test=" null != easemobRegStatus ">
+			and t.easemob_reg_status = #{easemobRegStatus}
+		</if>
+		<if test=" null != easemobNicknameStatus ">
+			and t.easemob_nickname_status = #{easemobNicknameStatus}
+		</if>
+		<if test=" null != createTime ">
+			and t.create_time = #{createTime}
+		</if>
+		<if test=" null != updateTime ">
+			and t.update_time = #{updateTime}
+		</if>
+		<if test=" null != isLocked ">
+			and t.is_locked = #{isLocked}
+		</if>
+		<if test=" null != enable ">
+			and t.enable = #{enable}
+		</if>
+		<if test=" null != delStatus ">
+			and t.del_status = #{delStatus}
+		</if>
+		<if test=" null != salesOrgId and ''!= salesOrgId  ">
+			and t.sales_org_id = #{salesOrgId}
+		</if>
+		<if test=" null != weixinOpenid and ''!= weixinOpenid  ">
+			and t.weixin_openid = #{weixinOpenid}
+		</if>
+		<if test=" null != jobGrade and ''!= jobGrade  ">
+			and t.job_grade = #{jobGrade}
+		</if>
+		<if test=" null != jobGradeWeight ">
+			and t.job_grade_weight = #{jobGradeWeight}
+		</if>
+		<if test=" null != jobGradeTemp and ''!= jobGradeTemp  ">
+			and t.job_grade_temp = #{jobGradeTemp}
+		</if>
+		<if test=" null != jobGradeTempWeight ">
+			and t.job_grade_temp_weight = #{jobGradeTempWeight}
+		</if>
+		<if test=" null != salesOrgDepth ">
+			and t.sales_org_depth = #{salesOrgDepth}
+		</if>
+  </sql>
+    
+  <select id="selectOneByCondition" resultMap="BaseResultMap2"  parameterType="com.linkwee.web.model.CrmCfplanner">
+		select t.*, u.user_name from tcrm_cfplanner t join tcrm_user_info u on t.user_id=u.user_id
+		where 1=1 <include refid="Base_Condition_T" />
+  </select>
+  
+  <select id="selectByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.web.model.CrmCfplanner">
+		select <include refid="Base_Column_List" /> from tcrm_cfplanner 
+		where 1=1 <include refid="Base_Condition" />
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tcrm_cfplanner
+    where  id = #{0}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tcrm_cfplanner
+    where id = #{0}
+  </delete>
+
+  <insert id="insert" parameterType="com.linkwee.web.model.CrmCfplanner" >
+    INSERT INTO tcrm_cfplanner
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != number and ''!= number  ">
+					number,
+				</if>
+			 	<if test=" null != userId and ''!= userId  ">
+					user_id,
+				</if>
+			 	<if test=" null != mobile and ''!= mobile  ">
+					mobile,
+				</if>
+			 	<if test=" null != email and ''!= email  ">
+					email,
+				</if>
+			 	<if test=" null != parentId and ''!= parentId  ">
+					parent_id,
+				</if>
+			 	<if test=" null != qrcode and ''!= qrcode  ">
+					qrcode,
+				</if>
+			 	<if test=" null != empNo and ''!= empNo  ">
+					emp_no,
+				</if>
+			 	<if test=" null != department and ''!= department  ">
+					department,
+				</if>
+			 	<if test=" null != settlementType ">
+					settlement_type,
+				</if>
+			 	<if test=" null != cfpLevel and ''!= cfpLevel  ">
+					cfp_level,
+				</if>
+			 	<if test=" null != cfpRegTime ">
+					cfp_reg_time,
+				</if>
+			 	<if test=" null != cfpBenormalTime ">
+					cfp_benormal_time,
+				</if>
+			 	<if test=" null != cfpUpdateTime ">
+					cfp_update_time,
+				</if>
+			 	<if test=" null != levelExperience ">
+					level_experience,
+				</if>
+			 	<if test=" null != headImage and ''!= headImage  ">
+					head_image,
+				</if>
+			 	<if test=" null != remark and ''!= remark  ">
+					remark,
+				</if>
+			 	<if test=" null != rectVisitTime ">
+					rect_visit_time,
+				</if>
+			 	<if test=" null != disabledLoginTime ">
+					disabled_login_time,
+				</if>
+			 	<if test=" null != registerFromUrl and ''!= registerFromUrl  ">
+					register_from_url,
+				</if>
+			 	<if test=" null != registerAccessUrl and ''!= registerAccessUrl  ">
+					register_access_url,
+				</if>
+			 	<if test=" null != easemobAcct and ''!= easemobAcct  ">
+					easemob_acct,
+				</if>
+			 	<if test=" null != easemobPassword and ''!= easemobPassword  ">
+					easemob_password,
+				</if>
+			 	<if test=" null != easemobRegStatus ">
+					easemob_reg_status,
+				</if>
+			 	<if test=" null != easemobNicknameStatus ">
+					easemob_nickname_status,
+				</if>
+			 	<if test=" null != createTime ">
+					create_time,
+				</if>
+			 	<if test=" null != updateTime ">
+					update_time,
+				</if>
+			 	<if test=" null != isLocked ">
+					is_locked,
+				</if>
+			 	<if test=" null != enable ">
+					enable,
+				</if>
+			 	<if test=" null != delStatus ">
+					del_status,
+				</if>
+			 	<if test=" null != salesOrgId and ''!= salesOrgId  ">
+					sales_org_id,
+				</if>
+			 	<if test=" null != weixinOpenid and ''!= weixinOpenid  ">
+					weixin_openid,
+				</if>
+			 	<if test=" null != jobGrade and ''!= jobGrade  ">
+					job_grade,
+				</if>
+			 	<if test=" null != jobGradeWeight ">
+					job_grade_weight,
+				</if>
+			 	<if test=" null != jobGradeTemp and ''!= jobGradeTemp  ">
+					job_grade_temp,
+				</if>
+			 	<if test=" null != jobGradeTempWeight ">
+					job_grade_temp_weight,
+				</if>
+				<if test=" null != salesOrgDepth ">
+					sales_org_depth,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != number and ''!= number  ">
+					 	#{number},
+				</if>
+			 	<if test=" null != userId and ''!= userId  ">
+					 	#{userId},
+				</if>
+			 	<if test=" null != mobile and ''!= mobile  ">
+					 	#{mobile},
+				</if>
+			 	<if test=" null != email and ''!= email  ">
+					 	#{email},
+				</if>
+			 	<if test=" null != parentId and ''!= parentId  ">
+					 	#{parentId},
+				</if>
+			 	<if test=" null != qrcode and ''!= qrcode  ">
+					 	#{qrcode},
+				</if>
+			 	<if test=" null != empNo and ''!= empNo  ">
+					 	#{empNo},
+				</if>
+			 	<if test=" null != department and ''!= department  ">
+					 	#{department},
+				</if>
+			 	<if test=" null != settlementType ">
+					 	#{settlementType},
+				</if>
+			 	<if test=" null != cfpLevel and ''!= cfpLevel  ">
+					 	#{cfpLevel},
+				</if>
+			 	<if test=" null != cfpRegTime ">
+					 	#{cfpRegTime},
+				</if>
+			 	<if test=" null != cfpBenormalTime ">
+					 	#{cfpBenormalTime},
+				</if>
+			 	<if test=" null != cfpUpdateTime ">
+					 	#{cfpUpdateTime},
+				</if>
+			 	<if test=" null != levelExperience ">
+					 	#{levelExperience},
+				</if>
+			 	<if test=" null != headImage and ''!= headImage  ">
+					 	#{headImage},
+				</if>
+			 	<if test=" null != remark and ''!= remark  ">
+					 	#{remark},
+				</if>
+			 	<if test=" null != rectVisitTime ">
+					 	#{rectVisitTime},
+				</if>
+			 	<if test=" null != disabledLoginTime ">
+					 	#{disabledLoginTime},
+				</if>
+			 	<if test=" null != registerFromUrl and ''!= registerFromUrl  ">
+					 	#{registerFromUrl},
+				</if>
+			 	<if test=" null != registerAccessUrl and ''!= registerAccessUrl  ">
+					 	#{registerAccessUrl},
+				</if>
+			 	<if test=" null != easemobAcct and ''!= easemobAcct  ">
+					 	#{easemobAcct},
+				</if>
+			 	<if test=" null != easemobPassword and ''!= easemobPassword  ">
+					 	#{easemobPassword},
+				</if>
+			 	<if test=" null != easemobRegStatus ">
+					 	#{easemobRegStatus},
+				</if>
+			 	<if test=" null != easemobNicknameStatus ">
+					 	#{easemobNicknameStatus},
+				</if>
+			 	<if test=" null != createTime ">
+					 	#{createTime},
+				</if>
+			 	<if test=" null != updateTime ">
+					 	#{updateTime},
+				</if>
+			 	<if test=" null != isLocked ">
+					 	#{isLocked},
+				</if>
+			 	<if test=" null != enable ">
+					 	#{enable},
+				</if>
+			 	<if test=" null != delStatus ">
+					 	#{delStatus},
+				</if>
+			 	<if test=" null != salesOrgId and ''!= salesOrgId  ">
+					 	#{salesOrgId},
+				</if>
+			 	<if test=" null != weixinOpenid and ''!= weixinOpenid  ">
+					 	#{weixinOpenid},
+				</if>
+			 	<if test=" null != jobGrade and ''!= jobGrade  ">
+					 	#{jobGrade},
+				</if>
+			 	<if test=" null != jobGradeWeight ">
+					 	#{jobGradeWeight},
+				</if>
+			 	<if test=" null != jobGradeTemp and ''!= jobGradeTemp  ">
+					 	#{jobGradeTemp},
+				</if>
+			 	<if test=" null != jobGradeTempWeight ">
+					 	#{jobGradeTempWeight},
+				</if>
+				<if test=" null != salesOrgDepth ">
+						#{salesOrgDepth},
+				</if>
+		</trim>
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.linkwee.web.model.CrmCfplanner" useGeneratedKeys="true" keyProperty="id" >
+		INSERT INTO tcrm_cfplanner
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != number and ''!= number  ">
+					number,
+				</if>
+			 	<if test=" null != userId and ''!= userId  ">
+					user_id,
+				</if>
+			 	<if test=" null != mobile and ''!= mobile  ">
+					mobile,
+				</if>
+			 	<if test=" null != email and ''!= email  ">
+					email,
+				</if>
+			 	<if test=" null != parentId and ''!= parentId  ">
+					parent_id,
+				</if>
+			 	<if test=" null != qrcode and ''!= qrcode  ">
+					qrcode,
+				</if>
+			 	<if test=" null != empNo and ''!= empNo  ">
+					emp_no,
+				</if>
+			 	<if test=" null != department and ''!= department  ">
+					department,
+				</if>
+			 	<if test=" null != settlementType ">
+					settlement_type,
+				</if>
+			 	<if test=" null != cfpLevel and ''!= cfpLevel  ">
+					cfp_level,
+				</if>
+			 	<if test=" null != cfpRegTime ">
+					cfp_reg_time,
+				</if>
+			 	<if test=" null != cfpBenormalTime ">
+					cfp_benormal_time,
+				</if>
+			 	<if test=" null != cfpUpdateTime ">
+					cfp_update_time,
+				</if>
+			 	<if test=" null != levelExperience ">
+					level_experience,
+				</if>
+			 	<if test=" null != headImage and ''!= headImage  ">
+					head_image,
+				</if>
+			 	<if test=" null != remark and ''!= remark  ">
+					remark,
+				</if>
+			 	<if test=" null != rectVisitTime ">
+					rect_visit_time,
+				</if>
+			 	<if test=" null != disabledLoginTime ">
+					disabled_login_time,
+				</if>
+			 	<if test=" null != registerFromUrl and ''!= registerFromUrl  ">
+					register_from_url,
+				</if>
+			 	<if test=" null != registerAccessUrl and ''!= registerAccessUrl  ">
+					register_access_url,
+				</if>
+			 	<if test=" null != easemobAcct and ''!= easemobAcct  ">
+					easemob_acct,
+				</if>
+			 	<if test=" null != easemobPassword and ''!= easemobPassword  ">
+					easemob_password,
+				</if>
+			 	<if test=" null != easemobRegStatus ">
+					easemob_reg_status,
+				</if>
+			 	<if test=" null != easemobNicknameStatus ">
+					easemob_nickname_status,
+				</if>
+			 	<if test=" null != createTime ">
+					create_time,
+				</if>
+			 	<if test=" null != updateTime ">
+					update_time,
+				</if>
+			 	<if test=" null != isLocked ">
+					is_locked,
+				</if>
+			 	<if test=" null != enable ">
+					enable,
+				</if>
+			 	<if test=" null != delStatus ">
+					del_status,
+				</if>
+			 	<if test=" null != salesOrgId and ''!= salesOrgId  ">
+					sales_org_id,
+				</if>
+			 	<if test=" null != weixinOpenid and ''!= weixinOpenid  ">
+					weixin_openid,
+				</if>
+			 	<if test=" null != jobGrade and ''!= jobGrade  ">
+					job_grade,
+				</if>
+			 	<if test=" null != jobGradeWeight ">
+					job_grade_weight,
+				</if>
+			 	<if test=" null != jobGradeTemp and ''!= jobGradeTemp  ">
+					job_grade_temp,
+				</if>
+			 	<if test=" null != jobGradeTempWeight ">
+					job_grade_temp_weight,
+				</if>
+				<if test=" null != salesOrgDepth ">
+					sales_org_depth,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != number and ''!= number  ">
+					 	#{number},
+				</if>
+			 	<if test=" null != userId and ''!= userId  ">
+					 	#{userId},
+				</if>
+			 	<if test=" null != mobile and ''!= mobile  ">
+					 	#{mobile},
+				</if>
+			 	<if test=" null != email and ''!= email  ">
+					 	#{email},
+				</if>
+			 	<if test=" null != parentId and ''!= parentId  ">
+					 	#{parentId},
+				</if>
+			 	<if test=" null != qrcode and ''!= qrcode  ">
+					 	#{qrcode},
+				</if>
+			 	<if test=" null != empNo and ''!= empNo  ">
+					 	#{empNo},
+				</if>
+			 	<if test=" null != department and ''!= department  ">
+					 	#{department},
+				</if>
+			 	<if test=" null != settlementType ">
+					 	#{settlementType},
+				</if>
+			 	<if test=" null != cfpLevel and ''!= cfpLevel  ">
+					 	#{cfpLevel},
+				</if>
+			 	<if test=" null != cfpRegTime ">
+					 	#{cfpRegTime},
+				</if>
+			 	<if test=" null != cfpBenormalTime ">
+					 	#{cfpBenormalTime},
+				</if>
+			 	<if test=" null != cfpUpdateTime ">
+					 	#{cfpUpdateTime},
+				</if>
+			 	<if test=" null != levelExperience ">
+					 	#{levelExperience},
+				</if>
+			 	<if test=" null != headImage and ''!= headImage  ">
+					 	#{headImage},
+				</if>
+			 	<if test=" null != remark and ''!= remark  ">
+					 	#{remark},
+				</if>
+			 	<if test=" null != rectVisitTime ">
+					 	#{rectVisitTime},
+				</if>
+			 	<if test=" null != disabledLoginTime ">
+					 	#{disabledLoginTime},
+				</if>
+			 	<if test=" null != registerFromUrl and ''!= registerFromUrl  ">
+					 	#{registerFromUrl},
+				</if>
+			 	<if test=" null != registerAccessUrl and ''!= registerAccessUrl  ">
+					 	#{registerAccessUrl},
+				</if>
+			 	<if test=" null != easemobAcct and ''!= easemobAcct  ">
+					 	#{easemobAcct},
+				</if>
+			 	<if test=" null != easemobPassword and ''!= easemobPassword  ">
+					 	#{easemobPassword},
+				</if>
+			 	<if test=" null != easemobRegStatus ">
+					 	#{easemobRegStatus},
+				</if>
+			 	<if test=" null != easemobNicknameStatus ">
+					 	#{easemobNicknameStatus},
+				</if>
+			 	<if test=" null != createTime ">
+					 	#{createTime},
+				</if>
+			 	<if test=" null != updateTime ">
+					 	#{updateTime},
+				</if>
+			 	<if test=" null != isLocked ">
+					 	#{isLocked},
+				</if>
+			 	<if test=" null != enable ">
+					 	#{enable},
+				</if>
+			 	<if test=" null != delStatus ">
+					 	#{delStatus},
+				</if>
+			 	<if test=" null != salesOrgId and ''!= salesOrgId  ">
+					 	#{salesOrgId},
+				</if>
+			 	<if test=" null != weixinOpenid and ''!= weixinOpenid  ">
+					 	#{weixinOpenid},
+				</if>
+			 	<if test=" null != jobGrade and ''!= jobGrade  ">
+					 	#{jobGrade},
+				</if>
+			 	<if test=" null != jobGradeWeight ">
+					 	#{jobGradeWeight},
+				</if>
+			 	<if test=" null != jobGradeTemp and ''!= jobGradeTemp  ">
+					 	#{jobGradeTemp},
+				</if>
+			 	<if test=" null != jobGradeTempWeight ">
+					 	#{jobGradeTempWeight},
+				</if>
+				<if test=" null != salesOrgDepth ">
+						#{salesOrgDepth},
+				</if>
+		</trim>
+	</insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.linkwee.web.model.CrmCfplanner" >
+  		UPDATE tcrm_cfplanner
+		<set>
+			<trim suffixOverrides=",">
+					<if test=" null != number and ''!= number  ">
+						number = #{number},
+					</if>
+					<if test=" null != userId and ''!= userId  ">
+						user_id = #{userId},
+					</if>
+					<if test=" null != mobile and ''!= mobile  ">
+						mobile = #{mobile},
+					</if>
+					<if test=" null != email and ''!= email  ">
+						email = #{email},
+					</if>
+					<if test=" null != parentId and ''!= parentId  ">
+						parent_id = #{parentId},
+					</if>
+					<if test=" null != qrcode and ''!= qrcode  ">
+						qrcode = #{qrcode},
+					</if>
+					<if test=" null != empNo and ''!= empNo  ">
+						emp_no = #{empNo},
+					</if>
+					<if test=" null != department and ''!= department  ">
+						department = #{department},
+					</if>
+					<if test=" null != settlementType ">
+						settlement_type = #{settlementType},
+					</if>
+					<if test=" null != cfpLevel and ''!= cfpLevel  ">
+						cfp_level = #{cfpLevel},
+					</if>
+					<if test=" null != cfpRegTime ">
+						cfp_reg_time = #{cfpRegTime},
+					</if>
+					<if test=" null != cfpBenormalTime ">
+						cfp_benormal_time = #{cfpBenormalTime},
+					</if>
+					<if test=" null != cfpUpdateTime ">
+						cfp_update_time = #{cfpUpdateTime},
+					</if>
+					<if test=" null != levelExperience ">
+						level_experience = #{levelExperience},
+					</if>
+					<if test=" null != headImage and ''!= headImage  ">
+						head_image = #{headImage},
+					</if>
+					<if test=" null != remark and ''!= remark  ">
+						remark = #{remark},
+					</if>
+					<if test=" null != rectVisitTime ">
+						rect_visit_time = #{rectVisitTime},
+					</if>
+					<if test=" null != disabledLoginTime ">
+						disabled_login_time = #{disabledLoginTime},
+					</if>
+					<if test=" null != registerFromUrl and ''!= registerFromUrl  ">
+						register_from_url = #{registerFromUrl},
+					</if>
+					<if test=" null != registerAccessUrl and ''!= registerAccessUrl  ">
+						register_access_url = #{registerAccessUrl},
+					</if>
+					<if test=" null != easemobAcct and ''!= easemobAcct  ">
+						easemob_acct = #{easemobAcct},
+					</if>
+					<if test=" null != easemobPassword and ''!= easemobPassword  ">
+						easemob_password = #{easemobPassword},
+					</if>
+					<if test=" null != easemobRegStatus ">
+						easemob_reg_status = #{easemobRegStatus},
+					</if>
+					<if test=" null != easemobNicknameStatus ">
+						easemob_nickname_status = #{easemobNicknameStatus},
+					</if>
+					<if test=" null != createTime ">
+						create_time = #{createTime},
+					</if>
+					<if test=" null != updateTime ">
+						update_time = #{updateTime},
+					</if>
+					<if test=" null != isLocked ">
+						is_locked = #{isLocked},
+					</if>
+					<if test=" null != enable ">
+						enable = #{enable},
+					</if>
+					<if test=" null != delStatus ">
+						del_status = #{delStatus},
+					</if>
+					<if test=" null != salesOrgId and ''!= salesOrgId  ">
+						sales_org_id = #{salesOrgId},
+					</if>
+					<if test=" null != weixinOpenid and ''!= weixinOpenid  ">
+						weixin_openid = #{weixinOpenid},
+					</if>
+					<if test=" null != jobGrade and ''!= jobGrade  ">
+						job_grade = #{jobGrade},
+					</if>
+					<if test=" null != jobGradeWeight ">
+						job_grade_weight = #{jobGradeWeight},
+					</if>
+					<if test=" null != jobGradeTemp and ''!= jobGradeTemp  ">
+						job_grade_temp = #{jobGradeTemp},
+					</if>
+					<if test=" null != jobGradeTempWeight ">
+						job_grade_temp_weight = #{jobGradeTempWeight},
+					</if>
+					<if test=" null != salesOrgDepth ">
+						sales_org_depth = #{salesOrgDepth},
+					</if>
+			</trim>
+		</set>
+		<where>
+			 id = #{id}
+		</where>
+	</update>
+  
+	<update id="updateByPrimaryKey" parameterType="com.linkwee.web.model.CrmCfplanner" >
+	    UPDATE tcrm_cfplanner
+	   <set>
+			<trim suffixOverrides=",">
+					<if test=" null != number and ''!= number  ">
+						number = #{number},
+					</if>
+					<if test=" null != userId and ''!= userId  ">
+						user_id = #{userId},
+					</if>
+					<if test=" null != mobile and ''!= mobile  ">
+						mobile = #{mobile},
+					</if>
+					<if test=" null != email and ''!= email  ">
+						email = #{email},
+					</if>
+					<if test=" null != parentId and ''!= parentId  ">
+						parent_id = #{parentId},
+					</if>
+					<if test=" null != qrcode and ''!= qrcode  ">
+						qrcode = #{qrcode},
+					</if>
+					<if test=" null != empNo and ''!= empNo  ">
+						emp_no = #{empNo},
+					</if>
+					<if test=" null != department and ''!= department  ">
+						department = #{department},
+					</if>
+					<if test=" null != settlementType ">
+						settlement_type = #{settlementType},
+					</if>
+					<if test=" null != cfpLevel and ''!= cfpLevel  ">
+						cfp_level = #{cfpLevel},
+					</if>
+					<if test=" null != cfpRegTime ">
+						cfp_reg_time = #{cfpRegTime},
+					</if>
+					<if test=" null != cfpBenormalTime ">
+						cfp_benormal_time = #{cfpBenormalTime},
+					</if>
+					<if test=" null != cfpUpdateTime ">
+						cfp_update_time = #{cfpUpdateTime},
+					</if>
+					<if test=" null != levelExperience ">
+						level_experience = #{levelExperience},
+					</if>
+					<if test=" null != headImage and ''!= headImage  ">
+						head_image = #{headImage},
+					</if>
+					<if test=" null != remark and ''!= remark  ">
+						remark = #{remark},
+					</if>
+					<if test=" null != rectVisitTime ">
+						rect_visit_time = #{rectVisitTime},
+					</if>
+					<if test=" null != disabledLoginTime ">
+						disabled_login_time = #{disabledLoginTime},
+					</if>
+					<if test=" null != registerFromUrl and ''!= registerFromUrl  ">
+						register_from_url = #{registerFromUrl},
+					</if>
+					<if test=" null != registerAccessUrl and ''!= registerAccessUrl  ">
+						register_access_url = #{registerAccessUrl},
+					</if>
+					<if test=" null != easemobAcct and ''!= easemobAcct  ">
+						easemob_acct = #{easemobAcct},
+					</if>
+					<if test=" null != easemobPassword and ''!= easemobPassword  ">
+						easemob_password = #{easemobPassword},
+					</if>
+					<if test=" null != easemobRegStatus ">
+						easemob_reg_status = #{easemobRegStatus},
+					</if>
+					<if test=" null != easemobNicknameStatus ">
+						easemob_nickname_status = #{easemobNicknameStatus},
+					</if>
+					<if test=" null != createTime ">
+						create_time = #{createTime},
+					</if>
+					<if test=" null != updateTime ">
+						update_time = #{updateTime},
+					</if>
+					<if test=" null != isLocked ">
+						is_locked = #{isLocked},
+					</if>
+					<if test=" null != enable ">
+						enable = #{enable},
+					</if>
+					<if test=" null != delStatus ">
+						del_status = #{delStatus},
+					</if>
+					<if test=" null != salesOrgId and ''!= salesOrgId  ">
+						sales_org_id = #{salesOrgId},
+					</if>
+					<if test=" null != weixinOpenid and ''!= weixinOpenid  ">
+						weixin_openid = #{weixinOpenid},
+					</if>
+					<if test=" null != jobGrade and ''!= jobGrade  ">
+						job_grade = #{jobGrade},
+					</if>
+					<if test=" null != jobGradeWeight ">
+						job_grade_weight = #{jobGradeWeight},
+					</if>
+					<if test=" null != jobGradeTemp and ''!= jobGradeTemp  ">
+						job_grade_temp = #{jobGradeTemp},
+					</if>
+					<if test=" null != jobGradeTempWeight ">
+						job_grade_temp_weight = #{jobGradeTempWeight},
+					</if>
+					<if test=" null != salesOrgDepth ">
+						sales_org_depth = #{salesOrgDepth},
+					</if>
+			</trim>
+		</set>
+		<where>
+			id = #{0}
+		</where>
+	  </update>
+
+	<!-- 分页条件查询 -->
+    <select id="selectBySearchInfo" resultMap="BaseResultMap" parameterType="com.linkwee.core.datatable.DataTable">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM tcrm_cfplanner
+        <where> 
+        <if test="dt.search!=null">  
+                name LIKE CONCAT('%','${dt.search.value}','%' )  
+         </if>  
+         <if test="dt.order!=null">  
+               <foreach collection="dt.order" index="index" item="item"
+                    open="order by" separator="," close=" ">
+                    ${item.name} ${item.dir} 
+                </foreach>
+         </if>  
+        </where>
+    </select>
+    
+	  <update id="updateByUserId" parameterType="com.linkwee.web.model.CrmCfplanner" >
+  		UPDATE tcrm_cfplanner
+	   <set>
+			<trim suffixOverrides=",">
+					<if test=" null != number and ''!= number  ">
+						number = #{number},
+					</if>
+					<if test=" null != mobile and ''!= mobile  ">
+						mobile = #{mobile},
+					</if>
+					<if test=" null != email and ''!= email  ">
+						email = #{email},
+					</if>
+					<if test=" null != parentId">
+						parent_id = #{parentId},
+					</if>
+					<if test=" null != qrcode and ''!= qrcode  ">
+						qrcode = #{qrcode},
+					</if>
+					<if test=" null != empNo and ''!= empNo  ">
+						emp_no = #{empNo},
+					</if>
+					<if test=" null != department and ''!= department  ">
+						department = #{department},
+					</if>
+					<if test=" null != settlementType ">
+						settlement_type = #{settlementType},
+					</if>
+					<if test=" null != cfpLevel and ''!= cfpLevel  ">
+						cfp_level = #{cfpLevel},
+					</if>
+					<if test=" null != cfpRegTime ">
+						cfp_reg_time = #{cfpRegTime},
+					</if>
+					<if test=" null != cfpBenormalTime ">
+						cfp_benormal_time = #{cfpBenormalTime},
+					</if>
+					<if test=" null != cfpUpdateTime ">
+						cfp_update_time = #{cfpUpdateTime},
+					</if>
+					<if test=" null != levelExperience ">
+						level_experience = #{levelExperience},
+					</if>
+					<if test=" null != headImage and ''!= headImage  ">
+						head_image = #{headImage},
+					</if>
+					<if test=" null != remark and ''!= remark  ">
+						remark = #{remark},
+					</if>
+					<if test=" null != rectVisitTime ">
+						rect_visit_time = #{rectVisitTime},
+					</if>
+					<if test=" null != disabledLoginTime ">
+						disabled_login_time = #{disabledLoginTime},
+					</if>
+					<if test=" null != registerFromUrl and ''!= registerFromUrl  ">
+						register_from_url = #{registerFromUrl},
+					</if>
+					<if test=" null != registerAccessUrl and ''!= registerAccessUrl  ">
+						register_access_url = #{registerAccessUrl},
+					</if>
+					<if test=" null != easemobAcct and ''!= easemobAcct  ">
+						easemob_acct = #{easemobAcct},
+					</if>
+					<if test=" null != easemobPassword and ''!= easemobPassword  ">
+						easemob_password = #{easemobPassword},
+					</if>
+					<if test=" null != easemobRegStatus ">
+						easemob_reg_status = #{easemobRegStatus},
+					</if>
+					<if test=" null != easemobNicknameStatus ">
+						easemob_nickname_status = #{easemobNicknameStatus},
+					</if>
+					<if test=" null != createTime ">
+						create_time = #{createTime},
+					</if>
+					<if test=" null != updateTime ">
+						update_time = #{updateTime},
+					</if>
+					<if test=" null != isLocked ">
+						is_locked = #{isLocked},
+					</if>
+					<if test=" null != enable ">
+						enable = #{enable},
+					</if>
+					<if test=" null != delStatus ">
+						del_status = #{delStatus},
+					</if>
+					<if test=" null != salesOrgId and ''!= salesOrgId  ">
+						sales_org_id = #{salesOrgId},
+					</if>
+					<if test=" null != weixinOpenid and ''!= weixinOpenid  ">
+						weixin_openid = #{weixinOpenid},
+					</if>
+					<if test=" null != jobGrade and ''!= jobGrade  ">
+						job_grade = #{jobGrade},
+					</if>
+					<if test=" null != jobGradeWeight ">
+						job_grade_weight = #{jobGradeWeight},
+					</if>
+					<if test=" null != jobGradeTemp and ''!= jobGradeTemp  ">
+						job_grade_temp = #{jobGradeTemp},
+					</if>
+					<if test=" null != jobGradeTempWeight ">
+						job_grade_temp_weight = #{jobGradeTempWeight},
+					</if>
+					<if test=" null != salesOrgDepth ">
+						sales_org_depth = #{salesOrgDepth},
+					</if>
+			</trim>
+		</set>
+		<where>
+			 user_id = #{userId}
+		</where>
+	</update>    
+       
+    <!-- 根据手机号码查投资用户的理财师 -->
+    <select id="queryCfplannerByInvestMobile" resultMap="BaseResultMap2"  parameterType="String">
+		SELECT c.*,u.user_name FROM tcrm_cfplanner c JOIN tcrm_user_info u ON c.user_id = u.user_id 
+		LEFT JOIN tcrm_investor i ON i.cfplanner = c.user_id 
+		WHERE 1 = 1 AND i.mobile =#{investorMobile}
+  	</select>
+  	
+  	<!-- 根据userId查投资用户的理财师 -->
+    <select id="queryCfplannerByInvestor" resultMap="BaseResultMap2"  parameterType="String">
+		SELECT c.*,u.user_name FROM tcrm_cfplanner c JOIN tcrm_user_info u ON c.user_id = u.user_id 
+		LEFT JOIN tcrm_investor i ON i.cfplanner = c.user_id 
+		WHERE 1 = 1 AND i.user_id =#{investorUserId}
+  	</select>
+  	
+  	<!--  根据环信帐号获取用户信息 -->
+	<select id="queryCfplannerByEasemob" resultMap="BaseResultMap2"  >
+ 		select c.*, u.user_name from tcrm_cfplanner c join tcrm_user_info u on c.user_id=u.user_id
+		<where>
+			<foreach item="item" index="index" collection="list"  open="(" separator="or" close=") ">
+				  c.easemob_acct  = #{item}
+			</foreach>
+		</where>
+	</select>
+
+	<select id="selectRegCfplanners" resultType="java.lang.String">
+		SELECT mobile from tcrm_cfplanner
+		<where>
+			<foreach item="item" index="index" collection="array" open=" mobile in ("
+				separator="," close=") ">
+				#{item}
+			</foreach>
+		</where>
+	</select>
+	
+	<select id="selectByUserId" resultMap="BaseResultMap2"
+		parameterType="java.lang.String">
+		select t.*, u.user_name from tcrm_cfplanner t join tcrm_user_info u on t.user_id=u.user_id
+		<include refid="Base_Column_List" />
+		from tcrm_cfplanner t
+		where t.user_id = #{userId,jdbcType=VARCHAR}
+	</select>
+	
+	<update id="updateCfpQrByUserId" parameterType="com.linkwee.web.model.CrmCfplanner">
+		update tcrm_cfplanner
+		set qrcode = #{qrcode,jdbcType=VARCHAR}
+		where user_id = #{userId,jdbcType=VARCHAR}
+	</update>
+	
+	<!-- 查理财师的团队人数 -->
+	<select id="queryTeamMemberCount" resultType="int" parameterType="java.lang.String">
+		SELECT 
+		(SELECT IFNULL(count(1),0) from tcrm_cfplanner where parent_id=#{userId,jdbcType=VARCHAR})
+		+
+		(SELECT IFNULL(count(1),0) from tcrm_cfplanner where parent_id in (SELECT user_id from tcrm_cfplanner where parent_id=#{userId,jdbcType=VARCHAR}))
+	</select>
+	
+	<!-- 查理财师的所有团队成员 -->
+	<select id="queryTeamAllMember" resultMap="BaseResultMap" parameterType="java.lang.String">
+		SELECT * from tcrm_cfplanner where parent_id=#{userId,jdbcType=VARCHAR}
+		union
+		SELECT * from tcrm_cfplanner where parent_id in (SELECT user_id from tcrm_cfplanner where parent_id=#{userId,jdbcType=VARCHAR})
+	</select>
+	
+	<!-- 更新理财师职级经验 -->
+	<update id="updateCfplannerRankExperience" >
+		update tcrm_cfplanner t SET t.cfp_level=#{level},t.level_experience=t.level_experience+#{experience} WHERE t.user_id=#{userId}
+	</update>
+		
+	
+	<!-- 符合分配规则的理财师 -->
+	<select id="queryConformAllotRuleCfps" resultType="String" >
+		SELECT cfplanner from (
+		SELECT IFNULL(sum(r.invest_amt),0) totalInvestAmt ,i.cfplanner from tcim_product_invest_record r LEFT JOIN tcrm_investor i on r.user_id=i.user_id 
+		where r.biz_time>= DATE_SUB(CURDATE(), INTERVAL 30 DAY)
+		GROUP BY i.cfplanner
+		) t
+		where totalInvestAmt>10000
+		and cfplanner in
+		(
+		SELECT user_id from tcrm_cfplanner where rect_visit_time>= DATE_SUB(CURDATE(), INTERVAL 7 DAY)
+		)
+	</select>
+	
+	<!-- 7天内登录过的理财师 -->
+	<select id="queryLoginInSevenDaysCfp" resultType="String" >
+		SELECT user_id from tcrm_cfplanner where rect_visit_time>= DATE_SUB(CURDATE(), INTERVAL 7 DAY)
+	</select>
+	
+	<!-- 理财师客户数量 -->
+	<select id="queryCustomerCount" resultType="int" >
+		SELECT count(1) from tcrm_investor where cfplanner=#{userId}
+	</select>
+	
+	<!-- 查规定分配自由用户的理财师 -->
+	<select id="querySpecifiedCfps" resultType="String" >
+		SELECT c.user_id from tsys_special_user_list s LEFT JOIN tcrm_cfplanner c on s.mobile=c.mobile where s.type=1 and c.user_id is not null
+	</select>
+	
+	<!-- 修改销售机构编码 -->
+	<update id="updatesSalesOrgId" >
+		update tcrm_cfplanner
+		set sales_org_id = #{salesOrgId,jdbcType=VARCHAR}
+		where mobile = #{mobile,jdbcType=VARCHAR}
+	</update>
+	
+	<!-- 批量更新理财师职级  -->
+	<update id="batchUpdateJobGrade" parameterType="java.util.Map">
+		update tcrm_cfplanner
+		set job_grade = #{query.jobGrade}
+		<where>
+			<foreach item="item" index="index" collection="query.cfpLevelNodes" open=" user_id in ("
+				separator="," close=")">
+				#{item}
+			</foreach>
+		</where>
+	</update>
+
+	<!-- 更新理财师的职级为见习理财师-->
+	<update id="updatejobgradeByTime" >
+		UPDATE tcrm_cfplanner tc
+		SET tc.job_grade = 'TA',
+		 tc.job_grade_weight = 10,
+		 tc.update_time = NOW(),
+		 tc.remark = "更新理财师职级"
+		WHERE
+			tc.user_id NOT IN (
+				SELECT
+					tf.profit_cfplanner_id AS profitCfplannerId
+				FROM
+					tcim_feedetail tf
+				WHERE
+					tf.fee_type = '1001'
+				AND tf.create_time <![CDATA[ >= ]]> CONCAT(#{startTime},'	00:00:00')
+				AND tf.create_time <![CDATA[ < ]]> CONCAT(#{endTime},'	00:00:00')
+				AND tf.yearpur_amount > 0
+				GROUP BY
+					tf.profit_cfplanner_id
+			)
+	</update>
+	
+	<!-- 根据userid更新理财师表职级-->
+	<update id="updatejobgradeByUserId" >
+		UPDATE tcrm_cfplanner tc
+		SET tc.job_grade = #{level},
+		 tc.job_grade_weight = #{levelWeight},
+		 tc.update_time = NOW(),
+		 tc.remark = "更新理财师职级"
+		WHERE
+			tc.user_id = #{userId}
+	</update>
+	
+	<!-- 根据userid更新理财师表职级(临时)-->
+	<update id="updatejobgradeTempByUserId" >
+		UPDATE tcrm_cfplanner tc
+		SET tc.job_grade_temp = #{level},
+		 tc.job_grade_temp_weight = #{levelWeight},
+		 tc.update_time = NOW()
+		WHERE
+			tc.user_id = #{userId}
+	</update>	
+	
+	<!-- 根据理财师userid统计理财师下级职级 -->
+	<select id="queryJobgradeCount" resultType="com.linkwee.web.model.JobgradeCount" >
+		SELECT
+			tc.job_grade AS jobGrade,
+			COUNT(tc.id) AS amount
+		FROM
+			tcrm_cfplanner tc
+		WHERE
+			tc.parent_id = #{userId}
+		GROUP BY
+			tc.job_grade
+	</select>
+	
+	<!-- 根据理财师userid统计理财师(当前)下级职级 -->
+	<select id="queryJobgradeTempCount" resultType="com.linkwee.web.model.JobgradeCount" >
+		SELECT
+			tc.job_grade_temp AS jobGrade,
+			COUNT(tc.id) AS amount
+		FROM
+			tcrm_cfplanner tc
+		WHERE
+			tc.parent_id = #{userId}
+		GROUP BY
+			tc.job_grade_temp
+	</select>	
+	
+	<!-- 根据理财师userid jobGrade统计理财师下级职级数量-->
+	<select id="queryJobgradeCountByType" resultType="int" >
+		SELECT
+			COUNT(tc.id)
+		FROM
+			tcrm_cfplanner tc
+		WHERE
+			tc.parent_id = #{userId}
+		AND tc.job_grade = #{jobGrade}
+	</select>
+	
+	<!-- 初始化理财师所有的职级-->
+	<update id="initJobgrade" >
+		UPDATE tcrm_cfplanner tc
+		SET tc.job_grade = 'TA',
+		 tc.job_grade_weight = '10',
+		 tc.update_time = NOW(),
+		 tc.remark = "初始化理财师职级"
+	</update>
+	
+	<!-- 初始化理财师所有的职级(当前)-->
+	<update id="initJobgradeTemp" >
+		UPDATE tcrm_cfplanner tc
+		SET tc.job_grade_temp = 'TA',
+		 tc.job_grade_temp_weight = '10'
+	</update>
+	
+  <!--查询投资者的微信号 -->
+  <select id="queryWeiXinOpenId" resultType="java.lang.String" parameterType="java.lang.String">
+	SELECT weixin_openid from tcrm_cfplanner where user_id=#{userId}
+  </select>
+  	
+</mapper>

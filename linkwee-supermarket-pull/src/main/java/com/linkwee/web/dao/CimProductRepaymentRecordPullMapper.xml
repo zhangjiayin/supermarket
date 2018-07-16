@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.CimProductRepaymentRecordPullMapper">
+		
+		<!-- Result Map-->
+		<resultMap  type="com.linkwee.web.model.CimProductRepaymentRecordPull" id="BaseResultMap">
+			<result column="id" property="id" jdbcType="INTEGER"/>
+			<result column="repayment_id" property="repaymentId" jdbcType="VARCHAR"/>
+			<result column="user_id" property="userId" jdbcType="VARCHAR"/>
+			<result column="invest_id" property="investId" jdbcType="VARCHAR"/>
+			<result column="product_id" property="productId" jdbcType="VARCHAR"/>
+			<result column="repayment_time" property="repaymentTime" jdbcType="TIMESTAMP"/>
+			<result column="repayment_amount" property="repaymentAmount" jdbcType="DECIMAL"/>
+			<result column="profit" property="profit" jdbcType="DECIMAL"/>
+			<result column="status" property="status" jdbcType="INTEGER"/>
+			<result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+			<result column="update_status" property="updateStatus" jdbcType="INTEGER"/>
+		</resultMap>
+  
+ 		<insert id="inserts">
+			INSERT INTO tcim_product_repayment_record_pull
+	  		<trim prefix="(" suffix=")" suffixOverrides=",">
+		    	repayment_id,
+		    	user_id,
+		    	invest_id,
+		    	product_id,
+		    	repayment_time,
+		    	repayment_amount,
+		    	profit,
+		    	status,
+   			</trim>
+	
+			VALUES
+
+			<foreach item="item"  collection="repaymentRecords"  separator="," >
+				<trim prefix="(" suffix=")" suffixOverrides=",">
+					#{item.repaymentId},
+					#{item.userId},
+					#{item.investId},
+					#{item.productId},
+					#{item.repaymentTime},
+					#{item.repaymentAmount},	
+					#{item.profit},	
+					#{item.status},
+				</trim>
+			</foreach>
+	</insert>
+	
+	
+	<update id="updateRepaymentRecordInStatus">
+		UPDATE tcim_product_repayment_record_pull i SET i.update_status = #{afterStatus},i.message=#{msg} WHERE i.update_status IN 
+		<foreach item="item" index="index" collection="preStatus"  open="(" separator="," close=")">
+				#{item}
+			</foreach>
+	</update>
+	
+	<update id="updatePushRepaymentRecordStatus">
+		UPDATE tcim_product_repayment_record_pull i SET i.update_status = #{status},
+		i.message = (CASE i.repayment_id
+		<foreach item="item" collection="results">
+			when '${item.bizId}' then '${item.msg}'
+		</foreach>
+		END)
+		
+		WHERE i.repayment_id IN 
+		<foreach item="item" index="index" collection="results" open="(" separator="," close=")" >
+			#{item.bizId}
+		</foreach>
+	</update>
+	
+	<update id="updateInvestRecordStockAmt">
+		UPDATE tcim_product_invest_record_pull i SET 
+		i.stock_invest_amt = (CASE i.invest_id
+		<foreach item="item" index="index" collection="updates">
+			when '${index}' then i.stock_invest_amt - '${item}'
+		</foreach>
+		END),i.update_time = NOW()
+		
+		WHERE i.invest_id IN 
+		<foreach item="item" index="index" collection="updates" open="(" separator="," close=")" >
+			#{index}
+		</foreach>
+	</update>
+	
+	<select id="getRepaymentRecordIds" resultType="string">
+		SELECT repayment_id FROM tcim_product_repayment_record_pull t
+			WHERE t.repayment_id IN 
+		<foreach item="item" index="index" collection="repaymentRecords" open="(" separator="," close=")" >
+			#{item.repaymentId}
+		</foreach>
+	</select>
+	
+	<select id="getRepaymentRecord" resultMap="BaseResultMap">
+			SELECT
+		    	repayment_id,
+		    	user_id,
+		    	invest_id,
+		    	product_id,
+		    	repayment_time,
+		    	repayment_amount,
+		    	profit,
+		    	status
+			FROM
+				tcim_product_repayment_record_pull t
+			WHERE
+				t.update_status IN (1, 2)
+	</select>
+
+</mapper>

@@ -1,0 +1,1809 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.product.dao.ProductInfoDao">
+<parameterMap type="com.linkwee.web.model.product.ProductInfo" id="ProductInfoParameterMap" />	
+<!-- Result Map-->
+<resultMap  type="com.linkwee.web.model.product.ProductInfo" id="ProductInfoResultMap">
+	<result column="f_id" property="id" jdbcType="INTEGER"/>
+	<result column="f_is_recommended" property="isRecommended" jdbcType="TINYINT"/>
+	<result column="f_product_name" property="productName" jdbcType="VARCHAR"/>
+	<result column="f_product_desc" property="productDesc" jdbcType="VARCHAR"/>
+	<result column="f_product_protocal_id" property="productProtocalId" jdbcType="VARCHAR"/>
+	<result column="f_product_interest_way_id" property="productInterestWayId" jdbcType="VARCHAR"/>
+	<result column="f_product_type_id" property="productTypeId" jdbcType="INTEGER"/>
+	<result column="f_repayment_way" property="repaymentWay" jdbcType="TINYINT"/>
+	<result column="f_is_flow" property="isFlow" jdbcType="TINYINT"/>
+	<result column="f_fix_rate" property="fixRate" jdbcType="DECIMAL"/>
+	<result column="f_flow_min_rate" property="flowMinRate" jdbcType="DECIMAL"/>
+	<result column="f_flow_max_rate" property="flowMaxRate" jdbcType="DECIMAL"/>
+	<result column="f_flow_final_rate" property="flowFinalRate" jdbcType="DECIMAL"/>
+	<result column="f_dead_line_type" property="deadLineType" jdbcType="TINYINT"/>
+	<result column="f_dead_line_value" property="deadLineValue" jdbcType="INTEGER"/>
+	<result column="f_is_collect" property="isCollect" jdbcType="TINYINT"/>
+	<result column="f_collect_begin_time" property="collectBeginTime" jdbcType="TIMESTAMP"/>
+	<result column="f_collect_end_time" property="collectEndTime" jdbcType="TIMESTAMP"/>
+	<result column="f_interest_way" property="interestWay" jdbcType="TINYINT"/>
+	<result column="f_valid_begin_date" property="validBeginDate" jdbcType="TIMESTAMP"/>
+	<result column="f_valid_end_date" property="validEndDate" jdbcType="TIMESTAMP"/>
+	<result column="f_buy_min_money" property="buyMinMoney" jdbcType="DECIMAL"/>
+	<result column="f_buy_max_money" property="buyMaxMoney" jdbcType="DECIMAL"/>
+	<result column="f_buy_total_money" property="buyTotalMoney" jdbcType="DECIMAL"/>
+	<result column="f_buy_total_people" property="buyTotalPeople" jdbcType="INTEGER"/>
+	<result column="f_is_show" property="isShow" jdbcType="TINYINT"/>
+	<result column="f_show_index" property="showIndex" jdbcType="INTEGER"/>
+	<result column="f_tender_way" property="tenderWay" jdbcType="TINYINT"/>
+	<result column="f_is_redemption" property="isRedemption" jdbcType="TINYINT"/>
+	<result column="f_source_way" property="sourceWay" jdbcType="TINYINT"/>
+	<result column="f_money_type" property="moneyType" jdbcType="TINYINT"/>
+	<result column="f_risk_control_type" property="riskControlType" jdbcType="TINYINT"/>
+	<result column="f_risk_level" property="riskLevel" jdbcType="TINYINT"/>
+	<result column="f_flow_level" property="flowLevel" jdbcType="TINYINT"/>
+	<result column="f_product_manage_way" property="productManageWay" jdbcType="TINYINT"/>
+	<result column="f_status" property="status" jdbcType="TINYINT"/>
+	<result column="f_creator" property="creator" jdbcType="VARCHAR"/>
+	<result column="f_create_time" property="createTime" jdbcType="TIMESTAMP"/>
+	<result column="f_updater" property="updater" jdbcType="VARCHAR"/>
+	<result column="f_update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+	<result column="f_remark" property="remark" jdbcType="VARCHAR"/>
+	<result column="f_product_id" property="productId" jdbcType="VARCHAR"/>
+	<result column="f_description" property="description" jdbcType="LONGVARCHAR"/>
+	<result column="f_buy_increase_money" property="buyIncreaseMoney" jdbcType="DECIMAL"/>
+	<result column="f_cust_buy_max_money" property="custBuyMaxMoney" jdbcType="DECIMAL"/>
+	<result column="f_product_illustration_url" property="productIllustrationUrl" jdbcType="VARCHAR"/>
+	<result column="f_security_guarantee_url" property="securityGuaranteeUrl" jdbcType="VARCHAR"/>
+	<result column="f_ransfer_protocal_name" property="ransferProtocalName" jdbcType="VARCHAR"/>
+	<result column="f_ransfer_protocal_url" property="ransferProtocalUrl" jdbcType="VARCHAR"/>
+	<result column="f_inv_label" property="invLabel" jdbcType="VARCHAR"/>
+	<result column="f_lcs_label" property="lcsLabel" jdbcType="VARCHAR"/>
+	<result column="f_sale_status" property="saleStatus" jdbcType="VARCHAR"/>
+	<result column="f_activity_code" property="activityCode" jdbcType="VARCHAR"/>
+	<result column="f_is_quota" property="isQuota" jdbcType="INTEGER"/>
+	<result column="f_begin_sale_time" property="beginSaleTime" jdbcType="TIMESTAMP"/>
+	<result column="f_grey_flag" property="greyFlag" jdbcType="INTEGER"/>
+	<result column="f_open_type" property="openType" jdbcType="VARCHAR"/>
+	<result column="f_open_linkUrl" property="openLinkurl" jdbcType="VARCHAR"/>
+	<result column="f_buy_succeed_returnUrl" property="buySucceedReturnurl" jdbcType="VARCHAR"/>
+	<result column="f_lcs_corner_ico" property="lcsCornerIco" jdbcType="VARCHAR"/>
+	<result column="f_inv_corner_ico" property="invCornerIco" jdbcType="VARCHAR"/>
+	<result column="f_inv_dtl_page_des" property="invDtlPageDes" jdbcType="VARCHAR"/>
+	<result column="f_lcs_dtl_page_des" property="lcsDtlPageDes" jdbcType="VARCHAR"/>
+	<result column="f_begin_sale_type" property="beginSaleType" jdbcType="TINYINT"/>
+	<result column="f_collect_line_min_value" property="collectLineMinValue" jdbcType="INTEGER"/>
+	<result column="f_collect_line_max_value" property="collectLineMaxValue" jdbcType="INTEGER"/>
+	<result column="f_collect_line_back_datetime" property="collectLineBackDatetime" jdbcType="TIMESTAMP"/>
+	<result column="f_collect_rate" property="collectRate" jdbcType="DECIMAL"/>
+	<result column="f_open_lcs_linkUrl" property="openLcsLinkurl" jdbcType="VARCHAR"/>
+	<result column="f_collect_finsh_time" property="collectFinshTime" jdbcType="TIMESTAMP"/>
+	<result column="f_end_sale_time" property="endSaleTime" jdbcType="TIMESTAMP"/>
+	  
+</resultMap>
+<!-- 返回页面显示对象 -->
+<resultMap  type="com.linkwee.web.model.product.ProductInfoResp" id="ProductInfoRespResultMap">
+	<!-- <result column="f_id" property="id" jdbcType="INTEGER"/> -->
+	<result column="f_is_recommended" property="isRecommended" jdbcType="TINYINT"/>
+	<result column="f_product_name" property="productName" jdbcType="VARCHAR"/>
+	<result column="f_product_desc" property="listRecomendedStr" jdbcType="VARCHAR"/>
+	<result column="f_product_protocal_id" property="productProtocalId" jdbcType="VARCHAR"/>
+	<result column="f_fix_rate" property="fixRate" jdbcType="DECIMAL"/>
+	<result column="f_valid_begin_date" property="validBeginDate" jdbcType="TIMESTAMP"/>
+	<result column="f_dead_line_type" property="deadLineType" jdbcType="TINYINT"/>
+	<result column="f_dead_line_value" property="deadLineValue" jdbcType="INTEGER"/>
+	<result column="f_interest_way" property="interestWay" jdbcType="TINYINT"/>
+
+	 <result column="f_valid_end_date" property="validEndDate" jdbcType="TIMESTAMP"/>
+	<!-- <result column="f_buy_total_people" property="buyTotalPeople" jdbcType="INTEGER"/> -->
+	<!-- <result column="f_is_show" property="isShow" jdbcType="TINYINT"/> 
+		<result column="f_updater" property="updater" jdbcType="VARCHAR"/>
+	<result column="f_update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+	<result column="f_remark" property="remark" jdbcType="VARCHAR"/>
+	-->
+	
+	<result column="f_buy_min_money" property="buyMinMoney" jdbcType="DECIMAL"/>
+	<result column="f_buy_max_money" property="buyMaxMoney" jdbcType="DECIMAL"/>
+	<result column="f_buy_total_money" property="buyTotalMoney" jdbcType="DECIMAL"/>
+	<result column="f_show_index" property="showIndex" jdbcType="INTEGER"/>
+	<result column="f_tender_way" property="tenderWay" jdbcType="TINYINT"/>
+	<result column="f_is_redemption" property="isRedemption" jdbcType="TINYINT"/>
+	<result column="f_source_way" property="sourceWay" jdbcType="TINYINT"/>
+	<result column="f_money_type" property="moneyType" jdbcType="TINYINT"/>
+	<result column="f_risk_control_type" property="riskControlType" jdbcType="TINYINT"/>
+	<result column="f_risk_level" property="riskLevel" jdbcType="TINYINT"/>
+	<result column="f_flow_level" property="flowLevel" jdbcType="TINYINT"/>
+	<result column="f_product_manage_way" property="productManageWay" jdbcType="TINYINT"/>
+	<result column="f_status" property="status" jdbcType="TINYINT"/>
+<result column="f_creator" property="creator" jdbcType="VARCHAR"/>
+<result column="f_create_time" property="createTime" jdbcType="TIMESTAMP"/>	
+	<result column="f_product_id" property="productId" jdbcType="VARCHAR"/>
+<result column="f_buy_increase_money" property="buyIncreaseMoney" jdbcType="DECIMAL"/>
+	<result column="f_cust_buy_max_money" property="custBuyMaxMoney" jdbcType="DECIMAL"/>
+		<result column="f_product_illustration_url" property="productIllustrationUrl" jdbcType="VARCHAR"/>
+	<result column="f_security_guarantee_url" property="securityGuaranteeUrl" jdbcType="VARCHAR"/>
+	<result column="f_ransfer_protocal_name" property="ransferProtocalName" jdbcType="VARCHAR"/>
+	<result column="f_ransfer_protocal_url" property="ransferProtocalUrl" jdbcType="VARCHAR"/>
+	<result column="f_inv_label" property="invLable" jdbcType="VARCHAR"/>
+	<result column="f_lcs_label" property="lcsLable" jdbcType="VARCHAR"/>
+	<result column="f_sale_status" property="saleStatus" jdbcType="VARCHAR"/>
+	<!-- <result column="f_activity_code" property="activityCode" jdbcType="VARCHAR"/> -->
+<!-- 	<result column="f_is_quota" property="isQuota" jdbcType="INTEGER"/> -->
+	<result column="f_begin_sale_time" property="beginSaleTime" jdbcType="TIMESTAMP"/>
+	<result column="f_grey_flag" property="greyFlag" jdbcType="INTEGER"/>
+	<result column="f_open_type" property="openType" jdbcType="VARCHAR"/>
+	<!-- <result column="f_open_linkUrl" property="openLinkurl" jdbcType="VARCHAR"/> -->
+	<!-- <result column="f_buy_succeed_returnUrl" property="buySucceedReturnurl" jdbcType="VARCHAR"/> -->
+	<result column="f_lcs_corner_ico" property="lcsCornerIco" jdbcType="VARCHAR"/>
+	<result column="f_inv_corner_ico" property="invCornerIco" jdbcType="VARCHAR"/>
+	<result column="f_inv_dtl_page_des" property="invDtlPageDes" jdbcType="VARCHAR"/>
+	<result column="f_lcs_dtl_page_des" property="lcsDtlPageDes" jdbcType="VARCHAR"/>
+	<result column="f_begin_sale_type" property="beginSaleType" jdbcType="TINYINT"/>
+	<result column="f_repayment_way" property="repaymentWay" jdbcType="TINYINT"/>
+	<result column="f_collect_line_min_value" property="collectLineMinValue" jdbcType="INTEGER"/>
+	<result column="f_collect_line_max_value" property="collectLineMaxValue" jdbcType="INTEGER"/>
+	<result column="f_collect_line_back_datetime" property="collectLineBackDatetime" jdbcType="TIMESTAMP"/>
+	<result column="f_collect_rate" property="collectRate" jdbcType="DECIMAL"/>
+	<result column="f_collect_finsh_time" property="collectFinshTime" jdbcType="TIMESTAMP"/>
+	<result column="f_product_type_id" property="productTypeId" jdbcType="TINYINT"/>
+	<result column="f_collect_end_time" property="collectEndTime" jdbcType="TIMESTAMP"/>
+	<result column="f_is_collect" property="isCollect" jdbcType="TINYINT"/>
+	<result column="f_end_sale_time" property="endSaleTime" jdbcType="TIMESTAMP"/>
+</resultMap>
+  <sql id="Base_Column_List">
+    <trim suffixOverrides=",">
+	    	f_id,
+	    	f_is_recommended,
+	    	f_product_name,
+	    	f_product_desc,
+	    	f_product_protocal_id,
+	    	f_product_interest_way_id,
+	    	f_product_type_id,
+	    	f_repayment_way,
+	    	f_is_flow,
+	    	f_fix_rate,
+	    	f_flow_min_rate,
+	    	f_flow_max_rate,
+	    	f_flow_final_rate,
+	    	f_dead_line_type,
+	    	f_dead_line_value,
+	    	f_is_collect,
+	    	f_collect_begin_time,
+	    	f_collect_end_time,
+	    	f_interest_way,
+	    	f_valid_begin_date,
+	    	f_valid_end_date,
+	    	f_buy_min_money,
+	    	f_buy_max_money,
+	    	f_buy_total_money,
+	    	f_buy_total_people,
+	    	f_is_show,
+	    	f_show_index,
+	    	f_tender_way,
+	    	f_is_redemption,
+	    	f_source_way,
+	    	f_money_type,
+	    	f_risk_control_type,
+	    	f_risk_level,
+	    	f_flow_level,
+	    	f_product_manage_way,
+	    	f_status,
+	    	f_creator,
+	    	f_create_time,
+	    	f_updater,
+	    	f_update_time,
+	    	f_remark,
+	    	f_product_id,
+	    	f_description,
+	    	f_buy_increase_money,
+	    	f_cust_buy_max_money,
+	    	f_product_illustration_url,
+	    	f_security_guarantee_url,
+	    	f_ransfer_protocal_name,
+	    	f_ransfer_protocal_url,
+	    	f_inv_label,
+	    	f_lcs_label,
+	    	f_sale_status,
+	    	f_activity_code,
+	    	f_is_quota,
+	    	f_begin_sale_time,
+	    	f_grey_flag,
+	    	f_open_type,
+	    	f_open_linkUrl,
+	    	f_buy_succeed_returnUrl,
+	    	f_lcs_corner_ico,
+	    	f_inv_corner_ico,
+	    	f_inv_dtl_page_des,
+	    	f_lcs_dtl_page_des,
+	    	f_begin_sale_type,
+	    	f_collect_line_min_value,
+	    	f_collect_line_max_value,
+	    	f_collect_line_back_datetime,
+	    	f_collect_rate,
+	    	f_open_lcs_linkUrl,
+	    	f_collect_finsh_time,
+	    	f_end_sale_time,
+    </trim>
+  </sql>  
+  
+   <sql id="Base_Column_List_T">
+    <trim suffixOverrides=",">
+	    	t.f_id,
+	    	t.f_is_recommended,
+	    	t.f_product_name,
+	    	t.f_product_desc,
+	    	t.f_product_protocal_id,
+	    	t.f_product_interest_way_id,
+	    	t.f_product_type_id,
+	    	t.f_repayment_way,
+	    	t.f_is_flow,
+	    	t.f_fix_rate,
+	    	t.f_flow_min_rate,
+	    	t.f_flow_max_rate,
+	    	t.f_flow_final_rate,
+	    	t.f_dead_line_type,
+	    	t.f_dead_line_value,
+	    	t.f_is_collect,
+	    	t.f_collect_begin_time,
+	    	t.f_collect_end_time,
+	    	t.f_interest_way,
+	    	t.f_valid_begin_date,
+	    	t.f_valid_end_date,
+	    	t.f_buy_min_money,
+	    	t.f_buy_max_money,
+	    	t.f_buy_total_money,
+	    	t.f_buy_total_people,
+	    	t.f_is_show,
+	    	t.f_show_index,
+	    	t.f_tender_way,
+	    	t.f_is_redemption,
+	    	t.f_source_way,
+	    	t.f_money_type,
+	    	t.f_risk_control_type,
+	    	t.f_risk_level,
+	    	t.f_flow_level,
+	    	t.f_product_manage_way,
+	    	t.f_status,
+	    	t.f_creator,
+	    	t.f_create_time,
+	    	t.f_updater,
+	    	t.f_update_time,
+	    	t.f_remark,
+	    	t.f_product_id,
+	    	t.f_description,
+	    	t.f_buy_increase_money,
+	    	t.f_cust_buy_max_money,
+	    	t.f_product_illustration_url,
+	    	t.f_security_guarantee_url,
+	    	t.f_ransfer_protocal_name,
+	    	t.f_ransfer_protocal_url,
+	    	t.f_inv_label,
+	    	t.f_lcs_label,
+	    	t.f_sale_status,
+	    	t.f_activity_code,
+	    	t.f_is_quota,
+	    	t.f_begin_sale_time,
+	    	t.f_grey_flag,
+	    	t.f_open_type,
+	    	t.f_open_linkUrl,
+	    	t.f_buy_succeed_returnUrl,
+	    	t.f_lcs_corner_ico,
+	    	t.f_inv_corner_ico,
+	    	t.f_inv_dtl_page_des,
+	    	t.f_lcs_dtl_page_des,
+	    	t.f_begin_sale_type,
+	    	t.f_collect_line_min_value,
+	    	t.f_collect_line_max_value,
+	    	t.f_collect_line_back_datetime,
+	    	t.f_collect_rate,
+	    	t.f_open_lcs_linkUrl,
+	    	t.f_collect_finsh_time,
+    </trim>
+  </sql> 
+  	
+  <select id="getByPrimaryKey"  resultMap="ProductInfoResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_product_info where  f_id = #{0}
+  </select>	
+  <select id="getByProductId"  resultMap="ProductInfoRespResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_product_info where  f_product_id = #{0} limit 1;
+  </select>	
+
+  <delete id="deleteByPrimaryKey" >
+    delete from t_product_info
+	<where>
+		f_id = #{0}
+	</where>
+  </delete>
+  
+  
+  <insert id="add" parameterMap="ProductInfoParameterMap" useGeneratedKeys="true" keyProperty="id" >
+		INSERT INTO t_product_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					f_id,
+				</if>
+			 	<if test=" null != isRecommended ">
+					f_is_recommended,
+				</if>
+			 	<if test=" null != productName and ''!= productName  ">
+					f_product_name,
+				</if>
+			 	<if test=" null != productDesc and ''!= productDesc  ">
+					f_product_desc,
+				</if>
+			 	<if test=" null != productProtocalId and ''!= productProtocalId  ">
+					f_product_protocal_id,
+				</if>
+			 	<if test=" null != productInterestWayId and ''!= productInterestWayId  ">
+					f_product_interest_way_id,
+				</if>
+			 	<if test=" null != productTypeId ">
+					f_product_type_id,
+				</if>
+			 	<if test=" null != repaymentWay ">
+					f_repayment_way,
+				</if>
+			 	<if test=" null != isFlow ">
+					f_is_flow,
+				</if>
+			 	<if test=" null != fixRate ">
+					f_fix_rate,
+				</if>
+				<if test=" null != collectRate ">
+					f_collect_rate,
+				</if>
+			 	<if test=" null != flowMinRate ">
+					f_flow_min_rate,
+				</if>
+			 	<if test=" null != flowMaxRate ">
+					f_flow_max_rate,
+				</if>
+			 	<if test=" null != flowFinalRate ">
+					f_flow_final_rate,
+				</if>
+			 	<if test=" null != deadLineType ">
+					f_dead_line_type,
+				</if>
+			 	<if test=" null != deadLineValue ">
+					f_dead_line_value,
+				</if>
+			 	<if test=" null != isCollect ">
+					f_is_collect,
+				</if>
+			 	<if test=" null != collectBeginTime ">
+					f_collect_begin_time,
+				</if>
+			 	<if test=" null != collectEndTime ">
+					f_collect_end_time,
+				</if>
+			 	<if test=" null != interestWay ">
+					f_interest_way,
+				</if>
+			 	<if test=" null != validBeginDate ">
+					f_valid_begin_date,
+				</if>
+			 	<if test=" null != validEndDate ">
+					f_valid_end_date,
+				</if>
+			 	<if test=" null != buyMinMoney ">
+					f_buy_min_money,
+				</if>
+			 	<if test=" null != buyMaxMoney ">
+					f_buy_max_money,
+				</if>
+			 	<if test=" null != buyTotalMoney ">
+					f_buy_total_money,
+				</if>
+			 	<if test=" null != buyTotalPeople ">
+					f_buy_total_people,
+				</if>
+			 	<if test=" null != isShow ">
+					f_is_show,
+				</if>
+			 	<if test=" null != showIndex ">
+					f_show_index,
+				</if>
+			 	<if test=" null != tenderWay ">
+					f_tender_way,
+				</if>
+			 	<if test=" null != isRedemption ">
+					f_is_redemption,
+				</if>
+			 	<if test=" null != sourceWay ">
+					f_source_way,
+				</if>
+			 	<if test=" null != moneyType ">
+					f_money_type,
+				</if>
+			 	<if test=" null != riskControlType ">
+					f_risk_control_type,
+				</if>
+			 	<if test=" null != riskLevel ">
+					f_risk_level,
+				</if>
+			 	<if test=" null != flowLevel ">
+					f_flow_level,
+				</if>
+			 	<if test=" null != productManageWay ">
+					f_product_manage_way,
+				</if>
+			 	<if test=" null != status ">
+					f_status,
+				</if>
+			 	<if test=" null != creator and ''!= creator  ">
+					f_creator,
+				</if>
+			 	<if test=" null != createTime ">
+					f_create_time,
+				</if>
+			 	<if test=" null != updater and ''!= updater  ">
+					f_updater,
+				</if>
+			 	<if test=" null != updateTime ">
+					f_update_time,
+				</if>
+			 	<if test=" null != remark and ''!= remark  ">
+					f_remark,
+				</if>
+			 	<if test=" null != productId and ''!= productId  ">
+					f_product_id,
+				</if>
+			 	<if test=" null != description and ''!= description  ">
+					f_description,
+				</if>
+			 	<if test=" null != buyIncreaseMoney ">
+					f_buy_increase_money,
+				</if>
+			 	<if test=" null != custBuyMaxMoney ">
+					f_cust_buy_max_money,
+				</if>
+			 	<if test=" null != productIllustrationUrl and ''!= productIllustrationUrl  ">
+					f_product_illustration_url,
+				</if>
+			 	<if test=" null != securityGuaranteeUrl and ''!= securityGuaranteeUrl  ">
+					f_security_guarantee_url,
+				</if>
+			 	<if test=" null != ransferProtocalName and ''!= ransferProtocalName  ">
+					f_ransfer_protocal_name,
+				</if>
+			 	<if test=" null != ransferProtocalUrl and ''!= ransferProtocalUrl  ">
+					f_ransfer_protocal_url,
+				</if>
+			 	<if test=" null != invLabel and ''!= invLabel  ">
+					f_inv_label,
+				</if>
+			 	<if test=" null != lcsLabel and ''!= lcsLabel  ">
+					f_lcs_label,
+				</if>
+			 	<if test=" null != saleStatus and ''!= saleStatus  ">
+					f_sale_status,
+				</if>
+			 	<if test=" null != activityCode and ''!= activityCode  ">
+					f_activity_code,
+				</if>
+			 	<if test=" null != isQuota ">
+					f_is_quota,
+				</if>
+			 	<if test=" null != beginSaleTime ">
+					f_begin_sale_time,
+				</if>
+			 	<if test=" null != greyFlag ">
+					f_grey_flag,
+				</if>
+			 	<if test=" null != openType and ''!= openType  ">
+					f_open_type,
+				</if>
+			 	<if test=" null != openLinkurl and ''!= openLinkurl  ">
+					f_open_linkUrl,
+				</if>
+			 	<if test=" null != buySucceedReturnurl and ''!= buySucceedReturnurl  ">
+					f_buy_succeed_returnUrl,
+				</if>
+			 	<if test=" null != lcsCornerIco and ''!= lcsCornerIco  ">
+					f_lcs_corner_ico,
+				</if>
+			 	<if test=" null != invCornerIco and ''!= invCornerIco  ">
+					f_inv_corner_ico,
+				</if>
+			 	<if test=" null != invDtlPageDes and ''!= invDtlPageDes  ">
+					f_inv_dtl_page_des,
+				</if>
+			 	<if test=" null != lcsDtlPageDes and ''!= lcsDtlPageDes  ">
+					f_lcs_dtl_page_des,
+				</if>
+				<if test=" null != beginSaleType and ''!= beginSaleType  ">
+					f_begin_sale_type,
+				</if>
+				<if test=" null != collectLineMinValue ">
+					f_collect_line_min_value,
+				</if>
+			 	<if test=" null != collectLineMaxValue ">
+					f_collect_line_max_value,
+				</if>
+			 	<if test=" null != collectLineBackDatetime ">
+					f_collect_line_back_datetime,
+				</if>
+			 	<if test=" null != openLcsLinkurl and ''!= openLcsLinkurl  ">
+					f_open_lcs_linkUrl,
+				</if>
+			 	<if test=" null != collectFinshTime ">
+					f_collect_finsh_time,
+				</if>
+				<if test=" null != endSaleTime ">
+					f_end_sale_time,
+				</if>
+				
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != isRecommended ">
+					 	#{isRecommended},
+				</if>
+			 	<if test=" null != productName and ''!= productName  ">
+					 	#{productName},
+				</if>
+			 	<if test=" null != productDesc and ''!= productDesc  ">
+					 	#{productDesc},
+				</if>
+			 	<if test=" null != productProtocalId and ''!= productProtocalId  ">
+					 	#{productProtocalId},
+				</if>
+			 	<if test=" null != productInterestWayId and ''!= productInterestWayId  ">
+					 	#{productInterestWayId},
+				</if>
+			 	<if test=" null != productTypeId ">
+					 	#{productTypeId},
+				</if>
+			 	<if test=" null != repaymentWay ">
+					 	#{repaymentWay},
+				</if>
+			 	<if test=" null != isFlow ">
+					 	#{isFlow},
+				</if>
+			 	<if test=" null != fixRate ">
+					 	#{fixRate},
+				</if>
+				<if test=" null != collectRate ">
+					#{collectRate},
+				</if>
+			 	<if test=" null != flowMinRate ">
+					 	#{flowMinRate},
+				</if>
+			 	<if test=" null != flowMaxRate ">
+					 	#{flowMaxRate},
+				</if>
+			 	<if test=" null != flowFinalRate ">
+					 	#{flowFinalRate},
+				</if>
+			 	<if test=" null != deadLineType ">
+					 	#{deadLineType},
+				</if>
+			 	<if test=" null != deadLineValue ">
+					 	#{deadLineValue},
+				</if>
+			 	<if test=" null != isCollect ">
+					 	#{isCollect},
+				</if>
+			 	<if test=" null != collectBeginTime ">
+					 	#{collectBeginTime},
+				</if>
+			 	<if test=" null != collectEndTime ">
+					 	#{collectEndTime},
+				</if>
+			 	<if test=" null != interestWay ">
+					 	#{interestWay},
+				</if>
+			 	<if test=" null != validBeginDate ">
+					 	#{validBeginDate},
+				</if>
+			 	<if test=" null != validEndDate ">
+					 	#{validEndDate},
+				</if>
+			 	<if test=" null != buyMinMoney ">
+					 	#{buyMinMoney},
+				</if>
+			 	<if test=" null != buyMaxMoney ">
+					 	#{buyMaxMoney},
+				</if>
+			 	<if test=" null != buyTotalMoney ">
+					 	#{buyTotalMoney},
+				</if>
+			 	<if test=" null != buyTotalPeople ">
+					 	#{buyTotalPeople},
+				</if>
+			 	<if test=" null != isShow ">
+					 	#{isShow},
+				</if>
+			 	<if test=" null != showIndex ">
+					 	#{showIndex},
+				</if>
+			 	<if test=" null != tenderWay ">
+					 	#{tenderWay},
+				</if>
+			 	<if test=" null != isRedemption ">
+					 	#{isRedemption},
+				</if>
+			 	<if test=" null != sourceWay ">
+					 	#{sourceWay},
+				</if>
+			 	<if test=" null != moneyType ">
+					 	#{moneyType},
+				</if>
+			 	<if test=" null != riskControlType ">
+					 	#{riskControlType},
+				</if>
+			 	<if test=" null != riskLevel ">
+					 	#{riskLevel},
+				</if>
+			 	<if test=" null != flowLevel ">
+					 	#{flowLevel},
+				</if>
+			 	<if test=" null != productManageWay ">
+					 	#{productManageWay},
+				</if>
+			 	<if test=" null != status ">
+					 	#{status},
+				</if>
+			 	<if test=" null != creator and ''!= creator  ">
+					 	#{creator},
+				</if>
+			 	<if test=" null != createTime ">
+					 	#{createTime},
+				</if>
+			 	<if test=" null != updater and ''!= updater  ">
+					 	#{updater},
+				</if>
+			 	<if test=" null != updateTime ">
+					 	#{updateTime},
+				</if>
+			 	<if test=" null != remark and ''!= remark  ">
+					 	#{remark},
+				</if>
+			 	<if test=" null != productId and ''!= productId  ">
+					 	#{productId},
+				</if>
+			 	<if test=" null != description and ''!= description  ">
+					 	#{description},
+				</if>
+			 	<if test=" null != buyIncreaseMoney ">
+					 	#{buyIncreaseMoney},
+				</if>
+			 	<if test=" null != custBuyMaxMoney ">
+					 	#{custBuyMaxMoney},
+				</if>
+			 	<if test=" null != productIllustrationUrl and ''!= productIllustrationUrl  ">
+					 	#{productIllustrationUrl},
+				</if>
+			 	<if test=" null != securityGuaranteeUrl and ''!= securityGuaranteeUrl  ">
+					 	#{securityGuaranteeUrl},
+				</if>
+			 	<if test=" null != ransferProtocalName and ''!= ransferProtocalName  ">
+					 	#{ransferProtocalName},
+				</if>
+			 	<if test=" null != ransferProtocalUrl and ''!= ransferProtocalUrl  ">
+					 	#{ransferProtocalUrl},
+				</if>
+			 	<if test=" null != invLabel and ''!= invLabel  ">
+					 	#{invLabel},
+				</if>
+			 	<if test=" null != lcsLabel and ''!= lcsLabel  ">
+					 	#{lcsLabel},
+				</if>
+			 	<if test=" null != saleStatus and ''!= saleStatus  ">
+					 	#{saleStatus},
+				</if>
+			 	<if test=" null != activityCode and ''!= activityCode  ">
+					 	#{activityCode},
+				</if>
+			 	<if test=" null != isQuota ">
+					 	#{isQuota},
+				</if>
+			 	<if test=" null != beginSaleTime ">
+					 	#{beginSaleTime},
+				</if>
+			 	<if test=" null != greyFlag ">
+					 	#{greyFlag},
+				</if>
+			 	<if test=" null != openType and ''!= openType  ">
+					 	#{openType},
+				</if>
+			 	<if test=" null != openLinkurl and ''!= openLinkurl  ">
+					 	#{openLinkurl},
+				</if>
+			 	<if test=" null != buySucceedReturnurl and ''!= buySucceedReturnurl  ">
+					 	#{buySucceedReturnurl},
+				</if>
+			 	<if test=" null != lcsCornerIco and ''!= lcsCornerIco  ">
+					 	#{lcsCornerIco},
+				</if>
+			 	<if test=" null != invCornerIco and ''!= invCornerIco  ">
+					 	#{invCornerIco},
+				</if>
+			 	<if test=" null != invDtlPageDes and ''!= invDtlPageDes  ">
+					 	#{invDtlPageDes},
+				</if>
+			 	<if test=" null != lcsDtlPageDes and ''!= lcsDtlPageDes  ">
+					 	#{lcsDtlPageDes},
+				</if>
+				<if test=" null != beginSaleType and ''!= beginSaleType  ">
+					#{beginSaleType},
+				</if>
+				<if test=" null != collectLineMinValue ">
+					 	#{collectLineMinValue},
+				</if>
+			 	<if test=" null != collectLineMaxValue ">
+					 	#{collectLineMaxValue},
+				</if>
+			 	<if test=" null != collectLineBackDatetime ">
+					 	#{collectLineBackDatetime},
+				</if>
+			 	<if test=" null != openLcsLinkurl and ''!= openLcsLinkurl  ">
+					 	#{openLcsLinkurl},
+				</if>
+			 	<if test=" null != collectFinshTime ">
+					 	#{collectFinshTime},
+				</if>
+				<if test=" null != endSaleTime ">
+					#{endSaleTime},
+				</if>
+		</trim>
+	</insert>
+  
+  
+  <update id="update" parameterMap="ProductInfoParameterMap">
+		UPDATE t_product_info
+		<set>
+			<trim suffixOverrides=",">
+					<if test=" null != isRecommended ">
+						f_is_recommended = #{isRecommended},
+					</if>
+					<if test=" null != productName and ''!= productName  ">
+						f_product_name = #{productName},
+					</if>
+					<!-- test=" null != productDesc and ''!= productDesc "  -->
+					<if test=" null != productDesc ">
+						f_product_desc = #{productDesc},
+					</if>
+					<if test=" null != productProtocalId and ''!= productProtocalId  ">
+						f_product_protocal_id = #{productProtocalId},
+					</if>
+					<if test=" null != productInterestWayId and ''!= productInterestWayId  ">
+						f_product_interest_way_id = #{productInterestWayId},
+					</if>
+					<if test=" null != productTypeId ">
+						f_product_type_id = #{productTypeId},
+					</if>
+					<if test=" null != repaymentWay ">
+						f_repayment_way = #{repaymentWay},
+					</if>
+					<if test=" null != isFlow ">
+						f_is_flow = #{isFlow},
+					</if>
+					<if test=" null != fixRate ">
+						f_fix_rate = #{fixRate},
+					</if>
+					<if test=" null != collectRate ">
+					f_collect_rate = #{collectRate},
+				    </if>
+					<if test=" null != flowMinRate ">
+						f_flow_min_rate = #{flowMinRate},
+					</if>
+					<if test=" null != flowMaxRate ">
+						f_flow_max_rate = #{flowMaxRate},
+					</if>
+					<if test=" null != flowFinalRate ">
+						f_flow_final_rate = #{flowFinalRate},
+					</if>
+					<if test=" null != deadLineType ">
+						f_dead_line_type = #{deadLineType},
+					</if>
+					<if test=" null != deadLineValue ">
+						f_dead_line_value = #{deadLineValue},
+					</if>
+					<if test=" null != isCollect ">
+						f_is_collect = #{isCollect},
+					</if>
+					<if test=" null != collectBeginTime ">
+						f_collect_begin_time = #{collectBeginTime},
+					</if>
+					<if test=" null != collectEndTime ">
+						f_collect_end_time = #{collectEndTime},
+					</if>
+					<if test=" null != interestWay ">
+						f_interest_way = #{interestWay},
+					</if>
+					<if test=" null != validBeginDate ">
+						f_valid_begin_date = #{validBeginDate},
+					</if>
+					<if test=" null != validEndDate ">
+						f_valid_end_date = #{validEndDate},
+					</if>
+					<if test=" null != buyMinMoney ">
+						f_buy_min_money = #{buyMinMoney},
+					</if>
+					<if test=" null != buyMaxMoney ">
+						f_buy_max_money = #{buyMaxMoney},
+					</if>
+					<if test=" null != buyTotalMoney ">
+						f_buy_total_money = #{buyTotalMoney},
+					</if>
+					<if test=" null != buyTotalPeople ">
+						f_buy_total_people = #{buyTotalPeople},
+					</if>
+					<if test=" null != isShow ">
+						f_is_show = #{isShow},
+					</if>
+					<if test=" null != showIndex ">
+						f_show_index = #{showIndex},
+					</if>
+					<if test=" null != tenderWay ">
+						f_tender_way = #{tenderWay},
+					</if>
+					<if test=" null != isRedemption ">
+						f_is_redemption = #{isRedemption},
+					</if>
+					<if test=" null != sourceWay ">
+						f_source_way = #{sourceWay},
+					</if>
+					<if test=" null != moneyType ">
+						f_money_type = #{moneyType},
+					</if>
+					<if test=" null != riskControlType ">
+						f_risk_control_type = #{riskControlType},
+					</if>
+					<if test=" null != riskLevel ">
+						f_risk_level = #{riskLevel},
+					</if>
+					<if test=" null != flowLevel ">
+						f_flow_level = #{flowLevel},
+					</if>
+					<if test=" null != productManageWay ">
+						f_product_manage_way = #{productManageWay},
+					</if>
+					<if test=" null != status ">
+						f_status = #{status},
+					</if>
+					<if test=" null != creator and ''!= creator  ">
+						f_creator = #{creator},
+					</if>
+					<if test=" null != createTime ">
+						f_create_time = #{createTime},
+					</if>
+					<if test=" null != updater and ''!= updater  ">
+						f_updater = #{updater},
+					</if>
+					<if test=" null != updateTime ">
+						f_update_time = #{updateTime},
+					</if>
+					<if test=" null != remark and ''!= remark  ">
+						f_remark = #{remark},
+					</if>
+					<if test=" null != description and ''!= description  ">
+						f_description = #{description},
+					</if>
+					<if test=" null != buyIncreaseMoney ">
+						f_buy_increase_money = #{buyIncreaseMoney},
+					</if>
+					<if test=" null != custBuyMaxMoney ">
+						f_cust_buy_max_money = #{custBuyMaxMoney},
+					</if>
+					<if test=" null != productIllustrationUrl and ''!= productIllustrationUrl  ">
+						f_product_illustration_url = #{productIllustrationUrl},
+					</if>
+					<if test=" null != securityGuaranteeUrl and ''!= securityGuaranteeUrl  ">
+						f_security_guarantee_url = #{securityGuaranteeUrl},
+					</if>
+					<if test=" null != ransferProtocalName and ''!= ransferProtocalName  ">
+						f_ransfer_protocal_name = #{ransferProtocalName},
+					</if>
+					<if test=" null != ransferProtocalUrl and ''!= ransferProtocalUrl  ">
+						f_ransfer_protocal_url = #{ransferProtocalUrl},
+					</if>
+					<if test=" null != invLabel">
+						f_inv_label = #{invLabel},
+					</if>
+					<if test=" null != lcsLabel">
+						f_lcs_label = #{lcsLabel},
+					</if>
+					<if test=" null != saleStatus and ''!= saleStatus  ">
+						f_sale_status = #{saleStatus},
+					</if>
+					<if test=" null != activityCode and ''!= activityCode  ">
+						f_activity_code = #{activityCode},
+					</if>
+					<if test=" null != isQuota ">
+						f_is_quota = #{isQuota},
+					</if>
+					<if test=" null != beginSaleTime ">
+						f_begin_sale_time = #{beginSaleTime},
+					</if>
+					<if test=" null != greyFlag ">
+						f_grey_flag = #{greyFlag},
+					</if>
+					<if test=" null != openType and ''!= openType  ">
+						f_open_type = #{openType},
+					</if>
+					<if test=" null != openLinkurl and ''!= openLinkurl  ">
+						f_open_linkUrl = #{openLinkurl},
+					</if>
+					<if test=" null != buySucceedReturnurl and ''!= buySucceedReturnurl  ">
+						f_buy_succeed_returnUrl = #{buySucceedReturnurl},
+					</if>
+					<if test=" null != lcsCornerIco and ''!= lcsCornerIco  ">
+						f_lcs_corner_ico = #{lcsCornerIco},
+					</if>
+					<if test=" null != invCornerIco and ''!= invCornerIco  ">
+						f_inv_corner_ico = #{invCornerIco},
+					</if>
+					<if test=" null != invDtlPageDes and ''!= invDtlPageDes  ">
+						f_inv_dtl_page_des = #{invDtlPageDes},
+					</if>
+					<if test=" null != lcsDtlPageDes and ''!= lcsDtlPageDes  ">
+						f_lcs_dtl_page_des = #{lcsDtlPageDes},
+					</if>
+					<if test=" null != beginSaleType and ''!= beginSaleType  ">
+						f_begin_sale_type = #{beginSaleType},
+					</if>
+					<if test=" null != collectLineMinValue ">
+						f_collect_line_min_value = #{collectLineMinValue},
+					</if>
+					<if test=" null != collectLineMaxValue ">
+						f_collect_line_max_value = #{collectLineMaxValue},
+					</if>
+					<if test=" null != collectLineBackDatetime ">
+						f_collect_line_back_datetime = #{collectLineBackDatetime},
+					</if>
+					<if test=" null != openLcsLinkurl and ''!= openLcsLinkurl  ">
+						f_open_lcs_linkUrl = #{openLcsLinkurl},
+					</if>
+					<if test=" null != collectFinshTime ">
+						f_collect_finsh_time = #{collectFinshTime},
+					</if>
+					f_end_sale_time = #{endSaleTime},
+			</trim>
+		</set>
+		<where>
+			 f_product_id = #{productId}
+		</where>
+	</update>
+  
+  
+   <update id="updateWithEmpty" parameterMap="ProductInfoParameterMap">
+		UPDATE t_product_info
+		<set>
+			<trim suffixOverrides=",">
+						f_is_recommended = #{isRecommended},
+						f_product_name = #{productName},
+						f_product_desc = #{productDesc},
+						f_product_protocal_id = #{productProtocalId},
+						f_product_interest_way_id = #{productInterestWayId},
+						f_product_type_id = #{productTypeId},
+						f_repayment_way = #{repaymentWay},
+						f_is_flow = #{isFlow},
+						f_fix_rate = #{fixRate},						
+					    f_collect_rate = #{collectRate},
+						f_flow_min_rate = #{flowMinRate},
+						f_flow_max_rate = #{flowMaxRate},
+						f_flow_final_rate = #{flowFinalRate},
+						f_dead_line_type = #{deadLineType},
+						f_dead_line_value = #{deadLineValue},
+						f_is_collect = #{isCollect},
+						f_collect_begin_time = #{collectBeginTime},
+						f_collect_end_time = #{collectEndTime},
+						f_interest_way = #{interestWay},
+						f_valid_begin_date = #{validBeginDate},
+						f_valid_end_date = #{validEndDate},
+						f_buy_min_money = #{buyMinMoney},
+						f_buy_max_money = #{buyMaxMoney},
+						f_buy_total_money = #{buyTotalMoney},
+						f_buy_total_people = #{buyTotalPeople},
+						f_is_show = #{isShow},
+						f_show_index = #{showIndex},
+						f_tender_way = #{tenderWay},
+						f_is_redemption = #{isRedemption},
+						f_source_way = #{sourceWay},
+						f_money_type = #{moneyType},
+						f_risk_control_type = #{riskControlType},
+						f_risk_level = #{riskLevel},
+						f_flow_level = #{flowLevel},
+						f_product_manage_way = #{productManageWay},
+						f_status = #{status},
+						f_creator = #{creator},
+						f_create_time = #{createTime},
+						f_updater = #{updater},
+						f_update_time = #{updateTime},
+						f_remark = #{remark},
+						f_product_id = #{productId},
+						f_description = #{description},
+						f_buy_increase_money = #{buyIncreaseMoney},
+						f_cust_buy_max_money = #{custBuyMaxMoney},
+						f_product_illustration_url = #{productIllustrationUrl},
+						f_security_guarantee_url = #{securityGuaranteeUrl},
+						f_ransfer_protocal_name = #{ransferProtocalName},
+						f_ransfer_protocal_url = #{ransferProtocalUrl},
+						f_inv_label = #{invLabel},
+						f_lcs_label = #{lcsLabel},
+						f_sale_status = #{saleStatus},
+						f_activity_code = #{activityCode},
+						f_is_quota = #{isQuota},
+						f_begin_sale_time = #{beginSaleTime},
+						f_grey_flag = #{greyFlag},
+						f_open_type = #{openType},
+						f_open_linkUrl = #{openLinkurl},
+						f_buy_succeed_returnUrl = #{buySucceedReturnurl},
+						f_lcs_corner_ico = #{lcsCornerIco},
+						f_inv_corner_ico = #{invCornerIco},
+						f_inv_dtl_page_des = #{invDtlPageDes},
+						f_lcs_dtl_page_des = #{lcsDtlPageDes},
+						f_begin_sale_type = #{beginSaleType},
+						f_collect_line_min_value = #{collectLineMinValue},
+						f_collect_line_max_value = #{collectLineMaxValue},
+						f_collect_line_back_datetime = #{collectLineBackDatetime},
+						f_open_lcs_linkUrl = #{openLcsLinkurl},
+						f_collect_finsh_time = #{collectFinshTime},
+			</trim>
+		</set>
+		<where>
+			 f_id = #{id}
+		</where>
+	</update>
+
+  <insert id="addBatch" parameterType="java.util.List">
+	insert into t_product_info 
+	<trim prefix="(" suffix=")" >
+			<include refid="Base_Column_List" />
+	</trim>
+	VALUES
+	<foreach item="item" index="index" collection="list" separator=",">
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+				#{item.id,jdbcType=INTEGER},
+				#{item.isRecommended,jdbcType=TINYINT},
+				#{item.productName,jdbcType=VARCHAR},
+				#{item.productDesc,jdbcType=VARCHAR},
+				#{item.productProtocalId,jdbcType=VARCHAR},
+				#{item.productInterestWayId,jdbcType=VARCHAR},
+				#{item.productTypeId,jdbcType=INTEGER},
+				#{item.repaymentWay,jdbcType=TINYINT},
+				#{item.isFlow,jdbcType=TINYINT},
+				#{item.fixRate,jdbcType=DECIMAL},
+				#{item.collectRate,jdbcType=DECIMAL},
+				#{item.flowMinRate,jdbcType=DECIMAL},
+				#{item.flowMaxRate,jdbcType=DECIMAL},
+				#{item.flowFinalRate,jdbcType=DECIMAL},
+				#{item.deadLineType,jdbcType=TINYINT},
+				#{item.deadLineValue,jdbcType=INTEGER},
+				#{item.isCollect,jdbcType=TINYINT},
+				#{item.collectBeginTime,jdbcType=TIMESTAMP},
+				#{item.collectEndTime,jdbcType=TIMESTAMP},
+				#{item.interestWay,jdbcType=TINYINT},
+				#{item.validBeginDate,jdbcType=TIMESTAMP},
+				#{item.validEndDate,jdbcType=TIMESTAMP},
+				#{item.buyMinMoney,jdbcType=DECIMAL},
+				#{item.buyMaxMoney,jdbcType=DECIMAL},
+				#{item.buyTotalMoney,jdbcType=DECIMAL},
+				#{item.buyTotalPeople,jdbcType=INTEGER},
+				#{item.isShow,jdbcType=TINYINT},
+				#{item.showIndex,jdbcType=INTEGER},
+				#{item.tenderWay,jdbcType=TINYINT},
+				#{item.isRedemption,jdbcType=TINYINT},
+				#{item.sourceWay,jdbcType=TINYINT},
+				#{item.moneyType,jdbcType=TINYINT},
+				#{item.riskControlType,jdbcType=TINYINT},
+				#{item.riskLevel,jdbcType=TINYINT},
+				#{item.flowLevel,jdbcType=TINYINT},
+				#{item.productManageWay,jdbcType=TINYINT},
+				#{item.status,jdbcType=TINYINT},
+				#{item.creator,jdbcType=VARCHAR},
+				#{item.createTime,jdbcType=TIMESTAMP},
+				#{item.updater,jdbcType=VARCHAR},
+				#{item.updateTime,jdbcType=TIMESTAMP},
+				#{item.remark,jdbcType=VARCHAR},
+				#{item.productId,jdbcType=VARCHAR},
+				#{item.description,jdbcType=LONGVARCHAR},
+				#{item.buyIncreaseMoney,jdbcType=DECIMAL},
+				#{item.custBuyMaxMoney,jdbcType=DECIMAL},
+				#{item.productIllustrationUrl,jdbcType=VARCHAR},
+				#{item.securityGuaranteeUrl,jdbcType=VARCHAR},
+				#{item.ransferProtocalName,jdbcType=VARCHAR},
+				#{item.ransferProtocalUrl,jdbcType=VARCHAR},
+				#{item.invLabel,jdbcType=VARCHAR},
+				#{item.lcsLabel,jdbcType=VARCHAR},
+				#{item.saleStatus,jdbcType=VARCHAR},
+				#{item.activityCode,jdbcType=VARCHAR},
+				#{item.isQuota,jdbcType=INTEGER},
+				#{item.beginSaleTime,jdbcType=TIMESTAMP},
+				#{item.greyFlag,jdbcType=INTEGER},
+				#{item.openType,jdbcType=VARCHAR},
+				#{item.openLinkurl,jdbcType=VARCHAR},
+				#{item.buySucceedReturnurl,jdbcType=VARCHAR},
+				#{item.lcsCornerIco,jdbcType=VARCHAR},
+				#{item.invCornerIco,jdbcType=VARCHAR},
+				#{item.invDtlPageDes,jdbcType=VARCHAR},
+				#{item.lcsDtlPageDes,jdbcType=VARCHAR},
+				#{item.beginSaleType,jdbcType=INTEGER},
+				#{item.collectLineMinValue,jdbcType=INTEGER},
+				#{item.collectLineMaxValue,jdbcType=INTEGER},
+				#{item.collectLineBackDatetime,jdbcType=TIMESTAMP},
+				#{item.openLcsLinkurl,jdbcType=VARCHAR},
+				#{item.collectFinshTime,jdbcType=TIMESTAMP},
+		</trim>
+	</foreach>
+</insert>
+
+ 
+<update id="updateBatch" parameterType="java.util.List">
+      <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update t_product_info
+            <set>
+              	<trim suffixOverrides=",">
+					   <if test="item.isRecommended!=null ">
+					        f_is_recommended = #{item.isRecommended,jdbcType=TINYINT},
+					   </if>
+					   <if test="item.productName!=null and ''!= item.productName  ">
+					        f_product_name = #{item.productName,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.productDesc!=null and ''!= item.productDesc  ">
+					        f_product_desc = #{item.productDesc,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.productProtocalId!=null and ''!= item.productProtocalId  ">
+					        f_product_protocal_id = #{item.productProtocalId,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.productInterestWayId!=null and ''!= item.productInterestWayId  ">
+					        f_product_interest_way_id = #{item.productInterestWayId,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.productTypeId!=null ">
+					        f_product_type_id = #{item.productTypeId,jdbcType=INTEGER},
+					   </if>
+					   <if test="item.repaymentWay!=null ">
+					        f_repayment_way = #{item.repaymentWay,jdbcType=TINYINT},
+					   </if>
+					   <if test="item.isFlow!=null ">
+					        f_is_flow = #{item.isFlow,jdbcType=TINYINT},
+					   </if>
+					   <if test="item.fixRate!=null ">
+					        f_fix_rate = #{item.fixRate,jdbcType=DECIMAL},
+					   </if>
+					   <if test="item.collectRate!=null ">
+					        f_collect_rate = #{item.collectRate,jdbcType=DECIMAL},
+					   </if>
+					   
+					   <if test="item.flowMinRate!=null ">
+					        f_flow_min_rate = #{item.flowMinRate,jdbcType=DECIMAL},
+					   </if>
+					   <if test="item.flowMaxRate!=null ">
+					        f_flow_max_rate = #{item.flowMaxRate,jdbcType=DECIMAL},
+					   </if>
+					   <if test="item.flowFinalRate!=null ">
+					        f_flow_final_rate = #{item.flowFinalRate,jdbcType=DECIMAL},
+					   </if>
+					   <if test="item.deadLineType!=null ">
+					        f_dead_line_type = #{item.deadLineType,jdbcType=TINYINT},
+					   </if>
+					   <if test="item.deadLineValue!=null ">
+					        f_dead_line_value = #{item.deadLineValue,jdbcType=INTEGER},
+					   </if>
+					   <if test="item.isCollect!=null ">
+					        f_is_collect = #{item.isCollect,jdbcType=TINYINT},
+					   </if>
+					   <if test="item.collectBeginTime!=null ">
+					        f_collect_begin_time = #{item.collectBeginTime,jdbcType=TIMESTAMP},
+					   </if>
+					   <if test="item.collectEndTime!=null ">
+					        f_collect_end_time = #{item.collectEndTime,jdbcType=TIMESTAMP},
+					   </if>
+					   <if test="item.interestWay!=null ">
+					        f_interest_way = #{item.interestWay,jdbcType=TINYINT},
+					   </if>
+					   <if test="item.validBeginDate!=null ">
+					        f_valid_begin_date = #{item.validBeginDate,jdbcType=TIMESTAMP},
+					   </if>
+					   <if test="item.validEndDate!=null ">
+					        f_valid_end_date = #{item.validEndDate,jdbcType=TIMESTAMP},
+					   </if>
+					   <if test="item.buyMinMoney!=null ">
+					        f_buy_min_money = #{item.buyMinMoney,jdbcType=DECIMAL},
+					   </if>
+					   <if test="item.buyMaxMoney!=null ">
+					        f_buy_max_money = #{item.buyMaxMoney,jdbcType=DECIMAL},
+					   </if>
+					   <if test="item.buyTotalMoney!=null ">
+					        f_buy_total_money = #{item.buyTotalMoney,jdbcType=DECIMAL},
+					   </if>
+					   <if test="item.buyTotalPeople!=null ">
+					        f_buy_total_people = #{item.buyTotalPeople,jdbcType=INTEGER},
+					   </if>
+					   <if test="item.isShow!=null ">
+					        f_is_show = #{item.isShow,jdbcType=TINYINT},
+					   </if>
+					   <if test="item.showIndex!=null ">
+					        f_show_index = #{item.showIndex,jdbcType=INTEGER},
+					   </if>
+					   <if test="item.tenderWay!=null ">
+					        f_tender_way = #{item.tenderWay,jdbcType=TINYINT},
+					   </if>
+					   <if test="item.isRedemption!=null ">
+					        f_is_redemption = #{item.isRedemption,jdbcType=TINYINT},
+					   </if>
+					   <if test="item.sourceWay!=null ">
+					        f_source_way = #{item.sourceWay,jdbcType=TINYINT},
+					   </if>
+					   <if test="item.moneyType!=null ">
+					        f_money_type = #{item.moneyType,jdbcType=TINYINT},
+					   </if>
+					   <if test="item.riskControlType!=null ">
+					        f_risk_control_type = #{item.riskControlType,jdbcType=TINYINT},
+					   </if>
+					   <if test="item.riskLevel!=null ">
+					        f_risk_level = #{item.riskLevel,jdbcType=TINYINT},
+					   </if>
+					   <if test="item.flowLevel!=null ">
+					        f_flow_level = #{item.flowLevel,jdbcType=TINYINT},
+					   </if>
+					   <if test="item.productManageWay!=null ">
+					        f_product_manage_way = #{item.productManageWay,jdbcType=TINYINT},
+					   </if>
+					   <if test="item.status!=null ">
+					        f_status = #{item.status,jdbcType=TINYINT},
+					   </if>
+					   <if test="item.creator!=null and ''!= item.creator  ">
+					        f_creator = #{item.creator,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.createTime!=null ">
+					        f_create_time = #{item.createTime,jdbcType=TIMESTAMP},
+					   </if>
+					   <if test="item.updater!=null and ''!= item.updater  ">
+					        f_updater = #{item.updater,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.updateTime!=null ">
+					        f_update_time = #{item.updateTime,jdbcType=TIMESTAMP},
+					   </if>
+					   <if test="item.remark!=null and ''!= item.remark  ">
+					        f_remark = #{item.remark,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.productId!=null and ''!= item.productId  ">
+					        f_product_id = #{item.productId,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.description!=null and ''!= item.description  ">
+					        f_description = #{item.description,jdbcType=LONGVARCHAR},
+					   </if>
+					   <if test="item.buyIncreaseMoney!=null ">
+					        f_buy_increase_money = #{item.buyIncreaseMoney,jdbcType=DECIMAL},
+					   </if>
+					   <if test="item.custBuyMaxMoney!=null ">
+					        f_cust_buy_max_money = #{item.custBuyMaxMoney,jdbcType=DECIMAL},
+					   </if>
+					   <if test="item.productIllustrationUrl!=null and ''!= item.productIllustrationUrl  ">
+					        f_product_illustration_url = #{item.productIllustrationUrl,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.securityGuaranteeUrl!=null and ''!= item.securityGuaranteeUrl  ">
+					        f_security_guarantee_url = #{item.securityGuaranteeUrl,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.ransferProtocalName!=null and ''!= item.ransferProtocalName  ">
+					        f_ransfer_protocal_name = #{item.ransferProtocalName,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.ransferProtocalUrl!=null and ''!= item.ransferProtocalUrl  ">
+					        f_ransfer_protocal_url = #{item.ransferProtocalUrl,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.invLabel!=null and ''!= item.invLabel  ">
+					        f_inv_label = #{item.invLabel,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.lcsLabel!=null and ''!= item.lcsLabel  ">
+					        f_lcs_label = #{item.lcsLabel,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.saleStatus!=null and ''!= item.saleStatus  ">
+					        f_sale_status = #{item.saleStatus,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.activityCode!=null and ''!= item.activityCode  ">
+					        f_activity_code = #{item.activityCode,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.isQuota!=null ">
+					        f_is_quota = #{item.isQuota,jdbcType=INTEGER},
+					   </if>
+					   <if test="item.beginSaleTime!=null ">
+					        f_begin_sale_time = #{item.beginSaleTime,jdbcType=TIMESTAMP},
+					   </if>
+					   <if test="item.greyFlag!=null ">
+					        f_grey_flag = #{item.greyFlag,jdbcType=INTEGER},
+					   </if>
+					   <if test="item.openType!=null and ''!= item.openType  ">
+					        f_open_type = #{item.openType,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.openLinkurl!=null and ''!= item.openLinkurl  ">
+					        f_open_linkUrl = #{item.openLinkurl,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.buySucceedReturnurl!=null and ''!= item.buySucceedReturnurl  ">
+					        f_buy_succeed_returnUrl = #{item.buySucceedReturnurl,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.lcsCornerIco!=null and ''!= item.lcsCornerIco  ">
+					        f_lcs_corner_ico = #{item.lcsCornerIco,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.invCornerIco!=null and ''!= item.invCornerIco  ">
+					        f_inv_corner_ico = #{item.invCornerIco,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.invDtlPageDes!=null and ''!= item.invDtlPageDes  ">
+					        f_inv_dtl_page_des = #{item.invDtlPageDes,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.lcsDtlPageDes!=null and ''!= item.lcsDtlPageDes  ">
+					        f_lcs_dtl_page_des = #{item.lcsDtlPageDes,jdbcType=VARCHAR},
+					   </if>
+					    <if test="item.beginSaleType!=null and ''!= item.beginSaleType  ">
+					        f_begin_sale_type = #{item.beginSaleType,jdbcType=INTEGER},
+					   </if>
+					   <if test="item.collectLineMinValue!=null ">
+					        f_collect_line_min_value = #{item.collectLineMinValue,jdbcType=INTEGER},
+					   </if>
+					   <if test="item.collectLineMaxValue!=null ">
+					        f_collect_line_max_value = #{item.collectLineMaxValue,jdbcType=INTEGER},
+					   </if>
+					   <if test="item.collectLineBackDatetime!=null ">
+					        f_collect_line_back_datetime = #{item.collectLineBackDatetime,jdbcType=TIMESTAMP},
+					   </if>
+					   <if test="item.openLcsLinkurl!=null and ''!= item.openLcsLinkurl  ">
+					        f_open_lcs_linkUrl = #{item.openLcsLinkurl,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.collectFinshTime!=null ">
+					        f_collect_finsh_time = #{item.collectFinshTime,jdbcType=TIMESTAMP},
+					   </if>
+			   </trim>
+            </set>
+             where f_id = #{item.id}
+     </foreach>
+</update>
+
+<update id="updateBatchWithEmpty" parameterType="java.util.List">
+      <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update t_product_info
+            <set>
+              	<trim suffixOverrides=",">
+					        f_is_recommended = #{item.isRecommended,jdbcType=TINYINT},
+					        f_product_name = #{item.productName,jdbcType=VARCHAR},
+					        f_product_desc = #{item.productDesc,jdbcType=VARCHAR},
+					        f_product_protocal_id = #{item.productProtocalId,jdbcType=VARCHAR},
+					        f_product_interest_way_id = #{item.productInterestWayId,jdbcType=VARCHAR},
+					        f_product_type_id = #{item.productTypeId,jdbcType=INTEGER},
+					        f_repayment_way = #{item.repaymentWay,jdbcType=TINYINT},
+					        f_is_flow = #{item.isFlow,jdbcType=TINYINT},
+					        f_fix_rate = #{item.fixRate,jdbcType=DECIMAL},
+					        f_collect_rate = #{item.collectRate,jdbcType=DECIMAL},
+					        f_flow_min_rate = #{item.flowMinRate,jdbcType=DECIMAL},
+					        f_flow_max_rate = #{item.flowMaxRate,jdbcType=DECIMAL},
+					        f_flow_final_rate = #{item.flowFinalRate,jdbcType=DECIMAL},
+					        f_dead_line_type = #{item.deadLineType,jdbcType=TINYINT},
+					        f_dead_line_value = #{item.deadLineValue,jdbcType=INTEGER},
+					        f_is_collect = #{item.isCollect,jdbcType=TINYINT},
+					        f_collect_begin_time = #{item.collectBeginTime,jdbcType=TIMESTAMP},
+					        f_collect_end_time = #{item.collectEndTime,jdbcType=TIMESTAMP},
+					        f_interest_way = #{item.interestWay,jdbcType=TINYINT},
+					        f_valid_begin_date = #{item.validBeginDate,jdbcType=TIMESTAMP},
+					        f_valid_end_date = #{item.validEndDate,jdbcType=TIMESTAMP},
+					        f_buy_min_money = #{item.buyMinMoney,jdbcType=DECIMAL},
+					        f_buy_max_money = #{item.buyMaxMoney,jdbcType=DECIMAL},
+					        f_buy_total_money = #{item.buyTotalMoney,jdbcType=DECIMAL},
+					        f_buy_total_people = #{item.buyTotalPeople,jdbcType=INTEGER},
+					        f_is_show = #{item.isShow,jdbcType=TINYINT},
+					        f_show_index = #{item.showIndex,jdbcType=INTEGER},
+					        f_tender_way = #{item.tenderWay,jdbcType=TINYINT},
+					        f_is_redemption = #{item.isRedemption,jdbcType=TINYINT},
+					        f_source_way = #{item.sourceWay,jdbcType=TINYINT},
+					        f_money_type = #{item.moneyType,jdbcType=TINYINT},
+					        f_risk_control_type = #{item.riskControlType,jdbcType=TINYINT},
+					        f_risk_level = #{item.riskLevel,jdbcType=TINYINT},
+					        f_flow_level = #{item.flowLevel,jdbcType=TINYINT},
+					        f_product_manage_way = #{item.productManageWay,jdbcType=TINYINT},
+					        f_status = #{item.status,jdbcType=TINYINT},
+					        f_creator = #{item.creator,jdbcType=VARCHAR},
+					        f_create_time = #{item.createTime,jdbcType=TIMESTAMP},
+					        f_updater = #{item.updater,jdbcType=VARCHAR},
+					        f_update_time = #{item.updateTime,jdbcType=TIMESTAMP},
+					        f_remark = #{item.remark,jdbcType=VARCHAR},
+					        f_product_id = #{item.productId,jdbcType=VARCHAR},
+					        f_description = #{item.description,jdbcType=LONGVARCHAR},
+					        f_buy_increase_money = #{item.buyIncreaseMoney,jdbcType=DECIMAL},
+					        f_cust_buy_max_money = #{item.custBuyMaxMoney,jdbcType=DECIMAL},
+					        f_product_illustration_url = #{item.productIllustrationUrl,jdbcType=VARCHAR},
+					        f_security_guarantee_url = #{item.securityGuaranteeUrl,jdbcType=VARCHAR},
+					        f_ransfer_protocal_name = #{item.ransferProtocalName,jdbcType=VARCHAR},
+					        f_ransfer_protocal_url = #{item.ransferProtocalUrl,jdbcType=VARCHAR},
+					        f_inv_label = #{item.invLabel,jdbcType=VARCHAR},
+					        f_lcs_label = #{item.lcsLabel,jdbcType=VARCHAR},
+					        f_sale_status = #{item.saleStatus,jdbcType=VARCHAR},
+					        f_activity_code = #{item.activityCode,jdbcType=VARCHAR},
+					        f_is_quota = #{item.isQuota,jdbcType=INTEGER},
+					        f_begin_sale_time = #{item.beginSaleTime,jdbcType=TIMESTAMP},
+					        f_grey_flag = #{item.greyFlag,jdbcType=INTEGER},
+					        f_open_type = #{item.openType,jdbcType=VARCHAR},
+					        f_open_linkUrl = #{item.openLinkurl,jdbcType=VARCHAR},
+					        f_buy_succeed_returnUrl = #{item.buySucceedReturnurl,jdbcType=VARCHAR},
+					        f_lcs_corner_ico = #{item.lcsCornerIco,jdbcType=VARCHAR},
+					        f_inv_corner_ico = #{item.invCornerIco,jdbcType=VARCHAR},
+					        f_inv_dtl_page_des = #{item.invDtlPageDes,jdbcType=VARCHAR},
+					        f_lcs_dtl_page_des = #{item.lcsDtlPageDes,jdbcType=VARCHAR},
+					        f_begin_sale_type = #{item.benginSaleType,jdbcType=INTEGER},
+					        f_collect_line_min_value = #{item.collectLineMinValue,jdbcType=INTEGER},
+					        f_collect_line_max_value = #{item.collectLineMaxValue,jdbcType=INTEGER},
+					        f_collect_line_back_datetime = #{item.collectLineBackDatetime,jdbcType=TIMESTAMP},
+					        f_open_lcs_linkUrl = #{item.openLcsLinkurl,jdbcType=VARCHAR},
+					        f_collect_finsh_time = #{item.collectFinshTime,jdbcType=TIMESTAMP},
+			   </trim>
+            </set>
+             where f_id = #{item.id}
+     </foreach>
+</update>         
+
+<delete id="deleteBatch" parameterType="Object">
+	DELETE FROM t_product_info
+	<where>
+		<foreach item="item" index="index" collection="array"  open="(" separator="or" close=") ">
+			  f_id  = #{item}
+		</foreach>
+	</where>
+</delete>
+    
+ <sql id="Base_Condition">
+		   <if test=" null != id ">
+				AND	T.f_id = #{id}
+		</if>
+		   <if test=" null != isRecommended ">
+				AND	T.f_is_recommended = #{isRecommended}
+		</if>
+		   <if test=" null != productName and ''!= productName  ">
+				AND	T.f_product_name = #{productName}
+		</if>
+		   <if test=" null != productDesc and ''!= productDesc  ">
+				AND	T.f_product_desc = #{productDesc}
+		</if>
+		   <if test=" null != productProtocalId and ''!= productProtocalId  ">
+				AND	T.f_product_protocal_id = #{productProtocalId}
+		</if>
+		   <if test=" null != productInterestWayId and ''!= productInterestWayId  ">
+				AND	T.f_product_interest_way_id = #{productInterestWayId}
+		</if>
+		   <if test=" null != productTypeId ">
+				AND	T.f_product_type_id = #{productTypeId}
+		</if>
+		   <if test=" null != repaymentWay ">
+				AND	T.f_repayment_way = #{repaymentWay}
+		</if>
+		   <if test=" null != isFlow ">
+				AND	T.f_is_flow = #{isFlow}
+		</if>
+		   <if test=" null != fixRate ">
+				AND	T.f_fix_rate = #{fixRate}
+		</if>
+		<if test=" null != collectRate ">
+			 AND T.f_collect_rate = #{collectRate}
+		</if>
+		   <if test=" null != flowMinRate ">
+				AND	T.f_flow_min_rate = #{flowMinRate}
+		</if>
+		   <if test=" null != flowMaxRate ">
+				AND	T.f_flow_max_rate = #{flowMaxRate}
+		</if>
+		   <if test=" null != flowFinalRate ">
+				AND	T.f_flow_final_rate = #{flowFinalRate}
+		</if>
+		   <if test=" null != deadLineType ">
+				AND	T.f_dead_line_type = #{deadLineType}
+		</if>
+		   <if test=" null != deadLineValue ">
+				AND	T.f_dead_line_value = #{deadLineValue}
+		</if>
+		   <if test=" null != isCollect ">
+				AND	T.f_is_collect = #{isCollect}
+		</if>
+		   <if test=" null != collectBeginTime ">
+				AND	T.f_collect_begin_time = #{collectBeginTime}
+		</if>
+		   <if test=" null != collectEndTime ">
+				AND	T.f_collect_end_time = #{collectEndTime}
+		</if>
+		   <if test=" null != interestWay ">
+				AND	T.f_interest_way = #{interestWay}
+		</if>
+		   <if test=" null != validBeginDate ">
+				AND	T.f_valid_begin_date = #{validBeginDate}
+		</if>
+		   <if test=" null != validEndDate ">
+				AND	T.f_valid_end_date = #{validEndDate}
+		</if>
+		   <if test=" null != buyMinMoney ">
+				AND	T.f_buy_min_money = #{buyMinMoney}
+		</if>
+		   <if test=" null != buyMaxMoney ">
+				AND	T.f_buy_max_money = #{buyMaxMoney}
+		</if>
+		   <if test=" null != buyTotalMoney ">
+				AND	T.f_buy_total_money = #{buyTotalMoney}
+		</if>
+		   <if test=" null != buyTotalPeople ">
+				AND	T.f_buy_total_people = #{buyTotalPeople}
+		</if>
+		   <if test=" null != isShow ">
+				AND	T.f_is_show = #{isShow}
+		</if>
+		   <if test=" null != showIndex ">
+				AND	T.f_show_index = #{showIndex}
+		</if>
+		   <if test=" null != tenderWay ">
+				AND	T.f_tender_way = #{tenderWay}
+		</if>
+		   <if test=" null != isRedemption ">
+				AND	T.f_is_redemption = #{isRedemption}
+		</if>
+		   <if test=" null != sourceWay ">
+				AND	T.f_source_way = #{sourceWay}
+		</if>
+		   <if test=" null != moneyType ">
+				AND	T.f_money_type = #{moneyType}
+		</if>
+		   <if test=" null != riskControlType ">
+				AND	T.f_risk_control_type = #{riskControlType}
+		</if>
+		   <if test=" null != riskLevel ">
+				AND	T.f_risk_level = #{riskLevel}
+		</if>
+		   <if test=" null != flowLevel ">
+				AND	T.f_flow_level = #{flowLevel}
+		</if>
+		   <if test=" null != productManageWay ">
+				AND	T.f_product_manage_way = #{productManageWay}
+		</if>
+		   <if test=" null != status ">
+				AND	T.f_status = #{status}
+		</if>
+		   <if test=" null != creator and ''!= creator  ">
+				AND	T.f_creator = #{creator}
+		</if>
+		   <if test=" null != createTime ">
+				AND	T.f_create_time = #{createTime}
+		</if>
+		   <if test=" null != updater and ''!= updater  ">
+				AND	T.f_updater = #{updater}
+		</if>
+		   <if test=" null != updateTime ">
+				AND	T.f_update_time = #{updateTime}
+		</if>
+		   <if test=" null != remark and ''!= remark  ">
+				AND	T.f_remark = #{remark}
+		</if>
+		   <if test=" null != productId and ''!= productId  ">
+				AND	T.f_product_id = #{productId}
+		</if>
+		   <if test=" null != description and ''!= description  ">
+				AND	T.f_description = #{description}
+		</if>
+		   <if test=" null != buyIncreaseMoney ">
+				AND	T.f_buy_increase_money = #{buyIncreaseMoney}
+		</if>
+		   <if test=" null != custBuyMaxMoney ">
+				AND	T.f_cust_buy_max_money = #{custBuyMaxMoney}
+		</if>
+		   <if test=" null != productIllustrationUrl and ''!= productIllustrationUrl  ">
+				AND	T.f_product_illustration_url = #{productIllustrationUrl}
+		</if>
+		   <if test=" null != securityGuaranteeUrl and ''!= securityGuaranteeUrl  ">
+				AND	T.f_security_guarantee_url = #{securityGuaranteeUrl}
+		</if>
+		   <if test=" null != ransferProtocalName and ''!= ransferProtocalName  ">
+				AND	T.f_ransfer_protocal_name = #{ransferProtocalName}
+		</if>
+		   <if test=" null != ransferProtocalUrl and ''!= ransferProtocalUrl  ">
+				AND	T.f_ransfer_protocal_url = #{ransferProtocalUrl}
+		</if>
+		   <if test=" null != invLabel and ''!= invLabel  ">
+				AND	T.f_inv_label = #{invLabel}
+		</if>
+		   <if test=" null != lcsLabel and ''!= lcsLabel  ">
+				AND	T.f_lcs_label = #{lcsLabel}
+		</if>
+		   <if test=" null != saleStatus and ''!= saleStatus  ">
+				AND	T.f_sale_status = #{saleStatus}
+		</if>
+		   <if test=" null != activityCode and ''!= activityCode  ">
+				AND	T.f_activity_code = #{activityCode}
+		</if>
+		   <if test=" null != isQuota ">
+				AND	T.f_is_quota = #{isQuota}
+		</if>
+		   <if test=" null != beginSaleTime ">
+				AND	T.f_begin_sale_time = #{beginSaleTime}
+		</if>
+		   <if test=" null != greyFlag ">
+				AND	T.f_grey_flag = #{greyFlag}
+		</if>
+		   <if test=" null != openType and ''!= openType  ">
+				AND	T.f_open_type = #{openType}
+		</if>
+		   <if test=" null != openLinkurl and ''!= openLinkurl  ">
+				AND	T.f_open_linkUrl = #{openLinkurl}
+		</if>
+		   <if test=" null != buySucceedReturnurl and ''!= buySucceedReturnurl  ">
+				AND	T.f_buy_succeed_returnUrl = #{buySucceedReturnurl}
+		</if>
+		   <if test=" null != lcsCornerIco and ''!= lcsCornerIco  ">
+				AND	T.f_lcs_corner_ico = #{lcsCornerIco}
+		</if>
+		   <if test=" null != invCornerIco and ''!= invCornerIco  ">
+				AND	T.f_inv_corner_ico = #{invCornerIco}
+		</if>
+		   <if test=" null != invDtlPageDes and ''!= invDtlPageDes  ">
+				AND	T.f_inv_dtl_page_des = #{invDtlPageDes}
+		</if>
+		   <if test=" null != lcsDtlPageDes and ''!= lcsDtlPageDes  ">
+				AND	T.f_lcs_dtl_page_des = #{lcsDtlPageDes}
+		</if>
+		<if test=" null != beginSaleType and ''!= beginSaleType  ">
+				AND	T.f_begin_sale_type = #{beginSaleType}
+		</if>
+ </sql>    
+<select id="list" resultMap="ProductInfoResultMap"  >
+		SELECT <include refid="Base_Column_List" /> FROM t_product_info T WHERE 1=1
+		<include refid="Base_Condition" />
+</select>
+
+<select id="query" resultMap="ProductInfoResultMap"  >
+		SELECT <include refid="Base_Column_List" /> FROM t_product_info T WHERE 1=1
+		<include refid="Base_Condition" />
+</select>
+
+<select id="findByProName" resultType="int">
+select f_id from t_product_info t where t.f_product_name = #{0} limit 1
+</select>
+<update id="updateIndexRecomended">
+update t_product_info set f_is_recommended=2
+</update>
+
+
+
+	<!-- 红包列表 -->
+    <select id="queryDataTableProductList" resultMap="ProductInfoResultMap" parameterType="com.linkwee.core.datatable.DataTable">
+    	  select
+        <include refid="Base_Column_List" />
+        from t_product_info
+        <where> 
+        1=1
+        <if test="dt.pname!=null and ''!=dt.pname ">  
+            AND  f_product_name like CONCAT('%','${dt.pname}','%' )  
+        </if> 
+        <if test="dt.pdeadline!=null and dt.pdeadline!=0">
+             AND  f_dead_line_value = #{dt.pdeadline}
+         </if>  
+     
+        </where>
+    	
+    </select>
+
+ <update id="updateProProtocal" parameterMap="ProductInfoParameterMap">
+		UPDATE t_product_info
+		<set>
+			f_ransfer_protocal_name = #{ransferProtocalName},
+			f_ransfer_protocal_url = #{ransferProtocalUrl}
+		</set>
+		<where>
+			 f_product_id = #{productId}
+		</where>
+	</update>
+	<select id="queryBuyTotalByProId" resultType="double">
+	select t.f_buy_total_money from t_product_info t where t.f_product_id= #{productId}
+	</select>
+
+	<select id="queryMinShowIndexByProId" resultType="int">
+		SELECT
+		IFNULL(MIN(t.f_show_index), 0) AS minSort
+		FROM
+		t_product_info t
+		WHERE
+		t.f_sale_status = 3
+		AND t.f_product_type_id = (
+		SELECT
+		tpi1.f_product_type_id
+		FROM
+		t_product_info tpi1
+		WHERE
+		tpi1.f_product_id = #{productId}
+		)
+	
+	</select>
+
+	<update id="setOver">
+		UPDATE lhlc_product.t_product_statistics tps,
+		lhlc_product.t_product_info tpi
+		SET tps.f_rema_money = 0,
+		tps.f_buyed_total_money = tpi.f_buy_total_money,
+		tpi.f_sale_status = 3,
+		tpi.f_show_index = #{showIndex},
+		tpi.f_is_show = 2,
+		tpi.f_remark = '手动产品更新为售罄状态',
+		tpi.f_update_time = now(),
+		tpi.f_updater = #{userName}
+		WHERE
+		tpi.f_product_id = tps.f_product_id
+		AND tpi.f_product_id = #{productId}
+
+	</update>
+	
+	<select id="queryProductStatusList" resultMap="ProductInfoResultMap">
+	SELECT
+	p.f_interest_way,
+	f_buy_succeed_returnUrl,
+	p.f_is_collect,
+	p.f_collect_end_time,
+	p.f_sale_status,
+	p.f_show_index,
+	p.f_is_quota,
+	p.f_begin_sale_time,
+	p.f_collect_rate,
+	p.f_collect_line_min_value,
+	p.f_collect_line_max_value,
+	p.f_product_name,
+	p.f_product_desc,
+	p.f_product_type_id,
+	p.f_repayment_way,
+	p.f_is_flow,
+	p.f_fix_rate,
+	p.f_flow_min_rate,
+	p.f_flow_max_rate,
+	p.f_dead_line_type,
+	p.f_dead_line_value,
+	p.f_valid_begin_date,
+	p.f_valid_end_date,
+	p.f_buy_min_money,
+	p.f_buy_max_money,
+	p.f_buy_total_money,
+	p.f_status,
+	p.f_product_id,
+	p.f_buy_increase_money,
+	p.f_product_manage_way,
+	p.f_is_redemption,
+	p.f_cust_buy_max_money,
+	p.f_product_protocal_id,
+	p.f_product_illustration_url,
+	p.f_security_guarantee_url,
+	p.f_collect_begin_time,
+	p.f_collect_end_time,
+	p.f_ransfer_protocal_name,
+	p.f_ransfer_protocal_url,
+	p.f_inv_label,
+	p.f_lcs_label,
+	p.f_end_sale_time,
+	ps.f_rema_money,
+	ps.f_buyed_total_money,
+	ps.f_buyed_total_people
+
+FROM
+	t_product_info p
+
+LEFT JOIN t_product_statistics ps ON (p.f_product_id = ps.f_product_id)
+WHERE	p.f_sale_status IN (1,2,5)
+	</select>
+	 <update id="updateStatusInfo" parameterMap="ProductInfoParameterMap">
+		UPDATE t_product_info    
+		<set>
+			<trim suffixOverrides=",">
+				<if test=" null != saleStatus and '' != saleStatus ">
+					f_sale_status = #{saleStatus},
+				</if>
+				<if test=" null != collectFinshTime and '' != collectFinshTime ">
+					f_collect_finsh_time = #{collectFinshTime},
+				</if>
+				<if test=" null != greyFlag">
+					f_grey_flag = #{greyFlag},
+				</if>
+				<if test=" null != showIndex">
+					f_show_index = #{showIndex},
+				</if>
+			</trim>
+		</set>
+		<where>
+			<if test="null != productId">
+				f_product_id = #{productId}
+			</if>
+		</where>
+	</update>
+	
+	
+  
+
+</mapper>

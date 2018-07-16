@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.CrmUserActivityReceivingAddressMapper">
+	<!-- Result Map-->
+	<resultMap  type="com.linkwee.web.model.CrmUserActivityReceivingAddress" id="BaseResultMap">
+		<result column="id" property="id" jdbcType="INTEGER"/>
+		<result column="user_id" property="userId" jdbcType="VARCHAR"/>
+		<result column="receiving_user_name" property="receivingUserName" jdbcType="VARCHAR"/>
+		<result column="mobile" property="mobile" jdbcType="VARCHAR"/>
+		<result column="province_name" property="provinceName" jdbcType="VARCHAR"/>
+		<result column="city_name" property="cityName" jdbcType="VARCHAR"/>
+		<result column="receiving_address" property="receivingAddress" jdbcType="VARCHAR"/>
+		<result column="third_account" property="thirdAccount" jdbcType="VARCHAR"/>
+		<result column="type" property="type" jdbcType="INTEGER"/>
+		<result column="type_name" property="typeName" jdbcType="VARCHAR"/>
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+		<result column="extends1" property="extends1" jdbcType="VARCHAR"/>
+		<result column="extends2" property="extends2" jdbcType="VARCHAR"/>
+		<result column="extends3" property="extends3" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+  <sql id="Base_Column_List">
+    <trim suffixOverrides=",">
+	    	id,
+	    	user_id,
+	    	receiving_user_name,
+	    	mobile,
+	    	province_name,
+	    	city_name,
+	    	receiving_address,
+	    	third_account,
+	    	type,
+	    	type_name,
+	    	create_time,
+	    	update_time,
+	    	extends1,
+	    	extends2,
+	    	extends3,
+    </trim>
+  </sql>
+  
+ <sql id="Base_Column_List_T">
+    <trim suffixOverrides=",">
+	    	t.id,
+	    	t.user_id,
+	    	t.receiving_user_name,
+	    	t.mobile,
+	    	t.province_name,
+	    	t.city_name,
+	    	t.receiving_address,
+	    	t.third_account,
+	    	t.type,
+	    	t.type_name,
+	    	t.create_time,
+	    	t.update_time,
+	    	t.extends1,
+	    	t.extends2,
+	    	t.extends3,
+    </trim>
+  </sql>  
+  
+  <sql id="Base_Condition">
+		<if test=" null != id ">
+			and id = #{id}
+		</if>
+		<if test=" null != userId and ''!= userId  ">
+			and user_id = #{userId}
+		</if>
+		<if test=" null != receivingUserName and ''!= receivingUserName  ">
+			and receiving_user_name = #{receivingUserName}
+		</if>
+		<if test=" null != mobile and ''!= mobile  ">
+			and mobile = #{mobile}
+		</if>
+		<if test=" null != provinceName and ''!= provinceName  ">
+			and province_name = #{provinceName}
+		</if>
+		<if test=" null != cityName and ''!= cityName  ">
+			and city_name = #{cityName}
+		</if>
+		<if test=" null != receivingAddress and ''!= receivingAddress  ">
+			and receiving_address = #{receivingAddress}
+		</if>
+		<if test=" null != thirdAccount and ''!= thirdAccount  ">
+			and third_account = #{thirdAccount}
+		</if>
+		<if test=" null != type ">
+			and type = #{type}
+		</if>
+		<if test=" null != typeName and ''!= typeName  ">
+			and type_name = #{typeName}
+		</if>
+		<if test=" null != createTime ">
+			and create_time = #{createTime}
+		</if>
+		<if test=" null != updateTime ">
+			and update_time = #{updateTime}
+		</if>
+		<if test=" null != extends1 and ''!= extends1  ">
+			and extends1 = #{extends1}
+		</if>
+		<if test=" null != extends2 and ''!= extends2  ">
+			and extends2 = #{extends2}
+		</if>
+		<if test=" null != extends3 and ''!= extends3  ">
+			and extends3 = #{extends3}
+		</if>
+  </sql>
+  
+  <select id="selectOneByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.web.model.CrmUserActivityReceivingAddress">
+		select <include refid="Base_Column_List" /> from tcrm_user_activity_receiving_address 
+		where 1=1 <include refid="Base_Condition" />
+  </select>
+  
+  <select id="selectByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.web.model.CrmUserActivityReceivingAddress">
+		select <include refid="Base_Column_List" /> from tcrm_user_activity_receiving_address 
+		where 1=1 <include refid="Base_Condition" />
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tcrm_user_activity_receiving_address
+    where  id = #{0}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tcrm_user_activity_receiving_address
+    where id = #{0}
+  </delete>
+
+  <insert id="insert" parameterType="com.linkwee.web.model.CrmUserActivityReceivingAddress" >
+    INSERT INTO tcrm_user_activity_receiving_address
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != userId and ''!= userId  ">
+					user_id,
+				</if>
+			 	<if test=" null != receivingUserName and ''!= receivingUserName  ">
+					receiving_user_name,
+				</if>
+			 	<if test=" null != mobile and ''!= mobile  ">
+					mobile,
+				</if>
+			 	<if test=" null != provinceName and ''!= provinceName  ">
+					province_name,
+				</if>
+			 	<if test=" null != cityName and ''!= cityName  ">
+					city_name,
+				</if>
+			 	<if test=" null != receivingAddress and ''!= receivingAddress  ">
+					receiving_address,
+				</if>
+			 	<if test=" null != thirdAccount and ''!= thirdAccount  ">
+					third_account,
+				</if>
+			 	<if test=" null != type ">
+					type,
+				</if>
+			 	<if test=" null != typeName and ''!= typeName  ">
+					type_name,
+				</if>
+			 	<if test=" null != createTime ">
+					create_time,
+				</if>
+			 	<if test=" null != updateTime ">
+					update_time,
+				</if>
+			 	<if test=" null != extends1 and ''!= extends1  ">
+					extends1,
+				</if>
+			 	<if test=" null != extends2 and ''!= extends2  ">
+					extends2,
+				</if>
+			 	<if test=" null != extends3 and ''!= extends3  ">
+					extends3,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != userId and ''!= userId  ">
+					 	#{userId},
+				</if>
+			 	<if test=" null != receivingUserName and ''!= receivingUserName  ">
+					 	#{receivingUserName},
+				</if>
+			 	<if test=" null != mobile and ''!= mobile  ">
+					 	#{mobile},
+				</if>
+			 	<if test=" null != provinceName and ''!= provinceName  ">
+					 	#{provinceName},
+				</if>
+			 	<if test=" null != cityName and ''!= cityName  ">
+					 	#{cityName},
+				</if>
+			 	<if test=" null != receivingAddress and ''!= receivingAddress  ">
+					 	#{receivingAddress},
+				</if>
+			 	<if test=" null != thirdAccount and ''!= thirdAccount  ">
+					 	#{thirdAccount},
+				</if>
+			 	<if test=" null != type ">
+					 	#{type},
+				</if>
+			 	<if test=" null != typeName and ''!= typeName  ">
+					 	#{typeName},
+				</if>
+			 	<if test=" null != createTime ">
+					 	#{createTime},
+				</if>
+			 	<if test=" null != updateTime ">
+					 	#{updateTime},
+				</if>
+			 	<if test=" null != extends1 and ''!= extends1  ">
+					 	#{extends1},
+				</if>
+			 	<if test=" null != extends2 and ''!= extends2  ">
+					 	#{extends2},
+				</if>
+			 	<if test=" null != extends3 and ''!= extends3  ">
+					 	#{extends3},
+				</if>
+		</trim>
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.linkwee.web.model.CrmUserActivityReceivingAddress" useGeneratedKeys="true" keyProperty="id" >
+		INSERT INTO tcrm_user_activity_receiving_address
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != userId and ''!= userId  ">
+					user_id,
+				</if>
+			 	<if test=" null != receivingUserName and ''!= receivingUserName  ">
+					receiving_user_name,
+				</if>
+			 	<if test=" null != mobile and ''!= mobile  ">
+					mobile,
+				</if>
+			 	<if test=" null != provinceName and ''!= provinceName  ">
+					province_name,
+				</if>
+			 	<if test=" null != cityName and ''!= cityName  ">
+					city_name,
+				</if>
+			 	<if test=" null != receivingAddress and ''!= receivingAddress  ">
+					receiving_address,
+				</if>
+			 	<if test=" null != thirdAccount and ''!= thirdAccount  ">
+					third_account,
+				</if>
+			 	<if test=" null != type ">
+					type,
+				</if>
+			 	<if test=" null != typeName and ''!= typeName  ">
+					type_name,
+				</if>
+			 	<if test=" null != createTime ">
+					create_time,
+				</if>
+			 	<if test=" null != updateTime ">
+					update_time,
+				</if>
+			 	<if test=" null != extends1 and ''!= extends1  ">
+					extends1,
+				</if>
+			 	<if test=" null != extends2 and ''!= extends2  ">
+					extends2,
+				</if>
+			 	<if test=" null != extends3 and ''!= extends3  ">
+					extends3,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != userId and ''!= userId  ">
+					 	#{userId},
+				</if>
+			 	<if test=" null != receivingUserName and ''!= receivingUserName  ">
+					 	#{receivingUserName},
+				</if>
+			 	<if test=" null != mobile and ''!= mobile  ">
+					 	#{mobile},
+				</if>
+			 	<if test=" null != provinceName and ''!= provinceName  ">
+					 	#{provinceName},
+				</if>
+			 	<if test=" null != cityName and ''!= cityName  ">
+					 	#{cityName},
+				</if>
+			 	<if test=" null != receivingAddress and ''!= receivingAddress  ">
+					 	#{receivingAddress},
+				</if>
+			 	<if test=" null != thirdAccount and ''!= thirdAccount  ">
+					 	#{thirdAccount},
+				</if>
+			 	<if test=" null != type ">
+					 	#{type},
+				</if>
+			 	<if test=" null != typeName and ''!= typeName  ">
+					 	#{typeName},
+				</if>
+			 	<if test=" null != createTime ">
+					 	#{createTime},
+				</if>
+			 	<if test=" null != updateTime ">
+					 	#{updateTime},
+				</if>
+			 	<if test=" null != extends1 and ''!= extends1  ">
+					 	#{extends1},
+				</if>
+			 	<if test=" null != extends2 and ''!= extends2  ">
+					 	#{extends2},
+				</if>
+			 	<if test=" null != extends3 and ''!= extends3  ">
+					 	#{extends3},
+				</if>
+		</trim>
+	</insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.linkwee.web.model.CrmUserActivityReceivingAddress" >
+  		UPDATE tcrm_user_activity_receiving_address
+		<set>
+			<trim suffixOverrides=",">
+					<if test=" null != userId and ''!= userId  ">
+						user_id = #{userId},
+					</if>
+					<if test=" null != receivingUserName and ''!= receivingUserName  ">
+						receiving_user_name = #{receivingUserName},
+					</if>
+					<if test=" null != mobile and ''!= mobile  ">
+						mobile = #{mobile},
+					</if>
+					<if test=" null != provinceName and ''!= provinceName  ">
+						province_name = #{provinceName},
+					</if>
+					<if test=" null != cityName and ''!= cityName  ">
+						city_name = #{cityName},
+					</if>
+					<if test=" null != receivingAddress and ''!= receivingAddress  ">
+						receiving_address = #{receivingAddress},
+					</if>
+					<if test=" null != thirdAccount and ''!= thirdAccount  ">
+						third_account = #{thirdAccount},
+					</if>
+					<if test=" null != type ">
+						type = #{type},
+					</if>
+					<if test=" null != typeName and ''!= typeName  ">
+						type_name = #{typeName},
+					</if>
+					<if test=" null != createTime ">
+						create_time = #{createTime},
+					</if>
+					<if test=" null != updateTime ">
+						update_time = #{updateTime},
+					</if>
+					<if test=" null != extends1 and ''!= extends1  ">
+						extends1 = #{extends1},
+					</if>
+					<if test=" null != extends2 and ''!= extends2  ">
+						extends2 = #{extends2},
+					</if>
+					<if test=" null != extends3 and ''!= extends3  ">
+						extends3 = #{extends3},
+					</if>
+			</trim>
+		</set>
+		<where>
+			 id = #{id}
+		</where>
+	</update>
+  
+	<update id="updateByPrimaryKey" parameterType="com.linkwee.web.model.CrmUserActivityReceivingAddress" >
+	    UPDATE tcrm_user_activity_receiving_address
+	   <set>
+			<trim suffixOverrides=",">
+					<if test=" null != userId and ''!= userId  ">
+						user_id = #{userId},
+					</if>
+					<if test=" null != receivingUserName and ''!= receivingUserName  ">
+						receiving_user_name = #{receivingUserName},
+					</if>
+					<if test=" null != mobile and ''!= mobile  ">
+						mobile = #{mobile},
+					</if>
+					<if test=" null != provinceName and ''!= provinceName  ">
+						province_name = #{provinceName},
+					</if>
+					<if test=" null != cityName and ''!= cityName  ">
+						city_name = #{cityName},
+					</if>
+					<if test=" null != receivingAddress and ''!= receivingAddress  ">
+						receiving_address = #{receivingAddress},
+					</if>
+					<if test=" null != thirdAccount and ''!= thirdAccount  ">
+						third_account = #{thirdAccount},
+					</if>
+					<if test=" null != type ">
+						type = #{type},
+					</if>
+					<if test=" null != typeName and ''!= typeName  ">
+						type_name = #{typeName},
+					</if>
+					<if test=" null != createTime ">
+						create_time = #{createTime},
+					</if>
+					<if test=" null != updateTime ">
+						update_time = #{updateTime},
+					</if>
+					<if test=" null != extends1 and ''!= extends1  ">
+						extends1 = #{extends1},
+					</if>
+					<if test=" null != extends2 and ''!= extends2  ">
+						extends2 = #{extends2},
+					</if>
+					<if test=" null != extends3 and ''!= extends3  ">
+						extends3 = #{extends3},
+					</if>
+			</trim>
+		</set>
+		<where>
+			id = #{0}
+		</where>
+	  </update>
+
+	<!-- 分页条件查询 -->
+    <select id="selectBySearchInfo" resultMap="BaseResultMap" parameterType="com.linkwee.core.datatable.DataTable">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM tcrm_user_activity_receiving_address
+        <where> 
+        <if test="dt.search!=null">  
+                name LIKE CONCAT('%','${dt.search.value}','%' )  
+         </if>  
+         <if test="dt.order!=null">  
+               <foreach collection="dt.order" index="index" item="item"
+                    open="order by" separator="," close=" ">
+                    ${item.name} ${item.dir} 
+                </foreach>
+         </if>  
+        </where>
+    </select>
+
+</mapper>

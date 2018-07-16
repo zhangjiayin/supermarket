@@ -1,0 +1,678 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.SmGrowthHandbookMapper">
+	<!-- Result Map-->
+	<resultMap  type="com.linkwee.web.model.SmGrowthHandbook" id="BaseResultMap">
+		<result column="id" property="id" jdbcType="INTEGER"/>
+		<result column="app_type" property="appType" jdbcType="INTEGER"/>
+		<result column="type_code" property="typeCode" jdbcType="VARCHAR"/>
+		<result column="type_name" property="typeName" jdbcType="VARCHAR"/>
+		<result column="img" property="img" jdbcType="VARCHAR"/>
+		<result column="title" property="title" jdbcType="VARCHAR"/>
+		<result column="summary" property="summary" jdbcType="VARCHAR"/>
+		<result column="link_url" property="linkUrl" jdbcType="VARCHAR"/>
+		<result column="content" property="content" jdbcType="LONGVARCHAR"/>
+		<result column="reading_amount" property="readingAmount" jdbcType="INTEGER"/>
+		<result column="status" property="status" jdbcType="INTEGER"/>
+		<result column="creator" property="creator" jdbcType="VARCHAR"/>
+		<result column="crt_time" property="crtTime" jdbcType="TIMESTAMP"/>
+		<result column="show_inx" property="showInx" jdbcType="INTEGER"/>
+		<result column="valid_begin" property="validBegin" jdbcType="TIMESTAMP"/>
+		<result column="valid_end" property="validEnd" jdbcType="TIMESTAMP"/>
+		<result column="modifiy_time" property="modifiyTime" jdbcType="TIMESTAMP"/>
+		<result column="is_stick" property="isStick" jdbcType="SMALLINT"/>
+		<result column="share_icon" property="shareIcon" jdbcType="VARCHAR"/>
+		<result column="extends1" property="extends1" jdbcType="VARCHAR"/>
+		<result column="extends2" property="extends2" jdbcType="VARCHAR"/>
+		<result column="extends3" property="extends3" jdbcType="VARCHAR"/>
+		<result column="source" property="source" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+  <sql id="Base_Column_List">
+    <trim suffixOverrides=",">
+	    	id,
+	    	app_type,
+	    	type_code,
+	    	type_name,
+	    	img,
+	    	title,
+	    	summary,
+	    	link_url,
+	    	content,
+	    	reading_amount,
+	    	status,
+	    	creator,
+	    	crt_time,
+	    	show_inx,
+	    	valid_begin,
+	    	valid_end,
+	    	modifiy_time,
+	    	is_stick,
+	    	share_icon,
+	    	extends1,
+	    	extends2,
+	    	extends3,
+	    	source,
+    </trim>
+  </sql>
+  
+ <sql id="Base_Column_List_T">
+    <trim suffixOverrides=",">
+	    	t.id,
+	    	t.app_type,
+	    	t.type_code,
+	    	t.type_name,
+	    	t.img,
+	    	t.title,
+	    	t.summary,
+	    	t.link_url,
+	    	t.content,
+	    	t.reading_amount,
+	    	t.status,
+	    	t.creator,
+	    	t.crt_time,
+	    	t.show_inx,
+	    	t.valid_begin,
+	    	t.valid_end,
+	    	t.modifiy_time,
+	    	t.is_stick,
+	    	t.share_icon,
+	    	t.extends1,
+	    	t.extends2,
+	    	t.extends3,
+	    	t.source,
+    </trim>
+  </sql>  
+  
+  <sql id="Base_Condition">
+		<if test=" null != id ">
+			and id = #{id}
+		</if>
+		<if test=" null != appType ">
+			and app_type = #{appType}
+		</if>
+		<if test=" null != typeCode and ''!= typeCode  ">
+			and type_code = #{typeCode}
+		</if>
+		<if test=" null != typeName and ''!= typeName  ">
+			and type_name = #{typeName}
+		</if>
+		<if test=" null != img and ''!= img  ">
+			and img = #{img}
+		</if>
+		<if test=" null != title and ''!= title  ">
+			and title = #{title}
+		</if>
+		<if test=" null != summary and ''!= summary  ">
+			and summary = #{summary}
+		</if>
+		<if test=" null != linkUrl and ''!= linkUrl  ">
+			and link_url = #{linkUrl}
+		</if>
+		<if test=" null != content and ''!= content  ">
+			and content = #{content}
+		</if>
+		<if test=" null != readingAmount ">
+			and reading_amount = #{readingAmount}
+		</if>
+		<if test=" null != status ">
+			and status = #{status}
+		</if>
+		<if test=" null != creator and ''!= creator  ">
+			and creator = #{creator}
+		</if>
+		<if test=" null != crtTime ">
+			and crt_time = #{crtTime}
+		</if>
+		<if test=" null != showInx ">
+			and show_inx = #{showInx}
+		</if>
+		<if test=" null != validBegin ">
+			and valid_begin = #{validBegin}
+		</if>
+		<if test=" null != validEnd ">
+			and valid_end = #{validEnd}
+		</if>
+		<if test=" null != modifiyTime ">
+			and modifiy_time = #{modifiyTime}
+		</if>
+		<if test=" null != isStick ">
+			and is_stick = #{isStick}
+		</if>
+		<if test=" null != shareIcon and ''!= shareIcon  ">
+			and share_icon = #{shareIcon}
+		</if>
+		<if test=" null != extends1 and ''!= extends1  ">
+			and extends1 = #{extends1}
+		</if>
+		<if test=" null != extends2 and ''!= extends2  ">
+			and extends2 = #{extends2}
+		</if>
+		<if test=" null != extends3 and ''!= extends3  ">
+			and extends3 = #{extends3}
+		</if>
+		<if test=" null != source and ''!= source  ">
+			and source = #{source}
+		</if>
+  </sql>
+  
+  <select id="selectOneByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.web.model.SmGrowthHandbook">
+		select <include refid="Base_Column_List" /> from tsm_growth_handbook 
+		where 1=1 <include refid="Base_Condition" />
+  </select>
+  
+  <select id="selectByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.web.model.SmGrowthHandbook">
+		select <include refid="Base_Column_List" /> from tsm_growth_handbook 
+		where 1=1 <include refid="Base_Condition" />
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tsm_growth_handbook
+    where  id = #{0}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tsm_growth_handbook
+    where id = #{0}
+  </delete>
+
+  <insert id="insert" parameterType="com.linkwee.web.model.SmGrowthHandbook" >
+    INSERT INTO tsm_growth_handbook
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != appType ">
+					app_type,
+				</if>
+			 	<if test=" null != typeCode and ''!= typeCode  ">
+					type_code,
+				</if>
+			 	<if test=" null != typeName and ''!= typeName  ">
+					type_name,
+				</if>
+			 	<if test=" null != img and ''!= img  ">
+					img,
+				</if>
+			 	<if test=" null != title and ''!= title  ">
+					title,
+				</if>
+			 	<if test=" null != summary and ''!= summary  ">
+					summary,
+				</if>
+			 	<if test=" null != linkUrl and ''!= linkUrl  ">
+					link_url,
+				</if>
+			 	<if test=" null != content and ''!= content  ">
+					content,
+				</if>
+			 	<if test=" null != readingAmount ">
+					reading_amount,
+				</if>
+			 	<if test=" null != status ">
+					status,
+				</if>
+			 	<if test=" null != creator and ''!= creator  ">
+					creator,
+				</if>
+			 	<if test=" null != crtTime ">
+					crt_time,
+				</if>
+			 	<if test=" null != showInx ">
+					show_inx,
+				</if>
+			 	<if test=" null != validBegin ">
+					valid_begin,
+				</if>
+			 	<if test=" null != validEnd ">
+					valid_end,
+				</if>
+			 	<if test=" null != modifiyTime ">
+					modifiy_time,
+				</if>
+			 	<if test=" null != isStick ">
+					is_stick,
+				</if>
+			 	<if test=" null != shareIcon and ''!= shareIcon  ">
+					share_icon,
+				</if>
+			 	<if test=" null != extends1 and ''!= extends1  ">
+					extends1,
+				</if>
+			 	<if test=" null != extends2 and ''!= extends2  ">
+					extends2,
+				</if>
+			 	<if test=" null != extends3 and ''!= extends3  ">
+					extends3,
+				</if>
+				<if test=" null != source and ''!= source  ">
+					source,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != appType ">
+					 	#{appType},
+				</if>
+			 	<if test=" null != typeCode and ''!= typeCode  ">
+					 	#{typeCode},
+				</if>
+			 	<if test=" null != typeName and ''!= typeName  ">
+					 	#{typeName},
+				</if>
+			 	<if test=" null != img and ''!= img  ">
+					 	#{img},
+				</if>
+			 	<if test=" null != title and ''!= title  ">
+					 	#{title},
+				</if>
+			 	<if test=" null != summary and ''!= summary  ">
+					 	#{summary},
+				</if>
+			 	<if test=" null != linkUrl and ''!= linkUrl  ">
+					 	#{linkUrl},
+				</if>
+			 	<if test=" null != content and ''!= content  ">
+					 	#{content},
+				</if>
+			 	<if test=" null != readingAmount ">
+					 	#{readingAmount},
+				</if>
+			 	<if test=" null != status ">
+					 	#{status},
+				</if>
+			 	<if test=" null != creator and ''!= creator  ">
+					 	#{creator},
+				</if>
+			 	<if test=" null != crtTime ">
+					 	#{crtTime},
+				</if>
+			 	<if test=" null != showInx ">
+					 	#{showInx},
+				</if>
+			 	<if test=" null != validBegin ">
+					 	#{validBegin},
+				</if>
+			 	<if test=" null != validEnd ">
+					 	#{validEnd},
+				</if>
+			 	<if test=" null != modifiyTime ">
+					 	#{modifiyTime},
+				</if>
+			 	<if test=" null != isStick ">
+					 	#{isStick},
+				</if>
+			 	<if test=" null != shareIcon and ''!= shareIcon  ">
+					 	#{shareIcon},
+				</if>
+			 	<if test=" null != extends1 and ''!= extends1  ">
+					 	#{extends1},
+				</if>
+			 	<if test=" null != extends2 and ''!= extends2  ">
+					 	#{extends2},
+				</if>
+			 	<if test=" null != extends3 and ''!= extends3  ">
+					 	#{extends3},
+				</if>
+				<if test=" null != source and ''!= source  ">
+						#{source},
+				</if>
+		</trim>
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.linkwee.web.model.SmGrowthHandbook" useGeneratedKeys="true" keyProperty="id" >
+		INSERT INTO tsm_growth_handbook
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != appType ">
+					app_type,
+				</if>
+			 	<if test=" null != typeCode and ''!= typeCode  ">
+					type_code,
+				</if>
+			 	<if test=" null != typeName and ''!= typeName  ">
+					type_name,
+				</if>
+			 	<if test=" null != img and ''!= img  ">
+					img,
+				</if>
+			 	<if test=" null != title and ''!= title  ">
+					title,
+				</if>
+			 	<if test=" null != summary and ''!= summary  ">
+					summary,
+				</if>
+			 	<if test=" null != linkUrl and ''!= linkUrl  ">
+					link_url,
+				</if>
+			 	<if test=" null != content and ''!= content  ">
+					content,
+				</if>
+			 	<if test=" null != readingAmount ">
+					reading_amount,
+				</if>
+			 	<if test=" null != status ">
+					status,
+				</if>
+			 	<if test=" null != creator and ''!= creator  ">
+					creator,
+				</if>
+			 	<if test=" null != crtTime ">
+					crt_time,
+				</if>
+			 	<if test=" null != showInx ">
+					show_inx,
+				</if>
+			 	<if test=" null != validBegin ">
+					valid_begin,
+				</if>
+			 	<if test=" null != validEnd ">
+					valid_end,
+				</if>
+			 	<if test=" null != modifiyTime ">
+					modifiy_time,
+				</if>
+			 	<if test=" null != isStick ">
+					is_stick,
+				</if>
+			 	<if test=" null != shareIcon and ''!= shareIcon  ">
+					share_icon,
+				</if>
+			 	<if test=" null != extends1 and ''!= extends1  ">
+					extends1,
+				</if>
+			 	<if test=" null != extends2 and ''!= extends2  ">
+					extends2,
+				</if>
+			 	<if test=" null != extends3 and ''!= extends3  ">
+					extends3,
+				</if>
+				<if test=" null != source and ''!= source  ">
+					source,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != appType ">
+					 	#{appType},
+				</if>
+			 	<if test=" null != typeCode and ''!= typeCode  ">
+					 	#{typeCode},
+				</if>
+			 	<if test=" null != typeName and ''!= typeName  ">
+					 	#{typeName},
+				</if>
+			 	<if test=" null != img and ''!= img  ">
+					 	#{img},
+				</if>
+			 	<if test=" null != title and ''!= title  ">
+					 	#{title},
+				</if>
+			 	<if test=" null != summary and ''!= summary  ">
+					 	#{summary},
+				</if>
+			 	<if test=" null != linkUrl and ''!= linkUrl  ">
+					 	#{linkUrl},
+				</if>
+			 	<if test=" null != content and ''!= content  ">
+					 	#{content},
+				</if>
+			 	<if test=" null != readingAmount ">
+					 	#{readingAmount},
+				</if>
+			 	<if test=" null != status ">
+					 	#{status},
+				</if>
+			 	<if test=" null != creator and ''!= creator  ">
+					 	#{creator},
+				</if>
+			 	<if test=" null != crtTime ">
+					 	#{crtTime},
+				</if>
+			 	<if test=" null != showInx ">
+					 	#{showInx},
+				</if>
+			 	<if test=" null != validBegin ">
+					 	#{validBegin},
+				</if>
+			 	<if test=" null != validEnd ">
+					 	#{validEnd},
+				</if>
+			 	<if test=" null != modifiyTime ">
+					 	#{modifiyTime},
+				</if>
+			 	<if test=" null != isStick ">
+					 	#{isStick},
+				</if>
+			 	<if test=" null != shareIcon and ''!= shareIcon  ">
+					 	#{shareIcon},
+				</if>
+			 	<if test=" null != extends1 and ''!= extends1  ">
+					 	#{extends1},
+				</if>
+			 	<if test=" null != extends2 and ''!= extends2  ">
+					 	#{extends2},
+				</if>
+			 	<if test=" null != extends3 and ''!= extends3  ">
+					 	#{extends3},
+				</if>
+				<if test=" null != source and ''!= source  ">
+						#{source},
+				</if>
+		</trim>
+	</insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.linkwee.web.model.SmGrowthHandbook" >
+  		UPDATE tsm_growth_handbook
+		<set>
+			<trim suffixOverrides=",">
+					<if test=" null != appType ">
+						app_type = #{appType},
+					</if>
+					<if test=" null != typeCode and ''!= typeCode  ">
+						type_code = #{typeCode},
+					</if>
+					<if test=" null != typeName and ''!= typeName  ">
+						type_name = #{typeName},
+					</if>
+					<if test=" null != img and ''!= img  ">
+						img = #{img},
+					</if>
+					<if test=" null != title and ''!= title  ">
+						title = #{title},
+					</if>
+					<if test=" null != summary and ''!= summary  ">
+						summary = #{summary},
+					</if>
+					<if test=" null != linkUrl and ''!= linkUrl  ">
+						link_url = #{linkUrl},
+					</if>
+					<if test=" null != content and ''!= content  ">
+						content = #{content},
+					</if>
+					<if test=" null != readingAmount ">
+						reading_amount = #{readingAmount},
+					</if>
+					<if test=" null != status ">
+						status = #{status},
+					</if>
+					<if test=" null != creator and ''!= creator  ">
+						creator = #{creator},
+					</if>
+					<if test=" null != crtTime ">
+						crt_time = #{crtTime},
+					</if>
+					<if test=" null != showInx ">
+						show_inx = #{showInx},
+					</if>
+					<if test=" null != validBegin ">
+						valid_begin = #{validBegin},
+					</if>
+					<if test=" null != validEnd ">
+						valid_end = #{validEnd},
+					</if>
+					<if test=" null != modifiyTime ">
+						modifiy_time = #{modifiyTime},
+					</if>
+					<if test=" null != isStick ">
+						is_stick = #{isStick},
+					</if>
+					<if test=" null != shareIcon and ''!= shareIcon  ">
+						share_icon = #{shareIcon},
+					</if>
+					<if test=" null != extends1 and ''!= extends1  ">
+						extends1 = #{extends1},
+					</if>
+					<if test=" null != extends2 and ''!= extends2  ">
+						extends2 = #{extends2},
+					</if>
+					<if test=" null != extends3 and ''!= extends3  ">
+						extends3 = #{extends3},
+					</if>
+					<if test=" null != source and ''!= source  ">
+						source = #{source},
+					</if>
+			</trim>
+		</set>
+		<where>
+			 id = #{id}
+		</where>
+	</update>
+  
+	<update id="updateByPrimaryKey" parameterType="com.linkwee.web.model.SmGrowthHandbook" >
+	    UPDATE tsm_growth_handbook
+	   <set>
+			<trim suffixOverrides=",">
+					<if test=" null != appType ">
+						app_type = #{appType},
+					</if>
+					<if test=" null != typeCode and ''!= typeCode  ">
+						type_code = #{typeCode},
+					</if>
+					<if test=" null != typeName and ''!= typeName  ">
+						type_name = #{typeName},
+					</if>
+					<if test=" null != img and ''!= img  ">
+						img = #{img},
+					</if>
+					<if test=" null != title and ''!= title  ">
+						title = #{title},
+					</if>
+					<if test=" null != summary and ''!= summary  ">
+						summary = #{summary},
+					</if>
+					<if test=" null != linkUrl and ''!= linkUrl  ">
+						link_url = #{linkUrl},
+					</if>
+					<if test=" null != content and ''!= content  ">
+						content = #{content},
+					</if>
+					<if test=" null != readingAmount ">
+						reading_amount = #{readingAmount},
+					</if>
+					<if test=" null != status ">
+						status = #{status},
+					</if>
+					<if test=" null != creator and ''!= creator  ">
+						creator = #{creator},
+					</if>
+					<if test=" null != crtTime ">
+						crt_time = #{crtTime},
+					</if>
+					<if test=" null != showInx ">
+						show_inx = #{showInx},
+					</if>
+					<if test=" null != validBegin ">
+						valid_begin = #{validBegin},
+					</if>
+					<if test=" null != validEnd ">
+						valid_end = #{validEnd},
+					</if>
+					<if test=" null != modifiyTime ">
+						modifiy_time = #{modifiyTime},
+					</if>
+					<if test=" null != isStick ">
+						is_stick = #{isStick},
+					</if>
+					<if test=" null != shareIcon and ''!= shareIcon  ">
+						share_icon = #{shareIcon},
+					</if>
+					<if test=" null != extends1 and ''!= extends1  ">
+						extends1 = #{extends1},
+					</if>
+					<if test=" null != extends2 and ''!= extends2  ">
+						extends2 = #{extends2},
+					</if>
+					<if test=" null != extends3 and ''!= extends3  ">
+						extends3 = #{extends3},
+					</if>
+					<if test=" null != source and ''!= source  ">
+						source = #{source},
+					</if>
+			</trim>
+		</set>
+		<where>
+			id = #{0}
+		</where>
+	  </update>
+
+	<!-- 分页条件查询 -->
+    <select id="selectBySearchInfo" resultMap="BaseResultMap" parameterType="com.linkwee.core.datatable.DataTable">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM tsm_growth_handbook
+        <where> 
+        <if test="dt.search!=null">  
+                name LIKE CONCAT('%','${dt.search.value}','%' )  
+         </if>  
+         <if test="dt.order!=null">  
+               <foreach collection="dt.order" index="index" item="item"
+                    open="order by" separator="," close=" ">
+                    ${item.name} ${item.dir} 
+                </foreach>
+         </if>  
+        </where>
+    </select>
+      
+    <select id="queryClassifyPageList" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM tsm_growth_handbook
+        <where> 
+        	status = 1
+        	<if test="appType != null and ''!= appType">
+        		AND app_type = #{appType}
+        	</if>
+			<if test="typeCode != null and ''!= typeCode">
+				AND type_code = #{typeCode}
+			</if>							
+        </where>
+        ORDER BY crt_time DESC
+    </select>
+     
+	<select id="personalCustomizationList" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List_T" />
+        FROM 
+        	tsm_growth_handbook t,
+        	tsm_growth_handbook_cfplevel_relation tghcr
+        <where> 
+        	t.status = 1
+        	<if test="appType != null and ''!= appType">
+        		AND t.app_type = #{appType}
+        	</if>
+        	AND t.id = tghcr.growth_handbook_id
+        	AND tghcr.cfp_level_code = #{cfpLevel}							
+        </where>
+        ORDER BY t.reading_amount DESC,t.crt_time DESC
+        LIMIT 6
+    </select>
+</mapper>

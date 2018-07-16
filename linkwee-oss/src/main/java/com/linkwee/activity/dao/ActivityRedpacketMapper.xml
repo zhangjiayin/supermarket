@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.activity.dao.ActivityRedpacketMapper">
+
+	<parameterMap type="com.linkwee.activity.model.ActivityRedpacket" id="activityRedpacket" />
+	
+	<resultMap type="com.linkwee.activity.model.ActivityRedpacket" id="activityRedpacketMap">
+		<result column="id" property="id"  javaType="Long" jdbcType="BIGINT" />
+		<result column="fid" property="fid"  javaType="String" jdbcType="VARCHAR" />
+		<result column="activity_id" property="activityId"  javaType="String" jdbcType="VARCHAR" />
+		<result column="red_paper_id" property="redPaperId"  javaType="String" jdbcType="VARCHAR" />
+		<result column="show_name" property="showName"  javaType="String" jdbcType="VARCHAR" />
+		<result column="use_remark" property="useRemark"  javaType="String" jdbcType="VARCHAR" />
+		<result column="init_date" property="initDate"  javaType="Date" jdbcType="DECIMAL" />
+		<result column="update_date" property="updateDate"  javaType="Date" jdbcType="TIMESTAMP" />
+	</resultMap>
+	
+	
+	<insert id="insertSelective" parameterMap="activityRedpacket" >
+		INSERT INTO t_activity_red_paper    
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != fid and '' != fid ">
+					fid,
+				</if>
+			 	<if test=" null != activityId and '' != activityId ">
+					activity_id,
+				</if>
+			 	<if test=" null != redPaperId and '' != redPaperId ">
+					red_paper_id,
+				</if>
+			 	<if test=" null != showName and '' != showName ">
+					show_name,
+				</if>
+			 	<if test=" null != useRemark and '' != useRemark ">
+					use_remark,
+				</if>
+			 	<if test=" null != initDate">
+					init_date,
+				</if>
+			 	<if test=" null != updateDate">
+					update_date,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != fid and '' != fid ">
+					 	#{fid},
+				</if>
+			 	<if test=" null != activityId and '' != activityId ">
+					 	#{activityId},
+				</if>
+			 	<if test=" null != redPaperId and '' != redPaperId ">
+					 	#{redPaperId},
+				</if>
+			 	<if test=" null != showName and '' != showName ">
+					 	#{showName},
+				</if>
+			 	<if test=" null != useRemark and '' != useRemark ">
+					 	#{useRemark},
+				</if>
+			 	<if test=" null != initDate">
+					 	#{initDate,javaType=Date,jdbcType=DECIMAL},
+				</if>
+			 	<if test=" null != updateDate">
+					 	#{updateDate},
+				</if>
+		</trim>
+	</insert>
+
+	<update id="updateByPrimaryKeySelective" parameterMap="activityRedpacket">
+		UPDATE t_activity_red_paper    
+		<set>
+			<trim suffixOverrides=",">
+				<if test=" null != fid and '' != fid ">
+					fid = #{fid},
+				</if>
+				<if test=" null != activityId and '' != activityId ">
+					activity_id = #{activityId},
+				</if>
+				<if test=" null != redPaperId and '' != redPaperId ">
+					red_paper_id = #{redPaperId},
+				</if>
+				<if test=" null != showName and '' != showName ">
+					show_name = #{showName},
+				</if>
+				<if test=" null != useRemark and '' != useRemark ">
+					use_remark = #{useRemark},
+				</if>
+				<if test=" null != initDate">
+					init_date = #{initDate,javaType=Date,jdbcType=DECIMAL},
+				</if>
+				<if test=" null != updateDate">
+					update_date = #{updateDate},
+				</if>
+			</trim>
+		</set>
+		<where>
+			<if test="null != fid and '' != fid">
+				fid = #{fid}
+			</if>
+		</where>
+	</update>
+	
+	<update id="updateRedPaperByActivityAndRedPaperTypeId" parameterMap="activityRedpacket">
+		UPDATE t_activity_red_paper    
+		<set>
+			<trim suffixOverrides=",">
+				<if test=" null != showName and '' != showName ">
+					show_name = #{showName},
+				</if>
+				<if test=" null != useRemark and '' != useRemark ">
+					use_remark = #{useRemark},
+				</if>
+				<if test=" null != updateDate">
+					update_date = #{updateDate},
+				</if>
+			</trim>
+		</set>
+		<where>
+			activity_id = #{activityId} and red_paper_id = #{redPaperId}
+		</where>
+	</update>
+	
+	
+	
+	<select id="getActivityRedPaperByActivityAndRedPaperTypeId" resultMap="activityRedpacketMap" >
+		SELECT tar.`show_name`,tar.`use_remark` FROM t_activity_red_paper tar WHERE tar.`activity_id`=#{activityId} AND tar.`red_paper_id`=#{redPaperTypeId}
+	</select>
+</mapper>

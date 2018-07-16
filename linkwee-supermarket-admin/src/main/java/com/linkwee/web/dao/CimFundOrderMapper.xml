@@ -1,0 +1,510 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.CimFundOrderMapper">
+	<!-- Result Map-->
+	<resultMap  type="com.linkwee.web.model.CimFundOrder" id="BaseResultMap">
+		<result column="id" property="id" jdbcType="INTEGER"/>
+		<result column="accountNumber" property="accountNumber" jdbcType="VARCHAR"/>
+		<result column="fundCode" property="fundCode" jdbcType="VARCHAR"/>
+		<result column="fundName" property="fundName" jdbcType="VARCHAR"/>
+		<result column="merchantNumber" property="merchantNumber" jdbcType="VARCHAR"/>
+		<result column="orderDate" property="orderDate" jdbcType="TIMESTAMP"/>
+		<result column="portfolioId" property="portfolioId" jdbcType="INTEGER"/>
+		<result column="rspId" property="rspId" jdbcType="INTEGER"/>
+		<result column="transactionAmount" property="transactionAmount" jdbcType="DECIMAL"/>
+		<result column="transactionCharge" property="transactionCharge" jdbcType="DECIMAL"/>
+		<result column="transactionDate" property="transactionDate" jdbcType="TIMESTAMP"/>
+		<result column="transactionRate" property="transactionRate" jdbcType="DECIMAL"/>
+		<result column="transactionStatus" property="transactionStatus" jdbcType="VARCHAR"/>
+		<result column="transactionType" property="transactionType" jdbcType="VARCHAR"/>
+		<result column="transactionUnit" property="transactionUnit" jdbcType="VARCHAR"/>
+		<result column="biz_time" property="bizTime" jdbcType="TIMESTAMP"/>
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+	</resultMap>
+	
+  <sql id="Base_Column_List">
+    <trim suffixOverrides=",">
+	    	id,
+	    	accountNumber,
+	    	fundCode,
+	    	fundName,
+	    	merchantNumber,
+	    	orderDate,
+	    	portfolioId,
+	    	rspId,
+	    	transactionAmount,
+	    	transactionCharge,
+	    	transactionDate,
+	    	transactionRate,
+	    	transactionStatus,
+	    	transactionType,
+	    	transactionUnit,
+	    	biz_time,
+	    	update_time,
+    </trim>
+  </sql>
+  
+ <sql id="Base_Column_List_T">
+    <trim suffixOverrides=",">
+	    	t.id,
+	    	t.accountNumber,
+	    	t.fundCode,
+	    	t.fundName,
+	    	t.merchantNumber,
+	    	t.orderDate,
+	    	t.portfolioId,
+	    	t.rspId,
+	    	t.transactionAmount,
+	    	t.transactionCharge,
+	    	t.transactionDate,
+	    	t.transactionRate,
+	    	t.transactionStatus,
+	    	t.transactionType,
+	    	t.transactionUnit,
+	    	t.biz_time,
+	    	t.update_time,
+    </trim>
+  </sql>  
+  
+  <sql id="Base_Condition">
+		<if test=" null != id ">
+			and id = #{id}
+		</if>
+		<if test=" null != accountNumber and ''!= accountNumber  ">
+			and accountNumber = #{accountNumber}
+		</if>
+		<if test=" null != fundCode and ''!= fundCode  ">
+			and fundCode = #{fundCode}
+		</if>
+		<if test=" null != fundName and ''!= fundName  ">
+			and fundName = #{fundName}
+		</if>
+		<if test=" null != merchantNumber and ''!= merchantNumber  ">
+			and merchantNumber = #{merchantNumber}
+		</if>
+		<if test=" null != orderDate ">
+			and orderDate = #{orderDate}
+		</if>
+		<if test=" null != portfolioId ">
+			and portfolioId = #{portfolioId}
+		</if>
+		<if test=" null != rspId ">
+			and rspId = #{rspId}
+		</if>
+		<if test=" null != transactionAmount ">
+			and transactionAmount = #{transactionAmount}
+		</if>
+		<if test=" null != transactionCharge ">
+			and transactionCharge = #{transactionCharge}
+		</if>
+		<if test=" null != transactionDate ">
+			and transactionDate = #{transactionDate}
+		</if>
+		<if test=" null != transactionRate ">
+			and transactionRate = #{transactionRate}
+		</if>
+		<if test=" null != transactionStatus and ''!= transactionStatus  ">
+			and transactionStatus = #{transactionStatus}
+		</if>
+		<if test=" null != transactionType and ''!= transactionType  ">
+			and transactionType = #{transactionType}
+		</if>
+		<if test=" null != transactionUnit and ''!= transactionUnit  ">
+			and transactionUnit = #{transactionUnit}
+		</if>
+		<if test=" null != bizTime ">
+			and biz_time = #{bizTime}
+		</if>
+		<if test=" null != updateTime ">
+			and update_time = #{updateTime}
+		</if>
+  </sql>
+  
+  <select id="selectOneByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.web.model.CimFundOrder">
+		select <include refid="Base_Column_List" /> from tcim_fund_order 
+		where 1=1 <include refid="Base_Condition" />
+  </select>
+  
+  <select id="selectByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.web.model.CimFundOrder">
+		select <include refid="Base_Column_List" /> from tcim_fund_order 
+		where 1=1 <include refid="Base_Condition" />
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tcim_fund_order
+    where  id = #{0}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tcim_fund_order
+    where id = #{0}
+  </delete>
+
+  <insert id="insert" parameterType="com.linkwee.web.model.CimFundOrder" >
+    INSERT INTO tcim_fund_order
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != accountNumber and ''!= accountNumber  ">
+					accountNumber,
+				</if>
+			 	<if test=" null != fundCode and ''!= fundCode  ">
+					fundCode,
+				</if>
+			 	<if test=" null != fundName and ''!= fundName  ">
+					fundName,
+				</if>
+			 	<if test=" null != merchantNumber and ''!= merchantNumber  ">
+					merchantNumber,
+				</if>
+			 	<if test=" null != orderDate ">
+					orderDate,
+				</if>
+			 	<if test=" null != portfolioId ">
+					portfolioId,
+				</if>
+			 	<if test=" null != rspId ">
+					rspId,
+				</if>
+			 	<if test=" null != transactionAmount ">
+					transactionAmount,
+				</if>
+			 	<if test=" null != transactionCharge ">
+					transactionCharge,
+				</if>
+			 	<if test=" null != transactionDate ">
+					transactionDate,
+				</if>
+			 	<if test=" null != transactionRate ">
+					transactionRate,
+				</if>
+			 	<if test=" null != transactionStatus and ''!= transactionStatus  ">
+					transactionStatus,
+				</if>
+			 	<if test=" null != transactionType and ''!= transactionType  ">
+					transactionType,
+				</if>
+			 	<if test=" null != transactionUnit and ''!= transactionUnit  ">
+					transactionUnit,
+				</if>
+			 	<if test=" null != bizTime ">
+					biz_time,
+				</if>
+			 	<if test=" null != updateTime ">
+					update_time,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != accountNumber and ''!= accountNumber  ">
+					 	#{accountNumber},
+				</if>
+			 	<if test=" null != fundCode and ''!= fundCode  ">
+					 	#{fundCode},
+				</if>
+			 	<if test=" null != fundName and ''!= fundName  ">
+					 	#{fundName},
+				</if>
+			 	<if test=" null != merchantNumber and ''!= merchantNumber  ">
+					 	#{merchantNumber},
+				</if>
+			 	<if test=" null != orderDate ">
+					 	#{orderDate},
+				</if>
+			 	<if test=" null != portfolioId ">
+					 	#{portfolioId},
+				</if>
+			 	<if test=" null != rspId ">
+					 	#{rspId},
+				</if>
+			 	<if test=" null != transactionAmount ">
+					 	#{transactionAmount},
+				</if>
+			 	<if test=" null != transactionCharge ">
+					 	#{transactionCharge},
+				</if>
+			 	<if test=" null != transactionDate ">
+					 	#{transactionDate},
+				</if>
+			 	<if test=" null != transactionRate ">
+					 	#{transactionRate},
+				</if>
+			 	<if test=" null != transactionStatus and ''!= transactionStatus  ">
+					 	#{transactionStatus},
+				</if>
+			 	<if test=" null != transactionType and ''!= transactionType  ">
+					 	#{transactionType},
+				</if>
+			 	<if test=" null != transactionUnit and ''!= transactionUnit  ">
+					 	#{transactionUnit},
+				</if>
+			 	<if test=" null != bizTime ">
+					 	#{bizTime},
+				</if>
+			 	<if test=" null != updateTime ">
+					 	#{updateTime},
+				</if>
+		</trim>
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.linkwee.web.model.CimFundOrder" useGeneratedKeys="true" keyProperty="id" >
+		INSERT INTO tcim_fund_order
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != accountNumber and ''!= accountNumber  ">
+					accountNumber,
+				</if>
+			 	<if test=" null != fundCode and ''!= fundCode  ">
+					fundCode,
+				</if>
+			 	<if test=" null != fundName and ''!= fundName  ">
+					fundName,
+				</if>
+			 	<if test=" null != merchantNumber and ''!= merchantNumber  ">
+					merchantNumber,
+				</if>
+			 	<if test=" null != orderDate ">
+					orderDate,
+				</if>
+			 	<if test=" null != portfolioId ">
+					portfolioId,
+				</if>
+			 	<if test=" null != rspId ">
+					rspId,
+				</if>
+			 	<if test=" null != transactionAmount ">
+					transactionAmount,
+				</if>
+			 	<if test=" null != transactionCharge ">
+					transactionCharge,
+				</if>
+			 	<if test=" null != transactionDate ">
+					transactionDate,
+				</if>
+			 	<if test=" null != transactionRate ">
+					transactionRate,
+				</if>
+			 	<if test=" null != transactionStatus and ''!= transactionStatus  ">
+					transactionStatus,
+				</if>
+			 	<if test=" null != transactionType and ''!= transactionType  ">
+					transactionType,
+				</if>
+			 	<if test=" null != transactionUnit and ''!= transactionUnit  ">
+					transactionUnit,
+				</if>
+			 	<if test=" null != bizTime ">
+					biz_time,
+				</if>
+			 	<if test=" null != updateTime ">
+					update_time,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != accountNumber and ''!= accountNumber  ">
+					 	#{accountNumber},
+				</if>
+			 	<if test=" null != fundCode and ''!= fundCode  ">
+					 	#{fundCode},
+				</if>
+			 	<if test=" null != fundName and ''!= fundName  ">
+					 	#{fundName},
+				</if>
+			 	<if test=" null != merchantNumber and ''!= merchantNumber  ">
+					 	#{merchantNumber},
+				</if>
+			 	<if test=" null != orderDate ">
+					 	#{orderDate},
+				</if>
+			 	<if test=" null != portfolioId ">
+					 	#{portfolioId},
+				</if>
+			 	<if test=" null != rspId ">
+					 	#{rspId},
+				</if>
+			 	<if test=" null != transactionAmount ">
+					 	#{transactionAmount},
+				</if>
+			 	<if test=" null != transactionCharge ">
+					 	#{transactionCharge},
+				</if>
+			 	<if test=" null != transactionDate ">
+					 	#{transactionDate},
+				</if>
+			 	<if test=" null != transactionRate ">
+					 	#{transactionRate},
+				</if>
+			 	<if test=" null != transactionStatus and ''!= transactionStatus  ">
+					 	#{transactionStatus},
+				</if>
+			 	<if test=" null != transactionType and ''!= transactionType  ">
+					 	#{transactionType},
+				</if>
+			 	<if test=" null != transactionUnit and ''!= transactionUnit  ">
+					 	#{transactionUnit},
+				</if>
+			 	<if test=" null != bizTime ">
+					 	#{bizTime},
+				</if>
+			 	<if test=" null != updateTime ">
+					 	#{updateTime},
+				</if>
+		</trim>
+	</insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.linkwee.web.model.CimFundOrder" >
+  		UPDATE tcim_fund_order
+		<set>
+			<trim suffixOverrides=",">
+					<if test=" null != accountNumber and ''!= accountNumber  ">
+						accountNumber = #{accountNumber},
+					</if>
+					<if test=" null != fundCode and ''!= fundCode  ">
+						fundCode = #{fundCode},
+					</if>
+					<if test=" null != fundName and ''!= fundName  ">
+						fundName = #{fundName},
+					</if>
+					<if test=" null != merchantNumber and ''!= merchantNumber  ">
+						merchantNumber = #{merchantNumber},
+					</if>
+					<if test=" null != orderDate ">
+						orderDate = #{orderDate},
+					</if>
+					<if test=" null != portfolioId ">
+						portfolioId = #{portfolioId},
+					</if>
+					<if test=" null != rspId ">
+						rspId = #{rspId},
+					</if>
+					<if test=" null != transactionAmount ">
+						transactionAmount = #{transactionAmount},
+					</if>
+					<if test=" null != transactionCharge ">
+						transactionCharge = #{transactionCharge},
+					</if>
+					<if test=" null != transactionDate ">
+						transactionDate = #{transactionDate},
+					</if>
+					<if test=" null != transactionRate ">
+						transactionRate = #{transactionRate},
+					</if>
+					<if test=" null != transactionStatus and ''!= transactionStatus  ">
+						transactionStatus = #{transactionStatus},
+					</if>
+					<if test=" null != transactionType and ''!= transactionType  ">
+						transactionType = #{transactionType},
+					</if>
+					<if test=" null != transactionUnit and ''!= transactionUnit  ">
+						transactionUnit = #{transactionUnit},
+					</if>
+					<if test=" null != bizTime ">
+						biz_time = #{bizTime},
+					</if>
+					<if test=" null != updateTime ">
+						update_time = #{updateTime},
+					</if>
+			</trim>
+		</set>
+		<where>
+			 id = #{id}
+		</where>
+	</update>
+  
+	<update id="updateByPrimaryKey" parameterType="com.linkwee.web.model.CimFundOrder" >
+	    UPDATE tcim_fund_order
+	   <set>
+			<trim suffixOverrides=",">
+					<if test=" null != accountNumber and ''!= accountNumber  ">
+						accountNumber = #{accountNumber},
+					</if>
+					<if test=" null != fundCode and ''!= fundCode  ">
+						fundCode = #{fundCode},
+					</if>
+					<if test=" null != fundName and ''!= fundName  ">
+						fundName = #{fundName},
+					</if>
+					<if test=" null != merchantNumber and ''!= merchantNumber  ">
+						merchantNumber = #{merchantNumber},
+					</if>
+					<if test=" null != orderDate ">
+						orderDate = #{orderDate},
+					</if>
+					<if test=" null != portfolioId ">
+						portfolioId = #{portfolioId},
+					</if>
+					<if test=" null != rspId ">
+						rspId = #{rspId},
+					</if>
+					<if test=" null != transactionAmount ">
+						transactionAmount = #{transactionAmount},
+					</if>
+					<if test=" null != transactionCharge ">
+						transactionCharge = #{transactionCharge},
+					</if>
+					<if test=" null != transactionDate ">
+						transactionDate = #{transactionDate},
+					</if>
+					<if test=" null != transactionRate ">
+						transactionRate = #{transactionRate},
+					</if>
+					<if test=" null != transactionStatus and ''!= transactionStatus  ">
+						transactionStatus = #{transactionStatus},
+					</if>
+					<if test=" null != transactionType and ''!= transactionType  ">
+						transactionType = #{transactionType},
+					</if>
+					<if test=" null != transactionUnit and ''!= transactionUnit  ">
+						transactionUnit = #{transactionUnit},
+					</if>
+					<if test=" null != bizTime ">
+						biz_time = #{bizTime},
+					</if>
+					<if test=" null != updateTime ">
+						update_time = #{updateTime},
+					</if>
+			</trim>
+		</set>
+		<where>
+			id = #{0}
+		</where>
+	  </update>
+
+	<!-- 分页条件查询 -->
+    <select id="selectBySearchInfo" resultMap="BaseResultMap" parameterType="com.linkwee.core.datatable.DataTable">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM tcim_fund_order
+        <where> 
+        <if test="dt.search!=null">  
+                name LIKE CONCAT('%','${dt.search.value}','%' )  
+         </if>  
+         <if test="dt.order!=null">  
+               <foreach collection="dt.order" index="index" item="item"
+                    open="order by" separator="," close=" ">
+                    ${item.name} ${item.dir} 
+                </foreach>
+         </if>  
+        </where>
+    </select>
+    
+    <!-- 基金订单列表状态更新查询 -->
+    <select id="selectUpdateOrderList" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM tcim_fund_order
+        WHERE
+           transactionStatus not in ('failure','completed','canceled','void')
+    </select>
+    
+</mapper>

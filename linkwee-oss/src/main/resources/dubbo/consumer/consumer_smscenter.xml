@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd 
+  		http://www.springframework.org/schema/jee 
+  		http://www.springframework.org/schema/jee/spring-jee-2.0.xsd
+        http://code.alibabatech.com/schema/dubbo 
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd
+        ">
+ 	<!-- 消息中心 -->
+  	<dubbo:consumer id="smscenterConsumer"   timeout="30000" check="false" version="${p2p.smscenter.version}" group="${p2p.smscenter.group}" />
+ 	
+	<dubbo:reference id="p2pRandomCodeService" interface="com.xiaoniu.sms.service.IRandomCodeService"  consumer="smscenterConsumer" />
+	<dubbo:reference id="p2pPushMessageService" interface="com.xiaoniu.sms.service.IPushMessageService"  consumer="smscenterConsumer" />
+	<dubbo:reference id="p2pSmsService" interface="com.xiaoniu.sms.service.ISmsService"  consumer="smscenterConsumer" />
+</beans>

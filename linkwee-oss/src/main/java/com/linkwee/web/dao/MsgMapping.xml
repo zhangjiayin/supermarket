@@ -1,0 +1,444 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.MsgDao">
+<parameterMap type="com.linkwee.web.model.Msg" id="MsgParameterMap" />	
+<!-- Result Map-->
+<resultMap  type="com.linkwee.web.model.MsgResp" id="MsgRespResultMap">
+	<result column="f_msg_id" property="msgId" jdbcType="INTEGER"/>
+	<result column="f_content" property="content" jdbcType="VARCHAR"/>
+	<result column="f_link" property="link" jdbcType="VARCHAR"/>
+	<result column="f_status" property="status" jdbcType="INTEGER"/>
+	<result column="f_type" property="type" jdbcType="INTEGER"/>
+	<result column="f_user_number" property="userNumber" jdbcType="VARCHAR"/>
+	<result column="f_start_time" property="startTime" jdbcType="TIMESTAMP"/>
+	<result column="f_crt_time" property="crtTime" jdbcType="TIMESTAMP"/>
+	<result column="f_modify_time" property="modifyTime" jdbcType="TIMESTAMP"/>
+	<result column="read" property="read" jdbcType="INTEGER"/>
+</resultMap>
+
+<resultMap  type="com.linkwee.web.model.Msg" id="MsgResultMap">
+	<result column="f_msg_id" property="msgId" jdbcType="INTEGER"/>
+	<result column="f_content" property="content" jdbcType="VARCHAR"/>
+	<result column="f_link" property="link" jdbcType="VARCHAR"/>
+	<result column="f_status" property="status" jdbcType="INTEGER"/>
+	<result column="f_type" property="type" jdbcType="INTEGER"/>
+	<result column="f_user_number" property="userNumber" jdbcType="VARCHAR"/>
+	<result column="f_start_time" property="startTime" jdbcType="TIMESTAMP"/>
+	<result column="f_crt_time" property="crtTime" jdbcType="TIMESTAMP"/>
+	<result column="f_modify_time" property="modifyTime" jdbcType="TIMESTAMP"/>
+	<result column="f_app_type" property="appType" jdbcType="INTEGER"/>
+</resultMap>
+
+  <sql id="Base_Column_List">
+    <trim suffixOverrides=",">
+	    	f_msg_id,
+	    	f_content,
+	    	f_link,
+	    	f_status,
+	    	f_type,
+	    	f_user_number,
+	    	f_start_time,
+	    	f_crt_time,
+	    	f_modify_time,
+	    	f_app_type,
+    </trim>
+  </sql>  
+  
+   <sql id="Base_Column_List_T">
+    <trim suffixOverrides=",">
+	    	t.f_msg_id,
+	    	t.f_content,
+	    	t.f_link,
+	    	t.f_status,
+	    	t.f_type,
+	    	t.f_user_number,
+	    	t.f_start_time,
+	    	t.f_crt_time,
+	    	t.f_modify_time,
+	    	t.f_app_type,
+    </trim>
+  </sql> 
+  	
+  <select id="getByPrimaryKey"  resultMap="MsgResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_msg where  f_msg_id = #{0}
+  </select>	
+
+  <delete id="deleteByPrimaryKey" >
+    delete from t_msg
+	<where>
+		f_msg_id = #{0}
+	</where>
+  </delete>
+  
+  
+  <insert id="add" parameterMap="MsgParameterMap" useGeneratedKeys="true" keyProperty="msgId" >
+		INSERT INTO t_msg
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != msgId ">
+					f_msg_id,
+				</if>
+			 	<if test=" null != content and ''!= content  ">
+					f_content,
+				</if>
+			 	<if test=" null != link and ''!= link  ">
+					f_link,
+				</if>
+			 	<if test=" null != status ">
+					f_status,
+				</if>
+			 	<if test=" null != type ">
+					f_type,
+				</if>
+			 	<if test=" null != userNumber and ''!= userNumber  ">
+					f_user_number,
+				</if>
+			 	<if test=" null != startTime ">
+					f_start_time,
+				</if>
+			 	<if test=" null != crtTime ">
+					f_crt_time,
+				</if>
+			 	<if test=" null != modifyTime ">
+					f_modify_time,
+				</if>
+			 	<if test=" null != appType ">
+					f_app_type,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != msgId ">
+					 	#{msgId},
+				</if>
+			 	<if test=" null != content and ''!= content  ">
+					 	#{content},
+				</if>
+			 	<if test=" null != link and ''!= link  ">
+					 	#{link},
+				</if>
+			 	<if test=" null != status ">
+					 	#{status},
+				</if>
+			 	<if test=" null != type ">
+					 	#{type},
+				</if>
+			 	<if test=" null != userNumber and ''!= userNumber  ">
+					 	#{userNumber},
+				</if>
+			 	<if test=" null != startTime ">
+					 	#{startTime},
+				</if>
+			 	<if test=" null != crtTime ">
+					 	#{crtTime},
+				</if>
+			 	<if test=" null != modifyTime ">
+					 	#{modifyTime},
+				</if>
+			 	<if test=" null != appType ">
+					 	#{appType},
+				</if>
+		</trim>
+	</insert>
+  
+  
+  <update id="update" parameterMap="MsgParameterMap">
+		UPDATE t_msg
+		<set>
+			<trim suffixOverrides=",">
+					<if test=" null != content and ''!= content  ">
+						f_content = #{content},
+					</if>
+					<if test=" null != link and ''!= link  ">
+						f_link = #{link},
+					</if>
+					<if test=" null != status ">
+						f_status = #{status},
+					</if>
+					<if test=" null != type ">
+						f_type = #{type},
+					</if>
+					<if test=" null != userNumber and ''!= userNumber  ">
+						f_user_number = #{userNumber},
+					</if>
+					<if test=" null != startTime ">
+						f_start_time = #{startTime},
+					</if>
+					<if test=" null != crtTime ">
+						f_crt_time = #{crtTime},
+					</if>
+					<if test=" null != modifyTime ">
+						f_modify_time = #{modifyTime},
+					</if>
+					<if test=" null != appType ">
+						f_app_type = #{appType},
+					</if>
+			</trim>
+		</set>
+		<where>
+			 f_msg_id = #{msgId}
+		</where>
+	</update>
+  
+  
+   <update id="updateWithEmpty" parameterMap="MsgParameterMap">
+		UPDATE t_msg
+		<set>
+			<trim suffixOverrides=",">
+						f_content = #{content},
+						f_link = #{link},
+						f_status = #{status},
+						f_type = #{type},
+						f_user_number = #{userNumber},
+						f_start_time = #{startTime},
+						f_crt_time = #{crtTime},
+						f_modify_time = #{modifyTime},
+						f_app_type = #{appType},
+			</trim>
+		</set>
+		<where>
+			 f_msg_id = #{msgId}
+		</where>
+	</update>
+
+  <insert id="addBatch" parameterType="java.util.List">
+	insert into t_msg 
+	<trim prefix="(" suffix=")" >
+			<include refid="Base_Column_List" />
+	</trim>
+	VALUES
+	<foreach item="item" index="index" collection="list" separator=",">
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+				#{item.msgId,jdbcType=INTEGER},
+				#{item.content,jdbcType=VARCHAR},
+				#{item.link,jdbcType=VARCHAR},
+				#{item.status,jdbcType=INTEGER},
+				#{item.type,jdbcType=INTEGER},
+				#{item.userNumber,jdbcType=VARCHAR},
+				#{item.startTime,jdbcType=TIMESTAMP},
+				#{item.crtTime,jdbcType=TIMESTAMP},
+				#{item.modifyTime,jdbcType=TIMESTAMP},
+				#{item.appType,jdbcType=INTEGER},
+		</trim>
+	</foreach>
+</insert>
+
+ 
+<update id="updateBatch" parameterType="java.util.List">
+      <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update t_msg
+            <set>
+              	<trim suffixOverrides=",">
+					   <if test="item.content!=null and ''!= item.content  ">
+					        f_content = #{item.content,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.link!=null and ''!= item.link  ">
+					        f_link = #{item.link,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.status!=null ">
+					        f_status = #{item.status,jdbcType=INTEGER},
+					   </if>
+					   <if test="item.type!=null ">
+					        f_type = #{item.type,jdbcType=INTEGER},
+					   </if>
+					   <if test="item.userNumber!=null and ''!= item.userNumber  ">
+					        f_user_number = #{item.userNumber,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.startTime!=null ">
+					        f_start_time = #{item.startTime,jdbcType=TIMESTAMP},
+					   </if>
+					   <if test="item.crtTime!=null ">
+					        f_crt_time = #{item.crtTime,jdbcType=TIMESTAMP},
+					   </if>
+					   <if test="item.modifyTime!=null ">
+					        f_modify_time = #{item.modifyTime,jdbcType=TIMESTAMP},
+					   </if>
+					   <if test="item.appType!=null ">
+					        f_app_type = #{item.appType,jdbcType=INTEGER},
+					   </if>
+			   </trim>
+            </set>
+             where f_msg_id = #{item.msgId}
+     </foreach>
+</update>
+
+<update id="updateBatchWithEmpty" parameterType="java.util.List">
+      <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update t_msg
+            <set>
+              	<trim suffixOverrides=",">
+					        f_content = #{item.content,jdbcType=VARCHAR},
+					        f_link = #{item.link,jdbcType=VARCHAR},
+					        f_status = #{item.status,jdbcType=INTEGER},
+					        f_type = #{item.type,jdbcType=INTEGER},
+					        f_user_number = #{item.userNumber,jdbcType=VARCHAR},
+					        f_start_time = #{item.startTime,jdbcType=TIMESTAMP},
+					        f_crt_time = #{item.crtTime,jdbcType=TIMESTAMP},
+					        f_modify_time = #{item.modifyTime,jdbcType=TIMESTAMP},
+					        f_app_type = #{item.appType,jdbcType=INTEGER},
+			   </trim>
+            </set>
+             where f_msg_id = #{item.msgId}
+     </foreach>
+</update>         
+
+<delete id="deleteBatch" parameterType="Object">
+	DELETE FROM t_msg
+	<where>
+		<foreach item="item" index="index" collection="array"  open="(" separator="or" close=") ">
+			  f_msg_id  = #{item}
+		</foreach>
+	</where>
+</delete>
+    
+ <sql id="Base_Condition">
+		   <if test=" null != msgId ">
+				AND	T.f_msg_id = #{msgId}
+		</if>
+		   <if test=" null != content and ''!= content  ">
+				AND	T.f_content = #{content}
+		</if>
+		   <if test=" null != link and ''!= link  ">
+				AND	T.f_link = #{link}
+		</if>
+		   <if test=" null != status ">
+				AND	T.f_status = #{status}
+		</if>
+		   <if test=" null != type ">
+				AND	T.f_type = #{type}
+		</if>
+		   <if test=" null != userNumber and ''!= userNumber  ">
+				AND	T.f_user_number = #{userNumber}
+		</if>
+		   <if test=" null != startTime ">
+				AND	T.f_start_time = #{startTime}
+		</if>
+		   <if test=" null != crtTime ">
+				AND	T.f_crt_time = #{crtTime}
+		</if>
+		   <if test=" null != modifyTime ">
+				AND	T.f_modify_time = #{modifyTime}
+		</if>
+		   <if test=" null != appType ">
+				AND	T.f_app_type = #{appType}
+		</if>
+ </sql>    
+<select id="list" resultMap="MsgResultMap"  >
+		SELECT <include refid="Base_Column_List" /> FROM t_msg T WHERE 1=1
+		<include refid="Base_Condition" />
+</select>
+
+<select id="query" resultMap="MsgResultMap"  >
+		SELECT <include refid="Base_Column_List" /> FROM t_msg T WHERE 1=1
+		<include refid="Base_Condition" />
+</select>
+
+
+<update id="deletePersonMsgs" >
+      <foreach collection="msgs" item="item" index="index" open="" close="" separator=";">
+            update t_msg
+            <set>
+              	 f_status = 1
+            </set>
+             where f_msg_id = #{item} and f_user_number = #{userNumber} and f_type = 1
+     </foreach>
+</update>         
+
+<select id="querySysMsgResp" resultMap="MsgRespResultMap"  >
+<!-- SELECT (case when t.f_start_time &lt;= #{date} then 1 else 0 end) `read`,t.*
+FROM `t_msg` t where t.f_start_time &lt;= now() and t.f_status=0
+<if test=" null != type ">
+	AND	t.f_type = #{type}
+</if>
+<if test=" null != userNumber and ''!= userNumber  ">
+	AND	t.f_user_number = #{userNumber}
+</if>
+<if test=" null != appType ">
+	AND	t.f_app_type = #{appType}
+</if> -->
+SELECT 
+  m.*,(case when m.f_start_time &lt;= #{date} then 1 else 0 end) 'read'  
+FROM
+  t_msg m 
+WHERE  m.f_status = 0 
+  AND (
+    m.f_type = 0 
+    AND (
+      m.f_app_type = 0 
+      OR m.f_app_type = #{appType}
+    )
+  )
+</select>
+
+<select id="queryPersonMsgResp" resultMap="MsgRespResultMap"  >
+SELECT 
+  m.*,(case when m.f_start_time &lt;= #{date} then 1 else 0 end) 'read' 
+FROM
+  t_msg m 
+WHERE  m.f_status = 0 
+    AND  m.f_type = 1 
+      AND m.f_app_type = #{appType}
+      AND m.f_user_number = #{userNumber} 
+
+</select>
+
+<select id="queryUnReadMsgCount" resultType="int">
+SELECT 
+  COUNT(1) 
+FROM
+  t_msg m 
+WHERE m.f_start_time &lt;= now() and m.f_status = 0 
+  AND ((
+    m.f_start_time &gt; #{sysMsgDate}
+    AND m.f_type = 0 
+    AND (
+      m.f_app_type = 0 
+      OR m.f_app_type = #{appType}
+    )
+  ) 
+  OR 
+    (
+      m.f_start_time  &gt; #{personMsgDate} 
+      AND m.f_type = 1 
+      AND m.f_app_type = #{appType}
+      AND m.f_user_number = #{userNumber} 
+    )
+  )
+</select>
+
+<!-- 未读公告消息统计公告 -->
+<select id="queryUnReadSysMsgCount" resultType="int">
+SELECT 
+  COUNT(1) 
+FROM
+  t_msg m 
+WHERE m.f_start_time &lt;= now() and m.f_status = 0 
+  AND (
+    m.f_start_time &gt; #{sysMsgDate}
+    AND m.f_type = 0 
+    AND (
+      m.f_app_type = 0 
+      OR m.f_app_type = #{appType}
+    )
+  )
+</select>
+
+<!-- 未读消息统计个人 -->
+<select id="queryPersonUnreadCount" resultType="int">
+SELECT 
+  COUNT(1) 
+FROM
+  t_msg m 
+WHERE m.f_start_time &lt;= now() and m.f_status = 0 
+  AND 
+    (
+      m.f_start_time  &gt; #{personMsgDate} 
+      AND m.f_type = 1 
+      AND m.f_app_type = #{appType}
+      AND m.f_user_number = #{userNumber} 
+    )
+  
+</select>
+
+
+</mapper>

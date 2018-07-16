@@ -1,0 +1,78 @@
+<section class="content-header">
+	<h1>${(module.addTitle)!}</h1>
+</section>
+<!-- Main content -->
+<section class="content" style="z-index: 9999">
+	<form action="${CPATH}/admin/platform/save" id="form" method="post">
+		<!-- <input type="hidden" name="platform.module" value="${(platform.module)!}">  -->
+		<input type="hidden" id="platform_id" name="platform.id" value="${(platform.id)!}"> 
+		<input type="hidden" name="platform.status" value="normal" id="content_status"> 
+		<input type="hidden" name="platform.created" value="${(platform.created)!}" > 
+		<input type="hidden" id="platform_slug" name="platform.slug" value="${(platform.slug)!}" > 
+		<input type="hidden" name="ucode" value="${ucode}">
+		<div class="row">
+			<!-- /.col -->
+			<div class="col-md-9">
+				<#include "_props_box.html" /> 
+				<!-- <div class="form-group">
+					<input name="content.title" class="form-control input-lg" id="title" value="${(content.title)!}" type="text" placeholder="在此输入标题">
+				</div> -->
+				<div class="pull-right"><a href="javascript:void(0);" onclick="doChangeEditor()">切换编辑器 </a> </div>
+				<label>
+				<#if slugDisplay ??>
+					网址：<span id="url_preffix"></span><span id="slug_text">${(content.slug)!}</span>${(urlSuffix)!}
+				</#if>
+				</label>
+				<label><span>公司简介：</span></label>
+				<div class="box box-solid">
+					<div  class="box-body no-padding">
+					<textarea id="textarea"  name="platform.brief_introduction" >${(platform.briefIntroduction)!}</textarea>
+				</div>
+				</div>
+				<label><span>团队介绍：</span></label>
+				<div class="box box-solid">
+					<div  class="box-body no-padding">
+					<textarea id="teamIntroduction"  name="platform.team_introduction" >${(platform.teamIntroduction)!}</textarea>
+				</div>
+				</div>
+				
+				<label><span>网站备案：</span></label>
+				<div class="box box-solid">
+				
+					<div  class="box-body no-padding">
+					<textarea id="siteRecord"  name="platform.site_record" >${(platform.siteRecord)!}</textarea>
+				</div>
+				</div>
+				
+				<label><span>公司图片资料：</span></label>
+				<div class="box box-solid">
+					<div  class="box-body no-padding">
+					<textarea id="contactUs"  name="platform.pic_info" >${(platform.pic_info)!}</textarea>
+				</div>
+				</div>
+				<label><span>联系方式：</span></label>
+				<div class="box box-solid">
+					<div  class="box-body no-padding">
+					<textarea id="contactUs"  name="platform.contact_us" >${(platform.contactUs)!}</textarea>
+				</div>
+				</div>
+				
+			</div>
+			<!-- /.col -->
+			<div class="col-md-3">
+			<#include "_action_box.html" /> 
+			<#if module ??> 
+				<#list module.taxonomyTypes! as taxonomyType > 
+					<#if taxonomyType.formType == "select"> 
+						<#include "_select_box.html" />
+					<#else> 
+						<#include "_input_box.html" /> 
+					</#if> 
+				</#list>
+			</#if> 
+			<#include "_thumbnail_box.html" />
+			</div>
+		</div>
+		<!-- /.row -->
+	</form>
+</section>

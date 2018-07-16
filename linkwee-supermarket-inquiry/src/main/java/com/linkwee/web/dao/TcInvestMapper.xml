@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.TcInvestMapper">
+	
+	<select id="queryCustomerInvestStatistics" resultType="com.linkwee.web.model.CustomerInvestStatistics">
+		SELECT
+			u.user_id userId,
+			u.user_name name,
+			u.mobile mobile,
+			i.rect_invest_time rectInvestTime,
+			IFNULL(SUM(a.invest_amt), 0) totalAmt,
+			IFNULL(
+				SUM(
+					CASE
+					WHEN a.`status` = 1 THEN
+						a.invest_amt
+					ELSE
+						0
+					END
+				),
+				0
+			) investamt,
+			COUNT(a.invest_id) investCount,
+			IFNULL(SUM(a.profit), 0) profitamt,
+			IFNULL(SUM(c.fee_amount), 0) saleamt
+		FROM tcim_product_invest_record a
+		LEFT JOIN tcrm_investor i on a.user_id = i.user_id
+		LEFT JOIN tcrm_user_info u ON a.user_id = u.user_id
+		LEFT JOIN tcim_org_fee_gather c ON a.invest_id = c.invest_id
+		WHERE a.platfrom=#{platfrom} 
+		<if test="null !=nameOrMobile or ''!=nameOrMobile">
+			AND a.user_id IN (
+				SELECT
+					u.user_id
+				FROM
+					tcrm_user_info u
+				WHERE
+					u.mobile LIKE CONCAT('%','${nameOrMobile}','%' ) 
+				OR u.user_name LIKE CONCAT('%','${nameOrMobile}','%' )
+			 )
+		</if>
+		GROUP BY a.user_id ORDER BY rectInvestTime DESC
+	</select>
+  	
+  	<select id="queryCustomerInvestDetail" resultType="com.linkwee.web.model.CustomerInvestDetail">
+		SELECT
+			p.product_name productName,
+			p.is_flow isflow,
+			p.flow_min_rate flowMinRate,
+			p.flow_max_rate flowMaxRate,
+			a.invest_amt investAmt,
+			a.profit,
+			a.start_time startTime,
+			a.end_time endTime,
+			a.status status,
+			c.fee_amount feeAmt
+		FROM
+			tcim_product_invest_record a 
+		LEFT JOIN tcim_product p on a.product_id=p.product_id
+		LEFT JOIN tcim_org_fee_gather c ON a.invest_id = c.invest_id
+		WHERE a.platfrom=#{platfrom}  AND a.user_id = #{userId}
+		 ORDER BY a.start_time DESC
+  	</select>
+
+
+  
+</mapper>

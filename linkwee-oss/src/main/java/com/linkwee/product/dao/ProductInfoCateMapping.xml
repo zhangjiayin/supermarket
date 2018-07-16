@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.product.dao.ProductInfoCateDao">
+<parameterMap type="com.linkwee.web.model.product.ProductInfoCate" id="ProductInfoCateParameterMap" />	
+<!-- Result Map-->
+<resultMap  type="com.linkwee.web.model.product.ProductInfoCate" id="ProductInfoCateResultMap">
+	<result column="f_id" property="id" jdbcType="INTEGER"/>
+	<result column="f_product_id" property="productId" jdbcType="VARCHAR"/>
+	<result column="f_cate_id" property="cateId" jdbcType="VARCHAR"/>
+	<result column="f_sort" property="sort" jdbcType="INTEGER"/>
+	<result column="f_description" property="description" jdbcType="VARCHAR"/>
+</resultMap>
+
+<resultMap  type="com.linkwee.web.model.product.ProCateSortResponse" id="ProCateSortResultMap">
+	<result column="f_product_id" property="productId" jdbcType="VARCHAR"/>
+	<result column="f_cate_id" property="cateId" jdbcType="VARCHAR"/>
+	<result column="f_sort" property="sort" jdbcType="INTEGER"/>
+	<result column="f_description" property="description" jdbcType="VARCHAR"/>
+	<result column="f_cate_name" property="cateName" jdbcType="VARCHAR"/>
+	<result column="f_ispublic" property="isPublic" jdbcType="INTEGER"/>
+</resultMap>
+
+  <sql id="Base_Column_List">
+    <trim suffixOverrides=",">
+	    	f_id,
+	    	f_product_id,
+	    	f_cate_id,
+	    	f_sort,
+	    	f_description,
+    </trim>
+  </sql>  
+  
+   <sql id="Base_Column_List_T">
+    <trim suffixOverrides=",">
+	    	t.f_id,
+	    	t.f_product_id,
+	    	t.f_cate_id,
+	    	t.f_sort,
+	    	t.f_description,
+    </trim>
+  </sql> 
+  	
+  <select id="getByPrimaryKey"  resultMap="ProductInfoCateResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_product_info_cate where  f_id = #{0}
+  </select>	
+
+  <delete id="deleteByPrimaryKey" >
+    delete from t_product_info_cate
+	<where>
+		f_id = #{0}
+	</where>
+  </delete>
+  
+  <delete id="deleteByProIdAndCateId">
+  delete from t_product_info_cate
+	<where>
+		f_product_id = #{0} and f_cate_id=#{1}
+	</where>
+  </delete>
+  
+  <insert id="add" parameterMap="ProductInfoCateParameterMap" useGeneratedKeys="true" keyProperty="id" >
+		INSERT INTO t_product_info_cate
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					f_id,
+				</if>
+			 	<if test=" null != productId and ''!= productId  ">
+					f_product_id,
+				</if>
+			 	<if test=" null != cateId and ''!= cateId  ">
+					f_cate_id,
+				</if>
+			 	<if test=" null != sort ">
+					f_sort,
+				</if>
+			 	<if test=" null != description and ''!= description  ">
+					f_description,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != productId and ''!= productId  ">
+					 	#{productId},
+				</if>
+			 	<if test=" null != cateId and ''!= cateId  ">
+					 	#{cateId},
+				</if>
+			 	<if test=" null != sort ">
+					 	#{sort},
+				</if>
+			 	<if test=" null != description and ''!= description  ">
+					 	#{description},
+				</if>
+		</trim>
+	</insert>
+  
+  
+  <update id="update" parameterMap="ProductInfoCateParameterMap">
+		UPDATE t_product_info_cate
+		<set>
+			<trim suffixOverrides=",">
+					<if test=" null != productId and ''!= productId  ">
+						f_product_id = #{productId},
+					</if>
+					<if test=" null != cateId and ''!= cateId  ">
+						f_cate_id = #{cateId},
+					</if>
+					<if test=" null != sort ">
+						f_sort = #{sort},
+					</if>
+					<if test=" null != description and ''!= description  ">
+						f_description = #{description},
+					</if>
+			</trim>
+		</set>
+		<where>
+			 f_id = #{id}
+		</where>
+	</update>
+    <update id="updateByProId" parameterMap="ProductInfoCateParameterMap">
+		UPDATE t_product_info_cate
+		<set>
+			<trim suffixOverrides=",">
+					<!-- <if test=" null != productId and ''!= productId  ">
+						f_product_id = #{productId},
+					</if> -->
+					<if test=" null != cateId and ''!= cateId  ">
+						f_cate_id = #{cateId},
+					</if>
+					<if test=" null != sort ">
+						f_sort = #{sort},
+					</if>
+					<if test=" null != description and ''!= description  ">
+						f_description = #{description},
+					</if>
+			</trim>
+		</set>
+		<where>
+			 f_product_id = #{productId}
+		</where>
+	</update>
+  
+   <update id="updateWithEmpty" parameterMap="ProductInfoCateParameterMap">
+		UPDATE t_product_info_cate
+		<set>
+			<trim suffixOverrides=",">
+						f_product_id = #{productId},
+						f_cate_id = #{cateId},
+						f_sort = #{sort},
+						f_description = #{description},
+			</trim>
+		</set>
+		<where>
+			 f_id = #{id}
+		</where>
+	</update>
+
+  <insert id="addBatch" parameterType="java.util.List">
+	insert into t_product_info_cate 
+	<trim prefix="(" suffix=")" >
+			<include refid="Base_Column_List" />
+	</trim>
+	VALUES
+	<foreach item="item" index="index" collection="list" separator=",">
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+				#{item.id,jdbcType=INTEGER},
+				#{item.productId,jdbcType=VARCHAR},
+				#{item.cateId,jdbcType=VARCHAR},
+				#{item.sort,jdbcType=INTEGER},
+				#{item.description,jdbcType=VARCHAR},
+		</trim>
+	</foreach>
+</insert>
+
+ 
+<update id="updateBatch" parameterType="java.util.List">
+      <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update t_product_info_cate
+            <set>
+              	<trim suffixOverrides=",">
+					   <if test="item.productId!=null and ''!= item.productId  ">
+					        f_product_id = #{item.productId,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.cateId!=null and ''!= item.cateId  ">
+					        f_cate_id = #{item.cateId,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.sort!=null ">
+					        f_sort = #{item.sort,jdbcType=INTEGER},
+					   </if>
+					   <if test="item.description!=null and ''!= item.description  ">
+					        f_description = #{item.description,jdbcType=VARCHAR},
+					   </if>
+			   </trim>
+            </set>
+             where f_id = #{item.id}
+     </foreach>
+</update>
+
+<update id="updateBatchWithEmpty" parameterType="java.util.List">
+      <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update t_product_info_cate
+            <set>
+              	<trim suffixOverrides=",">
+					        f_product_id = #{item.productId,jdbcType=VARCHAR},
+					        f_cate_id = #{item.cateId,jdbcType=VARCHAR},
+					        f_sort = #{item.sort,jdbcType=INTEGER},
+					        f_description = #{item.description,jdbcType=VARCHAR},
+			   </trim>
+            </set>
+             where f_id = #{item.id}
+     </foreach>
+</update>         
+
+<delete id="deleteBatch" parameterType="Object">
+	DELETE FROM t_product_info_cate
+	<where>
+		<foreach item="item" index="index" collection="array"  open="(" separator="or" close=") ">
+			  f_id  = #{item}
+		</foreach>
+	</where>
+</delete>
+    
+ <sql id="Base_Condition">
+		   <if test=" null != id ">
+				AND	T.f_id = #{id}
+		</if>
+		   <if test=" null != productId and ''!= productId  ">
+				AND	T.f_product_id = #{productId}
+		</if>
+		   <if test=" null != cateId and ''!= cateId  ">
+				AND	T.f_cate_id = #{cateId}
+		</if>
+		   <if test=" null != sort ">
+				AND	T.f_sort = #{sort}
+		</if>
+		   <if test=" null != description and ''!= description  ">
+				AND	T.f_description = #{description}
+		</if>
+ </sql>    
+<select id="list" resultMap="ProductInfoCateResultMap"  >
+		SELECT <include refid="Base_Column_List" /> FROM t_product_info_cate T WHERE 1=1
+		<include refid="Base_Condition" />
+</select>
+
+<select id="query" resultMap="ProductInfoCateResultMap"  >
+		SELECT <include refid="Base_Column_List" /> FROM t_product_info_cate T WHERE 1=1
+		<include refid="Base_Condition" />
+</select>
+<select id="findProCateSort" resultMap="ProCateSortResultMap">
+SELECT
+	t.f_cate_id,
+	t.f_product_id,
+	t.f_sort,
+	t.f_description,
+	t1.f_cate_name,
+	t1.f_ispublic
+FROM
+	t_product_info_cate t
+JOIN t_product_cate t1 ON t.f_cate_id = t1.f_cate_id
+WHERE
+	t.f_product_id = #{prodcutId}
+</select>
+<select id="findByProIdAndCateId" resultMap="ProductInfoCateResultMap" >
+select <include refid="Base_Column_List" /> from t_product_info_cate t where t.f_product_id = #{0} and f_cate_id= #{1} limit 1
+</select>
+<select id="findByCateIdAndSort"  resultMap="ProductInfoCateResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_product_info_cate where  f_cate_id = #{cateId} and f_sort = #{sort}  limit 1
+</select>	
+
+<select id="findByCateIdAndProId" resultMap="ProductInfoCateResultMap">
+ select 
+    <include refid="Base_Column_List" />
+    from t_product_info_cate where  f_cate_id = #{cateId} and f_product_id = #{proId}  limit 1
+</select>
+
+<update id="updateByCateIdAndSort">
+ update t_product_info_cate set  f_product_id= #{productId} where f_cate_id = #{cateId} and f_sort = #{sort}
+</update>
+<delete id="deleteByProAndSortAndCate">
+delete from t_product_info_cate where f_product_id= #{productId} and f_cate_id = #{cateId} 
+</delete>
+
+  <update id="updateProCateSort" parameterMap="ProductInfoCateParameterMap">
+		UPDATE t_product_info_cate
+		<set>
+			<trim suffixOverrides=",">					
+					<if test=" null != sort ">
+						f_sort = #{sort},
+					</if>
+					<if test=" null != description and ''!= description  ">
+						f_description = #{description},
+					</if>
+			</trim>
+		</set>
+		<where>
+			 f_product_id = #{productId}
+			 <if test=" null != cateId and ''!= cateId  ">
+					and	f_cate_id = #{cateId}
+			</if>
+		</where>
+	</update>
+
+</mapper>

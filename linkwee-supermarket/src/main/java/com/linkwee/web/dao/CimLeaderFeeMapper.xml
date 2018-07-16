@@ -1,0 +1,767 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.CimLeaderFeeMapper">
+	<!-- Result Map-->
+	<resultMap  type="com.linkwee.web.model.cim.CimLeaderFee" id="BaseResultMap">
+		<result column="id" property="id" jdbcType="INTEGER"/>
+		<result column="invest_id" property="investId" jdbcType="VARCHAR"/>
+		<result column="invest_record_no" property="investRecordNo" jdbcType="VARCHAR"/>
+		<result column="month" property="month" jdbcType="VARCHAR"/>
+		<result column="is_pay" property="isPay" jdbcType="INTEGER"/>
+		<result column="user_id" property="userId" jdbcType="VARCHAR"/>
+		<result column="cfplanner" property="cfplanner" jdbcType="VARCHAR"/>
+		<result column="owner_id" property="ownerId" jdbcType="VARCHAR"/>
+		<result column="son_owner" property="sonOwner" jdbcType="VARCHAR"/>
+		<result column="invest_amt" property="investAmt" jdbcType="DECIMAL"/>
+		<result column="leader_profit" property="leaderProfit" jdbcType="DECIMAL"/>
+		<result column="biz_time" property="bizTime" jdbcType="TIMESTAMP"/>
+		<result column="product_id" property="productId" jdbcType="VARCHAR"/>
+		<result column="third_product_id" property="thirdProductId" jdbcType="VARCHAR"/>
+		<result column="product_days" property="productDays" jdbcType="INTEGER"/>
+		<result column="start_time" property="startTime" jdbcType="TIMESTAMP"/>
+		<result column="end_time" property="endTime" jdbcType="TIMESTAMP"/>
+		<result column="platfrom" property="platfrom" jdbcType="VARCHAR"/>
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+		<result column="remark" property="remark" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+  <sql id="Base_Column_List">
+    <trim suffixOverrides=",">
+	    	id,
+	    	invest_id,
+	    	invest_record_no,
+	    	month,
+	    	is_pay,
+	    	user_id,
+	    	cfplanner,
+	    	owner_id,
+	    	son_owner,
+	    	invest_amt,
+	    	leader_profit,
+	    	biz_time,
+	    	product_id,
+	    	third_product_id,
+	    	product_days,
+	    	start_time,
+	    	end_time,
+	    	platfrom,
+	    	create_time,
+	    	update_time,
+    </trim>
+  </sql>  
+  
+  <sql id="Base_Condition">
+		<if test=" null != id ">
+			and id = #{id}
+		</if>
+		<if test=" null != investId and ''!= investId  ">
+			and invest_id = #{investId}
+		</if>
+		<if test=" null != investRecordNo and ''!= investRecordNo  ">
+			and invest_record_no = #{investRecordNo}
+		</if>
+		<if test=" null != month and ''!= month  ">
+			and month = #{month}
+		</if>
+		<if test=" null != isPay ">
+			and is_pay = #{isPay}
+		</if>
+		<if test=" null != userId and ''!= userId  ">
+			and user_id = #{userId}
+		</if>
+		<if test=" null != cfplanner and ''!= cfplanner  ">
+			and cfplanner = #{cfplanner}
+		</if>
+		<if test=" null != ownerId and ''!= ownerId  ">
+			and owner_id = #{ownerId}
+		</if>
+		<if test=" null != sonOwner and ''!= sonOwner  ">
+			and son_owner = #{sonOwner}
+		</if>
+		<if test=" null != investAmt ">
+			and invest_amt = #{investAmt}
+		</if>
+		<if test=" null != leaderProfit ">
+			and leader_profit = #{leaderProfit}
+		</if>
+		<if test=" null != bizTime ">
+			and biz_time = #{bizTime}
+		</if>
+		<if test=" null != productId and ''!= productId  ">
+			and product_id = #{productId}
+		</if>
+		<if test=" null != thirdProductId and ''!= thirdProductId  ">
+			and third_product_id = #{thirdProductId}
+		</if>
+		<if test=" null != productDays ">
+			and product_days = #{productDays}
+		</if>
+		<if test=" null != startTime ">
+			and start_time = #{startTime}
+		</if>
+		<if test=" null != endTime ">
+			and end_time = #{endTime}
+		</if>
+		<if test=" null != platfrom and ''!= platfrom  ">
+			and platfrom = #{platfrom}
+		</if>
+		<if test=" null != createTime ">
+			and create_time = #{createTime}
+		</if>
+		<if test=" null != updateTime ">
+			and update_time = #{updateTime}
+		</if>
+  </sql>
+  
+  <!-- 将个人名下的leader奖励归属自己 -->
+    <update id="updateLeaderProfitOwnerId" parameterType="com.linkwee.web.model.cim.CimLeaderFee" >
+        UPDATE tcim_leader_fee set owner_id = #{userId} where is_pay=0 and user_id in 
+        (select i.user_id from tcrm_investor i where i.cfplanner in 
+        (SELECT c.user_id from tcrm_cfplanner c where c.parent_id= #{userId}))
+    </update>
+  
+  <!-- 理财师1个直属理财师年化业绩达到1000元 -->
+	<select id="queryUnderCfpYearInvestAmount" resultType="Double" >
+       select IFNULL(sum(yearpur_amount),0) from 
+       (SELECT distinct ir.invest_id,f.bill_id,f.yearpur_amount from tcim_product_invest_record ir left join tcim_fee f on ir.invest_id = f.bill_id  
+       where ir.user_id in 
+       (select i.user_id from tcrm_investor i where i.cfplanner in (SELECT c.user_id from tcrm_cfplanner c where c.parent_id= #{userId}) ) 
+       ) a where 1=1 
+    </select>
+  
+  <!-- 查下级理财师有没有独立核算 -->
+    <select id="haveUnderCfpIndependent" resultType="int" >
+        select count(*) from tcim_leader_tree where root_id = #{userId} and is_onlypay = 1 and is_tree = 1 and is_calc=0
+    </select>
+    
+    <!-- 间接理财师人数  select count(*) from tcim_leader_tree where root_id = #{userId} and is_direct = 0 and is_tree = 1-->
+    <select id="queryIndirectCfpNumbers" resultType="int" >
+        SELECT count(*) from tcrm_cfplanner c where c.parent_id= #{userId}
+    </select>
+    
+  <!-- 本月间接理财师贡献奖励 -->
+	<select id="queryContrProfit" resultType="Double" >
+       SELECT IFNULL(sum(fe.leader_profit),0)  from tcim_leader_fee fe 
+       where fe.user_id in   
+       (select i.user_id from tcrm_investor i where i.cfplanner in 
+       (SELECT c.user_id from tcim_leader_tree c where c.is_direct=0 and c.is_calc=1 and c.is_tree=1 
+       and c.root_id= #{userId} )) 
+    </select>
+  
+  <!-- 理财师当月leader奖励 -->
+	<select id="queryMonthProfit" resultType="Double" >
+        SELECT IFNULL(sum(leader_profit),0) leader_profit from tcim_leader_fee where owner_id = #{userId} and month = #{month} 
+    </select>
+  
+  <!-- 直属理财师贡献leader奖励明细-分页 -->
+	<select id="querycontribuPageList" resultType="com.linkwee.web.model.cim.CimLeaderFee">
+		  SELECT u.user_name,c.head_image,f.leader_profit,f.invest_amt from tcim_leader_fee f 
+		 left join tcrm_cfplanner c on f.user_id = c.user_id  left join tcrm_user_info u on f.user_id = u.user_id 
+		 where f.user_id in
+		 (select i.user_id from tcrm_investor i where i.cfplanner in 
+		 (select tre.user_id from tcim_leader_tree tre where tre.is_calc=1 and tre.user_id 
+		 in(SELECT c.user_id from tcrm_cfplanner c where c.parent_id= #{userId})) )
+		  ORDER BY f.biz_time DESC
+	</select>
+  
+  <select id="selectOneByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.web.model.cim.CimLeaderFee">
+		select <include refid="Base_Column_List" /> from tcim_leader_fee 
+		where 1=1 <include refid="Base_Condition" />
+  </select>
+  
+  <select id="selectByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.web.model.cim.CimLeaderFee">
+		select <include refid="Base_Column_List" /> from tcim_leader_fee 
+		where 1=1 <include refid="Base_Condition" />
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tcim_leader_fee
+    where  id = #{0}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tcim_leader_fee
+    where id = #{0}
+  </delete>
+
+  <insert id="insert" parameterType="com.linkwee.web.model.cim.CimLeaderFee" >
+    INSERT INTO tcim_leader_fee
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != investId and ''!= investId  ">
+					invest_id,
+				</if>
+			 	<if test=" null != investRecordNo and ''!= investRecordNo  ">
+					invest_record_no,
+				</if>
+			 	<if test=" null != month and ''!= month  ">
+					month,
+				</if>
+			 	<if test=" null != isPay ">
+					is_pay,
+				</if>
+			 	<if test=" null != userId and ''!= userId  ">
+					user_id,
+				</if>
+			 	<if test=" null != cfplanner and ''!= cfplanner  ">
+					cfplanner,
+				</if>
+			 	<if test=" null != ownerId and ''!= ownerId  ">
+					owner_id,
+				</if>
+				<if test=" null != sonOwner and ''!= sonOwner  ">
+					son_owner,
+				</if>
+			 	<if test=" null != investAmt ">
+					invest_amt,
+				</if>
+			 	<if test=" null != leaderProfit ">
+					leader_profit,
+				</if>
+			 	<if test=" null != bizTime ">
+					biz_time,
+				</if>
+			 	<if test=" null != productId and ''!= productId  ">
+					product_id,
+				</if>
+			 	<if test=" null != thirdProductId and ''!= thirdProductId  ">
+					third_product_id,
+				</if>
+			 	<if test=" null != productDays ">
+					product_days,
+				</if>
+			 	<if test=" null != startTime ">
+					start_time,
+				</if>
+			 	<if test=" null != endTime ">
+					end_time,
+				</if>
+			 	<if test=" null != platfrom and ''!= platfrom  ">
+					platfrom,
+				</if>
+			 	<if test=" null != createTime ">
+					create_time,
+				</if>
+			 	<if test=" null != updateTime ">
+					update_time,
+				</if>
+				<if test=" null != remark ">
+					remark,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != investId and ''!= investId  ">
+					 	#{investId},
+				</if>
+			 	<if test=" null != investRecordNo and ''!= investRecordNo  ">
+					 	#{investRecordNo},
+				</if>
+			 	<if test=" null != month and ''!= month  ">
+					 	#{month},
+				</if>
+			 	<if test=" null != isPay ">
+					 	#{isPay},
+				</if>
+			 	<if test=" null != userId and ''!= userId  ">
+					 	#{userId},
+				</if>
+			 	<if test=" null != cfplanner and ''!= cfplanner  ">
+					 	#{cfplanner},
+				</if>
+			 	<if test=" null != ownerId and ''!= ownerId  ">
+					 	#{ownerId},
+				</if>
+				<if test=" null != sonOwner and ''!= sonOwner  ">
+					 	#{sonOwner},
+				</if>
+			 	<if test=" null != investAmt ">
+					 	#{investAmt},
+				</if>
+			 	<if test=" null != leaderProfit ">
+					 	#{leaderProfit},
+				</if>
+			 	<if test=" null != bizTime ">
+					 	#{bizTime},
+				</if>
+			 	<if test=" null != productId and ''!= productId  ">
+					 	#{productId},
+				</if>
+			 	<if test=" null != thirdProductId and ''!= thirdProductId  ">
+					 	#{thirdProductId},
+				</if>
+			 	<if test=" null != productDays ">
+					 	#{productDays},
+				</if>
+			 	<if test=" null != startTime ">
+					 	#{startTime},
+				</if>
+			 	<if test=" null != endTime ">
+					 	#{endTime},
+				</if>
+			 	<if test=" null != platfrom and ''!= platfrom  ">
+					 	#{platfrom},
+				</if>
+			 	<if test=" null != createTime ">
+					 	#{createTime},
+				</if>
+			 	<if test=" null != updateTime ">
+					 	#{updateTime},
+				</if>
+				<if test=" null != remark ">
+					#{remark},
+				</if>
+		</trim>
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.linkwee.web.model.cim.CimLeaderFee" useGeneratedKeys="true" keyProperty="id" >
+		INSERT INTO tcim_leader_fee
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != investId and ''!= investId  ">
+					invest_id,
+				</if>
+			 	<if test=" null != investRecordNo and ''!= investRecordNo  ">
+					invest_record_no,
+				</if>
+			 	<if test=" null != month and ''!= month  ">
+					month,
+				</if>
+			 	<if test=" null != isPay ">
+					is_pay,
+				</if>
+			 	<if test=" null != userId and ''!= userId  ">
+					user_id,
+				</if>
+			 	<if test=" null != cfplanner and ''!= cfplanner  ">
+					cfplanner,
+				</if>
+			 	<if test=" null != ownerId and ''!= ownerId  ">
+					owner_id,
+				</if>
+				<if test=" null != sonOwner and ''!= sonOwner  ">
+					son_owner,
+				</if>
+			 	<if test=" null != investAmt ">
+					invest_amt,
+				</if>
+			 	<if test=" null != leaderProfit ">
+					leader_profit,
+				</if>
+			 	<if test=" null != bizTime ">
+					biz_time,
+				</if>
+			 	<if test=" null != productId and ''!= productId  ">
+					product_id,
+				</if>
+			 	<if test=" null != thirdProductId and ''!= thirdProductId  ">
+					third_product_id,
+				</if>
+			 	<if test=" null != productDays ">
+					product_days,
+				</if>
+			 	<if test=" null != startTime ">
+					start_time,
+				</if>
+			 	<if test=" null != endTime ">
+					end_time,
+				</if>
+			 	<if test=" null != platfrom and ''!= platfrom  ">
+					platfrom,
+				</if>
+			 	<if test=" null != createTime ">
+					create_time,
+				</if>
+			 	<if test=" null != updateTime ">
+					update_time,
+				</if>
+				<if test=" null != remark ">
+					remark,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != investId and ''!= investId  ">
+					 	#{investId},
+				</if>
+			 	<if test=" null != investRecordNo and ''!= investRecordNo  ">
+					 	#{investRecordNo},
+				</if>
+			 	<if test=" null != month and ''!= month  ">
+					 	#{month},
+				</if>
+			 	<if test=" null != isPay ">
+					 	#{isPay},
+				</if>
+			 	<if test=" null != userId and ''!= userId  ">
+					 	#{userId},
+				</if>
+			 	<if test=" null != cfplanner and ''!= cfplanner  ">
+					 	#{cfplanner},
+				</if>
+			 	<if test=" null != ownerId and ''!= ownerId  ">
+					 	#{ownerId},
+				</if>
+				<if test=" null != sonOwner and ''!= sonOwner  ">
+					 	#{sonOwner},
+				</if>
+			 	<if test=" null != investAmt ">
+					 	#{investAmt},
+				</if>
+			 	<if test=" null != leaderProfit ">
+					 	#{leaderProfit},
+				</if>
+			 	<if test=" null != bizTime ">
+					 	#{bizTime},
+				</if>
+			 	<if test=" null != productId and ''!= productId  ">
+					 	#{productId},
+				</if>
+			 	<if test=" null != thirdProductId and ''!= thirdProductId  ">
+					 	#{thirdProductId},
+				</if>
+			 	<if test=" null != productDays ">
+					 	#{productDays},
+				</if>
+			 	<if test=" null != startTime ">
+					 	#{startTime},
+				</if>
+			 	<if test=" null != endTime ">
+					 	#{endTime},
+				</if>
+			 	<if test=" null != platfrom and ''!= platfrom  ">
+					 	#{platfrom},
+				</if>
+			 	<if test=" null != createTime ">
+					 	#{createTime},
+				</if>
+			 	<if test=" null != updateTime ">
+					 	#{updateTime},
+				</if>
+				<if test=" null != remark ">
+					#{remark},
+				</if>
+		</trim>
+	</insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.linkwee.web.model.cim.CimLeaderFee" >
+  		UPDATE tcim_leader_fee
+		<set>
+			<trim suffixOverrides=",">
+					<if test=" null != investId and ''!= investId  ">
+						invest_id = #{investId},
+					</if>
+					<if test=" null != investRecordNo and ''!= investRecordNo  ">
+						invest_record_no = #{investRecordNo},
+					</if>
+					<if test=" null != month and ''!= month  ">
+						month = #{month},
+					</if>
+					<if test=" null != isPay ">
+						is_pay = #{isPay},
+					</if>
+					<if test=" null != userId and ''!= userId  ">
+						user_id = #{userId},
+					</if>
+					<if test=" null != cfplanner and ''!= cfplanner  ">
+						cfplanner = #{cfplanner},
+					</if>
+					<if test=" null != ownerId and ''!= ownerId  ">
+						owner_id = #{ownerId},
+					</if>
+					<if test=" null != sonOwner and ''!= sonOwner  ">
+						son_owner = #{sonOwner},
+					</if>
+					<if test=" null != investAmt ">
+						invest_amt = #{investAmt},
+					</if>
+					<if test=" null != leaderProfit ">
+						leader_profit = #{leaderProfit},
+					</if>
+					<if test=" null != bizTime ">
+						biz_time = #{bizTime},
+					</if>
+					<if test=" null != productId and ''!= productId  ">
+						product_id = #{productId},
+					</if>
+					<if test=" null != thirdProductId and ''!= thirdProductId  ">
+						third_product_id = #{thirdProductId},
+					</if>
+					<if test=" null != productDays ">
+						product_days = #{productDays},
+					</if>
+					<if test=" null != startTime ">
+						start_time = #{startTime},
+					</if>
+					<if test=" null != endTime ">
+						end_time = #{endTime},
+					</if>
+					<if test=" null != platfrom and ''!= platfrom  ">
+						platfrom = #{platfrom},
+					</if>
+					<if test=" null != createTime ">
+						create_time = #{createTime},
+					</if>
+					<if test=" null != updateTime ">
+						update_time = #{updateTime},
+					</if>
+			</trim>
+		</set>
+		<where>
+			 id = #{id}
+		</where>
+	</update>
+  
+	<update id="updateByPrimaryKey" parameterType="com.linkwee.web.model.cim.CimLeaderFee" >
+	    UPDATE tcim_leader_fee
+	   <set>
+			<trim suffixOverrides=",">
+					<if test=" null != investId and ''!= investId  ">
+						invest_id = #{investId},
+					</if>
+					<if test=" null != investRecordNo and ''!= investRecordNo  ">
+						invest_record_no = #{investRecordNo},
+					</if>
+					<if test=" null != month and ''!= month  ">
+						month = #{month},
+					</if>
+					<if test=" null != isPay ">
+						is_pay = #{isPay},
+					</if>
+					<if test=" null != userId and ''!= userId  ">
+						user_id = #{userId},
+					</if>
+					<if test=" null != cfplanner and ''!= cfplanner  ">
+						cfplanner = #{cfplanner},
+					</if>
+					<if test=" null != ownerId and ''!= ownerId  ">
+						owner_id = #{ownerId},
+					</if>
+					<if test=" null != sonOwner and ''!= sonOwner  ">
+						son_owner = #{sonOwner},
+					</if>
+					<if test=" null != investAmt ">
+						invest_amt = #{investAmt},
+					</if>
+					<if test=" null != leaderProfit ">
+						leader_profit = #{leaderProfit},
+					</if>
+					<if test=" null != bizTime ">
+						biz_time = #{bizTime},
+					</if>
+					<if test=" null != productId and ''!= productId  ">
+						product_id = #{productId},
+					</if>
+					<if test=" null != thirdProductId and ''!= thirdProductId  ">
+						third_product_id = #{thirdProductId},
+					</if>
+					<if test=" null != productDays ">
+						product_days = #{productDays},
+					</if>
+					<if test=" null != startTime ">
+						start_time = #{startTime},
+					</if>
+					<if test=" null != endTime ">
+						end_time = #{endTime},
+					</if>
+					<if test=" null != platfrom and ''!= platfrom  ">
+						platfrom = #{platfrom},
+					</if>
+					<if test=" null != createTime ">
+						create_time = #{createTime},
+					</if>
+					<if test=" null != updateTime ">
+						update_time = #{updateTime},
+					</if>
+			</trim>
+		</set>
+		<where>
+			id = #{0}
+		</where>
+	  </update>
+
+	<!-- 分页条件查询 -->
+    <select id="selectBySearchInfo" resultMap="BaseResultMap" parameterType="com.linkwee.core.datatable.DataTable">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM tcim_leader_fee
+        <where> 
+        <if test="dt.search!=null">  
+                name LIKE CONCAT('%','${dt.search.value}','%' )  
+         </if>  
+         <if test="dt.order!=null">  
+               <foreach collection="dt.order" index="index" item="item"
+                    open="order by" separator="," close=" ">
+                    ${item.name} ${item.dir} 
+                </foreach>
+         </if>  
+        </where>
+    </select>
+  	
+  	<!-- 已废弃 -->
+    <select id="queryLeaderPriftRankListNo1" resultType="String">
+    
+    		SELECT
+				TRUNCATE(IFNULL(a.totalProfit, 0), 2) totalProfit
+			FROM
+				(
+					SELECT
+						(
+							IFNULL(fd.feeProfit, 0) + IFNULL(br.activityProfit, 0) + IFNULL(rd.offlineProfit, 0)
+						) totalProfit
+					FROM
+						tcrm_cfplanner c
+					LEFT JOIN (
+						SELECT
+							fd.profit_cfplanner_id,
+							SUM(fd.fee_amount) feeProfit
+						FROM
+							tcim_feedetail fd
+						WHERE
+							DATE_FORMAT(fd.create_time, '%Y%m') = DATE_FORMAT(NOW(), '%Y%m')
+						GROUP BY
+							fd.profit_cfplanner_id
+					) fd ON c.user_id = fd.profit_cfplanner_id
+					LEFT JOIN (
+						SELECT
+							br.user_id,
+							SUM(br.trans_amount) activityProfit
+						FROM
+							tac_balance_record br
+						WHERE
+							br.trans_type = 4
+						OR (
+							br.trans_type = 14
+							AND br.create_type = 0
+						)
+						AND DATE_FORMAT(br.trans_date, '%Y%m') = DATE_FORMAT(NOW(), '%Y%m')
+						GROUP BY
+							br.user_id
+					) br ON c.user_id = br.user_id
+					LEFT JOIN (
+						SELECT
+							rd.user_id,
+							SUM(rd.trans_amount) offlineProfit
+						FROM
+							tac_offline_reward_draft rd
+						WHERE
+							rd.trans_type IN (12, 14)
+						AND rd.user_type = 1
+						AND DATE_FORMAT(rd.reward_time, '%Y%m') = DATE_FORMAT(NOW(), '%Y%m')
+						GROUP BY
+							rd.user_id
+					) rd ON c.user_id = rd.user_id
+					WHERE
+						fd.feeProfit > 0
+					OR br.activityProfit > 0
+					OR rd.offlineProfit > 0
+					UNION ALL
+						SELECT
+							t.total_profit totalProfit
+						FROM
+							`tact_ranklist_virtual_data` t
+						WHERE
+							t.rank_list_code = 'zyb'
+						AND t.`status` = 1
+				) a
+			ORDER BY
+				a.totalProfit DESC
+			LIMIT 1
+    		<!-- SELECT FORMAT(IFNULL(a.totalProfit,0), 2) totalProfit FROM (SELECT
+					(
+						IFNULL(fd.feeProfit, 0) + IFNULL(br.activityProfit, 0) + IFNULL(f.leaderProfit, 0)
+					) totalProfit
+					
+				FROM
+					tcrm_cfplanner c
+				LEFT JOIN tcrm_user_info u ON c.user_id = u.user_id
+				LEFT JOIN (
+					SELECT
+						fd.profit_cfplanner_id,
+						SUM(fd.fee_amount) feeProfit
+					FROM
+						tcim_feedetail fd
+					WHERE
+						DATE_FORMAT(fd.create_time, '%Y%m') = DATE_FORMAT(NOW(), '%Y%m')
+					GROUP BY
+						fd.profit_cfplanner_id
+				) fd ON c.user_id = fd.profit_cfplanner_id
+				LEFT JOIN (
+					SELECT
+						br.user_id,
+						SUM(br.trans_amount) activityProfit
+					FROM
+						tac_balance_record br
+					WHERE
+						br.trans_type IN (3, 4, 14)
+					AND DATE_FORMAT(br.create_time, '%Y%m') = DATE_FORMAT(NOW(), '%Y%m')
+					GROUP BY
+						br.user_id
+				) br ON c.user_id = br.user_id
+				LEFT JOIN (
+					SELECT
+						f.owner_id,
+						SUM(f.leader_profit) leaderProfit
+					FROM
+						tcim_leader_fee f
+					WHERE
+						f.`month` = DATE_FORMAT(NOW(), '%Y%m')
+					GROUP BY
+						f.owner_id
+				) f ON c.user_id = f.owner_id
+				WHERE
+					fd.feeProfit > 0
+				OR br.activityProfit > 0
+				OR f.leaderProfit > 0
+				
+				UNION ALL
+					SELECT
+						t.total_profit totalProfit
+					FROM
+						`tact_ranklist_virtual_data` t
+					WHERE
+						t.rank_list_code = 'zyb'
+					AND t.`status` = 1)a ORDER BY a.totalProfit DESC LIMIT 1 -->
+    	<!-- SELECT zr.total_profit FROM tact_zyb_ranklist_detail zr WHERE zr.sort=1 AND zr.`status`=1 -->
+    	<!-- SELECT
+			a.totalProfit
+		FROM
+			(
+				SELECT
+					SUM(f.leader_profit) totalProfit,
+					u.user_name NAME
+				FROM
+					tcim_leader_fee f
+				LEFT JOIN tcrm_user_info u ON f.owner_id = u.user_id
+				WHERE
+					f.`month` = DATE_FORMAT(NOW(), '%Y%m')
+				GROUP BY
+					f.owner_id
+				UNION ALL
+					SELECT
+						t.total_profit totalProfit,
+						t.user_name NAME
+					FROM
+						`tact_tdjl_ranklist_detail` t
+					WHERE
+						t.`status` = 1
+			) a
+		ORDER BY
+			a.totalProfit DESC,
+			a.name
+		LIMIT 1 -->
+    
+    </select>
+	
+</mapper>

@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.CimLeaderTreeMapper">
+	<!-- Result Map-->
+	<resultMap  type="com.linkwee.web.model.crm.CimLeaderTree" id="BaseResultMap">
+		<result column="id" property="id" jdbcType="INTEGER"/>
+		<result column="root_id" property="rootId" jdbcType="VARCHAR"/>
+		<result column="user_id" property="userId" jdbcType="VARCHAR"/>
+		<result column="cfplanner" property="cfplanner" jdbcType="VARCHAR"/>
+		<result column="is_onlypay" property="isOnlypay" jdbcType="INTEGER"/>
+		<result column="is_direct" property="isDirect" jdbcType="INTEGER"/>
+		<result column="is_tree" property="isTree" jdbcType="INTEGER"/>
+		<result column="is_calc" property="isCalc" jdbcType="INTEGER"/>
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+	</resultMap>
+	
+  <sql id="Base_Column_List">
+    <trim suffixOverrides=",">
+	    	id,
+	    	root_id,
+	    	user_id,
+	    	cfplanner,
+	    	is_onlypay,
+	    	is_direct,
+	    	is_tree,
+	    	is_calc,
+	    	create_time,
+	    	update_time,
+    </trim>
+  </sql>  
+  
+  <sql id="Base_Condition">
+		<if test=" null != id ">
+			and id = #{id}
+		</if>
+		<if test=" null != rootId and ''!= rootId  ">
+			and root_id = #{rootId}
+		</if>
+		<if test=" null != userId and ''!= userId  ">
+			and user_id = #{userId}
+		</if>
+		<if test=" null != cfplanner and ''!= cfplanner  ">
+			and cfplanner = #{cfplanner}
+		</if>
+		<if test=" null != isOnlypay ">
+			and is_onlypay = #{isOnlypay}
+		</if>
+		<if test=" null != isDirect ">
+			and is_direct = #{isDirect}
+		</if>
+		<if test=" null != isTree ">
+			and is_tree = #{isTree}
+		</if>
+		<if test=" null != isCalc ">
+			and is_calc = #{isCalc}
+		</if>
+		<if test=" null != createTime ">
+			and create_time = #{createTime}
+		</if>
+		<if test=" null != updateTime ">
+			and update_time = #{updateTime}
+		</if>
+  </sql>
+  
+  <select id="selectOneByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.web.model.crm.CimLeaderTree">
+		select <include refid="Base_Column_List" /> from tcim_leader_tree 
+		where 1=1 <include refid="Base_Condition" />
+  </select>
+  
+  <select id="selectByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.web.model.crm.CimLeaderTree">
+		select <include refid="Base_Column_List" /> from tcim_leader_tree 
+		where 1=1 <include refid="Base_Condition" />
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tcim_leader_tree
+    where  id = #{0}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tcim_leader_tree
+    where id = #{0}
+  </delete>
+
+  <insert id="insert" parameterType="com.linkwee.web.model.crm.CimLeaderTree" >
+    INSERT INTO tcim_leader_tree
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != rootId and ''!= rootId  ">
+					root_id,
+				</if>
+			 	<if test=" null != userId and ''!= userId  ">
+					user_id,
+				</if>
+			 	<if test=" null != cfplanner and ''!= cfplanner  ">
+					cfplanner,
+				</if>
+			 	<if test=" null != isOnlypay ">
+					is_onlypay,
+				</if>
+			 	<if test=" null != isDirect ">
+					is_direct,
+				</if>
+			 	<if test=" null != isTree ">
+					is_tree,
+				</if>
+			 	<if test=" null != isCalc ">
+					is_calc,
+				</if>
+			 	<if test=" null != createTime ">
+					create_time,
+				</if>
+			 	<if test=" null != updateTime ">
+					update_time,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != rootId and ''!= rootId  ">
+					 	#{rootId},
+				</if>
+			 	<if test=" null != userId and ''!= userId  ">
+					 	#{userId},
+				</if>
+			 	<if test=" null != cfplanner and ''!= cfplanner  ">
+					 	#{cfplanner},
+				</if>
+			 	<if test=" null != isOnlypay ">
+					 	#{isOnlypay},
+				</if>
+			 	<if test=" null != isDirect ">
+					 	#{isDirect},
+				</if>
+			 	<if test=" null != isTree ">
+					 	#{isTree},
+				</if>
+			 	<if test=" null != isCalc ">
+					 	#{isCalc},
+				</if>
+			 	<if test=" null != createTime ">
+					 	#{createTime},
+				</if>
+			 	<if test=" null != updateTime ">
+					 	#{updateTime},
+				</if>
+		</trim>
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.linkwee.web.model.crm.CimLeaderTree" useGeneratedKeys="true" keyProperty="id" >
+		INSERT INTO tcim_leader_tree
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != rootId and ''!= rootId  ">
+					root_id,
+				</if>
+			 	<if test=" null != userId and ''!= userId  ">
+					user_id,
+				</if>
+			 	<if test=" null != cfplanner and ''!= cfplanner  ">
+					cfplanner,
+				</if>
+			 	<if test=" null != isOnlypay ">
+					is_onlypay,
+				</if>
+			 	<if test=" null != isDirect ">
+					is_direct,
+				</if>
+			 	<if test=" null != isTree ">
+					is_tree,
+				</if>
+			 	<if test=" null != isCalc ">
+					is_calc,
+				</if>
+			 	<if test=" null != createTime ">
+					create_time,
+				</if>
+			 	<if test=" null != updateTime ">
+					update_time,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != rootId and ''!= rootId  ">
+					 	#{rootId},
+				</if>
+			 	<if test=" null != userId and ''!= userId  ">
+					 	#{userId},
+				</if>
+			 	<if test=" null != cfplanner and ''!= cfplanner  ">
+					 	#{cfplanner},
+				</if>
+			 	<if test=" null != isOnlypay ">
+					 	#{isOnlypay},
+				</if>
+			 	<if test=" null != isDirect ">
+					 	#{isDirect},
+				</if>
+			 	<if test=" null != isTree ">
+					 	#{isTree},
+				</if>
+			 	<if test=" null != isCalc ">
+					 	#{isCalc},
+				</if>
+			 	<if test=" null != createTime ">
+					 	#{createTime},
+				</if>
+			 	<if test=" null != updateTime ">
+					 	#{updateTime},
+				</if>
+		</trim>
+	</insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.linkwee.web.model.crm.CimLeaderTree" >
+  		UPDATE tcim_leader_tree
+		<set>
+			<trim suffixOverrides=",">
+					<if test=" null != rootId and ''!= rootId  ">
+						root_id = #{rootId},
+					</if>
+					<if test=" null != userId and ''!= userId  ">
+						user_id = #{userId},
+					</if>
+					<if test=" null != cfplanner and ''!= cfplanner  ">
+						cfplanner = #{cfplanner},
+					</if>
+					<if test=" null != isOnlypay ">
+						is_onlypay = #{isOnlypay},
+					</if>
+					<if test=" null != isDirect ">
+						is_direct = #{isDirect},
+					</if>
+					<if test=" null != isTree ">
+						is_tree = #{isTree},
+					</if>
+					<if test=" null != isCalc ">
+						is_calc = #{isCalc},
+					</if>
+					<if test=" null != createTime ">
+						create_time = #{createTime},
+					</if>
+					<if test=" null != updateTime ">
+						update_time = #{updateTime},
+					</if>
+			</trim>
+		</set>
+		<where>
+			 id = #{id}
+		</where>
+	</update>
+  
+	<update id="updateByPrimaryKey" parameterType="com.linkwee.web.model.crm.CimLeaderTree" >
+	    UPDATE tcim_leader_tree
+	   <set>
+			<trim suffixOverrides=",">
+<!-- 					<if test=" null != rootId and ''!= rootId  "> -->
+<!-- 						root_id = #{rootId}, -->
+<!-- 					</if> -->
+<!-- 					<if test=" null != userId and ''!= userId  "> -->
+<!-- 						user_id = #{userId}, -->
+<!-- 					</if> -->
+					<if test=" null != cfplanner and ''!= cfplanner  ">
+						cfplanner = #{cfplanner},
+					</if>
+					<if test=" null != isOnlypay ">
+						is_onlypay = #{isOnlypay},
+					</if>
+					<if test=" null != isDirect ">
+						is_direct = #{isDirect},
+					</if>
+					<if test=" null != isTree ">
+						is_tree = #{isTree},
+					</if>
+					<if test=" null != isCalc ">
+						is_calc = #{isCalc},
+					</if>
+					<if test=" null != createTime ">
+						create_time = #{createTime},
+					</if>
+					<if test=" null != updateTime ">
+						update_time = #{updateTime},
+					</if>
+			</trim>
+		</set>
+		<where>
+			root_id = #{rootId} and user_id=#{userId}
+		</where>
+	  </update>
+	  
+	<!-- 砍掉树的分枝-->  
+   <update id="updateLeaderTreeIsOnelyPay" parameterType="com.linkwee.web.model.crm.CimLeaderTree" >
+<!--         UPDATE tcim_leader_tree set is_calc=0,is_onlypay=1 where root_id = #{rootId} and user_id in  -->
+<!--         (SELECT c.user_id from tcrm_cfplanner c where c.parent_id= #{userId} or user_id=#{userId} )  -->
+		UPDATE tcim_leader_tree set is_calc=0,is_onlypay=1 where root_id = #{rootId} and user_id=#{userId} 
+    </update>
+    
+    
+    <!-- 递归将下级计算isCalc置为0(不计入此树的统计)-->  
+   <update id="updateLeaderTreeIsCalc" parameterType="com.linkwee.web.model.crm.CimLeaderTree" >
+        UPDATE tcim_leader_tree set is_calc=0 where root_id=#{rootId} and user_id=#{userId}
+    </update>
+    
+	<!-- 分页条件查询 -->
+    <select id="selectBySearchInfo" resultMap="BaseResultMap" parameterType="com.linkwee.core.datatable.DataTable">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM tcim_leader_tree
+        <where> 
+        <if test="dt.search!=null">  
+                name LIKE CONCAT('%','${dt.search.value}','%' )  
+         </if>  
+         <if test="dt.order!=null">  
+               <foreach collection="dt.order" index="index" item="item"
+                    open="order by" separator="," close=" ">
+                    ${item.name} ${item.dir} 
+                </foreach>
+         </if>  
+        </where>
+    </select>
+
+</mapper>

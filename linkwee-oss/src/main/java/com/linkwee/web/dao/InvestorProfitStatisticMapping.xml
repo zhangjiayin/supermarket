@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.InvestorProfitStatisticDao">
+<parameterMap type="com.linkwee.web.model.InvestRecordReq" id="investRecordParameterMap" />	
+<parameterMap type="com.linkwee.web.model.InvestorReq" id="investorReqParameterMap" />	
+
+<resultMap  type="com.linkwee.web.model.InvestRecord" id="investRecordMap">
+	<result column="fbizdate" property="investTime" jdbcType="TIMESTAMP"/>
+	<result column="fredeemdate" property="endDate" jdbcType="TIMESTAMP"/>
+	<result column="fpuramount" property="investAmount" jdbcType="DOUBLE"/>
+	<result column="fprofit" property="profit" jdbcType="DOUBLE"/>
+	<result column="product_name" property="productName" jdbcType="VARCHAR"/>
+	<result column="fcustomername" property="customerName" jdbcType="VARCHAR"/>
+	<result column="foptype" property="investState" jdbcType="INTEGER"/>
+</resultMap>
+
+<resultMap type="com.linkwee.web.model.InvestorResp" id="investorReqMap">
+	<result column="fcustomerid" property="customerId" jdbcType="VARCHAR" />
+	<result column="fcustomername" property="customerName" jdbcType="VARCHAR" />
+	<result column="fcustomermobile" property="customerMobile"	jdbcType="VARCHAR" />
+	<result column="f_crt_time" property="regtime" jdbcType="TIMESTAMP" />
+	<result column="fcurrsaleusername" property="currsaleuser" jdbcType="VARCHAR" />
+	<result column="investNum" property="investNum" jdbcType="INTEGER" />
+	<result column="frectranstime" property="rectranstime" jdbcType="TIMESTAMP" />
+	<result column="frectlogintime" property="rectlogintime" jdbcType="TIMESTAMP" />
+	<result column="fcurrsaleuser" property="currSaleuserNumber" jdbcType="VARCHAR" />
+</resultMap>
+
+<resultMap type="com.linkwee.web.model.MyInvestedCustomerResp" id="myInvestedCustomerReqMap">
+	<result column="fcustomerid" property="customerId" jdbcType="VARCHAR" />
+	<result column="fcustomername" property="customerName" jdbcType="VARCHAR" />
+	<result column="fcustomermobile" property="customerMobile"	jdbcType="VARCHAR" />
+	<result column="fregtime" property="regTime" jdbcType="TIMESTAMP" />
+	<result column="totalInvest" property="totalInvest" jdbcType="DOUBLE" />
+	<result column="proNum" property="proNum" jdbcType="INTEGER" />
+</resultMap>
+	
+<resultMap type="com.linkwee.web.model.InvestorProfitResp" id="investProfitRespMap">
+	<result column="fcustomerid" property="customerId" jdbcType="VARCHAR" />
+	<result column="fcustomername" property="customerName" jdbcType="VARCHAR" />
+	<result column="fcustomermobile" property="customerMobile"	jdbcType="VARCHAR" />
+	<result column="investTotal" property="investTotal" jdbcType="DOUBLE" />
+	<result column="investingTotal" property="investingTotal" jdbcType="DOUBLE" />
+	<result column="investCount" property="investCount" jdbcType="INTEGER" />
+	<result column="totalProfit" property="totalProfit" jdbcType="DOUBLE" />
+	<result column="recentlyInvest" property="recentlyInvest" jdbcType="DOUBLE" />
+	<result column="fregtime" property="regTime" jdbcType="TIMESTAMP" />
+</resultMap>
+
+<!-- 投资记录 -->
+
+		<select id="investRecordCount" resultType="int"
+		parameterMap="investRecordParameterMap">
+		select count(t.fid) from trecvrequest t left join tusercustomerrel
+		trel on t.fcustomerid = trel.fcustomerid where t.foptype BETWEEN 2 and 3 AND
+		t.fdelstatus = 0
+		<if test="  null != customer and ''!= customer ">
+			and ( trel.fcustomermobile like CONCAT('%',#{customer},'%') or
+			trel.fcustomername like CONCAT('%',#{customer},'%') )
+		</if>
+		<if test="  null != regTimeStart and ''!= regTimeStart ">
+			and DATE_FORMAT(t.fbizdate, '%Y-%m-%d') &gt;=  DATE_FORMAT(#{regTimeStart}, '%Y-%m-%d')
+		</if>
+		<if test="  null != regTimeEnd and ''!= regTimeEnd ">
+			and DATE_FORMAT(t.fbizdate, '%Y-%m-%d') &lt;=  DATE_FORMAT(#{regTimeEnd}, '%Y-%m-%d')
+		</if>
+	</select>
+
+	<select id="investRecordPageList" resultMap="investRecordMap"
+		parameterMap="investRecordParameterMap">
+		SELECT
+		t.fbizdate,
+		t.fredeemdate,
+		t.fpuramount,
+		t.fprofit,
+		tp.product_name,
+		trel.fcustomername,
+		t.foptype
+		FROM
+		trecvrequest t
+		LEFT JOIN tproduct tp ON t.fproductnumber = tp.fid
+		left join tusercustomerrel trel on t.fcustomerid = trel.fcustomerid
+		WHERE t.foptype BETWEEN 2 and 3 and t.fdelstatus = 0
+		<if test="  null != customer and ''!= customer ">
+			and ( trel.fcustomermobile like CONCAT('%',#{customer},'%') or
+			trel.fcustomername like CONCAT('%',#{customer},'%') )
+		</if>
+		<if test="  null != regTimeStart and ''!= regTimeStart ">
+			and DATE_FORMAT(t.fbizdate, '%Y-%m-%d') &gt;=  DATE_FORMAT(#{regTimeStart}, '%Y-%m-%d')
+		</if>
+		<if test="  null != regTimeEnd and ''!= regTimeEnd ">
+			and DATE_FORMAT(t.fbizdate, '%Y-%m-%d') &lt;=  DATE_FORMAT(#{regTimeEnd}, '%Y-%m-%d')
+		</if>
+		 order by t.fbizdate desc
+		limit #{startIndex},#{endIndex}
+
+	</select>
+	
+	<!-- 客户列表 -->
+	<select id="investorCount" resultType="int" parameterMap="investorReqParameterMap">
+		select count(t.fid) from tusercustomerrel t where t.fdelstatus=0
+		<if test="  null != customer and ''!= customer ">
+			and ( t.fcustomermobile = #{customer}
+			or t.fcustomername = #{customer} )
+		</if>
+	</select>
+
+	<select id="investorList" resultMap="investorReqMap"
+		parameterMap="investorReqParameterMap">
+		SELECT
+		t.fcustomerid,
+		t.fcustomername,
+		t.fcustomermobile,
+		t.fregtime,
+		i.f_crt_time,
+		CONCAT(IFNULL(t1.f_name,''),'(',t1.f_mobile,')') fcurrsaleusername,
+		investNum,
+		t.frectranstime,
+		t.frectlogintime,
+		t.fcurrsaleuser
+		FROM
+		tusercustomerrel t
+		JOIN t_investor_user_info i on i.f_user_id= t.fcustomerid
+		LEFT JOIN t_sale_user_info t1 ON t.fcurrsaleuser = t1.f_number
+		LEFT
+		JOIN (
+		SELECT count(f_id) investNum, f_ref_user from t_investor_user_info 
+		where f_ref_user is not null and f_ref_user !='' GROUP BY f_ref_user
+		) t2
+		on t.fcustomerid =t2.f_ref_user
+		where t.fdelstatus =0
+		<if test="  null != customer and ''!= customer ">
+			and ( t.fcustomermobile = #{customer}
+			or t.fcustomername = #{customer} )
+		</if>
+		<if test="  null != regTimeStart and ''!= regTimeStart ">
+			and DATE_FORMAT(t.fregtime, '%Y-%m-%d') &gt;=  DATE_FORMAT(#{regTimeStart}, '%Y-%m-%d')
+		</if>
+		<if test="  null != regTimeEnd and ''!= regTimeEnd ">
+			and DATE_FORMAT(t.fregtime, '%Y-%m-%d') &lt;=  DATE_FORMAT(#{regTimeEnd}, '%Y-%m-%d')
+		</if>
+		order by fregtime desc
+		<if test=" paging ">
+			limit #{startIndex},#{endIndex}
+		</if>
+
+
+	</select>
+	<!-- 我邀请的客户 -->
+	<select id="MyInvestedCustomer" parameterMap="investorReqParameterMap" resultMap="myInvestedCustomerReqMap">
+	<!-- SELECT
+	t.fcustomerid,
+	t.fcustomername,
+	t.fcustomermobile,
+	t.fregtime,
+	t2.totalInvest,
+	t2.proNum
+FROM
+	tusercustomerrel t
+LEFT JOIN (
+	SELECT
+		sum(fpuramount) totalInvest,
+		count(DISTINCT fproductnumber) proNum,
+		t.fcustomerid
+	FROM
+		trecvrequest t
+	WHERE
+		t.foptype = 2
+	GROUP BY
+		t.fcustomerid
+) t2 ON t.fcustomerid = t2.fcustomerid
+WHERE t.fdelstatus = 0
+	<if test="  null != regTimeStart and ''!= regTimeStart ">
+		AND t.fregtime &gt;= #{regTimeStart}
+	</if>
+	<if test="  null != regTimeEnd and ''!= regTimeEnd ">
+		AND t.fregtime &lt;= #{regTimeEnd}
+	</if>
+AND	t.fregrefcustomer = #{customer} -->
+SELECT
+	t.fcustomerid,
+	t.fcustomername,
+	t.fcustomermobile,
+	t.fregtime,
+	sum(t2.fpuramount) totalInvest,
+	count(DISTINCT t2.fproductnumber) proNum
+FROM
+	tusercustomerrel t
+LEFT JOIN trecvrequest t2 ON t.fcustomerid = t2.fcustomerid AND t2.foptype = 2
+WHERE
+	t.fregrefcustomer = #{customer}
+AND t.fdelstatus = 0
+<if test="  null != regTimeStart and ''!= regTimeStart ">
+		and DATE_FORMAT(t.fregtime, '%Y-%m-%d') &gt;=  DATE_FORMAT(#{regTimeStart}, '%Y-%m-%d')
+	</if>
+	<if test="  null != regTimeEnd and ''!= regTimeEnd ">
+		and DATE_FORMAT(t.fregtime, '%Y-%m-%d') &lt;=  DATE_FORMAT(#{regTimeEnd}, '%Y-%m-%d')
+	</if>
+
+GROUP BY 	t.fcustomerid 
+	</select>
+	
+	
+	
+	<!-- 投资与收益 -->
+	<select id="investorProfitCount" resultType="int" parameterMap="investorReqParameterMap">
+		select count(t.fcustomermobile) from tusercustomerrel t where t.fdelstatus=0
+		<if test="  null != customer and ''!= customer ">
+			and ( t.fcustomermobile = #{customer}
+			or t.fcustomername = #{customer} )
+		</if>
+		<if test="  null != regTimeStart and ''!= regTimeStart ">
+			and DATE_FORMAT(t.fregtime, '%Y-%m-%d') &gt;=  DATE_FORMAT(#{regTimeStart}, '%Y-%m-%d')
+		</if>
+		<if test="  null != regTimeEnd and ''!= regTimeEnd ">
+		and DATE_FORMAT(t.fregtime, '%Y-%m-%d') &lt;=  DATE_FORMAT(#{regTimeEnd}, '%Y-%m-%d')
+		</if>
+	</select>
+		<select id="investorProfitList" parameterMap="investorReqParameterMap"
+		resultMap="investProfitRespMap">
+		SELECT
+	ret.fcustomerid,
+	ret.investTotal,
+	ret.randamTotal,
+	(investTotal - randamTotal)  investingTotal,
+	ret.investCount,
+	ret.totalProfit,
+  t3.fpuramount recentlyInvest,
+	fcustomername,
+	fcustomermobile,
+	fregtime
+FROM
+	(
+		SELECT
+			t2.fcustomerid,
+			SUM(
+				CASE
+				WHEN t2.foptype = 2 THEN
+					t2.fpuramount
+				ELSE
+					0
+				END
+			) investTotal,
+			SUM(
+				CASE
+				WHEN t2.foptype = 3 THEN
+					t2.fpuramount
+				ELSE
+					0
+				END
+			) randamTotal,
+			count(
+				CASE
+				WHEN t2.foptype = 2 THEN
+					1
+				ELSE
+					null
+				END
+			) investCount,
+			SUM(t2.fprofit) totalProfit,
+			MAX(t2.fbizdate) recentDate,
+
+			t4.fcustomername,
+			t4.fcustomermobile,
+			t4.fregtime
+		FROM
+			tusercustomerrel t4
+		LEFT JOIN trecvrequest t2 ON t2.fcustomerid = t4.fcustomerid
+		AND t2.fdelstatus = 0
+		AND t2.foptype BETWEEN 2
+		AND 3
+		LEFT JOIN trecvrequest t3 ON t2.fcustomerid = t3.fcustomerid
+		AND t2.fbizdate = t3.fbizdate
+		WHERE 1 = 1
+		<if test="  null != customer and ''!= customer ">
+			and ( t4.fcustomermobile = #{customer}
+			or t4.fcustomername = #{customer} )
+		</if>
+		<if test="  null != regTimeStart and ''!= regTimeStart ">
+			and DATE_FORMAT(t4.fregtime, '%Y-%m-%d') &gt;=  DATE_FORMAT(#{regTimeStart}, '%Y-%m-%d')
+		</if>
+		<if test="  null != regTimeEnd and ''!= regTimeEnd ">
+			and DATE_FORMAT(t4.fregtime, '%Y-%m-%d') &lt;=  DATE_FORMAT(#{regTimeEnd}, '%Y-%m-%d')
+		</if>
+
+		GROUP BY t4.fcustomerid
+
+		<if test=" paging ">
+			LIMIT #{startIndex},#{endIndex}
+		</if>
+			) ret  LEFT JOIN trecvrequest t3 ON ret.fcustomerid = t3.fcustomerid
+		AND ret.recentDate = t3.fbizdate
+	</select>
+
+<!-- 指定时间投资人数统计 -->
+<select id="queryInvestorNumByTime" resultType="map" >
+
+
+
+<!-- SELECT
+	count(DISTINCT t.fcustomerid) personNum,
+	DATE_FORMAT(t.fcreatetime, '%Y-%m-%d') investDate
+FROM
+	trecvrequest t
+WHERE
+	t.foptype = 2
+AND t.fdelstatus = 0
+AND DATE_FORMAT(t.fcreatetime, '%Y-%m-%d') &gt;= DATE_FORMAT(#{startDate}, '%Y-%m-%d') 
+AND DATE_FORMAT(t.fcreatetime, '%Y-%m-%d') &lt;= DATE_FORMAT(#{endDate}, '%Y-%m-%d') 
+GROUP BY DATE_FORMAT(t.fcreatetime, '%Y-%m-%d') -->
+<![CDATA[
+SELECT
+	count(DISTINCT t.fcustomerid) personNum,
+	DATE_FORMAT(t.fbizdate, '%Y-%m-%d') investDate
+FROM
+	trecvrequest t
+WHERE
+	t.fbiznumber='0003' AND
+	t.foptype = 2
+AND t.fdelstatus = 0
+AND DATE_FORMAT(t.fbizdate, '%Y-%m-%d') >= DATE_FORMAT(#{startDate}, '%Y-%m-%d') 
+AND DATE_FORMAT(t.fbizdate, '%Y-%m-%d') <= DATE_FORMAT(#{endDate}, '%Y-%m-%d') 
+GROUP BY investDate
+
+]]>
+
+</select>
+<!-- 指定时间投资额统计 -->
+<select id="queryInvestMoneyByTime" resultType="map">
+<!-- SELECT
+	sum(fpuramount) investTotal,
+	DATE_FORMAT(t.fcreatetime, '%Y-%m-%d') investDate
+FROM
+	trecvrequest t
+WHERE
+	t.foptype = 2
+AND t.fdelstatus = 0
+AND DATE_FORMAT(t.fcreatetime, '%Y-%m-%d') &gt;= DATE_FORMAT(#{startDate}, '%Y-%m-%d') 
+AND DATE_FORMAT(t.fcreatetime, '%Y-%m-%d') &lt;= DATE_FORMAT(#{endDate}, '%Y-%m-%d') 
+GROUP BY
+	DATE_FORMAT(t.fcreatetime, '%Y-%m-%d') -->
+	
+	<![CDATA[
+SELECT
+	IFNULL(sum(t.fpuramount),0) investTotal,
+	DATE_FORMAT(t.fbizdate, '%Y-%m-%d') investDate
+FROM
+	trecvrequest t
+WHERE
+	t.fbiznumber='0003' AND
+	t.foptype = 2
+AND t.fdelstatus = 0
+AND DATE_FORMAT(t.fbizdate, '%Y-%m-%d') >= DATE_FORMAT(#{startDate}, '%Y-%m-%d') 
+AND DATE_FORMAT(t.fbizdate, '%Y-%m-%d') <= DATE_FORMAT(#{endDate}, '%Y-%m-%d') 
+GROUP BY investDate
+
+]]>
+</select>
+<!-- 人数概要  总人数单独统计 -->
+<select id="personAmoutStat" resultType="map">
+<!-- <![CDATA[
+select t2.currdayperson ,t3.currweekperson, t4.currmonthperson  from 
+(select count(DISTINCT fcustomerid) currdayperson from trecvrequest  where  date(fcreatetime) = curdate() and fdelstatus = 0 and foptype = 2) t2,
+(select count(DISTINCT fcustomerid) currweekperson from trecvrequest  where  DATE_SUB(CURDATE(), INTERVAL 7 DAY) <= date(fcreatetime) and fdelstatus = 0 and foptype = 2) t3,
+(select count(DISTINCT fcustomerid) currmonthperson from trecvrequest  where  DATE_SUB(CURDATE(),  INTERVAL 1 MONTH) <= date(fcreatetime) and fdelstatus = 0 and foptype = 2) t4
+]]> -->
+
+select t2.currdayperson ,t3.currweekperson, t4.currmonthperson  from 
+
+(select count(DISTINCT fcustomerid) currdayperson from trecvrequest  where  fbiznumber='0003' AND foptype = 2 AND  fdelstatus = 0 AND DATE_FORMAT(fbizdate,'%Y-%m-%d')=CURDATE())t2,
+
+(select count(DISTINCT fcustomerid) currweekperson  from trecvrequest  where  fbiznumber='0003' AND foptype = 2 AND  fdelstatus = 0 AND fbizdate BETWEEN DATE_SUB(CURDATE(), INTERVAL 7 DAY) AND  CURDATE() )t3,
+
+(select count(DISTINCT fcustomerid) currmonthperson from trecvrequest  where fbiznumber='0003' AND foptype = 2 AND  fdelstatus = 0 AND DATE_FORMAT(fbizdate,'%Y-%m')=DATE_FORMAT(CURDATE(),'%Y-%m') )t4
+</select>
+
+<!-- 投资额  年化投资额单独统计-->
+<select id="investMoneyStat" resultType="map">
+<!-- <![CDATA[
+select t2.currdaymoney,t3.currweekmoney,t4.currmothmoney FROM
+(select sum(fpuramount) currdaymoney from trecvrequest  where  date(fcreatetime) = curdate() and fdelstatus = 0 and foptype = 2) t2,
+(select sum(fpuramount) currweekmoney from trecvrequest  where  DATE_SUB(CURDATE(), INTERVAL 7 DAY) <= date(fcreatetime) and fdelstatus = 0 and foptype = 2)t3,
+(select sum(fpuramount) currmothmoney from trecvrequest  where  DATE_SUB(CURDATE(), INTERVAL 1 MONTH) <= date(fcreatetime) and fdelstatus = 0 and foptype = 2) t4
+]]> -->
+select IFNULL(t2.currdaymoney,0) currdaymoney ,IFNULL(t3.currweekmoney,0) currweekmoney, IFNULL(t4.currmothmoney,0) currmothmoney  from 
+
+(select sum(fpuramount) currdaymoney from trecvrequest  where  fbiznumber='0003' AND foptype = 2 AND  fdelstatus = 0 AND DATE_FORMAT(fbizdate,'%Y-%m-%d')=CURDATE())t2,
+
+(select sum(fpuramount) currweekmoney  from trecvrequest  where  fbiznumber='0003' AND foptype = 2 AND  fdelstatus = 0 AND fbizdate BETWEEN DATE_SUB(CURDATE(), INTERVAL 7 DAY) AND  CURDATE() )t3,
+
+(select sum(fpuramount) currmothmoney from trecvrequest  where fbiznumber='0003' AND foptype = 2 AND  fdelstatus = 0 AND DATE_FORMAT(fbizdate,'%Y-%m')=DATE_FORMAT(CURDATE(),'%Y-%m') )t4
+</select>
+<!-- 客户投资总额 -->
+<select id="investTotalSumByCustomerId" resultType="double">
+select SUM(CASE	WHEN t.foptype = 2 THEN t.fpuramount ELSE 0	END) investTotalSum from trecvrequest t where t.fdelstatus=0 and t.foptype in(2,3) and t.fcustomerid = #{0}
+</select>
+
+<!-- 总投资人数 -->
+<select id="investorTotal" resultType="map">
+<!-- SELECT count( DISTINCT  fcustomerid) totalperson FROM	trecvrequest  WHERE	foptype = 2 AND fdelstatus = 0 -->
+SELECT count( DISTINCT  fcustomerid) totalperson FROM	trecvrequest  WHERE	foptype = 2 AND fdelstatus = 0 AND fbiznumber='0003'
+</select>
+
+<!-- 总投资额 -->
+<select id="investMoneyTotal" resultType="map">
+<!-- <![CDATA[
+SELECT	sum(fpuramount) totalmoney FROM	trecvrequest  WHERE	DATE_SUB(CURDATE(), INTERVAL 1 YEAR) <= date(fcreatetime) and foptype = 2 AND fdelstatus = 0
+]]> -->
+<![CDATA[SELECT	IFNULL(sum(fpuramount),0) totalmoney FROM	trecvrequest  WHERE	DATE_SUB(CURDATE(), INTERVAL 1 YEAR) <= date(fcreatetime) AND foptype = 2 AND fdelstatus = 0 AND fbiznumber='0003']]> 
+</select>
+
+<!--用户使用红包总额 -->
+<select id="usedTotalRedPaper" resultType="map">
+select IFNULL(sum(t.f_profit),0) total,t.f_customerid from t_activity_profit t   where t.f_profit_type='1'  GROUP BY t.f_customerid
+</select>
+
+
+</mapper>

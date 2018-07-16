@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.CimInsuranceRecommendMapper">
+	<!-- Result Map-->
+	<resultMap  type="com.linkwee.web.model.CimInsuranceRecommend" id="BaseResultMap">
+		<result column="id" property="id" jdbcType="INTEGER"/>
+		<result column="product_id" property="productId" jdbcType="VARCHAR"/>
+		<result column="recommend_type" property="recommendType" jdbcType="INTEGER"/>
+	</resultMap>
+	
+  <sql id="Base_Column_List">
+    <trim suffixOverrides=",">
+	    	id,
+	    	product_id,
+	    	recommend_type,
+    </trim>
+  </sql>
+  
+ <sql id="Base_Column_List_T">
+    <trim suffixOverrides=",">
+	    	t.id,
+	    	t.product_id,
+	    	t.recommend_type,
+    </trim>
+  </sql>  
+  
+  <sql id="Base_Condition">
+		<if test=" null != id ">
+			and id = #{id}
+		</if>
+		<if test=" null != productId and ''!= productId  ">
+			and product_id = #{productId}
+		</if>
+		<if test=" null != recommendType ">
+			and recommend_type = #{recommendType}
+		</if>
+  </sql>
+  
+  <select id="selectOneByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.web.model.CimInsuranceRecommend">
+		select <include refid="Base_Column_List" /> from tcim_insurance_recommend 
+		where 1=1 <include refid="Base_Condition" />
+  </select>
+  
+  <select id="selectByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.web.model.CimInsuranceRecommend">
+		select <include refid="Base_Column_List" /> from tcim_insurance_recommend 
+		where 1=1 <include refid="Base_Condition" />
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tcim_insurance_recommend
+    where  id = #{0}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tcim_insurance_recommend
+    where id = #{0}
+  </delete>
+
+  <insert id="insert" parameterType="com.linkwee.web.model.CimInsuranceRecommend" >
+    INSERT INTO tcim_insurance_recommend
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != productId and ''!= productId  ">
+					product_id,
+				</if>
+			 	<if test=" null != recommendType ">
+					recommend_type,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != productId and ''!= productId  ">
+					 	#{productId},
+				</if>
+			 	<if test=" null != recommendType ">
+					 	#{recommendType},
+				</if>
+		</trim>
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.linkwee.web.model.CimInsuranceRecommend" useGeneratedKeys="true" keyProperty="id" >
+		INSERT INTO tcim_insurance_recommend
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != productId and ''!= productId  ">
+					product_id,
+				</if>
+			 	<if test=" null != recommendType ">
+					recommend_type,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != productId and ''!= productId  ">
+					 	#{productId},
+				</if>
+			 	<if test=" null != recommendType ">
+					 	#{recommendType},
+				</if>
+		</trim>
+	</insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.linkwee.web.model.CimInsuranceRecommend" >
+  		UPDATE tcim_insurance_recommend
+		<set>
+			<trim suffixOverrides=",">
+					<if test=" null != productId and ''!= productId  ">
+						product_id = #{productId},
+					</if>
+					<if test=" null != recommendType ">
+						recommend_type = #{recommendType},
+					</if>
+			</trim>
+		</set>
+		<where>
+			 id = #{id}
+		</where>
+	</update>
+  
+	<update id="updateByPrimaryKey" parameterType="com.linkwee.web.model.CimInsuranceRecommend" >
+	    UPDATE tcim_insurance_recommend
+	   <set>
+			<trim suffixOverrides=",">
+					<if test=" null != productId and ''!= productId  ">
+						product_id = #{productId},
+					</if>
+					<if test=" null != recommendType ">
+						recommend_type = #{recommendType},
+					</if>
+			</trim>
+		</set>
+		<where>
+			id = #{0}
+		</where>
+	  </update>
+
+	<!-- 分页条件查询 -->
+    <select id="selectBySearchInfo" resultMap="BaseResultMap" parameterType="com.linkwee.core.datatable.DataTable">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM tcim_insurance_recommend
+        <where> 
+        <if test="dt.search!=null">  
+                name LIKE CONCAT('%','${dt.search.value}','%' )  
+         </if>  
+         <if test="dt.order!=null">  
+               <foreach collection="dt.order" index="index" item="item"
+                    open="order by" separator="," close=" ">
+                    ${item.name} ${item.dir} 
+                </foreach>
+         </if>  
+        </where>
+    </select>
+    
+	 <!-- 根据保险种类和查询类型查询保险产品-->
+    <select id="getInsuranceProductByType" resultType="com.linkwee.web.model.CimInsuranceProductExtends">       
+		SELECT
+			tip.id,
+			tip.org_number AS orgNumber,
+			tip.product_id AS productId,
+			tip.caseCode,
+			tip.productName,
+			tip.fullDescription,
+			tip.fristCategory,
+			tip.secondCategory,
+			tip.companyName,
+			tip.state,
+			tip.price,
+			tip.product_bakimg AS productBakimg,
+			tip.creat_time AS creatTime,
+			tip.up_time AS upTime,
+			tip.fee_ratio AS feeRatio
+		FROM
+			tcim_insurance_product tip,
+			tcim_insurance_cate tic,
+			tcim_insurance_recommend tir
+		WHERE
+			tip.state = 1
+		AND tip.fristCategory = tic.cate_id
+		AND tic.disabled = 0
+		AND tip.product_id = tir.product_id
+		AND tip.fristCategory = #{category}
+		<if test=" queryType == 1">
+			AND tir.recommend_type = 0
+		</if>
+		<if test=" queryType == 2">
+			AND tir.recommend_type = 1
+		</if>
+		<if test=" queryType == 3">
+			AND tir.recommend_type IN (2,3,4,5)
+		</if>
+		<if test=" queryType == 4">
+			AND tir.recommend_type IN (6,7)
+		</if>						
+		GROUP BY
+			tip.product_id
+		LIMIT 2
+    </select>
+</mapper>

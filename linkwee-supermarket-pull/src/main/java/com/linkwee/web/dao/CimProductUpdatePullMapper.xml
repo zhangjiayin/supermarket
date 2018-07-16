@@ -1,0 +1,1221 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.CimProductUpdatePullMapper">
+	<!-- Result Map-->
+	<resultMap  type="com.linkwee.web.model.CimProductUpdatePull" id="BaseResultMap">
+		<result column="id" property="id" jdbcType="INTEGER"/>
+		<result column="product_name" property="productName" jdbcType="VARCHAR"/>
+		<result column="product_desc" property="productDesc" jdbcType="LONGVARCHAR"/>
+		<result column="product_type" property="productType" jdbcType="INTEGER"/>
+		<result column="repayment_way" property="repaymentWay" jdbcType="INTEGER"/>
+		<result column="sale_start_time" property="saleStartTime" jdbcType="VARCHAR"/>
+		<result column="sale_end_time" property="saleEndTime" jdbcType="VARCHAR"/>
+		<result column="is_flow" property="isFlow" jdbcType="INTEGER"/>
+		<result column="flow_min_rate" property="flowMinRate" jdbcType="DECIMAL"/>
+		<result column="flow_max_rate" property="flowMaxRate" jdbcType="DECIMAL"/>
+		<result column="add_rate" property="addRate" jdbcType="DECIMAL"/>
+		<result column="is_fixed_deadline" property="isFixedDeadline" jdbcType="INTEGER"/>
+		<result column="dead_line_min_value" property="deadLineMinValue" jdbcType="INTEGER"/>
+		<result column="dead_line_max_value" property="deadLineMaxValue" jdbcType="INTEGER"/>
+		<result column="dead_line_min_self_defined" property="deadLineMinSelfDefined" jdbcType="VARCHAR"/>
+		<result column="dead_line_max_self_defined" property="deadLineMaxSelfDefined" jdbcType="VARCHAR"/>
+		<result column="is_collect" property="isCollect" jdbcType="INTEGER"/>
+		<result column="collect_begin_time" property="collectBeginTime" jdbcType="VARCHAR"/>
+		<result column="collect_end_time" property="collectEndTime" jdbcType="VARCHAR"/>
+		<result column="interest_way" property="interestWay" jdbcType="INTEGER"/>
+		<result column="valid_begin_date" property="validBeginDate" jdbcType="VARCHAR"/>
+		<result column="valid_end_date" property="validEndDate" jdbcType="VARCHAR"/>
+		<result column="buy_min_money" property="buyMinMoney" jdbcType="DECIMAL"/>
+		<result column="buy_max_money" property="buyMaxMoney" jdbcType="DECIMAL"/>
+		<result column="buy_total_money" property="buyTotalMoney" jdbcType="DECIMAL"/>
+		<result column="is_have_progress" property="isHaveProgress" jdbcType="INTEGER"/>
+		<result column="is_redemption" property="isRedemption" jdbcType="INTEGER"/>
+		<result column="redemption_time" property="redemptionTime" jdbcType="INTEGER"/>
+		<result column="assignment_time" property="assignmentTime" jdbcType="INTEGER"/>
+		<result column="money_type" property="moneyType" jdbcType="INTEGER"/>
+		<result column="risk_control_type" property="riskControlType" jdbcType="INTEGER"/>
+		<result column="risk_level" property="riskLevel" jdbcType="INTEGER"/>
+		<result column="status" property="status" jdbcType="INTEGER"/>
+		<result column="creator" property="creator" jdbcType="VARCHAR"/>
+		<result column="create_time" property="createTime" jdbcType="VARCHAR"/>
+		<result column="updater" property="updater" jdbcType="VARCHAR"/>
+		<result column="update_time" property="updateTime" jdbcType="VARCHAR"/>
+		<result column="remark" property="remark" jdbcType="VARCHAR"/>
+		<result column="org_number" property="orgNumber" jdbcType="VARCHAR"/>
+		<result column="third_product_id" property="thirdProductId" jdbcType="VARCHAR"/>
+		<result column="is_quota" property="isQuota" jdbcType="INTEGER"/>
+		<result column="buy_increase_money" property="buyIncreaseMoney" jdbcType="DECIMAL"/>
+		<result column="buyed_total_money" property="buyedTotalMoney" jdbcType="DECIMAL"/>
+		<result column="buyed_total_people" property="buyedTotalPeople" jdbcType="INTEGER"/>
+		<result column="if_rookie" property="ifRookie" jdbcType="INTEGER"/>
+		<result column="update_status" property="updateStatus" jdbcType="INTEGER"/>
+		<result column="message" property="message" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+  <sql id="Base_Column_List">
+    <trim suffixOverrides=",">
+	    	id,
+	    	product_name,
+	    	product_desc,
+	    	product_type,
+	    	repayment_way,
+	    	sale_start_time,
+	    	sale_end_time,
+	    	is_flow,
+	    	flow_min_rate,
+	    	flow_max_rate,
+	    	add_rate,
+	    	is_fixed_deadline,
+	    	dead_line_min_value,
+	    	dead_line_max_value,
+	    	dead_line_min_self_defined,
+	    	dead_line_max_self_defined,
+	    	is_collect,
+	    	collect_begin_time,
+	    	collect_end_time,
+	    	interest_way,
+	    	valid_begin_date,
+	    	valid_end_date,
+	    	buy_min_money,
+	    	buy_max_money,
+	    	buy_total_money,
+	    	is_have_progress,
+	    	is_redemption,
+	    	redemption_time,
+	    	assignment_time,
+	    	money_type,
+	    	risk_control_type,
+	    	risk_level,
+	    	status,
+	    	creator,
+	    	create_time,
+	    	updater,
+	    	update_time,
+	    	remark,
+	    	org_number,
+	    	third_product_id,
+	    	is_quota,
+	    	buy_increase_money,
+	    	buyed_total_money,
+	    	buyed_total_people,
+	    	if_rookie,
+	    	update_status,
+	    	message,
+    </trim>
+  </sql>
+  
+ <sql id="Base_Column_List_T">
+    <trim suffixOverrides=",">
+	    	t.id,
+	    	t.product_name,
+	    	t.product_desc,
+	    	t.product_type,
+	    	t.repayment_way,
+	    	t.sale_start_time,
+	    	t.sale_end_time,
+	    	t.is_flow,
+	    	t.flow_min_rate,
+	    	t.flow_max_rate,
+	    	t.add_rate,
+	    	t.is_fixed_deadline,
+	    	t.dead_line_min_value,
+	    	t.dead_line_max_value,
+	    	t.dead_line_min_self_defined,
+	    	t.dead_line_max_self_defined,
+	    	t.is_collect,
+	    	t.collect_begin_time,
+	    	t.collect_end_time,
+	    	t.interest_way,
+	    	t.valid_begin_date,
+	    	t.valid_end_date,
+	    	t.buy_min_money,
+	    	t.buy_max_money,
+	    	t.buy_total_money,
+	    	t.is_have_progress,
+	    	t.is_redemption,
+	    	t.redemption_time,
+	    	t.assignment_time,
+	    	t.money_type,
+	    	t.risk_control_type,
+	    	t.risk_level,
+	    	t.status,
+	    	t.creator,
+	    	t.create_time,
+	    	t.updater,
+	    	t.update_time,
+	    	t.remark,
+	    	t.org_number,
+	    	t.third_product_id,
+	    	t.is_quota,
+	    	t.buy_increase_money,
+	    	t.buyed_total_money,
+	    	t.buyed_total_people,
+	    	t.if_rookie,
+	    	t.update_status,
+	    	t.message,
+    </trim>
+  </sql>  
+  
+  <sql id="Base_Condition">
+		<if test=" null != id ">
+			and id = #{id}
+		</if>
+		<if test=" null != productName and ''!= productName  ">
+			and product_name = #{productName}
+		</if>
+		<if test=" null != productDesc and ''!= productDesc  ">
+			and product_desc = #{productDesc}
+		</if>
+		<if test=" null != productType ">
+			and product_type = #{productType}
+		</if>
+		<if test=" null != repaymentWay ">
+			and repayment_way = #{repaymentWay}
+		</if>
+		<if test=" null != saleStartTime and ''!= saleStartTime  ">
+			and sale_start_time = #{saleStartTime}
+		</if>
+		<if test=" null != saleEndTime and ''!= saleEndTime  ">
+			and sale_end_time = #{saleEndTime}
+		</if>
+		<if test=" null != isFlow ">
+			and is_flow = #{isFlow}
+		</if>
+		<if test=" null != flowMinRate ">
+			and flow_min_rate = #{flowMinRate}
+		</if>
+		<if test=" null != flowMaxRate ">
+			and flow_max_rate = #{flowMaxRate}
+		</if>
+		<if test=" null != addRate ">
+			and add_rate = #{addRate}
+		</if>
+		<if test=" null != isFixedDeadline ">
+			and is_fixed_deadline = #{isFixedDeadline}
+		</if>
+		<if test=" null != deadLineMinValue ">
+			and dead_line_min_value = #{deadLineMinValue}
+		</if>
+		<if test=" null != deadLineMaxValue ">
+			and dead_line_max_value = #{deadLineMaxValue}
+		</if>
+		<if test=" null != deadLineMinSelfDefined and ''!= deadLineMinSelfDefined  ">
+			and dead_line_min_self_defined = #{deadLineMinSelfDefined}
+		</if>
+		<if test=" null != deadLineMaxSelfDefined and ''!= deadLineMaxSelfDefined  ">
+			and dead_line_max_self_defined = #{deadLineMaxSelfDefined}
+		</if>
+		<if test=" null != isCollect ">
+			and is_collect = #{isCollect}
+		</if>
+		<if test=" null != collectBeginTime and ''!= collectBeginTime  ">
+			and collect_begin_time = #{collectBeginTime}
+		</if>
+		<if test=" null != collectEndTime and ''!= collectEndTime  ">
+			and collect_end_time = #{collectEndTime}
+		</if>
+		<if test=" null != interestWay ">
+			and interest_way = #{interestWay}
+		</if>
+		<if test=" null != validBeginDate and ''!= validBeginDate  ">
+			and valid_begin_date = #{validBeginDate}
+		</if>
+		<if test=" null != validEndDate and ''!= validEndDate  ">
+			and valid_end_date = #{validEndDate}
+		</if>
+		<if test=" null != buyMinMoney ">
+			and buy_min_money = #{buyMinMoney}
+		</if>
+		<if test=" null != buyMaxMoney ">
+			and buy_max_money = #{buyMaxMoney}
+		</if>
+		<if test=" null != buyTotalMoney ">
+			and buy_total_money = #{buyTotalMoney}
+		</if>
+		<if test=" null != isHaveProgress ">
+			and is_have_progress = #{isHaveProgress}
+		</if>
+		<if test=" null != isRedemption ">
+			and is_redemption = #{isRedemption}
+		</if>
+		<if test=" null != redemptionTime ">
+			and redemption_time = #{redemptionTime}
+		</if>
+		<if test=" null != assignmentTime ">
+			and assignment_time = #{assignmentTime}
+		</if>
+		<if test=" null != moneyType ">
+			and money_type = #{moneyType}
+		</if>
+		<if test=" null != riskControlType ">
+			and risk_control_type = #{riskControlType}
+		</if>
+		<if test=" null != riskLevel ">
+			and risk_level = #{riskLevel}
+		</if>
+		<if test=" null != status ">
+			and status = #{status}
+		</if>
+		<if test=" null != creator and ''!= creator  ">
+			and creator = #{creator}
+		</if>
+		<if test=" null != createTime and ''!= createTime  ">
+			and create_time = #{createTime}
+		</if>
+		<if test=" null != updater and ''!= updater  ">
+			and updater = #{updater}
+		</if>
+		<if test=" null != updateTime and ''!= updateTime  ">
+			and update_time = #{updateTime}
+		</if>
+		<if test=" null != remark and ''!= remark  ">
+			and remark = #{remark}
+		</if>
+		<if test=" null != orgNumber and ''!= orgNumber  ">
+			and org_number = #{orgNumber}
+		</if>
+		<if test=" null != thirdProductId and ''!= thirdProductId  ">
+			and third_product_id = #{thirdProductId}
+		</if>
+		<if test=" null != isQuota ">
+			and is_quota = #{isQuota}
+		</if>
+		<if test=" null != buyIncreaseMoney ">
+			and buy_increase_money = #{buyIncreaseMoney}
+		</if>
+		<if test=" null != buyedTotalMoney ">
+			and buyed_total_money = #{buyedTotalMoney}
+		</if>
+		<if test=" null != buyedTotalPeople ">
+			and buyed_total_people = #{buyedTotalPeople}
+		</if>
+		<if test=" null != ifRookie ">
+			and if_rookie = #{ifRookie}
+		</if>
+		<if test=" null != updateStatus ">
+			and update_status = #{updateStatus}
+		</if>
+		<if test=" null != message and ''!= message  ">
+			and message = #{message}
+		</if>
+  </sql>
+  
+  <select id="selectOneByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.web.model.CimProductUpdatePull">
+		select <include refid="Base_Column_List" /> from tcim_product_update_pull 
+		where 1=1 <include refid="Base_Condition" />
+  </select>
+  
+  <select id="selectByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.web.model.CimProductUpdatePull">
+		select <include refid="Base_Column_List" /> from tcim_product_update_pull 
+		where 1=1 <include refid="Base_Condition" />
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tcim_product_update_pull
+    where  id = #{0}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tcim_product_update_pull
+    where id = #{0}
+  </delete>
+
+  <insert id="insert" parameterType="com.linkwee.web.model.CimProductUpdatePull" >
+    INSERT INTO tcim_product_update_pull
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != productName and ''!= productName  ">
+					product_name,
+				</if>
+			 	<if test=" null != productDesc and ''!= productDesc  ">
+					product_desc,
+				</if>
+			 	<if test=" null != productType ">
+					product_type,
+				</if>
+			 	<if test=" null != repaymentWay ">
+					repayment_way,
+				</if>
+			 	<if test=" null != saleStartTime and ''!= saleStartTime  ">
+					sale_start_time,
+				</if>
+			 	<if test=" null != saleEndTime and ''!= saleEndTime  ">
+					sale_end_time,
+				</if>
+			 	<if test=" null != isFlow ">
+					is_flow,
+				</if>
+			 	<if test=" null != flowMinRate ">
+					flow_min_rate,
+				</if>
+			 	<if test=" null != flowMaxRate ">
+					flow_max_rate,
+				</if>
+			 	<if test=" null != addRate ">
+					add_rate,
+				</if>
+			 	<if test=" null != isFixedDeadline ">
+					is_fixed_deadline,
+				</if>
+			 	<if test=" null != deadLineMinValue ">
+					dead_line_min_value,
+				</if>
+			 	<if test=" null != deadLineMaxValue ">
+					dead_line_max_value,
+				</if>
+			 	<if test=" null != deadLineMinSelfDefined and ''!= deadLineMinSelfDefined  ">
+					dead_line_min_self_defined,
+				</if>
+			 	<if test=" null != deadLineMaxSelfDefined and ''!= deadLineMaxSelfDefined  ">
+					dead_line_max_self_defined,
+				</if>
+			 	<if test=" null != isCollect ">
+					is_collect,
+				</if>
+			 	<if test=" null != collectBeginTime and ''!= collectBeginTime  ">
+					collect_begin_time,
+				</if>
+			 	<if test=" null != collectEndTime and ''!= collectEndTime  ">
+					collect_end_time,
+				</if>
+			 	<if test=" null != interestWay ">
+					interest_way,
+				</if>
+			 	<if test=" null != validBeginDate and ''!= validBeginDate  ">
+					valid_begin_date,
+				</if>
+			 	<if test=" null != validEndDate and ''!= validEndDate  ">
+					valid_end_date,
+				</if>
+			 	<if test=" null != buyMinMoney ">
+					buy_min_money,
+				</if>
+			 	<if test=" null != buyMaxMoney ">
+					buy_max_money,
+				</if>
+			 	<if test=" null != buyTotalMoney ">
+					buy_total_money,
+				</if>
+			 	<if test=" null != isHaveProgress ">
+					is_have_progress,
+				</if>
+			 	<if test=" null != isRedemption ">
+					is_redemption,
+				</if>
+			 	<if test=" null != redemptionTime ">
+					redemption_time,
+				</if>
+			 	<if test=" null != assignmentTime ">
+					assignment_time,
+				</if>
+			 	<if test=" null != moneyType ">
+					money_type,
+				</if>
+			 	<if test=" null != riskControlType ">
+					risk_control_type,
+				</if>
+			 	<if test=" null != riskLevel ">
+					risk_level,
+				</if>
+			 	<if test=" null != status ">
+					status,
+				</if>
+			 	<if test=" null != creator and ''!= creator  ">
+					creator,
+				</if>
+			 	<if test=" null != createTime and ''!= createTime  ">
+					create_time,
+				</if>
+			 	<if test=" null != updater and ''!= updater  ">
+					updater,
+				</if>
+			 	<if test=" null != updateTime and ''!= updateTime  ">
+					update_time,
+				</if>
+			 	<if test=" null != remark and ''!= remark  ">
+					remark,
+				</if>
+			 	<if test=" null != orgNumber and ''!= orgNumber  ">
+					org_number,
+				</if>
+			 	<if test=" null != thirdProductId and ''!= thirdProductId  ">
+					third_product_id,
+				</if>
+			 	<if test=" null != isQuota ">
+					is_quota,
+				</if>
+			 	<if test=" null != buyIncreaseMoney ">
+					buy_increase_money,
+				</if>
+			 	<if test=" null != buyedTotalMoney ">
+					buyed_total_money,
+				</if>
+			 	<if test=" null != buyedTotalPeople ">
+					buyed_total_people,
+				</if>
+			 	<if test=" null != ifRookie ">
+					if_rookie,
+				</if>
+			 	<if test=" null != updateStatus ">
+					update_status,
+				</if>
+			 	<if test=" null != message and ''!= message  ">
+					message,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != productName and ''!= productName  ">
+					 	#{productName},
+				</if>
+			 	<if test=" null != productDesc and ''!= productDesc  ">
+					 	#{productDesc},
+				</if>
+			 	<if test=" null != productType ">
+					 	#{productType},
+				</if>
+			 	<if test=" null != repaymentWay ">
+					 	#{repaymentWay},
+				</if>
+			 	<if test=" null != saleStartTime and ''!= saleStartTime  ">
+					 	#{saleStartTime},
+				</if>
+			 	<if test=" null != saleEndTime and ''!= saleEndTime  ">
+					 	#{saleEndTime},
+				</if>
+			 	<if test=" null != isFlow ">
+					 	#{isFlow},
+				</if>
+			 	<if test=" null != flowMinRate ">
+					 	#{flowMinRate},
+				</if>
+			 	<if test=" null != flowMaxRate ">
+					 	#{flowMaxRate},
+				</if>
+			 	<if test=" null != addRate ">
+					 	#{addRate},
+				</if>
+			 	<if test=" null != isFixedDeadline ">
+					 	#{isFixedDeadline},
+				</if>
+			 	<if test=" null != deadLineMinValue ">
+					 	#{deadLineMinValue},
+				</if>
+			 	<if test=" null != deadLineMaxValue ">
+					 	#{deadLineMaxValue},
+				</if>
+			 	<if test=" null != deadLineMinSelfDefined and ''!= deadLineMinSelfDefined  ">
+					 	#{deadLineMinSelfDefined},
+				</if>
+			 	<if test=" null != deadLineMaxSelfDefined and ''!= deadLineMaxSelfDefined  ">
+					 	#{deadLineMaxSelfDefined},
+				</if>
+			 	<if test=" null != isCollect ">
+					 	#{isCollect},
+				</if>
+			 	<if test=" null != collectBeginTime and ''!= collectBeginTime  ">
+					 	#{collectBeginTime},
+				</if>
+			 	<if test=" null != collectEndTime and ''!= collectEndTime  ">
+					 	#{collectEndTime},
+				</if>
+			 	<if test=" null != interestWay ">
+					 	#{interestWay},
+				</if>
+			 	<if test=" null != validBeginDate and ''!= validBeginDate  ">
+					 	#{validBeginDate},
+				</if>
+			 	<if test=" null != validEndDate and ''!= validEndDate  ">
+					 	#{validEndDate},
+				</if>
+			 	<if test=" null != buyMinMoney ">
+					 	#{buyMinMoney},
+				</if>
+			 	<if test=" null != buyMaxMoney ">
+					 	#{buyMaxMoney},
+				</if>
+			 	<if test=" null != buyTotalMoney ">
+					 	#{buyTotalMoney},
+				</if>
+			 	<if test=" null != isHaveProgress ">
+					 	#{isHaveProgress},
+				</if>
+			 	<if test=" null != isRedemption ">
+					 	#{isRedemption},
+				</if>
+			 	<if test=" null != redemptionTime ">
+					 	#{redemptionTime},
+				</if>
+			 	<if test=" null != assignmentTime ">
+					 	#{assignmentTime},
+				</if>
+			 	<if test=" null != moneyType ">
+					 	#{moneyType},
+				</if>
+			 	<if test=" null != riskControlType ">
+					 	#{riskControlType},
+				</if>
+			 	<if test=" null != riskLevel ">
+					 	#{riskLevel},
+				</if>
+			 	<if test=" null != status ">
+					 	#{status},
+				</if>
+			 	<if test=" null != creator and ''!= creator  ">
+					 	#{creator},
+				</if>
+			 	<if test=" null != createTime and ''!= createTime  ">
+					 	#{createTime},
+				</if>
+			 	<if test=" null != updater and ''!= updater  ">
+					 	#{updater},
+				</if>
+			 	<if test=" null != updateTime and ''!= updateTime  ">
+					 	#{updateTime},
+				</if>
+			 	<if test=" null != remark and ''!= remark  ">
+					 	#{remark},
+				</if>
+			 	<if test=" null != orgNumber and ''!= orgNumber  ">
+					 	#{orgNumber},
+				</if>
+			 	<if test=" null != thirdProductId and ''!= thirdProductId  ">
+					 	#{thirdProductId},
+				</if>
+			 	<if test=" null != isQuota ">
+					 	#{isQuota},
+				</if>
+			 	<if test=" null != buyIncreaseMoney ">
+					 	#{buyIncreaseMoney},
+				</if>
+			 	<if test=" null != buyedTotalMoney ">
+					 	#{buyedTotalMoney},
+				</if>
+			 	<if test=" null != buyedTotalPeople ">
+					 	#{buyedTotalPeople},
+				</if>
+			 	<if test=" null != ifRookie ">
+					 	#{ifRookie},
+				</if>
+			 	<if test=" null != updateStatus ">
+					 	#{updateStatus},
+				</if>
+			 	<if test=" null != message and ''!= message  ">
+					 	#{message},
+				</if>
+		</trim>
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.linkwee.web.model.CimProductUpdatePull" useGeneratedKeys="true" keyProperty="id" >
+		INSERT INTO tcim_product_update_pull
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != productName and ''!= productName  ">
+					product_name,
+				</if>
+			 	<if test=" null != productDesc and ''!= productDesc  ">
+					product_desc,
+				</if>
+			 	<if test=" null != productType ">
+					product_type,
+				</if>
+			 	<if test=" null != repaymentWay ">
+					repayment_way,
+				</if>
+			 	<if test=" null != saleStartTime and ''!= saleStartTime  ">
+					sale_start_time,
+				</if>
+			 	<if test=" null != saleEndTime and ''!= saleEndTime  ">
+					sale_end_time,
+				</if>
+			 	<if test=" null != isFlow ">
+					is_flow,
+				</if>
+			 	<if test=" null != flowMinRate ">
+					flow_min_rate,
+				</if>
+			 	<if test=" null != flowMaxRate ">
+					flow_max_rate,
+				</if>
+			 	<if test=" null != addRate ">
+					add_rate,
+				</if>
+			 	<if test=" null != isFixedDeadline ">
+					is_fixed_deadline,
+				</if>
+			 	<if test=" null != deadLineMinValue ">
+					dead_line_min_value,
+				</if>
+			 	<if test=" null != deadLineMaxValue ">
+					dead_line_max_value,
+				</if>
+			 	<if test=" null != deadLineMinSelfDefined and ''!= deadLineMinSelfDefined  ">
+					dead_line_min_self_defined,
+				</if>
+			 	<if test=" null != deadLineMaxSelfDefined and ''!= deadLineMaxSelfDefined  ">
+					dead_line_max_self_defined,
+				</if>
+			 	<if test=" null != isCollect ">
+					is_collect,
+				</if>
+			 	<if test=" null != collectBeginTime and ''!= collectBeginTime  ">
+					collect_begin_time,
+				</if>
+			 	<if test=" null != collectEndTime and ''!= collectEndTime  ">
+					collect_end_time,
+				</if>
+			 	<if test=" null != interestWay ">
+					interest_way,
+				</if>
+			 	<if test=" null != validBeginDate and ''!= validBeginDate  ">
+					valid_begin_date,
+				</if>
+			 	<if test=" null != validEndDate and ''!= validEndDate  ">
+					valid_end_date,
+				</if>
+			 	<if test=" null != buyMinMoney ">
+					buy_min_money,
+				</if>
+			 	<if test=" null != buyMaxMoney ">
+					buy_max_money,
+				</if>
+			 	<if test=" null != buyTotalMoney ">
+					buy_total_money,
+				</if>
+			 	<if test=" null != isHaveProgress ">
+					is_have_progress,
+				</if>
+			 	<if test=" null != isRedemption ">
+					is_redemption,
+				</if>
+			 	<if test=" null != redemptionTime ">
+					redemption_time,
+				</if>
+			 	<if test=" null != assignmentTime ">
+					assignment_time,
+				</if>
+			 	<if test=" null != moneyType ">
+					money_type,
+				</if>
+			 	<if test=" null != riskControlType ">
+					risk_control_type,
+				</if>
+			 	<if test=" null != riskLevel ">
+					risk_level,
+				</if>
+			 	<if test=" null != status ">
+					status,
+				</if>
+			 	<if test=" null != creator and ''!= creator  ">
+					creator,
+				</if>
+			 	<if test=" null != createTime and ''!= createTime  ">
+					create_time,
+				</if>
+			 	<if test=" null != updater and ''!= updater  ">
+					updater,
+				</if>
+			 	<if test=" null != updateTime and ''!= updateTime  ">
+					update_time,
+				</if>
+			 	<if test=" null != remark and ''!= remark  ">
+					remark,
+				</if>
+			 	<if test=" null != orgNumber and ''!= orgNumber  ">
+					org_number,
+				</if>
+			 	<if test=" null != thirdProductId and ''!= thirdProductId  ">
+					third_product_id,
+				</if>
+			 	<if test=" null != isQuota ">
+					is_quota,
+				</if>
+			 	<if test=" null != buyIncreaseMoney ">
+					buy_increase_money,
+				</if>
+			 	<if test=" null != buyedTotalMoney ">
+					buyed_total_money,
+				</if>
+			 	<if test=" null != buyedTotalPeople ">
+					buyed_total_people,
+				</if>
+			 	<if test=" null != ifRookie ">
+					if_rookie,
+				</if>
+			 	<if test=" null != updateStatus ">
+					update_status,
+				</if>
+			 	<if test=" null != message and ''!= message  ">
+					message,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != productName and ''!= productName  ">
+					 	#{productName},
+				</if>
+			 	<if test=" null != productDesc and ''!= productDesc  ">
+					 	#{productDesc},
+				</if>
+			 	<if test=" null != productType ">
+					 	#{productType},
+				</if>
+			 	<if test=" null != repaymentWay ">
+					 	#{repaymentWay},
+				</if>
+			 	<if test=" null != saleStartTime and ''!= saleStartTime  ">
+					 	#{saleStartTime},
+				</if>
+			 	<if test=" null != saleEndTime and ''!= saleEndTime  ">
+					 	#{saleEndTime},
+				</if>
+			 	<if test=" null != isFlow ">
+					 	#{isFlow},
+				</if>
+			 	<if test=" null != flowMinRate ">
+					 	#{flowMinRate},
+				</if>
+			 	<if test=" null != flowMaxRate ">
+					 	#{flowMaxRate},
+				</if>
+			 	<if test=" null != addRate ">
+					 	#{addRate},
+				</if>
+			 	<if test=" null != isFixedDeadline ">
+					 	#{isFixedDeadline},
+				</if>
+			 	<if test=" null != deadLineMinValue ">
+					 	#{deadLineMinValue},
+				</if>
+			 	<if test=" null != deadLineMaxValue ">
+					 	#{deadLineMaxValue},
+				</if>
+			 	<if test=" null != deadLineMinSelfDefined and ''!= deadLineMinSelfDefined  ">
+					 	#{deadLineMinSelfDefined},
+				</if>
+			 	<if test=" null != deadLineMaxSelfDefined and ''!= deadLineMaxSelfDefined  ">
+					 	#{deadLineMaxSelfDefined},
+				</if>
+			 	<if test=" null != isCollect ">
+					 	#{isCollect},
+				</if>
+			 	<if test=" null != collectBeginTime and ''!= collectBeginTime  ">
+					 	#{collectBeginTime},
+				</if>
+			 	<if test=" null != collectEndTime and ''!= collectEndTime  ">
+					 	#{collectEndTime},
+				</if>
+			 	<if test=" null != interestWay ">
+					 	#{interestWay},
+				</if>
+			 	<if test=" null != validBeginDate and ''!= validBeginDate  ">
+					 	#{validBeginDate},
+				</if>
+			 	<if test=" null != validEndDate and ''!= validEndDate  ">
+					 	#{validEndDate},
+				</if>
+			 	<if test=" null != buyMinMoney ">
+					 	#{buyMinMoney},
+				</if>
+			 	<if test=" null != buyMaxMoney ">
+					 	#{buyMaxMoney},
+				</if>
+			 	<if test=" null != buyTotalMoney ">
+					 	#{buyTotalMoney},
+				</if>
+			 	<if test=" null != isHaveProgress ">
+					 	#{isHaveProgress},
+				</if>
+			 	<if test=" null != isRedemption ">
+					 	#{isRedemption},
+				</if>
+			 	<if test=" null != redemptionTime ">
+					 	#{redemptionTime},
+				</if>
+			 	<if test=" null != assignmentTime ">
+					 	#{assignmentTime},
+				</if>
+			 	<if test=" null != moneyType ">
+					 	#{moneyType},
+				</if>
+			 	<if test=" null != riskControlType ">
+					 	#{riskControlType},
+				</if>
+			 	<if test=" null != riskLevel ">
+					 	#{riskLevel},
+				</if>
+			 	<if test=" null != status ">
+					 	#{status},
+				</if>
+			 	<if test=" null != creator and ''!= creator  ">
+					 	#{creator},
+				</if>
+			 	<if test=" null != createTime and ''!= createTime  ">
+					 	#{createTime},
+				</if>
+			 	<if test=" null != updater and ''!= updater  ">
+					 	#{updater},
+				</if>
+			 	<if test=" null != updateTime and ''!= updateTime  ">
+					 	#{updateTime},
+				</if>
+			 	<if test=" null != remark and ''!= remark  ">
+					 	#{remark},
+				</if>
+			 	<if test=" null != orgNumber and ''!= orgNumber  ">
+					 	#{orgNumber},
+				</if>
+			 	<if test=" null != thirdProductId and ''!= thirdProductId  ">
+					 	#{thirdProductId},
+				</if>
+			 	<if test=" null != isQuota ">
+					 	#{isQuota},
+				</if>
+			 	<if test=" null != buyIncreaseMoney ">
+					 	#{buyIncreaseMoney},
+				</if>
+			 	<if test=" null != buyedTotalMoney ">
+					 	#{buyedTotalMoney},
+				</if>
+			 	<if test=" null != buyedTotalPeople ">
+					 	#{buyedTotalPeople},
+				</if>
+			 	<if test=" null != ifRookie ">
+					 	#{ifRookie},
+				</if>
+			 	<if test=" null != updateStatus ">
+					 	#{updateStatus},
+				</if>
+			 	<if test=" null != message and ''!= message  ">
+					 	#{message},
+				</if>
+		</trim>
+	</insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.linkwee.web.model.CimProductUpdatePull" >
+  		UPDATE tcim_product_update_pull
+		<set>
+			<trim suffixOverrides=",">
+					<if test=" null != productName and ''!= productName  ">
+						product_name = #{productName},
+					</if>
+					<if test=" null != productDesc and ''!= productDesc  ">
+						product_desc = #{productDesc},
+					</if>
+					<if test=" null != productType ">
+						product_type = #{productType},
+					</if>
+					<if test=" null != repaymentWay ">
+						repayment_way = #{repaymentWay},
+					</if>
+					<if test=" null != saleStartTime and ''!= saleStartTime  ">
+						sale_start_time = #{saleStartTime},
+					</if>
+					<if test=" null != saleEndTime and ''!= saleEndTime  ">
+						sale_end_time = #{saleEndTime},
+					</if>
+					<if test=" null != isFlow ">
+						is_flow = #{isFlow},
+					</if>
+					<if test=" null != flowMinRate ">
+						flow_min_rate = #{flowMinRate},
+					</if>
+					<if test=" null != flowMaxRate ">
+						flow_max_rate = #{flowMaxRate},
+					</if>
+					<if test=" null != addRate ">
+						add_rate = #{addRate},
+					</if>
+					<if test=" null != isFixedDeadline ">
+						is_fixed_deadline = #{isFixedDeadline},
+					</if>
+					<if test=" null != deadLineMinValue ">
+						dead_line_min_value = #{deadLineMinValue},
+					</if>
+					<if test=" null != deadLineMaxValue ">
+						dead_line_max_value = #{deadLineMaxValue},
+					</if>
+					<if test=" null != deadLineMinSelfDefined and ''!= deadLineMinSelfDefined  ">
+						dead_line_min_self_defined = #{deadLineMinSelfDefined},
+					</if>
+					<if test=" null != deadLineMaxSelfDefined and ''!= deadLineMaxSelfDefined  ">
+						dead_line_max_self_defined = #{deadLineMaxSelfDefined},
+					</if>
+					<if test=" null != isCollect ">
+						is_collect = #{isCollect},
+					</if>
+					<if test=" null != collectBeginTime and ''!= collectBeginTime  ">
+						collect_begin_time = #{collectBeginTime},
+					</if>
+					<if test=" null != collectEndTime and ''!= collectEndTime  ">
+						collect_end_time = #{collectEndTime},
+					</if>
+					<if test=" null != interestWay ">
+						interest_way = #{interestWay},
+					</if>
+					<if test=" null != validBeginDate and ''!= validBeginDate  ">
+						valid_begin_date = #{validBeginDate},
+					</if>
+					<if test=" null != validEndDate and ''!= validEndDate  ">
+						valid_end_date = #{validEndDate},
+					</if>
+					<if test=" null != buyMinMoney ">
+						buy_min_money = #{buyMinMoney},
+					</if>
+					<if test=" null != buyMaxMoney ">
+						buy_max_money = #{buyMaxMoney},
+					</if>
+					<if test=" null != buyTotalMoney ">
+						buy_total_money = #{buyTotalMoney},
+					</if>
+					<if test=" null != isHaveProgress ">
+						is_have_progress = #{isHaveProgress},
+					</if>
+					<if test=" null != isRedemption ">
+						is_redemption = #{isRedemption},
+					</if>
+					<if test=" null != redemptionTime ">
+						redemption_time = #{redemptionTime},
+					</if>
+					<if test=" null != assignmentTime ">
+						assignment_time = #{assignmentTime},
+					</if>
+					<if test=" null != moneyType ">
+						money_type = #{moneyType},
+					</if>
+					<if test=" null != riskControlType ">
+						risk_control_type = #{riskControlType},
+					</if>
+					<if test=" null != riskLevel ">
+						risk_level = #{riskLevel},
+					</if>
+					<if test=" null != status ">
+						status = #{status},
+					</if>
+					<if test=" null != creator and ''!= creator  ">
+						creator = #{creator},
+					</if>
+					<if test=" null != createTime and ''!= createTime  ">
+						create_time = #{createTime},
+					</if>
+					<if test=" null != updater and ''!= updater  ">
+						updater = #{updater},
+					</if>
+					<if test=" null != updateTime and ''!= updateTime  ">
+						update_time = #{updateTime},
+					</if>
+					<if test=" null != remark and ''!= remark  ">
+						remark = #{remark},
+					</if>
+					<if test=" null != orgNumber and ''!= orgNumber  ">
+						org_number = #{orgNumber},
+					</if>
+					<if test=" null != thirdProductId and ''!= thirdProductId  ">
+						third_product_id = #{thirdProductId},
+					</if>
+					<if test=" null != isQuota ">
+						is_quota = #{isQuota},
+					</if>
+					<if test=" null != buyIncreaseMoney ">
+						buy_increase_money = #{buyIncreaseMoney},
+					</if>
+					<if test=" null != buyedTotalMoney ">
+						buyed_total_money = #{buyedTotalMoney},
+					</if>
+					<if test=" null != buyedTotalPeople ">
+						buyed_total_people = #{buyedTotalPeople},
+					</if>
+					<if test=" null != ifRookie ">
+						if_rookie = #{ifRookie},
+					</if>
+					<if test=" null != updateStatus ">
+						update_status = #{updateStatus},
+					</if>
+					<if test=" null != message and ''!= message  ">
+						message = #{message},
+					</if>
+			</trim>
+		</set>
+		<where>
+			 id = #{id}
+		</where>
+	</update>
+  
+	<update id="updateByPrimaryKey" parameterType="com.linkwee.web.model.CimProductUpdatePull" >
+	    UPDATE tcim_product_update_pull
+	   <set>
+			<trim suffixOverrides=",">
+					<if test=" null != productName and ''!= productName  ">
+						product_name = #{productName},
+					</if>
+					<if test=" null != productDesc and ''!= productDesc  ">
+						product_desc = #{productDesc},
+					</if>
+					<if test=" null != productType ">
+						product_type = #{productType},
+					</if>
+					<if test=" null != repaymentWay ">
+						repayment_way = #{repaymentWay},
+					</if>
+					<if test=" null != saleStartTime and ''!= saleStartTime  ">
+						sale_start_time = #{saleStartTime},
+					</if>
+					<if test=" null != saleEndTime and ''!= saleEndTime  ">
+						sale_end_time = #{saleEndTime},
+					</if>
+					<if test=" null != isFlow ">
+						is_flow = #{isFlow},
+					</if>
+					<if test=" null != flowMinRate ">
+						flow_min_rate = #{flowMinRate},
+					</if>
+					<if test=" null != flowMaxRate ">
+						flow_max_rate = #{flowMaxRate},
+					</if>
+					<if test=" null != addRate ">
+						add_rate = #{addRate},
+					</if>
+					<if test=" null != isFixedDeadline ">
+						is_fixed_deadline = #{isFixedDeadline},
+					</if>
+					<if test=" null != deadLineMinValue ">
+						dead_line_min_value = #{deadLineMinValue},
+					</if>
+					<if test=" null != deadLineMaxValue ">
+						dead_line_max_value = #{deadLineMaxValue},
+					</if>
+					<if test=" null != deadLineMinSelfDefined and ''!= deadLineMinSelfDefined  ">
+						dead_line_min_self_defined = #{deadLineMinSelfDefined},
+					</if>
+					<if test=" null != deadLineMaxSelfDefined and ''!= deadLineMaxSelfDefined  ">
+						dead_line_max_self_defined = #{deadLineMaxSelfDefined},
+					</if>
+					<if test=" null != isCollect ">
+						is_collect = #{isCollect},
+					</if>
+					<if test=" null != collectBeginTime and ''!= collectBeginTime  ">
+						collect_begin_time = #{collectBeginTime},
+					</if>
+					<if test=" null != collectEndTime and ''!= collectEndTime  ">
+						collect_end_time = #{collectEndTime},
+					</if>
+					<if test=" null != interestWay ">
+						interest_way = #{interestWay},
+					</if>
+					<if test=" null != validBeginDate and ''!= validBeginDate  ">
+						valid_begin_date = #{validBeginDate},
+					</if>
+					<if test=" null != validEndDate and ''!= validEndDate  ">
+						valid_end_date = #{validEndDate},
+					</if>
+					<if test=" null != buyMinMoney ">
+						buy_min_money = #{buyMinMoney},
+					</if>
+					<if test=" null != buyMaxMoney ">
+						buy_max_money = #{buyMaxMoney},
+					</if>
+					<if test=" null != buyTotalMoney ">
+						buy_total_money = #{buyTotalMoney},
+					</if>
+					<if test=" null != isHaveProgress ">
+						is_have_progress = #{isHaveProgress},
+					</if>
+					<if test=" null != isRedemption ">
+						is_redemption = #{isRedemption},
+					</if>
+					<if test=" null != redemptionTime ">
+						redemption_time = #{redemptionTime},
+					</if>
+					<if test=" null != assignmentTime ">
+						assignment_time = #{assignmentTime},
+					</if>
+					<if test=" null != moneyType ">
+						money_type = #{moneyType},
+					</if>
+					<if test=" null != riskControlType ">
+						risk_control_type = #{riskControlType},
+					</if>
+					<if test=" null != riskLevel ">
+						risk_level = #{riskLevel},
+					</if>
+					<if test=" null != status ">
+						status = #{status},
+					</if>
+					<if test=" null != creator and ''!= creator  ">
+						creator = #{creator},
+					</if>
+					<if test=" null != createTime and ''!= createTime  ">
+						create_time = #{createTime},
+					</if>
+					<if test=" null != updater and ''!= updater  ">
+						updater = #{updater},
+					</if>
+					<if test=" null != updateTime and ''!= updateTime  ">
+						update_time = #{updateTime},
+					</if>
+					<if test=" null != remark and ''!= remark  ">
+						remark = #{remark},
+					</if>
+					<if test=" null != orgNumber and ''!= orgNumber  ">
+						org_number = #{orgNumber},
+					</if>
+					<if test=" null != thirdProductId and ''!= thirdProductId  ">
+						third_product_id = #{thirdProductId},
+					</if>
+					<if test=" null != isQuota ">
+						is_quota = #{isQuota},
+					</if>
+					<if test=" null != buyIncreaseMoney ">
+						buy_increase_money = #{buyIncreaseMoney},
+					</if>
+					<if test=" null != buyedTotalMoney ">
+						buyed_total_money = #{buyedTotalMoney},
+					</if>
+					<if test=" null != buyedTotalPeople ">
+						buyed_total_people = #{buyedTotalPeople},
+					</if>
+					<if test=" null != ifRookie ">
+						if_rookie = #{ifRookie},
+					</if>
+					<if test=" null != updateStatus ">
+						update_status = #{updateStatus},
+					</if>
+					<if test=" null != message and ''!= message  ">
+						message = #{message},
+					</if>
+			</trim>
+		</set>
+		<where>
+			id = #{0}
+		</where>
+	  </update>
+
+	<!-- 分页条件查询 -->
+    <select id="selectBySearchInfo" resultMap="BaseResultMap" parameterType="com.linkwee.core.datatable.DataTable">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM tcim_product_update_pull
+        <where> 
+        <if test="dt.search!=null">  
+                name LIKE CONCAT('%','${dt.search.value}','%' )  
+         </if>  
+         <if test="dt.order!=null">  
+               <foreach collection="dt.order" index="index" item="item"
+                    open="order by" separator="," close=" ">
+                    ${item.name} ${item.dir} 
+                </foreach>
+         </if>  
+        </where>
+    </select>
+
+</mapper>

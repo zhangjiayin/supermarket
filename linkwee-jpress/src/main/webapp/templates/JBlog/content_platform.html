@@ -1,0 +1,177 @@
+<#include "_layout.html"/>
+<#macro css_import>
+    <link rel="stylesheet" href="${CTPATH}/assets/css/platform.css" />
+</#macro>
+<@layout>
+    <div class="x-pc-width clearfix">
+        <div class="page-nav">
+            <a>当前位置：</a>
+            <a href="${JPRESS_WEBSITE}/index.html">首页</a> 
+            <a href="${JPRESS_WEBSITE}/module/platformFile/platformFile.html"> > 网贷平台档案 > </a> 
+            <a class="last">${platform.name!}档案详情</a>
+        </div>
+
+        <div class="platform-detail clearfix">
+            <div class="detail-left">
+                <div class="detail-outer clearfix">
+                    <div class="detail-inner_1">
+                        <img src="${platform.detailImg!}" alt="${platform.name!}">
+                    </div>
+                    <div class="detail-inner_2">
+                        <ul>
+                            <li class="title">
+                                <h1>${platform.name!}</h1>
+                            </li>
+                            <li class="product clearfix">
+                                <div>
+                                    <p>年化收益</p>
+                                    <p class="year-rate">${platform.minProfit} ~ ${platform.maxProfit}%</p>
+                                </div>
+                                <div>
+                                    <p>注册资本</p>
+                                    <p class="register-money">${platform.capital!}</p>
+                                </div>
+                                <div>
+                                    <p>产品期限</p>
+                                    <p class="product-deadline">${(platform.deadLineSelfDefined)!}</p>
+                                </div>
+                            </li>
+                            <li class="description">
+                                <div class="clearfix">
+                                    <p>上线时间：<span>${platform.upTime ? string('yyyy-MM-dd')}</span></p>
+                                    <p>所在城市：<span>${platform.city!}</span></p>
+                                </div>
+                                <div class="clearfix">
+                                    <p>债券转让：<span>${platform.isTransfer ? string("支持", "不支持")}</span></p>
+                                    <p>资金托管：<span>${platform.trusteeship!}</span></p>
+                                </div>
+                                <div class="last clearfix">
+                                    <p class="key">投标保障：</p>
+                                    <p class="value">${platform.bidSecurity!}</p>
+                                    <p class="key">保障模式：</p>
+                                    <p class="value">${platform.securityModel!}</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="common-top-right" style="margin-bottom: 0">
+                <div class="right-nav-title">
+                    <h1>
+                        <span class="title">${platform.name!}最新动态</span>
+                        <a class="more" href="/pc-${platform.id!}-1.html?title=${platform.name!}">
+                            <span style="vertical-align: -1px;padding-right:1px;">更多</span>
+                            <span>》</span>
+                        </a>
+                    </h1>                       
+                </div>
+                
+                <ul>
+                    <#list news as new>
+                    <li class="x-layout-100 person-relative x-margin-bottom-10">
+                        <a class="ellipsis" href="/c/${new.id}-${new.platformId}.html">
+                             ${new.title!}
+                        </a>
+                    </li>
+                    </#list> 
+                </ul>            
+            </div>
+        </div>
+        <div class="platform-about">
+            <div class="about-left">
+                <div class="tab-menubar clearfix">
+                    <a for="companyIntro" class="active">公司简介</a>
+                    <a for="avatar">团队介绍</a>
+                    <a for="webRecord">网站备案</a>
+                    <a for="companyPic">公司照片资料</a>
+                    <a for="contactWay">联系方式</a>
+                </div>
+                <div id="contentBox" class="tab-box" style="">
+                    <!-- 公司介绍 -->
+                    <div id="companyIntro" class="company-intro clearfix tab-change">
+                        ${platform.briefIntroduction!}
+                    </div>
+
+                    <!-- 团队介绍 -->
+                    <div id="avatar" class="avatar tab-change clearfix" style="display: none;">
+                        ${platform.teamIntroduction!}
+                    </div>
+
+                    <!-- 网站备案 -->
+                    <div id="webRecord" class="webRecord tab-change clearfix" style="display: none;">
+                        ${platform.siteRecord!}
+                    </div>
+
+                    <!-- 公司照片 -->
+                    <div id="companyPic" class="companyPic tab-change clearfix" style="display: none;">
+                    ${platform.picInfo!}
+                    
+                    </div>
+
+                    <!-- 联系方式 -->
+                    <div id="contactWay" class="contact-way tab-change clearfix" style="display: none;">
+                    ${platform.contactUs!}
+                    </div>
+                </div>
+            </div>
+            <div class="common-bottom-right">
+                <div class="tb-platform-title">
+                    <h1>
+                            <span>热门平台推荐</span>
+                        </h1>
+                </div>
+                <div class="hot-platform clearfix">
+                
+                <#list orgInfos as orgInfo>
+                     <div>
+                        <a href="${JPRESS_WEBSITE}/module/platform/platformDetail.html?orgNo=${orgInfo.orgNumber!}" target="_blank"><img src="${PC_IMG_WEBSITE+orgInfo.pcPlatformImg!}"></a>
+                    </div>
+                </#list>               
+                   
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</@layout>
+<#include "_footer.html"/>
+<@script_import />
+    <script src="${CTPATH}/assets/js/swiper.min.js"></script>
+<@script />
+
+<script>
+function selectTag(divOrder, selfObj) {
+    // 操作标签
+    var tag = document.getElementById("tags").getElementsByTagName("li");
+    var taglength = tag.length;
+    for (i = 0; i < taglength; i++) {
+        tag[i].className = "";
+        $("#tabContent" + i).hide();
+    }
+    selfObj.parentNode.className = "tab-active";
+    $("#tabContent" + divOrder).show();
+
+}
+
+$(".tab-menubar").on('click', 'a', function() {
+    if ($(this).hasClass('active')) return false;
+    $(this).siblings().removeClass('active');
+    $(this).addClass('active');
+    $('#contentBox').children().hide();
+    $('#' + $(this).attr('for')).show();
+})
+
+
+$(".pic-tab").on('click','li',function(){
+    if($(this).hasClass('active')) return;
+    $(".pic-tab").children('li').removeClass('active');
+    $(this).addClass('active');
+    $(".pic-wrapper").children('div').hide().eq($(this).index()).show();
+});
+
+$(".more").on('click',function(){
+    $(this).toggleClass('down').prev().toggleClass('heightAuto');
+});
+
+</script>

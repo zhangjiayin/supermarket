@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.ActHelpRaiseRateDetailMapper">
+	<!-- Result Map-->
+	<resultMap  type="com.linkwee.web.model.activity.ActHelpRaiseRateDetail" id="BaseResultMap">
+		<result column="id" property="id" jdbcType="INTEGER"/>
+		<result column="user_id" property="userId" jdbcType="VARCHAR"/>
+		<result column="help_rate" property="helpRate" jdbcType="DECIMAL"/>
+		<result column="weixin_ico_url" property="weixinIcoUrl" jdbcType="VARCHAR"/>
+		<result column="weixin_nickname" property="weixinNickname" jdbcType="VARCHAR"/>
+		<result column="decription" property="decription" jdbcType="VARCHAR"/>
+		<result column="openid" property="openid" jdbcType="VARCHAR"/>
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+		<result column="last_update_time" property="lastUpdateTime" jdbcType="TIMESTAMP"/>
+	</resultMap>
+	
+  <sql id="Base_Column_List">
+    <trim suffixOverrides=",">
+	    	id,
+	    	user_id,
+	    	help_rate,
+	    	weixin_ico_url,
+	    	weixin_nickname,
+	    	decription,
+	    	openid,
+	    	create_time,
+	    	last_update_time,
+    </trim>
+  </sql>  
+  
+  <sql id="Base_Condition">
+		<if test=" null != id ">
+			and id = #{id}
+		</if>
+		<if test=" null != userId and ''!= userId  ">
+			and user_id = #{userId}
+		</if>
+		<if test=" null != helpRate ">
+			and help_rate = #{helpRate}
+		</if>
+		<if test=" null != weixinIcoUrl and ''!= weixinIcoUrl  ">
+			and weixin_ico_url = #{weixinIcoUrl}
+		</if>
+		<if test=" null != weixinNickname and ''!= weixinNickname  ">
+			and weixin_nickname = #{weixinNickname}
+		</if>
+		<if test=" null != decription and ''!= decription  ">
+			and decription = #{decription}
+		</if>
+		<if test=" null != openid and ''!= openid  ">
+			and openid = #{openid}
+		</if>
+		<if test=" null != createTime ">
+			and create_time = #{createTime}
+		</if>
+		<if test=" null != lastUpdateTime ">
+			and last_update_time = #{lastUpdateTime}
+		</if>
+  </sql>
+  
+  <select id="selectOneByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.web.model.activity.ActHelpRaiseRateDetail">
+		select <include refid="Base_Column_List" /> from tact_help_raise_rate_detail 
+		where 1=1 <include refid="Base_Condition" />
+  </select>
+  
+  <select id="selectByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.web.model.activity.ActHelpRaiseRateDetail">
+		select <include refid="Base_Column_List" /> from tact_help_raise_rate_detail 
+		where 1=1 <include refid="Base_Condition" />
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tact_help_raise_rate_detail
+    where  id = #{0}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tact_help_raise_rate_detail
+    where id = #{0}
+  </delete>
+
+  <insert id="insert" parameterType="com.linkwee.web.model.activity.ActHelpRaiseRateDetail" >
+    INSERT INTO tact_help_raise_rate_detail
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != userId and ''!= userId  ">
+					user_id,
+				</if>
+			 	<if test=" null != helpRate ">
+					help_rate,
+				</if>
+			 	<if test=" null != weixinIcoUrl and ''!= weixinIcoUrl  ">
+					weixin_ico_url,
+				</if>
+			 	<if test=" null != weixinNickname and ''!= weixinNickname  ">
+					weixin_nickname,
+				</if>
+			 	<if test=" null != decription and ''!= decription  ">
+					decription,
+				</if>
+			 	<if test=" null != openid and ''!= openid  ">
+					openid,
+				</if>
+			 	<if test=" null != createTime ">
+					create_time,
+				</if>
+			 	<if test=" null != lastUpdateTime ">
+					last_update_time,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != userId and ''!= userId  ">
+					 	#{userId},
+				</if>
+			 	<if test=" null != helpRate ">
+					 	#{helpRate},
+				</if>
+			 	<if test=" null != weixinIcoUrl and ''!= weixinIcoUrl  ">
+					 	#{weixinIcoUrl},
+				</if>
+			 	<if test=" null != weixinNickname and ''!= weixinNickname  ">
+					 	#{weixinNickname},
+				</if>
+			 	<if test=" null != decription and ''!= decription  ">
+					 	#{decription},
+				</if>
+			 	<if test=" null != openid and ''!= openid  ">
+					 	#{openid},
+				</if>
+			 	<if test=" null != createTime ">
+					 	#{createTime},
+				</if>
+			 	<if test=" null != lastUpdateTime ">
+					 	#{lastUpdateTime},
+				</if>
+		</trim>
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.linkwee.web.model.activity.ActHelpRaiseRateDetail" useGeneratedKeys="true" keyProperty="id" >
+		INSERT INTO tact_help_raise_rate_detail
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != userId and ''!= userId  ">
+					user_id,
+				</if>
+			 	<if test=" null != helpRate ">
+					help_rate,
+				</if>
+			 	<if test=" null != weixinIcoUrl and ''!= weixinIcoUrl  ">
+					weixin_ico_url,
+				</if>
+			 	<if test=" null != weixinNickname and ''!= weixinNickname  ">
+					weixin_nickname,
+				</if>
+			 	<if test=" null != decription and ''!= decription  ">
+					decription,
+				</if>
+			 	<if test=" null != openid and ''!= openid  ">
+					openid,
+				</if>
+			 	<if test=" null != createTime ">
+					create_time,
+				</if>
+			 	<if test=" null != lastUpdateTime ">
+					last_update_time,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != userId and ''!= userId  ">
+					 	#{userId},
+				</if>
+			 	<if test=" null != helpRate ">
+					 	#{helpRate},
+				</if>
+			 	<if test=" null != weixinIcoUrl and ''!= weixinIcoUrl  ">
+					 	#{weixinIcoUrl},
+				</if>
+			 	<if test=" null != weixinNickname and ''!= weixinNickname  ">
+					 	#{weixinNickname},
+				</if>
+			 	<if test=" null != decription and ''!= decription  ">
+					 	#{decription},
+				</if>
+			 	<if test=" null != openid and ''!= openid  ">
+					 	#{openid},
+				</if>
+			 	<if test=" null != createTime ">
+					 	#{createTime},
+				</if>
+			 	<if test=" null != lastUpdateTime ">
+					 	#{lastUpdateTime},
+				</if>
+		</trim>
+	</insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.linkwee.web.model.activity.ActHelpRaiseRateDetail" >
+  		UPDATE tact_help_raise_rate_detail
+		<set>
+			<trim suffixOverrides=",">
+					<if test=" null != userId and ''!= userId  ">
+						user_id = #{userId},
+					</if>
+					<if test=" null != helpRate ">
+						help_rate = #{helpRate},
+					</if>
+					<if test=" null != weixinIcoUrl and ''!= weixinIcoUrl  ">
+						weixin_ico_url = #{weixinIcoUrl},
+					</if>
+					<if test=" null != weixinNickname and ''!= weixinNickname  ">
+						weixin_nickname = #{weixinNickname},
+					</if>
+					<if test=" null != decription and ''!= decription  ">
+						decription = #{decription},
+					</if>
+					<if test=" null != openid and ''!= openid  ">
+						openid = #{openid},
+					</if>
+					<if test=" null != createTime ">
+						create_time = #{createTime},
+					</if>
+					<if test=" null != lastUpdateTime ">
+						last_update_time = #{lastUpdateTime},
+					</if>
+			</trim>
+		</set>
+		<where>
+			 id = #{id}
+		</where>
+	</update>
+  
+	<update id="updateByPrimaryKey" parameterType="com.linkwee.web.model.activity.ActHelpRaiseRateDetail" >
+	    UPDATE tact_help_raise_rate_detail
+	   <set>
+			<trim suffixOverrides=",">
+					<if test=" null != userId and ''!= userId  ">
+						user_id = #{userId},
+					</if>
+					<if test=" null != helpRate ">
+						help_rate = #{helpRate},
+					</if>
+					<if test=" null != weixinIcoUrl and ''!= weixinIcoUrl  ">
+						weixin_ico_url = #{weixinIcoUrl},
+					</if>
+					<if test=" null != weixinNickname and ''!= weixinNickname  ">
+						weixin_nickname = #{weixinNickname},
+					</if>
+					<if test=" null != decription and ''!= decription  ">
+						decription = #{decription},
+					</if>
+					<if test=" null != openid and ''!= openid  ">
+						openid = #{openid},
+					</if>
+					<if test=" null != createTime ">
+						create_time = #{createTime},
+					</if>
+					<if test=" null != lastUpdateTime ">
+						last_update_time = #{lastUpdateTime},
+					</if>
+			</trim>
+		</set>
+		<where>
+			id = #{0}
+		</where>
+	  </update>
+
+	<!-- 分页条件查询 -->
+    <select id="selectBySearchInfo" resultMap="BaseResultMap" parameterType="com.linkwee.core.datatable.DataTable">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM tact_help_raise_rate_detail
+        <where> 
+        <if test="dt.search!=null">  
+                name LIKE CONCAT('%','${dt.search.value}','%' )  
+         </if>  
+         <if test="dt.order!=null">  
+               <foreach collection="dt.order" index="index" item="item"
+                    open="order by" separator="," close=" ">
+                    ${item.name} ${item.dir} 
+                </foreach>
+         </if>  
+        </where>
+    </select>
+    
+    <select id="queryHelpDetailList" resultMap="BaseResultMap" >
+		select * from tact_help_raise_rate_detail 
+		where user_id=#{userId}
+		order by id desc
+  	</select>
+  	
+  	
+  	<select id="queryForUpdate" resultMap="BaseResultMap" >
+		select * from tact_help_raise_rate_detail 
+		where user_id=#{userId}
+		and openid=#{openid}
+		for update
+  	</select>
+
+</mapper>

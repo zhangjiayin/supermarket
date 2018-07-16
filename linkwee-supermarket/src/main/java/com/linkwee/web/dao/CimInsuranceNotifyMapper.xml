@@ -1,0 +1,963 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.CimInsuranceNotifyMapper">
+	<!-- Result Map-->
+	<resultMap  type="com.linkwee.web.model.CimInsuranceNotify" id="BaseResultMap">
+		<result column="id" property="id" jdbcType="INTEGER"/>
+		<result column="bill_id" property="billId" jdbcType="VARCHAR"/>
+		<result column="org_number" property="orgNumber" jdbcType="VARCHAR"/>
+		<result column="notify_type" property="notifyType" jdbcType="INTEGER"/>
+		<result column="user_id" property="userId" jdbcType="VARCHAR"/>
+		<result column="product_id" property="productId" jdbcType="VARCHAR"/>
+		<result column="insure_num" property="insureNum" jdbcType="VARCHAR"/>
+		<result column="state" property="state" jdbcType="BIT"/>
+		<result column="pay_time" property="payTime" jdbcType="TIMESTAMP"/>
+		<result column="price" property="price" jdbcType="DECIMAL"/>
+		<result column="online_payment_id" property="onlinePaymentId" jdbcType="VARCHAR"/>
+		<result column="newInsureNum" property="newInsureNum" jdbcType="VARCHAR"/>
+		<result column="cancelInsurants" property="cancelInsurants" jdbcType="VARCHAR"/>
+		<result column="cancelMsg" property="cancelMsg" jdbcType="VARCHAR"/>
+		<result column="failMsg" property="failMsg" jdbcType="VARCHAR"/>
+		<result column="creat_time" property="creatTime" jdbcType="TIMESTAMP"/>
+		<result column="up_time" property="upTime" jdbcType="TIMESTAMP"/>
+		<result column="product_fee_rate" property="productFeeRate" jdbcType="DECIMAL"/>
+		<result column="audit_status" property="auditStatus" jdbcType="INTEGER"/>
+		<result column="audit_user" property="auditUser" jdbcType="VARCHAR"/>
+		<result column="audit_time" property="auditTime" jdbcType="TIMESTAMP"/>
+		<result column="clearing_status" property="clearingStatus" jdbcType="INTEGER"/>
+		<result column="clearing_time" property="clearingTime" jdbcType="TIMESTAMP"/>
+		<result column="remark" property="remark" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+  <sql id="Base_Column_List">
+    <trim suffixOverrides=",">
+	    	id,
+	    	bill_id,
+	    	org_number,
+	    	notify_type,
+	    	user_id,
+	    	product_id,
+	    	insure_num,
+	    	state,
+	    	pay_time,
+	    	price,
+	    	online_payment_id,
+	    	newInsureNum,
+	    	cancelInsurants,
+	    	cancelMsg,
+	    	failMsg,
+	    	creat_time,
+	    	up_time,
+	    	product_fee_rate,
+	    	audit_status,
+	    	audit_user,
+	    	audit_time,
+	    	clearing_status,
+	    	clearing_time,
+	    	remark,
+    </trim>
+  </sql>
+  
+ <sql id="Base_Column_List_T">
+    <trim suffixOverrides=",">
+	    	t.id,
+	    	t.bill_id,
+	    	t.org_number,
+	    	t.notify_type,
+	    	t.user_id,
+	    	t.product_id,
+	    	t.insure_num,
+	    	t.state,
+	    	t.pay_time,
+	    	t.price,
+	    	t.online_payment_id,
+	    	t.newInsureNum,
+	    	t.cancelInsurants,
+	    	t.cancelMsg,
+	    	t.failMsg,
+	    	t.creat_time,
+	    	t.up_time,
+	    	t.product_fee_rate,
+	    	t.audit_status,
+	    	t.audit_user,
+	    	t.audit_time,
+	    	t.clearing_status,
+	    	t.clearing_time,
+	    	t.remark,
+    </trim>
+  </sql>  
+  
+  <sql id="Base_Condition">
+		<if test=" null != id ">
+			and id = #{id}
+		</if>
+		<if test=" null != billId and ''!= billId  ">
+			and bill_id = #{billId}
+		</if>
+		<if test=" null != orgNumber and ''!= orgNumber  ">
+			and org_number = #{orgNumber}
+		</if>
+		<if test=" null != notifyType ">
+			and notify_type = #{notifyType}
+		</if>
+		<if test=" null != userId and ''!= userId  ">
+			and user_id = #{userId}
+		</if>
+		<if test=" null != productId and ''!= productId  ">
+			and product_id = #{productId}
+		</if>
+		<if test=" null != insureNum and ''!= insureNum  ">
+			and insure_num = #{insureNum}
+		</if>
+		<if test=" null != state ">
+			and state = #{state}
+		</if>
+		<if test=" null != payTime ">
+			and pay_time = #{payTime}
+		</if>
+		<if test=" null != price ">
+			and price = #{price}
+		</if>
+		<if test=" null != onlinePaymentId and ''!= onlinePaymentId  ">
+			and online_payment_id = #{onlinePaymentId}
+		</if>
+		<if test=" null != newInsureNum and ''!= newInsureNum  ">
+			and newInsureNum = #{newInsureNum}
+		</if>
+		<if test=" null != cancelInsurants and ''!= cancelInsurants  ">
+			and cancelInsurants = #{cancelInsurants}
+		</if>
+		<if test=" null != cancelMsg and ''!= cancelMsg  ">
+			and cancelMsg = #{cancelMsg}
+		</if>
+		<if test=" null != failMsg and ''!= failMsg  ">
+			and failMsg = #{failMsg}
+		</if>
+		<if test=" null != creatTime ">
+			and creat_time = #{creatTime}
+		</if>
+		<if test=" null != upTime ">
+			and up_time = #{upTime}
+		</if>
+		<if test=" null != productFeeRate ">
+			and product_fee_rate = #{productFeeRate}
+		</if>
+		<if test=" null != auditStatus ">
+			and audit_status = #{auditStatus}
+		</if>
+		<if test=" null != auditUser and ''!= auditUser  ">
+			and audit_user = #{auditUser}
+		</if>
+		<if test=" null != auditTime ">
+			and audit_time = #{auditTime}
+		</if>
+		<if test=" null != clearingStatus ">
+			and clearing_status = #{clearingStatus}
+		</if>
+		<if test=" null != clearingTime ">
+			and clearing_time = #{clearingTime}
+		</if>
+		<if test=" null != remark and ''!= remark  ">
+			and remark = #{remark}
+		</if>
+  </sql>
+  
+  <select id="selectOneByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.web.model.CimInsuranceNotify">
+		select <include refid="Base_Column_List" /> from tcim_insurance_notify 
+		where 1=1 <include refid="Base_Condition" />
+  </select>
+  
+  <select id="selectByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.web.model.CimInsuranceNotify">
+		select <include refid="Base_Column_List" /> from tcim_insurance_notify 
+		where 1=1 <include refid="Base_Condition" />
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tcim_insurance_notify
+    where  id = #{0}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tcim_insurance_notify
+    where id = #{0}
+  </delete>
+
+  <insert id="insert" parameterType="com.linkwee.web.model.CimInsuranceNotify" >
+    INSERT INTO tcim_insurance_notify
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != billId and ''!= billId  ">
+					bill_id,
+				</if>
+			 	<if test=" null != orgNumber and ''!= orgNumber  ">
+					org_number,
+				</if>
+			 	<if test=" null != notifyType ">
+					notify_type,
+				</if>
+			 	<if test=" null != userId and ''!= userId  ">
+					user_id,
+				</if>
+			 	<if test=" null != productId and ''!= productId  ">
+					product_id,
+				</if>
+			 	<if test=" null != insureNum and ''!= insureNum  ">
+					insure_num,
+				</if>
+			 	<if test=" null != state ">
+					state,
+				</if>
+			 	<if test=" null != payTime ">
+					pay_time,
+				</if>
+			 	<if test=" null != price ">
+					price,
+				</if>
+			 	<if test=" null != onlinePaymentId and ''!= onlinePaymentId  ">
+					online_payment_id,
+				</if>
+			 	<if test=" null != newInsureNum and ''!= newInsureNum  ">
+					newInsureNum,
+				</if>
+			 	<if test=" null != cancelInsurants and ''!= cancelInsurants  ">
+					cancelInsurants,
+				</if>
+			 	<if test=" null != cancelMsg and ''!= cancelMsg  ">
+					cancelMsg,
+				</if>
+			 	<if test=" null != failMsg and ''!= failMsg  ">
+					failMsg,
+				</if>
+			 	<if test=" null != creatTime ">
+					creat_time,
+				</if>
+			 	<if test=" null != upTime ">
+					up_time,
+				</if>
+			 	<if test=" null != productFeeRate ">
+					product_fee_rate,
+				</if>
+			 	<if test=" null != auditStatus ">
+					audit_status,
+				</if>
+			 	<if test=" null != auditUser and ''!= auditUser  ">
+					audit_user,
+				</if>
+			 	<if test=" null != auditTime ">
+					audit_time,
+				</if>
+			 	<if test=" null != clearingStatus ">
+					clearing_status,
+				</if>
+			 	<if test=" null != clearingTime ">
+					clearing_time,
+				</if>
+			 	<if test=" null != remark and ''!= remark  ">
+					remark,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != billId and ''!= billId  ">
+					 	#{billId},
+				</if>
+			 	<if test=" null != orgNumber and ''!= orgNumber  ">
+					 	#{orgNumber},
+				</if>
+			 	<if test=" null != notifyType ">
+					 	#{notifyType},
+				</if>
+			 	<if test=" null != userId and ''!= userId  ">
+					 	#{userId},
+				</if>
+			 	<if test=" null != productId and ''!= productId  ">
+					 	#{productId},
+				</if>
+			 	<if test=" null != insureNum and ''!= insureNum  ">
+					 	#{insureNum},
+				</if>
+			 	<if test=" null != state ">
+					 	#{state},
+				</if>
+			 	<if test=" null != payTime ">
+					 	#{payTime},
+				</if>
+			 	<if test=" null != price ">
+					 	#{price},
+				</if>
+			 	<if test=" null != onlinePaymentId and ''!= onlinePaymentId  ">
+					 	#{onlinePaymentId},
+				</if>
+			 	<if test=" null != newInsureNum and ''!= newInsureNum  ">
+					 	#{newInsureNum},
+				</if>
+			 	<if test=" null != cancelInsurants and ''!= cancelInsurants  ">
+					 	#{cancelInsurants},
+				</if>
+			 	<if test=" null != cancelMsg and ''!= cancelMsg  ">
+					 	#{cancelMsg},
+				</if>
+			 	<if test=" null != failMsg and ''!= failMsg  ">
+					 	#{failMsg},
+				</if>
+			 	<if test=" null != creatTime ">
+					 	#{creatTime},
+				</if>
+			 	<if test=" null != upTime ">
+					 	#{upTime},
+				</if>
+			 	<if test=" null != productFeeRate ">
+					 	#{productFeeRate},
+				</if>
+			 	<if test=" null != auditStatus ">
+					 	#{auditStatus},
+				</if>
+			 	<if test=" null != auditUser and ''!= auditUser  ">
+					 	#{auditUser},
+				</if>
+			 	<if test=" null != auditTime ">
+					 	#{auditTime},
+				</if>
+			 	<if test=" null != clearingStatus ">
+					 	#{clearingStatus},
+				</if>
+			 	<if test=" null != clearingTime ">
+					 	#{clearingTime},
+				</if>
+			 	<if test=" null != remark and ''!= remark  ">
+					 	#{remark},
+				</if>
+		</trim>
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.linkwee.web.model.CimInsuranceNotify" useGeneratedKeys="true" keyProperty="id" >
+		INSERT INTO tcim_insurance_notify
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != billId and ''!= billId  ">
+					bill_id,
+				</if>
+			 	<if test=" null != orgNumber and ''!= orgNumber  ">
+					org_number,
+				</if>
+			 	<if test=" null != notifyType ">
+					notify_type,
+				</if>
+			 	<if test=" null != userId and ''!= userId  ">
+					user_id,
+				</if>
+			 	<if test=" null != productId and ''!= productId  ">
+					product_id,
+				</if>
+			 	<if test=" null != insureNum and ''!= insureNum  ">
+					insure_num,
+				</if>
+			 	<if test=" null != state ">
+					state,
+				</if>
+			 	<if test=" null != payTime ">
+					pay_time,
+				</if>
+			 	<if test=" null != price ">
+					price,
+				</if>
+			 	<if test=" null != onlinePaymentId and ''!= onlinePaymentId  ">
+					online_payment_id,
+				</if>
+			 	<if test=" null != newInsureNum and ''!= newInsureNum  ">
+					newInsureNum,
+				</if>
+			 	<if test=" null != cancelInsurants and ''!= cancelInsurants  ">
+					cancelInsurants,
+				</if>
+			 	<if test=" null != cancelMsg and ''!= cancelMsg  ">
+					cancelMsg,
+				</if>
+			 	<if test=" null != failMsg and ''!= failMsg  ">
+					failMsg,
+				</if>
+			 	<if test=" null != creatTime ">
+					creat_time,
+				</if>
+			 	<if test=" null != upTime ">
+					up_time,
+				</if>
+			 	<if test=" null != productFeeRate ">
+					product_fee_rate,
+				</if>
+			 	<if test=" null != auditStatus ">
+					audit_status,
+				</if>
+			 	<if test=" null != auditUser and ''!= auditUser  ">
+					audit_user,
+				</if>
+			 	<if test=" null != auditTime ">
+					audit_time,
+				</if>
+			 	<if test=" null != clearingStatus ">
+					clearing_status,
+				</if>
+			 	<if test=" null != clearingTime ">
+					clearing_time,
+				</if>
+			 	<if test=" null != remark and ''!= remark  ">
+					remark,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != billId and ''!= billId  ">
+					 	#{billId},
+				</if>
+			 	<if test=" null != orgNumber and ''!= orgNumber  ">
+					 	#{orgNumber},
+				</if>
+			 	<if test=" null != notifyType ">
+					 	#{notifyType},
+				</if>
+			 	<if test=" null != userId and ''!= userId  ">
+					 	#{userId},
+				</if>
+			 	<if test=" null != productId and ''!= productId  ">
+					 	#{productId},
+				</if>
+			 	<if test=" null != insureNum and ''!= insureNum  ">
+					 	#{insureNum},
+				</if>
+			 	<if test=" null != state ">
+					 	#{state},
+				</if>
+			 	<if test=" null != payTime ">
+					 	#{payTime},
+				</if>
+			 	<if test=" null != price ">
+					 	#{price},
+				</if>
+			 	<if test=" null != onlinePaymentId and ''!= onlinePaymentId  ">
+					 	#{onlinePaymentId},
+				</if>
+			 	<if test=" null != newInsureNum and ''!= newInsureNum  ">
+					 	#{newInsureNum},
+				</if>
+			 	<if test=" null != cancelInsurants and ''!= cancelInsurants  ">
+					 	#{cancelInsurants},
+				</if>
+			 	<if test=" null != cancelMsg and ''!= cancelMsg  ">
+					 	#{cancelMsg},
+				</if>
+			 	<if test=" null != failMsg and ''!= failMsg  ">
+					 	#{failMsg},
+				</if>
+			 	<if test=" null != creatTime ">
+					 	#{creatTime},
+				</if>
+			 	<if test=" null != upTime ">
+					 	#{upTime},
+				</if>
+			 	<if test=" null != productFeeRate ">
+					 	#{productFeeRate},
+				</if>
+			 	<if test=" null != auditStatus ">
+					 	#{auditStatus},
+				</if>
+			 	<if test=" null != auditUser and ''!= auditUser  ">
+					 	#{auditUser},
+				</if>
+			 	<if test=" null != auditTime ">
+					 	#{auditTime},
+				</if>
+			 	<if test=" null != clearingStatus ">
+					 	#{clearingStatus},
+				</if>
+			 	<if test=" null != clearingTime ">
+					 	#{clearingTime},
+				</if>
+			 	<if test=" null != remark and ''!= remark  ">
+					 	#{remark},
+				</if>
+		</trim>
+	</insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.linkwee.web.model.CimInsuranceNotify" >
+  		UPDATE tcim_insurance_notify
+		<set>
+			<trim suffixOverrides=",">
+					<if test=" null != billId and ''!= billId  ">
+						bill_id = #{billId},
+					</if>
+					<if test=" null != orgNumber and ''!= orgNumber  ">
+						org_number = #{orgNumber},
+					</if>
+					<if test=" null != notifyType ">
+						notify_type = #{notifyType},
+					</if>
+					<if test=" null != userId and ''!= userId  ">
+						user_id = #{userId},
+					</if>
+					<if test=" null != productId and ''!= productId  ">
+						product_id = #{productId},
+					</if>
+					<if test=" null != insureNum and ''!= insureNum  ">
+						insure_num = #{insureNum},
+					</if>
+					<if test=" null != state ">
+						state = #{state},
+					</if>
+					<if test=" null != payTime ">
+						pay_time = #{payTime},
+					</if>
+					<if test=" null != price ">
+						price = #{price},
+					</if>
+					<if test=" null != onlinePaymentId and ''!= onlinePaymentId  ">
+						online_payment_id = #{onlinePaymentId},
+					</if>
+					<if test=" null != newInsureNum and ''!= newInsureNum  ">
+						newInsureNum = #{newInsureNum},
+					</if>
+					<if test=" null != cancelInsurants and ''!= cancelInsurants  ">
+						cancelInsurants = #{cancelInsurants},
+					</if>
+					<if test=" null != cancelMsg and ''!= cancelMsg  ">
+						cancelMsg = #{cancelMsg},
+					</if>
+					<if test=" null != failMsg and ''!= failMsg  ">
+						failMsg = #{failMsg},
+					</if>
+					<if test=" null != creatTime ">
+						creat_time = #{creatTime},
+					</if>
+					<if test=" null != upTime ">
+						up_time = #{upTime},
+					</if>
+					<if test=" null != productFeeRate ">
+						product_fee_rate = #{productFeeRate},
+					</if>
+					<if test=" null != auditStatus ">
+						audit_status = #{auditStatus},
+					</if>
+					<if test=" null != auditUser and ''!= auditUser  ">
+						audit_user = #{auditUser},
+					</if>
+					<if test=" null != auditTime ">
+						audit_time = #{auditTime},
+					</if>
+					<if test=" null != clearingStatus ">
+						clearing_status = #{clearingStatus},
+					</if>
+					<if test=" null != clearingTime ">
+						clearing_time = #{clearingTime},
+					</if>
+					<if test=" null != remark and ''!= remark  ">
+						remark = #{remark},
+					</if>
+			</trim>
+		</set>
+		<where>
+			 id = #{id}
+		</where>
+	</update>
+  
+	<update id="updateByPrimaryKey" parameterType="com.linkwee.web.model.CimInsuranceNotify" >
+	    UPDATE tcim_insurance_notify
+	   <set>
+			<trim suffixOverrides=",">
+					<if test=" null != billId and ''!= billId  ">
+						bill_id = #{billId},
+					</if>
+					<if test=" null != orgNumber and ''!= orgNumber  ">
+						org_number = #{orgNumber},
+					</if>
+					<if test=" null != notifyType ">
+						notify_type = #{notifyType},
+					</if>
+					<if test=" null != userId and ''!= userId  ">
+						user_id = #{userId},
+					</if>
+					<if test=" null != productId and ''!= productId  ">
+						product_id = #{productId},
+					</if>
+					<if test=" null != insureNum and ''!= insureNum  ">
+						insure_num = #{insureNum},
+					</if>
+					<if test=" null != state ">
+						state = #{state},
+					</if>
+					<if test=" null != payTime ">
+						pay_time = #{payTime},
+					</if>
+					<if test=" null != price ">
+						price = #{price},
+					</if>
+					<if test=" null != onlinePaymentId and ''!= onlinePaymentId  ">
+						online_payment_id = #{onlinePaymentId},
+					</if>
+					<if test=" null != newInsureNum and ''!= newInsureNum  ">
+						newInsureNum = #{newInsureNum},
+					</if>
+					<if test=" null != cancelInsurants and ''!= cancelInsurants  ">
+						cancelInsurants = #{cancelInsurants},
+					</if>
+					<if test=" null != cancelMsg and ''!= cancelMsg  ">
+						cancelMsg = #{cancelMsg},
+					</if>
+					<if test=" null != failMsg and ''!= failMsg  ">
+						failMsg = #{failMsg},
+					</if>
+					<if test=" null != creatTime ">
+						creat_time = #{creatTime},
+					</if>
+					<if test=" null != upTime ">
+						up_time = #{upTime},
+					</if>
+					<if test=" null != productFeeRate ">
+						product_fee_rate = #{productFeeRate},
+					</if>
+					<if test=" null != auditStatus ">
+						audit_status = #{auditStatus},
+					</if>
+					<if test=" null != auditUser and ''!= auditUser  ">
+						audit_user = #{auditUser},
+					</if>
+					<if test=" null != auditTime ">
+						audit_time = #{auditTime},
+					</if>
+					<if test=" null != clearingStatus ">
+						clearing_status = #{clearingStatus},
+					</if>
+					<if test=" null != clearingTime ">
+						clearing_time = #{clearingTime},
+					</if>
+					<if test=" null != remark and ''!= remark  ">
+						remark = #{remark},
+					</if>
+			</trim>
+		</set>
+		<where>
+			id = #{0}
+		</where>
+	  </update>
+
+	<!-- 分页条件查询 -->
+    <select id="selectBySearchInfo" resultMap="BaseResultMap" parameterType="com.linkwee.core.datatable.DataTable">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM tcim_insurance_notify
+        <where> 
+        <if test="dt.search!=null">  
+                name LIKE CONCAT('%','${dt.search.value}','%' )  
+         </if>  
+         <if test="dt.order!=null">  
+               <foreach collection="dt.order" index="index" item="item"
+                    open="order by" separator="," close=" ">
+                    ${item.name} ${item.dir} 
+                </foreach>
+         </if>  
+        </where>
+    </select>
+    
+    <!-- 查询保险投资日历 -->
+   <select id="queryInsuranceInvestCalendarPageList" parameterType="com.linkwee.api.request.crm.InvestCalendarRequest" resultType="com.linkwee.api.response.crm.InsuranceInvestCalendarResponse">
+	 			SELECT   
+					tempLast.*,
+					ti.head_image AS headImage,
+					tui.user_name AS userName
+				FROM	
+					(SELECT
+							tin.bill_id AS investId,
+							tin.price/100 AS investAmt,
+							tin.creat_time AS startTime,
+							DATE_FORMAT(
+								tin.creat_time,
+								'%Y年%m月%d日'
+							) AS startTimeStr,
+							temp.feeAmountSum,
+							tii.`name` AS platformName,
+							tin.clearing_status AS clearingStatus,
+							<!-- 查询用户类型级别 -->
+							CASE temp.minFeeType 
+									 WHEN '1001' THEN 0
+									 WHEN '1002' THEN  1
+									 WHEN '1005' THEN  2
+									 WHEN '1006' THEN (CASE TEMP.lowType WHEN 0 THEN 1  WHEN 1 THEN 2 WHEN 2 THEN 3 END)
+									 END AS userType,
+							<!-- 查询客户userId-->
+							 CASE temp.minFeeType 
+										 WHEN
+												'1001' 
+										 THEN 
+												tin.user_id
+										 WHEN 
+												'1002' 
+										 THEN   
+													(SELECT
+															tif.origin_cfplanner_id
+														FROM
+															tcim_insurance_fee tif
+														WHERE
+																tif.bill_id = temp.billId
+														AND tif.profit_cfplanner_id = temp.profit_cfplanner_id
+														AND tif.fee_type = '1002')
+										 WHEN 
+												'1005' 
+										 THEN 
+													(SELECT
+															tif.origin_cfplanner_id
+														FROM
+															tcim_insurance_fee tif
+														WHERE
+																tif.bill_id = temp.billId
+														AND tif.profit_cfplanner_id = temp.profit_cfplanner_id
+														AND tif.fee_type = '1005')
+										 WHEN 
+												'1006' 
+										 THEN 
+													(SELECT
+															tif.low_user_id
+														FROM
+															tcim_insurance_fee tif
+														WHERE
+																tif.bill_id = temp.billId
+														AND tif.profit_cfplanner_id = temp.profit_cfplanner_id
+														AND tif.fee_type = '1006')
+										 END AS userId
+						FROM
+							(
+								SELECT
+									tif.bill_id AS billId,
+									tif.profit_cfplanner_id,
+									tif.low_type AS lowType,
+									tif.fee_rate AS feeRate,
+									MIN(tif.fee_type) AS minFeeType,
+									SUM(tif.fee_amount) AS feeAmountSum
+								FROM
+									tcim_insurance_fee tif
+								WHERE
+									tif.profit_cfplanner_id = #{userId,jdbcType=VARCHAR}
+						 		<if test=" queryType == 1 ">
+							 		 AND tif.investor_id  = #{userId,jdbcType=VARCHAR}
+						 		</if>
+						 		<if test=" queryType == 2 ">
+							 		 AND tif.investor_id  <![CDATA[ <> ]]> #{userId,jdbcType=VARCHAR}
+						 		</if>									
+								GROUP BY
+									tif.bill_id
+								HAVING feeAmountSum <![CDATA[ >= ]]> 0
+							) temp,
+							tcim_insurance_notify tin,
+							tcim_insurance_policy_info tipi,
+							tcim_insurance_info tii
+						WHERE
+							   temp.billId = tin.bill_id
+						   AND tii.org_number = tin.org_number
+						   AND tin.insure_num = tipi.insure_num
+				) tempLast,
+				tcrm_investor ti,
+				tcrm_user_info tui
+		WHERE ti.user_id = tempLast.userId
+			AND ti.user_id = tui.user_id
+		<if test=" investTime != null and investTime != '' ">
+			AND tempLast.startTime LIKE CONCAT('%','${investTime}','%' )  
+		</if>
+		ORDER BY
+			tempLast.startTime DESC,
+			tempLast.investAmt DESC
+	</select>
+	
+	<!-- 交易日历统计金额-保险-->
+	<select id="investCalendarStatisticsTotal" parameterType="com.linkwee.api.request.crm.InvestCalendarStatisticsRequest" resultType="com.linkwee.api.response.crm.InsuranceInvestCalendarStatisticsResponse">
+			SELECT
+				IFNULL(SUM(tin.price/100),0) AS insuranceInvestAmtTotal,
+				IFNULL(SUM(temp.feeAmountSum),0) AS insuranceFeeAmountSumTotal
+			FROM
+				(
+					SELECT
+						tif.bill_id AS billId,
+						tif.profit_cfplanner_id,
+						tif.low_type AS lowType,
+						tif.fee_rate AS feeRate,
+						MIN(tif.fee_type) AS minFeeType,
+						SUM(tif.fee_amount) AS feeAmountSum
+					FROM
+						tcim_insurance_fee tif
+					WHERE
+						tif.profit_cfplanner_id = #{userId,jdbcType=VARCHAR}
+				 		<if test=" queryType == 1 ">
+					 		 AND tif.investor_id  = #{userId,jdbcType=VARCHAR}
+				 		</if>
+				 		<if test=" queryType == 2 ">
+					 		 AND tif.investor_id  <![CDATA[ <> ]]> #{userId,jdbcType=VARCHAR}
+				 		</if>						
+					GROUP BY
+						tif.bill_id
+					HAVING feeAmountSum <![CDATA[ >= ]]> 0
+				) temp,
+				tcim_insurance_notify tin,
+				tcim_insurance_policy_info tipi
+			WHERE
+				temp.billId = tin.bill_id
+			AND DATE_FORMAT(tin.creat_time, '%Y-%m') = #{investMonth,jdbcType=VARCHAR}
+			AND tin.insure_num = tipi.insure_num
+	</select>
+	
+	<!-- 交易日历统计数量-保险-->
+	<select id="investCalendarStatisticsNumber" parameterType="com.linkwee.api.request.crm.InvestCalendarStatisticsRequest" resultType="com.linkwee.api.response.crm.CalendarStatisticsResponse">
+			SELECT
+				DATE_FORMAT(tin.creat_time, '%Y-%m-%d') AS calendarTime,
+				COUNT(tin.id) AS calendarNumber
+			FROM
+				(
+					SELECT
+						tif.bill_id AS billId,
+						tif.profit_cfplanner_id,
+						tif.low_type AS lowType,
+						tif.fee_rate AS feeRate,
+						MIN(tif.fee_type) AS minFeeType,
+						SUM(tif.fee_amount) AS feeAmountSum
+					FROM
+						tcim_insurance_fee tif
+					WHERE
+						tif.profit_cfplanner_id = #{userId,jdbcType=VARCHAR}
+				 		<if test=" queryType == 1 ">
+					 		 AND tif.investor_id  = #{userId,jdbcType=VARCHAR}
+				 		</if>
+				 		<if test=" queryType == 2 ">
+					 		 AND tif.investor_id  <![CDATA[ <> ]]> #{userId,jdbcType=VARCHAR}
+				 		</if>	
+					GROUP BY
+						tif.bill_id
+					HAVING feeAmountSum <![CDATA[ >= ]]> 0
+				) temp,
+				tcim_insurance_notify tin,
+				tcim_insurance_policy_info tipi
+			WHERE
+				temp.billId = tin.bill_id
+			AND DATE_FORMAT(tin.creat_time, '%Y-%m') = #{investMonth,jdbcType=VARCHAR}
+			AND tin.insure_num = tipi.insure_num
+			GROUP BY
+				DATE_FORMAT(tin.creat_time, '%Y-%m-%d')
+			ORDER BY tin.creat_time  ASC		
+	</select>	
+
+
+	<!-- 查询保险交易详情 -->
+	<select id="queryInvestCalendarDetail" parameterType="com.linkwee.api.request.crm.InvestCalendarDetailRequest" resultType="com.linkwee.api.response.crm.InsuranceInvestCalendarDetailResponse">
+	 		SELECT   
+					tempLast.investId,
+					tempLast.investAmt,
+					tempLast.startTime,
+					tempLast.feeAmountSum,
+					tempLast.clearingStatus,
+					tempLast.userType,
+					tempLast.userId,
+					tempLast.insureNum,
+					tempLast.productFeeRate,
+					tempLast.startDate,
+					tempLast.endDate,
+					tip.productName,
+					tip.hesitate_date AS hesitateDate,
+					tii.name AS platformName,
+					ti.head_image AS headImage,
+					tui.user_name AS userName
+			FROM	
+					(SELECT
+							tin.bill_id AS investId,
+							tin.price/100 AS investAmt,
+							tin.creat_time AS startTime,
+							temp.feeAmountSum,
+							tin.org_number AS orgNumber,
+							tin.product_id AS productId,
+							tin.insure_num AS insureNum,
+							tin.product_fee_rate AS productFeeRate,
+							tin.clearing_status AS clearingStatus,
+							tipi.start_date AS startDate,
+							tipi.end_date AS endDate,
+							<!-- 查询用户类型级别 -->
+							CASE temp.minFeeType 
+									 WHEN '1001' THEN 0
+									 WHEN '1002' THEN  1
+									 WHEN '1005' THEN  2
+									 WHEN '1006' THEN (CASE TEMP.lowType WHEN 0 THEN 1  WHEN 1 THEN 2 WHEN 2 THEN 3 END)
+									 END AS userType,
+							<!-- 查询客户userId-->
+							 CASE temp.minFeeType 
+										 WHEN
+												'1001' 
+										 THEN 
+												tin.user_id
+										 WHEN 
+												'1002' 
+										 THEN   
+													(SELECT
+															tif.origin_cfplanner_id
+														FROM
+															tcim_insurance_fee tif
+														WHERE
+																tif.bill_id = temp.billId
+														AND tif.profit_cfplanner_id = temp.profit_cfplanner_id
+														AND tif.fee_type = '1002')
+										 WHEN 
+												'1005' 
+										 THEN 
+													(SELECT
+															tif.origin_cfplanner_id
+														FROM
+															tcim_insurance_fee tif
+														WHERE
+																tif.bill_id = temp.billId
+														AND tif.profit_cfplanner_id = temp.profit_cfplanner_id
+														AND tif.fee_type = '1005')
+										 WHEN 
+												'1006' 
+										 THEN 
+													(SELECT
+															tif.low_user_id
+														FROM
+															tcim_insurance_fee tif
+														WHERE
+																tif.bill_id = temp.billId
+														AND tif.profit_cfplanner_id = temp.profit_cfplanner_id
+														AND tif.fee_type = '1006')
+										 END AS userId
+						FROM
+							(
+								SELECT
+									tif.bill_id AS billId,
+									tif.profit_cfplanner_id,
+									tif.low_type AS lowType,
+									tif.fee_rate AS feeRate,
+									MIN(tif.fee_type) AS minFeeType,
+									SUM(tif.fee_amount) AS feeAmountSum
+								FROM
+									tcim_insurance_fee tif
+								WHERE
+									tif.profit_cfplanner_id = #{userId,jdbcType=VARCHAR}
+									AND tif.bill_id = #{investId,jdbcType=VARCHAR}
+								GROUP BY tif.profit_cfplanner_id
+							) temp,
+							tcim_insurance_notify tin,
+							tcim_insurance_policy_info tipi
+						WHERE
+							 temp.billId = tin.bill_id
+						 AND tin.insure_num = tipi.insure_num
+				) tempLast,
+				tcim_insurance_info tii,
+				tcim_insurance_product tip,
+				tcrm_investor ti,
+				tcrm_user_info tui
+		WHERE ti.user_id = tempLast.userId
+			AND tii.org_number = tempLast.orgNumber
+			AND tip.caseCode =  tempLast.productId
+			AND ti.user_id = tui.user_id
+	</select>
+</mapper>

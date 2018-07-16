@@ -1,0 +1,477 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.SmBrandPromotionMapper">
+	<!-- Result Map-->
+	<resultMap  type="com.linkwee.web.model.crm.SmBrandPromotion" id="BaseResultMap">
+		<result column="id" property="id" jdbcType="INTEGER"/>
+		<result column="app_type" property="appType" jdbcType="VARCHAR"/>
+		<result column="type_value" property="typeValue" jdbcType="VARCHAR"/>
+		<result column="status" property="status" jdbcType="INTEGER"/>
+		<result column="image" property="image" jdbcType="VARCHAR"/>
+		<result column="show_inx" property="showInx" jdbcType="INTEGER"/>
+		<result column="creator" property="creator" jdbcType="VARCHAR"/>
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+		<result column="modifiy_time" property="modifiyTime" jdbcType="TIMESTAMP"/>
+		<result column="valid_begin" property="validBegin" jdbcType="TIMESTAMP"/>
+		<result column="valid_end" property="validEnd" jdbcType="TIMESTAMP"/>
+		<result column="remark" property="remark" jdbcType="VARCHAR"/>
+		<result column="use_type" property="useType" jdbcType="VARCHAR"/>
+		<result column="small_image" property="smallImage" jdbcType="VARCHAR"/>
+		
+	</resultMap>
+	
+	<resultMap  type="com.linkwee.web.model.crm.SmBrandPostersType" id="PostersTypeMap">
+		<result column="type_value" property="typeValue" jdbcType="VARCHAR"/>
+		<result column="name" property="name" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+  <sql id="Base_Column_List">
+    <trim suffixOverrides=",">
+	    	id,
+	    	app_type,
+	    	type_value,
+	    	status,
+	    	image,
+	    	show_inx,
+	    	creator,
+	    	create_time,
+	    	modifiy_time,
+	    	valid_begin,
+	    	valid_end,
+	    	remark,
+	    	use_type,
+	    	small_image,
+    </trim>
+  </sql>  
+  
+  <sql id="Base_Condition">
+		<if test=" null != id ">
+			and id = #{id}
+		</if>
+		<if test=" null != appType ">
+			and app_type = #{appType}
+		</if>
+		<if test=" null != typeValue ">
+			and type_value = #{typeValue}
+		</if>
+		<if test=" null != status ">
+			and status = #{status}
+		</if>
+		<if test=" null != image and ''!= image  ">
+			and image = #{image}
+		</if>
+		<if test=" null != showInx ">
+			and show_inx = #{showInx}
+		</if>
+		<if test=" null != creator and ''!= creator  ">
+			and creator = #{creator}
+		</if>
+		<if test=" null != createTime ">
+			and create_time = #{createTime}
+		</if>
+		<if test=" null != modifiyTime ">
+			and modifiy_time = #{modifiyTime}
+		</if>
+		<if test=" null != validBegin ">
+			and valid_begin = #{validBegin}
+		</if>
+		<if test=" null != validEnd ">
+			and valid_end = #{validEnd}
+		</if>
+		<if test=" null != remark and ''!= remark  ">
+			and remark = #{remark}
+		</if>
+		<if test=" null != useType and ''!= useType  ">
+			and use_type = #{useType}
+		</if>
+		<if test=" null != smallImage and ''!= smallImage  ">
+			and small_image = #{smallImage}
+		</if>
+  </sql>
+  
+  <select id="selectOneByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.web.model.crm.SmBrandPromotion">
+		select <include refid="Base_Column_List" /> from tsm_brand_promotion 
+		where 1=1 <include refid="Base_Condition" />
+  </select>
+  
+  <select id="selectByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.web.model.crm.SmBrandPromotion">
+		select <include refid="Base_Column_List" /> from tsm_brand_promotion 
+		where 1=1 <include refid="Base_Condition" />
+  </select>
+  
+  <select id="selectAllListByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.web.model.crm.SmBrandPromotion">
+		select p.id,
+	    	p.app_type,
+	    	p.type_value,
+	    	p.status,
+	    	p.image,
+	    	p.show_inx,
+	    	p.valid_begin,
+	    	p.valid_end,
+	    	p.remark,
+	    	p.use_type,
+	    	p.small_image, 
+	    	t.content 
+	    	from tsm_brand_promotion_type t LEFT JOIN tsm_brand_promotion p on t.type_value=p.type_value and t.app_type=p.app_type 
+		where p.app_type=#{appType} and t.`status`='0' and p.`status`='0' ORDER BY  show_inx asc
+  </select>
+  
+  <select id="selectAllBrandPostersTypeList" resultMap="PostersTypeMap" parameterType="com.linkwee.web.model.crm.SmBrandPostersType">
+	select * from  tsm_brand_posters_type   where status=0	
+  </select>
+  
+  <select id="selectBrandPostersList" resultMap="BaseResultMap" parameterType="com.linkwee.web.model.crm.SmBrandPromotion">
+	    SELECT * FROM tsm_brand_posters where status=0 and type_value =#{type} 
+        AND valid_begin <![CDATA[ <= ]]>NOW() 
+		AND valid_end <![CDATA[ >= ]]>NOW() 
+        GROUP BY show_inx
+  </select>
+  
+ 
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tsm_brand_promotion
+    where  id = #{0}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+<!--     delete from tsm_brand_promotion -->
+<!--     where id = #{0} -->
+    update tsm_brand_promotion set status=1 where id = #{0} 
+  </delete>
+
+  <insert id="insert" parameterType="com.linkwee.web.model.crm.SmBrandPromotion" >
+    INSERT INTO tsm_brand_promotion
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != appType ">
+					app_type,
+				</if>
+			 	<if test=" null != typeValue ">
+					type_value,
+				</if>
+			 	<if test=" null != status ">
+					status,
+				</if>
+			 	<if test=" null != image and ''!= image  ">
+					image,
+				</if>
+			 	<if test=" null != showInx ">
+					show_inx,
+				</if>
+			 	<if test=" null != creator and ''!= creator  ">
+					creator,
+				</if>
+			 	<if test=" null != createTime ">
+					create_time,
+				</if>
+			 	<if test=" null != modifiyTime ">
+					modifiy_time,
+				</if>
+			 	<if test=" null != validBegin ">
+					valid_begin,
+				</if>
+			 	<if test=" null != validEnd ">
+					valid_end,
+				</if>
+			 	<if test=" null != remark and ''!= remark  ">
+					remark,
+				</if>
+				<if test=" null != useType and ''!= useType  ">
+					use_type,
+				</if>
+				<if test=" null != smallImage and ''!= smallImage  ">
+			        small_image,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != appType ">
+					 	#{appType},
+				</if>
+			 	<if test=" null != typeValue ">
+					 	#{typeValue},
+				</if>
+			 	<if test=" null != status ">
+					 	#{status},
+				</if>
+			 	<if test=" null != image and ''!= image  ">
+					 	#{image},
+				</if>
+			 	<if test=" null != showInx ">
+					 	#{showInx},
+				</if>
+			 	<if test=" null != creator and ''!= creator  ">
+					 	#{creator},
+				</if>
+			 	<if test=" null != createTime ">
+					 	#{createTime},
+				</if>
+			 	<if test=" null != modifiyTime ">
+					 	#{modifiyTime},
+				</if>
+			 	<if test=" null != validBegin ">
+					 	#{validBegin},
+				</if>
+			 	<if test=" null != validEnd ">
+					 	#{validEnd},
+				</if>
+			 	<if test=" null != remark and ''!= remark  ">
+					 	#{remark},
+				</if>
+				<if test=" null != useType and ''!= useType  ">
+						#{useType},
+				</if>
+				<if test=" null != smallImage and ''!= smallImage  ">
+			        	#{smallImage},
+				</if>
+		</trim>
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.linkwee.web.model.crm.SmBrandPromotion" useGeneratedKeys="true" keyProperty="id" >
+		INSERT INTO tsm_brand_promotion
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != appType ">
+					app_type,
+				</if>
+			 	<if test=" null != typeValue ">
+					type_value,
+				</if>
+			 	<if test=" null != status ">
+					status,
+				</if>
+			 	<if test=" null != image and ''!= image  ">
+					image,
+				</if>
+			 	<if test=" null != showInx ">
+					show_inx,
+				</if>
+			 	<if test=" null != creator and ''!= creator  ">
+					creator,
+				</if>
+			 	<if test=" null != createTime ">
+					create_time,
+				</if>
+			 	<if test=" null != modifiyTime ">
+					modifiy_time,
+				</if>
+			 	<if test=" null != validBegin ">
+					valid_begin,
+				</if>
+			 	<if test=" null != validEnd ">
+					valid_end,
+				</if>
+			 	<if test=" null != remark and ''!= remark  ">
+					remark,
+				</if>
+				<if test=" null != useType and ''!= useType  ">
+					use_type,
+				</if>
+				<if test=" null != smallImage and ''!= smallImage  ">
+			        small_image,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != appType ">
+					 	#{appType},
+				</if>
+			 	<if test=" null != typeValue ">
+					 	#{typeValue},
+				</if>
+			 	<if test=" null != status ">
+					 	#{status},
+				</if>
+			 	<if test=" null != image and ''!= image  ">
+					 	#{image},
+				</if>
+			 	<if test=" null != showInx ">
+					 	#{showInx},
+				</if>
+			 	<if test=" null != creator and ''!= creator  ">
+					 	#{creator},
+				</if>
+			 	<if test=" null != createTime ">
+					 	#{createTime},
+				</if>
+			 	<if test=" null != modifiyTime ">
+					 	#{modifiyTime},
+				</if>
+			 	<if test=" null != validBegin ">
+					 	#{validBegin},
+				</if>
+			 	<if test=" null != validEnd ">
+					 	#{validEnd},
+				</if>
+			 	<if test=" null != remark and ''!= remark  ">
+					 	#{remark},
+				</if>
+				<if test=" null != useType and ''!= useType  ">
+						#{useType},
+				</if>
+				<if test=" null != smallImage and ''!= smallImage  ">
+			        	#{smallImage},
+				</if>
+		</trim>
+	</insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.linkwee.web.model.crm.SmBrandPromotion" >
+  		UPDATE tsm_brand_promotion
+		<set>
+			<trim suffixOverrides=",">
+					<if test=" null != appType ">
+						app_type = #{appType},
+					</if>
+					<if test=" null != typeValue ">
+						type_value = #{typeValue},
+					</if>
+					<if test=" null != status ">
+						status = #{status},
+					</if>
+					<if test=" null != image and ''!= image  ">
+						image = #{image},
+					</if>
+					<if test=" null != showInx ">
+						show_inx = #{showInx},
+					</if>
+					<if test=" null != creator and ''!= creator  ">
+						creator = #{creator},
+					</if>
+					<if test=" null != createTime ">
+						create_time = #{createTime},
+					</if>
+					<if test=" null != modifiyTime ">
+						modifiy_time = #{modifiyTime},
+					</if>
+					<if test=" null != validBegin ">
+						valid_begin = #{validBegin},
+					</if>
+					<if test=" null != validEnd ">
+						valid_end = #{validEnd},
+					</if>
+					<if test=" null != remark and ''!= remark  ">
+						remark = #{remark},
+					</if>
+					<if test=" null != useType and ''!= useType  ">
+						use_type = #{useType},
+					</if>
+					<if test=" null != smallImage and ''!= smallImage  ">
+			       		 small_image = #{smallImage},
+					</if>
+			</trim>
+		</set>
+		<where>
+			 id = #{id}
+		</where>
+	</update>
+  
+	<update id="updateByPrimaryKey" parameterType="com.linkwee.web.model.crm.SmBrandPromotion" >
+	    UPDATE tsm_brand_promotion
+	   <set>
+			<trim suffixOverrides=",">
+					<if test=" null != appType ">
+						app_type = #{appType},
+					</if>
+					<if test=" null != typeValue ">
+						type_value = #{typeValue},
+					</if>
+					<if test=" null != status ">
+						status = #{status},
+					</if>
+					<if test=" null != image and ''!= image  ">
+						image = #{image},
+					</if>
+					<if test=" null != showInx ">
+						show_inx = #{showInx},
+					</if>
+					<if test=" null != creator and ''!= creator  ">
+						creator = #{creator},
+					</if>
+					<if test=" null != createTime ">
+						create_time = #{createTime},
+					</if>
+					<if test=" null != modifiyTime ">
+						modifiy_time = #{modifiyTime},
+					</if>
+					<if test=" null != validBegin ">
+						valid_begin = #{validBegin},
+					</if>
+					<if test=" null != validEnd ">
+						valid_end = #{validEnd},
+					</if>
+					<if test=" null != remark and ''!= remark  ">
+						remark = #{remark},
+					</if>
+					<if test=" null != useType and ''!= useType  ">
+						use_type = #{useType},
+					</if>
+					<if test=" null != smallImage and ''!= smallImage  ">
+			       	    small_image = #{smallImage},
+					</if>
+			</trim>
+		</set>
+		<where>
+			id = #{0}
+		</where>
+	  </update>
+
+	<!-- 分页条件查询 -->
+    <select id="selectBySearchInfo" resultMap="BaseResultMap" parameterType="com.linkwee.core.datatable.DataTable">
+        SELECT
+            id,
+    		case when app_type=1 then '推荐理财师' else '邀请客户' end app_type,
+	    	case when type_value=2 then '热点海报' when type_value=3  then '精品推荐' else '个人名片' end type_value,
+	    	status,
+	    	image,
+	    	show_inx,
+	    	creator,
+	    	create_time,
+	    	modifiy_time,
+	    	valid_begin,
+	    	valid_end,
+	    	remark,
+	    	use_type,
+	    	small_image 
+        FROM tsm_brand_promotion
+        <where> status=0 
+        <if test=" null != appType and ''!= appType  ">
+					and	app_type = #{appType} 
+		</if> 
+		<if test=" null != useType and ''!= useType  ">
+					and	use_type = #{useType} 
+		</if> 
+		<if test=" null != typeValue and ''!= typeValue  ">
+					and	type_value = #{typeValue} 
+		</if> 
+        <if test="dt.search!=null">  
+                remark LIKE CONCAT('%','${dt.search.value}','%' )  
+         </if>  
+         <if test="dt.order!=null">  
+               <foreach collection="dt.order" index="index" item="item"
+                    open="order by" separator="," close=" ">
+                    ${item.name} ${item.dir} 
+                </foreach>
+         </if>  
+        </where>
+    </select>
+    
+   	<update id="overheadSmBrandPromotion" parameterType="com.linkwee.web.model.crm.SmBrandPromotion" >
+	      update tsm_brand_promotion set show_inx=show_inx+1 where use_type=1 and status=0
+	</update>
+	
+	<update id="overheadbpSmBrandPromotion" parameterType="com.linkwee.web.model.crm.SmBrandPromotion" >
+	      update tsm_brand_promotion set show_inx=show_inx+1 where use_type=2 and status=0
+	</update>
+
+</mapper>

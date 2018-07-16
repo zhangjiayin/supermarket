@@ -1,0 +1,107 @@
+/* here you can put your own css to customize and override the theme 13267115656 */
+html,body,.page-content{ background-color: #EBEFF2 !important;}
+.ux-warpper{ background-color: #ffffff; padding: 15px;}
+.ux-clean{ margin: 0;padding: 0; clear: both; height: 1px; overflow: hidden;}
+.ux-toolber{ padding: 8px 0;}
+.ui-redirect{ cursor: pointer;}
+.btn.btn-sm.btn-icon{ padding: 0px 8px 0px 0px;  font-size: 11px;    border-radius: 1px !important;}
+.btn.btn-sm.btn-icon i {
+    padding: 5px 6px;
+    font-size: 11px;
+    line-height: 1.5;
+    margin: 0;
+}
+.btn.btn.sm.btn-default.btn-icon{ background-color: #dbdbdd;color: #303641;}
+
+/*.page-title{ background-color: #ffffff;}*/
+.page-content .page-breadcrumb.breadcrumb{ background-color: #ffffff;}
+.theme-panel{ display: none !important;}
+/***
+Page sidebar
+***/
+.page-sidebar {
+    background-color: #6589DD;
+}
+ul.page-sidebar-menu > li > a {
+    border-top: 1px solid #5A81D7 !important;
+    color: #ffffff !important;
+}
+ul.page-sidebar-menu > li:last-child > a {
+    border-bottom: 1px solid transparent !important;
+}
+ul.page-sidebar-menu > li a i {
+    color: #ffffff;
+}
+
+ul.page-sidebar-menu > li > a:hover,
+ul.page-sidebar-menu > li:hover > a {
+    background: #6589DD;
+}
+
+
+ul.page-sidebar-menu > li > a:hover span.title{color: #3958A2;}
+ul.page-sidebar-menu > li.open > a,
+ul.page-sidebar-menu > li.open > a:hover{ background-color: #3958A2;  }
+ul.page-sidebar-menu > li.open > a:hover span.title{color: #ffffff;}
+
+
+ul.page-sidebar-menu > li.active > a {
+    background: #e02222 !important;
+    border-top-color: transparent !important;
+    color: #ffffff;
+}
+ul.page-sidebar-menu > li.active > a i {
+    color: #ffffff;
+}
+ul.page-sidebar-menu > li > ul.sub-menu > li:first-child > a {
+    border-top: 0px !important;
+}
+ul.page-sidebar-menu > li > ul.sub-menu > li.active > a,
+ul.page-sidebar-menu > li > ul.sub-menu > li > a:hover {
+    color: #ffffff !important;
+    background: #6589DD !important;
+}
+ul.page-sidebar-menu > li > ul.sub-menu > li > a:hover {
+    background: #3958A2 !important;
+}
+/* 3rd level sub menu */
+ul.page-sidebar-menu > li > ul.sub-menu li > ul.sub-menu > li.active > a,
+ul.page-sidebar-menu > li > ul.sub-menu li > ul.sub-menu > li > a:hover,
+ul.page-sidebar-menu > li > ul.sub-menu li.open > a {
+    color: #ffffff !important;
+    background: #3958A2 !important;
+}
+/* font color for all sub menu links*/
+ul.page-sidebar-menu li > ul.sub-menu > li > a {
+    color: #ffffff;
+}
+/* menu arrows */
+ul.page-sidebar-menu > li > a .arrow:before,
+ul.page-sidebar-menu > li > a .arrow.open:before {
+    color: #ffffff !important;
+}
+ul.page-sidebar-menu > li > ul.sub-menu a .arrow:before,
+ul.page-sidebar-menu > li > ul.sub-menu a .arrow.open:before {
+    color: #ffffff !important;
+}
+ul.page-sidebar-menu > li > a > .arrow.open:before {
+    color: #ffffff !important;
+}
+ul.page-sidebar-menu > li.active > a .arrow:before,
+ul.page-sidebar-menu > li.active > a .arrow.open:before {
+    color: #ffffff !important;
+}
+@media (min-width: 992px){
+    .page-sidebar-fixed .page-sidebar{ top: 60px;}
+}
+
+
+/*.header.navbar-fixed-top*/
+.header.navbar-fixed-top{ background-color: #f5f5f5 !important; height: 60px;}
+.ux-account{ float: right; line-height: 100%; padding: 20px 15px;}
+.ux-account span,.ux-account a{ font-size: 14px; padding: 0 4px; text-decoration: none;}
+.ux-account span.username{ color: #6489DD;}
+.ux-account a i{  margin: 0 8px;}
+.page-footer-fixed .footer{ background-color: #ffffff;}
+.page-footer-fixed .footer .footer-tools .go-top{ background-color:#6589DD; }
+.page-footer-fixed .footer .footer-tools .go-top i{ color: #ffffff;}

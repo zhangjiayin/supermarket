@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.LcsDataViewDao">
+
+
+<!-- 查询理财师总数 -->
+<select id="getLcsDateStaticTotal"  resultType="int" >
+	SELECT COUNT(f_number) FROM t_sale_user_info 
+	<where>
+		f_is_cfp=1
+		<if test=" null != startDate">
+			AND DATE_FORMAT(f_cfp_reg_time, '%Y-%m-%d') &gt;=  DATE_FORMAT(#{startDate}, '%Y-%m-%d')
+		</if>
+		<if test=" null != endDate">
+			AND DATE_FORMAT(#{endDate}, '%Y-%m-%d') &gt;=  DATE_FORMAT(f_cfp_reg_time, '%Y-%m-%d')
+		</if>
+	</where>
+	
+</select>
+
+
+<!-- 根据日期查询理财师数据 -->
+<select id="getLcsDateStatic"  resultType="map" >
+	SELECT DATE_FORMAT(f_cfp_reg_time,'%Y-%m-%d')as date,COUNT(f_number)as count FROM t_sale_user_info  
+	<where>
+		f_is_cfp=1 
+		<choose>
+			<when test="null != startDate or null != endDate">
+					<if test=" null != startDate">
+						AND DATE_FORMAT(f_cfp_reg_time, '%Y-%m-%d') &gt;=  DATE_FORMAT(#{startDate}, '%Y-%m-%d')
+					</if>
+					<if test=" null != endDate">
+						AND DATE_FORMAT(#{endDate}, '%Y-%m-%d') &gt;=  DATE_FORMAT(f_cfp_reg_time, '%Y-%m-%d')
+					</if>
+			</when>
+			<otherwise>
+				AND  f_cfp_reg_time BETWEEN DATE_SUB(CURDATE(), INTERVAL 7 DAY) AND  CURDATE()
+			</otherwise>
+		
+		</choose>
+	</where>
+	GROUP BY DATE_FORMAT(f_cfp_reg_time,'%Y-%m-%d')
+</select>
+
+<!-- 查询理财师数量 -->
+<select id="getLcsDateStaticCount"  resultType="map" >
+	SELECT a.*,b.*,c.*,d.* FROM
+	(SELECT COUNT(f_number)AS curday FROM t_sale_user_info WHERE f_is_cfp=1 AND DATE_FORMAT(f_cfp_reg_time,'%Y-%m-%d')=CURDATE())a,
+	(SELECT COUNT(f_number)AS curWeek FROM  t_sale_user_info WHERE f_is_cfp=1 AND  f_cfp_reg_time BETWEEN DATE_SUB(CURDATE(), INTERVAL 7 DAY) AND  CURDATE())b,   
+	(SELECT COUNT(f_number)AS curmonth FROM t_sale_user_info WHERE f_is_cfp=1 AND  DATE_FORMAT(f_cfp_reg_time,'%Y-%m')=DATE_FORMAT(CURDATE(),'%Y-%m'))c,
+	(SELECT COUNT(f_number)AS total FROM t_sale_user_info  WHERE f_is_cfp=1)d
+</select>
+
+
+<!-- 查询有效理财师总数 -->
+<select id="getValidLcsDateStaticTotal"  resultType="int" >
+	SELECT COUNT(f_number) FROM t_sale_user_info 
+	<where>
+		f_is_cfp=1 
+		AND f_cfp_level!='PROBATION'
+		<if test=" null != startDate">
+			AND DATE_FORMAT(f_cfp_reg_time, '%Y-%m-%d') &gt;=  DATE_FORMAT(#{startDate}, '%Y-%m-%d')
+		</if>
+		<if test=" null != endDate">
+			AND DATE_FORMAT(#{endDate}, '%Y-%m-%d') &gt;=  DATE_FORMAT(f_cfp_reg_time, '%Y-%m-%d')
+		</if>
+	</where>
+</select>
+
+<!-- 根据日期查询理财师数据 -->
+<select id="getValidLcsDateStatic"  resultType="map" >
+	SELECT DATE_FORMAT(f_cfp_reg_time,'%Y-%m-%d')as date,COUNT(f_number)as count FROM t_sale_user_info  
+	<where>
+		f_is_cfp=1 
+		AND f_cfp_level!='PROBATION'
+		<choose>
+			<when test="null != startDate or null != endDate">
+					<if test=" null != startDate">
+						AND DATE_FORMAT(f_cfp_reg_time, '%Y-%m-%d') &gt;=  DATE_FORMAT(#{startDate}, '%Y-%m-%d')
+					</if>
+					<if test=" null != endDate">
+						AND DATE_FORMAT(#{endDate}, '%Y-%m-%d') &gt;=  DATE_FORMAT(f_cfp_reg_time, '%Y-%m-%d')
+					</if>
+			</when>
+			<otherwise>
+				AND  f_cfp_reg_time BETWEEN DATE_SUB(CURDATE(), INTERVAL 7 DAY) AND  CURDATE()
+			</otherwise>
+		
+		</choose>
+	</where>
+	GROUP BY DATE_FORMAT(f_cfp_reg_time,'%Y-%m-%d')
+</select>
+
+
+<!-- 查询有效理财师数量 -->
+<select id="getValidLcsDateStaticCount"  resultType="map" >
+SELECT a.*,b.*,c.*,d.* FROM
+
+(SELECT COUNT(f_number)AS curday FROM t_sale_user_info WHERE f_is_cfp=1 AND f_cfp_level!='PROBATION' AND DATE_FORMAT(f_cfp_reg_time,'%Y-%m-%d')=CURDATE())a,
+
+(SELECT COUNT(f_number)AS curWeek FROM  t_sale_user_info WHERE f_is_cfp=1 AND f_cfp_level!='PROBATION' AND  f_cfp_reg_time BETWEEN DATE_SUB(CURDATE(), INTERVAL 7 DAY) AND  CURDATE())b,   
+
+(SELECT COUNT(f_number)AS curmonth FROM t_sale_user_info WHERE f_is_cfp=1 AND f_cfp_level!='PROBATION' AND  DATE_FORMAT(f_cfp_reg_time,'%Y-%m')=DATE_FORMAT(CURDATE(),'%Y-%m'))c,
+
+(SELECT COUNT(f_number)AS total FROM t_sale_user_info  WHERE f_is_cfp=1 AND f_cfp_level!='PROBATION')d
+</select>
+
+
+
+
+
+</mapper>

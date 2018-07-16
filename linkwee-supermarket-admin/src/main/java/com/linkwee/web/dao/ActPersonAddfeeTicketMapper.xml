@@ -1,0 +1,755 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.ActPersonAddfeeTicketMapper">
+	<!-- Result Map-->
+	<resultMap  type="com.linkwee.web.model.ActPersonAddfeeTicket" id="BaseResultMap">
+		<result column="id" property="id" jdbcType="INTEGER"/>
+		<result column="ticket_id" property="ticketId" jdbcType="VARCHAR"/>
+		<result column="name" property="name" jdbcType="VARCHAR"/>
+		<result column="source" property="source" jdbcType="VARCHAR"/>
+		<result column="rate" property="rate" jdbcType="DECIMAL"/>
+		<result column="type" property="type" jdbcType="INTEGER"/>
+		<result column="platform_limit" property="platformLimit" jdbcType="BIT"/>
+		<result column="platform_limit_org_number" property="platformLimitOrgNumber" jdbcType="VARCHAR"/>
+		<result column="platform_limit_org_name" property="platformLimitOrgName" jdbcType="VARCHAR"/>
+		<result column="product_limit" property="productLimit" jdbcType="INTEGER"/>
+		<result column="product_limit_id" property="productLimitId" jdbcType="LONGVARCHAR"/>
+		<result column="product_limit_name" property="productLimitName" jdbcType="LONGVARCHAR"/>
+		<result column="product_limit_deadline" property="productLimitDeadline" jdbcType="INTEGER"/>
+		<result column="product_limit_type" property="productLimitType" jdbcType="INTEGER"/>
+		<result column="invest_limit" property="investLimit" jdbcType="INTEGER"/>
+		<result column="amount_limit" property="amountLimit" jdbcType="INTEGER"/>
+		<result column="amount" property="amount" jdbcType="DECIMAL"/>
+		<result column="add_fee_limit" property="addFeeLimit" jdbcType="INTEGER"/>
+		<result column="add_fee_limit_day" property="addFeeLimitDay" jdbcType="INTEGER"/>
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+		<result column="operator" property="operator" jdbcType="VARCHAR"/>
+		<result column="remark" property="remark" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+  <sql id="Base_Column_List">
+    <trim suffixOverrides=",">
+	    	id,
+	    	ticket_id,
+	    	name,
+	    	source,
+	    	rate,
+	    	type,
+	    	platform_limit,
+	    	platform_limit_org_number,
+	    	platform_limit_org_name,
+	    	product_limit,
+	    	product_limit_id,
+	    	product_limit_name,
+	    	product_limit_deadline,
+	    	product_limit_type,
+	    	invest_limit,
+	    	amount_limit,
+	    	amount,
+	    	add_fee_limit,
+	    	add_fee_limit_day,
+	    	create_time,
+	    	update_time,
+	    	operator,
+	    	remark,
+    </trim>
+  </sql>
+  
+ <sql id="Base_Column_List_T">
+    <trim suffixOverrides=",">
+	    	t.id,
+	    	t.ticket_id,
+	    	t.name,
+	    	t.source,
+	    	t.rate,
+	    	t.type,
+	    	t.platform_limit,
+	    	t.platform_limit_org_number,
+	    	t.platform_limit_org_name,
+	    	t.product_limit,
+	    	t.product_limit_id,
+	    	t.product_limit_name,
+	    	t.product_limit_deadline,
+	    	t.product_limit_type,
+	    	t.invest_limit,
+	    	t.amount_limit,
+	    	t.amount,
+	    	t.add_fee_limit,
+	    	t.add_fee_limit_day,
+	    	t.create_time,
+	    	t.update_time,
+	    	t.operator,
+	    	t.remark,
+    </trim>
+  </sql>  
+  
+  <sql id="Base_Condition">
+		<if test=" null != id ">
+			and id = #{id}
+		</if>
+		<if test=" null != ticketId and ''!= ticketId  ">
+			and ticket_id = #{ticketId}
+		</if>
+		<if test=" null != name and ''!= name  ">
+			and name = #{name}
+		</if>
+		<if test=" null != source and ''!= source  ">
+			and source = #{source}
+		</if>
+		<if test=" null != rate ">
+			and rate = #{rate}
+		</if>
+		<if test=" null != type ">
+			and type = #{type}
+		</if>
+		<if test=" null != platformLimit ">
+			and platform_limit = #{platformLimit}
+		</if>
+		<if test=" null != platformLimitOrgNumber and ''!= platformLimitOrgNumber  ">
+			and platform_limit_org_number = #{platformLimitOrgNumber}
+		</if>
+		<if test=" null != platformLimitOrgName and ''!= platformLimitOrgName  ">
+			and platform_limit_org_name = #{platformLimitOrgName}
+		</if>
+		<if test=" null != productLimit ">
+			and product_limit = #{productLimit}
+		</if>
+		<if test=" null != productLimitId and ''!= productLimitId  ">
+			and product_limit_id = #{productLimitId}
+		</if>
+		<if test=" null != productLimitName and ''!= productLimitName  ">
+			and product_limit_name = #{productLimitName}
+		</if>
+		<if test=" null != productLimitDeadline ">
+			and product_limit_deadline = #{productLimitDeadline}
+		</if>
+		<if test=" null != productLimitType ">
+			and product_limit_type = #{productLimitType}
+		</if>
+		<if test=" null != investLimit ">
+			and invest_limit = #{investLimit}
+		</if>
+		<if test=" null != amountLimit ">
+			and amount_limit = #{amountLimit}
+		</if>
+		<if test=" null != amount ">
+			and amount = #{amount}
+		</if>
+		<if test=" null != addFeeLimit ">
+			and add_fee_limit = #{addFeeLimit}
+		</if>
+		<if test=" null != addFeeLimitDay ">
+			and add_fee_limit_day = #{addFeeLimitDay}
+		</if>
+		<if test=" null != createTime ">
+			and create_time = #{createTime}
+		</if>
+		<if test=" null != updateTime ">
+			and update_time = #{updateTime}
+		</if>
+		<if test=" null != operator and ''!= operator  ">
+			and operator = #{operator}
+		</if>
+		<if test=" null != remark and ''!= remark  ">
+			and remark = #{remark}
+		</if>
+  </sql>
+  
+  <select id="selectOneByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.web.model.ActPersonAddfeeTicket">
+		select <include refid="Base_Column_List" /> from tact_person_addfee_ticket 
+		where 1=1 <include refid="Base_Condition" />
+  </select>
+  
+  <select id="selectByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.web.model.ActPersonAddfeeTicket">
+		select <include refid="Base_Column_List" /> from tact_person_addfee_ticket 
+		where 1=1 <include refid="Base_Condition" />
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tact_person_addfee_ticket
+    where  id = #{0}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tact_person_addfee_ticket
+    where id = #{0}
+  </delete>
+
+  <insert id="insert" parameterType="com.linkwee.web.model.ActPersonAddfeeTicket" >
+    INSERT INTO tact_person_addfee_ticket
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != ticketId and ''!= ticketId  ">
+					ticket_id,
+				</if>
+			 	<if test=" null != name and ''!= name  ">
+					name,
+				</if>
+			 	<if test=" null != source and ''!= source  ">
+					source,
+				</if>
+			 	<if test=" null != rate ">
+					rate,
+				</if>
+			 	<if test=" null != type ">
+					type,
+				</if>
+			 	<if test=" null != platformLimit ">
+					platform_limit,
+				</if>
+			 	<if test=" null != platformLimitOrgNumber and ''!= platformLimitOrgNumber  ">
+					platform_limit_org_number,
+				</if>
+			 	<if test=" null != platformLimitOrgName and ''!= platformLimitOrgName  ">
+					platform_limit_org_name,
+				</if>
+			 	<if test=" null != productLimit ">
+					product_limit,
+				</if>
+			 	<if test=" null != productLimitId and ''!= productLimitId  ">
+					product_limit_id,
+				</if>
+			 	<if test=" null != productLimitName and ''!= productLimitName  ">
+					product_limit_name,
+				</if>
+			 	<if test=" null != productLimitDeadline ">
+					product_limit_deadline,
+				</if>
+			 	<if test=" null != productLimitType ">
+					product_limit_type,
+				</if>
+			 	<if test=" null != investLimit ">
+					invest_limit,
+				</if>
+			 	<if test=" null != amountLimit ">
+					amount_limit,
+				</if>
+			 	<if test=" null != amount ">
+					amount,
+				</if>
+			 	<if test=" null != addFeeLimit ">
+					add_fee_limit,
+				</if>
+			 	<if test=" null != addFeeLimitDay ">
+					add_fee_limit_day,
+				</if>
+			 	<if test=" null != createTime ">
+					create_time,
+				</if>
+			 	<if test=" null != updateTime ">
+					update_time,
+				</if>
+			 	<if test=" null != operator and ''!= operator  ">
+					operator,
+				</if>
+			 	<if test=" null != remark and ''!= remark  ">
+					remark,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != ticketId and ''!= ticketId  ">
+					 	#{ticketId},
+				</if>
+			 	<if test=" null != name and ''!= name  ">
+					 	#{name},
+				</if>
+			 	<if test=" null != source and ''!= source  ">
+					 	#{source},
+				</if>
+			 	<if test=" null != rate ">
+					 	#{rate},
+				</if>
+			 	<if test=" null != type ">
+					 	#{type},
+				</if>
+			 	<if test=" null != platformLimit ">
+					 	#{platformLimit},
+				</if>
+			 	<if test=" null != platformLimitOrgNumber and ''!= platformLimitOrgNumber  ">
+					 	#{platformLimitOrgNumber},
+				</if>
+			 	<if test=" null != platformLimitOrgName and ''!= platformLimitOrgName  ">
+					 	#{platformLimitOrgName},
+				</if>
+			 	<if test=" null != productLimit ">
+					 	#{productLimit},
+				</if>
+			 	<if test=" null != productLimitId and ''!= productLimitId  ">
+					 	#{productLimitId},
+				</if>
+			 	<if test=" null != productLimitName and ''!= productLimitName  ">
+					 	#{productLimitName},
+				</if>
+			 	<if test=" null != productLimitDeadline ">
+					 	#{productLimitDeadline},
+				</if>
+			 	<if test=" null != productLimitType ">
+					 	#{productLimitType},
+				</if>
+			 	<if test=" null != investLimit ">
+					 	#{investLimit},
+				</if>
+			 	<if test=" null != amountLimit ">
+					 	#{amountLimit},
+				</if>
+			 	<if test=" null != amount ">
+					 	#{amount},
+				</if>
+			 	<if test=" null != addFeeLimit ">
+					 	#{addFeeLimit},
+				</if>
+			 	<if test=" null != addFeeLimitDay ">
+					 	#{addFeeLimitDay},
+				</if>
+			 	<if test=" null != createTime ">
+					 	#{createTime},
+				</if>
+			 	<if test=" null != updateTime ">
+					 	#{updateTime},
+				</if>
+			 	<if test=" null != operator and ''!= operator  ">
+					 	#{operator},
+				</if>
+			 	<if test=" null != remark and ''!= remark  ">
+					 	#{remark},
+				</if>
+		</trim>
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.linkwee.web.model.ActPersonAddfeeTicket" useGeneratedKeys="true" keyProperty="id" >
+		INSERT INTO tact_person_addfee_ticket
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != ticketId and ''!= ticketId  ">
+					ticket_id,
+				</if>
+			 	<if test=" null != name and ''!= name  ">
+					name,
+				</if>
+			 	<if test=" null != source and ''!= source  ">
+					source,
+				</if>
+			 	<if test=" null != rate ">
+					rate,
+				</if>
+			 	<if test=" null != type ">
+					type,
+				</if>
+			 	<if test=" null != platformLimit ">
+					platform_limit,
+				</if>
+			 	<if test=" null != platformLimitOrgNumber and ''!= platformLimitOrgNumber  ">
+					platform_limit_org_number,
+				</if>
+			 	<if test=" null != platformLimitOrgName and ''!= platformLimitOrgName  ">
+					platform_limit_org_name,
+				</if>
+			 	<if test=" null != productLimit ">
+					product_limit,
+				</if>
+			 	<if test=" null != productLimitId and ''!= productLimitId  ">
+					product_limit_id,
+				</if>
+			 	<if test=" null != productLimitName and ''!= productLimitName  ">
+					product_limit_name,
+				</if>
+			 	<if test=" null != productLimitDeadline ">
+					product_limit_deadline,
+				</if>
+			 	<if test=" null != productLimitType ">
+					product_limit_type,
+				</if>
+			 	<if test=" null != investLimit ">
+					invest_limit,
+				</if>
+			 	<if test=" null != amountLimit ">
+					amount_limit,
+				</if>
+			 	<if test=" null != amount ">
+					amount,
+				</if>
+			 	<if test=" null != addFeeLimit ">
+					add_fee_limit,
+				</if>
+			 	<if test=" null != addFeeLimitDay ">
+					add_fee_limit_day,
+				</if>
+			 	<if test=" null != createTime ">
+					create_time,
+				</if>
+			 	<if test=" null != updateTime ">
+					update_time,
+				</if>
+			 	<if test=" null != operator and ''!= operator  ">
+					operator,
+				</if>
+			 	<if test=" null != remark and ''!= remark  ">
+					remark,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != ticketId and ''!= ticketId  ">
+					 	#{ticketId},
+				</if>
+			 	<if test=" null != name and ''!= name  ">
+					 	#{name},
+				</if>
+			 	<if test=" null != source and ''!= source  ">
+					 	#{source},
+				</if>
+			 	<if test=" null != rate ">
+					 	#{rate},
+				</if>
+			 	<if test=" null != type ">
+					 	#{type},
+				</if>
+			 	<if test=" null != platformLimit ">
+					 	#{platformLimit},
+				</if>
+			 	<if test=" null != platformLimitOrgNumber and ''!= platformLimitOrgNumber  ">
+					 	#{platformLimitOrgNumber},
+				</if>
+			 	<if test=" null != platformLimitOrgName and ''!= platformLimitOrgName  ">
+					 	#{platformLimitOrgName},
+				</if>
+			 	<if test=" null != productLimit ">
+					 	#{productLimit},
+				</if>
+			 	<if test=" null != productLimitId and ''!= productLimitId  ">
+					 	#{productLimitId},
+				</if>
+			 	<if test=" null != productLimitName and ''!= productLimitName  ">
+					 	#{productLimitName},
+				</if>
+			 	<if test=" null != productLimitDeadline ">
+					 	#{productLimitDeadline},
+				</if>
+			 	<if test=" null != productLimitType ">
+					 	#{productLimitType},
+				</if>
+			 	<if test=" null != investLimit ">
+					 	#{investLimit},
+				</if>
+			 	<if test=" null != amountLimit ">
+					 	#{amountLimit},
+				</if>
+			 	<if test=" null != amount ">
+					 	#{amount},
+				</if>
+			 	<if test=" null != addFeeLimit ">
+					 	#{addFeeLimit},
+				</if>
+			 	<if test=" null != addFeeLimitDay ">
+					 	#{addFeeLimitDay},
+				</if>
+			 	<if test=" null != createTime ">
+					 	#{createTime},
+				</if>
+			 	<if test=" null != updateTime ">
+					 	#{updateTime},
+				</if>
+			 	<if test=" null != operator and ''!= operator  ">
+					 	#{operator},
+				</if>
+			 	<if test=" null != remark and ''!= remark  ">
+					 	#{remark},
+				</if>
+		</trim>
+	</insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.linkwee.web.model.ActPersonAddfeeTicket" >
+  		UPDATE tact_person_addfee_ticket
+		<set>
+			<trim suffixOverrides=",">
+					<if test=" null != ticketId and ''!= ticketId  ">
+						ticket_id = #{ticketId},
+					</if>
+					<if test=" null != name and ''!= name  ">
+						name = #{name},
+					</if>
+					<if test=" null != source and ''!= source  ">
+						source = #{source},
+					</if>
+					<if test=" null != rate ">
+						rate = #{rate},
+					</if>
+					<if test=" null != type ">
+						type = #{type},
+					</if>
+					<if test=" null != platformLimit ">
+						platform_limit = #{platformLimit},
+					</if>
+					<if test=" null != platformLimitOrgNumber and ''!= platformLimitOrgNumber  ">
+						platform_limit_org_number = #{platformLimitOrgNumber},
+					</if>
+					<if test=" null != platformLimitOrgName and ''!= platformLimitOrgName  ">
+						platform_limit_org_name = #{platformLimitOrgName},
+					</if>
+					<if test=" null != productLimit ">
+						product_limit = #{productLimit},
+					</if>
+					<if test=" null != productLimitId and ''!= productLimitId  ">
+						product_limit_id = #{productLimitId},
+					</if>
+					<if test=" null != productLimitName and ''!= productLimitName  ">
+						product_limit_name = #{productLimitName},
+					</if>
+					<if test=" null != productLimitDeadline ">
+						product_limit_deadline = #{productLimitDeadline},
+					</if>
+					<if test=" null != productLimitType ">
+						product_limit_type = #{productLimitType},
+					</if>
+					<if test=" null != investLimit ">
+						invest_limit = #{investLimit},
+					</if>
+					<if test=" null != amountLimit ">
+						amount_limit = #{amountLimit},
+					</if>
+					<if test=" null != amount ">
+						amount = #{amount},
+					</if>
+					<if test=" null != addFeeLimit ">
+						add_fee_limit = #{addFeeLimit},
+					</if>
+					<if test=" null != addFeeLimitDay ">
+						add_fee_limit_day = #{addFeeLimitDay},
+					</if>
+					<if test=" null != createTime ">
+						create_time = #{createTime},
+					</if>
+					<if test=" null != updateTime ">
+						update_time = #{updateTime},
+					</if>
+					<if test=" null != operator and ''!= operator  ">
+						operator = #{operator},
+					</if>
+					<if test=" null != remark and ''!= remark  ">
+						remark = #{remark},
+					</if>
+			</trim>
+		</set>
+		<where>
+			 id = #{id}
+		</where>
+	</update>
+  
+	<update id="updateByPrimaryKey" parameterType="com.linkwee.web.model.ActPersonAddfeeTicket" >
+	    UPDATE tact_person_addfee_ticket
+	   <set>
+			<trim suffixOverrides=",">
+					<if test=" null != ticketId and ''!= ticketId  ">
+						ticket_id = #{ticketId},
+					</if>
+					<if test=" null != name and ''!= name  ">
+						name = #{name},
+					</if>
+					<if test=" null != source and ''!= source  ">
+						source = #{source},
+					</if>
+					<if test=" null != rate ">
+						rate = #{rate},
+					</if>
+					<if test=" null != type ">
+						type = #{type},
+					</if>
+					<if test=" null != platformLimit ">
+						platform_limit = #{platformLimit},
+					</if>
+					<if test=" null != platformLimitOrgNumber and ''!= platformLimitOrgNumber  ">
+						platform_limit_org_number = #{platformLimitOrgNumber},
+					</if>
+					<if test=" null != platformLimitOrgName and ''!= platformLimitOrgName  ">
+						platform_limit_org_name = #{platformLimitOrgName},
+					</if>
+					<if test=" null != productLimit ">
+						product_limit = #{productLimit},
+					</if>
+					<if test=" null != productLimitId and ''!= productLimitId  ">
+						product_limit_id = #{productLimitId},
+					</if>
+					<if test=" null != productLimitName and ''!= productLimitName  ">
+						product_limit_name = #{productLimitName},
+					</if>
+					<if test=" null != productLimitDeadline ">
+						product_limit_deadline = #{productLimitDeadline},
+					</if>
+					<if test=" null != productLimitType ">
+						product_limit_type = #{productLimitType},
+					</if>
+					<if test=" null != investLimit ">
+						invest_limit = #{investLimit},
+					</if>
+					<if test=" null != amountLimit ">
+						amount_limit = #{amountLimit},
+					</if>
+					<if test=" null != amount ">
+						amount = #{amount},
+					</if>
+					<if test=" null != addFeeLimit ">
+						add_fee_limit = #{addFeeLimit},
+					</if>
+					<if test=" null != addFeeLimitDay ">
+						add_fee_limit_day = #{addFeeLimitDay},
+					</if>
+					<if test=" null != createTime ">
+						create_time = #{createTime},
+					</if>
+					<if test=" null != updateTime ">
+						update_time = #{updateTime},
+					</if>
+					<if test=" null != operator and ''!= operator  ">
+						operator = #{operator},
+					</if>
+					<if test=" null != remark and ''!= remark  ">
+						remark = #{remark},
+					</if>
+			</trim>
+		</set>
+		<where>
+			id = #{0}
+		</where>
+	  </update>
+
+	<!-- 分页条件查询 -->
+    <select id="selectBySearchInfo" resultMap="BaseResultMap" parameterType="com.linkwee.core.datatable.DataTable">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM tact_person_addfee_ticket
+        <where> 
+        <if test="dt.search!=null">  
+                name LIKE CONCAT('%','${dt.search.value}','%' )  
+        </if>
+         <if test="dt.order!=null">  
+               <foreach collection="dt.order" index="index" item="item"
+                    open="order by" separator="," close=" ">
+                    ${item.name} ${item.dir} 
+                </foreach>
+         </if>  
+        </where>
+    </select>
+
+	<select id="getPersonAddfeeTicketList" resultType="com.linkwee.web.response.act.AddfeeTicketListResponse">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM tact_person_addfee_ticket
+		ORDER BY create_time DESC
+	</select>
+
+    <update id="updateAddFeeTicket" parameterType="com.linkwee.web.model.ActPersonAddfeeTicket" >
+        UPDATE tact_person_addfee_ticket
+        <set>
+            <trim suffixOverrides=",">
+                <if test=" null != name and ''!= name  ">
+                    name = #{name},
+                </if>
+                <if test=" null != source and ''!= source  ">
+                    source = #{source},
+                </if>
+                <if test=" null != rate ">
+                    rate = #{rate},
+                </if>
+                <if test=" null != type ">
+                    type = #{type},
+                </if>
+                <if test=" null != platformLimit ">
+                    platform_limit = #{platformLimit},
+                </if>
+                <if test=" null != platformLimitOrgNumber and ''!= platformLimitOrgNumber  ">
+                    platform_limit_org_number = #{platformLimitOrgNumber},
+                </if>
+                <if test=" null != platformLimitOrgName and ''!= platformLimitOrgName  ">
+                    platform_limit_org_name = #{platformLimitOrgName},
+                </if>
+                <if test=" null != productLimit ">
+                    product_limit = #{productLimit},
+                </if>
+                <if test=" null != productLimitId and ''!= productLimitId  ">
+                    product_limit_id = #{productLimitId},
+                </if>
+                <if test=" null != productLimitName and ''!= productLimitName  ">
+                    product_limit_name = #{productLimitName},
+                </if>
+                <if test=" null != productLimitDeadline ">
+                    product_limit_deadline = #{productLimitDeadline},
+                </if>
+                <if test=" null != productLimitType ">
+                    product_limit_type = #{productLimitType},
+                </if>
+                <if test=" null != investLimit ">
+                    invest_limit = #{investLimit},
+                </if>
+                <if test=" null != amountLimit ">
+                    amount_limit = #{amountLimit},
+                </if>
+                <if test=" null != amount ">
+                    amount = #{amount},
+                </if>
+                <if test=" null != addFeeLimit ">
+                    add_fee_limit = #{addFeeLimit},
+                </if>
+                <if test=" null != addFeeLimitDay ">
+                    add_fee_limit_day = #{addFeeLimitDay},
+                </if>
+                <if test=" null != createTime ">
+                    create_time = #{createTime},
+                </if>
+                <if test=" null != updateTime ">
+                    update_time = #{updateTime},
+                </if>
+                <if test=" null != operator and ''!= operator  ">
+                    operator = #{operator},
+                </if>
+                <if test=" null != remark and ''!= remark  ">
+                    remark = #{remark},
+                </if>
+            </trim>
+        </set>
+        <where>
+            ticket_id = #{ticketId}
+        </where>
+    </update>
+
+	<insert id="inserts" parameterType="com.linkwee.web.model.ActPersonAddfeeTicketSenduseDetail" >
+		INSERT INTO tact_person_addfee_ticket_senduse_detail
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			user_id,
+			ticket_id,
+			ticket_send_id,
+			valid_begin_time,
+			valid_end_time,
+			send_time,
+			operator,
+			create_time,
+			remark,
+		</trim>
+		VALUES
+		<foreach item="item" index="index" collection="addfeeTickets" separator=",">
+			<trim prefix="(" suffix=")" suffixOverrides=",">
+				#{item.userId},
+				#{item.ticketId},
+				#{item.ticketSendId},
+				#{item.validBeginTime},
+				#{item.validEndTime},
+				#{item.sendTime},
+				#{item.operator},
+				#{item.createTime},
+				#{item.remark},
+			</trim>
+		</foreach>
+	</insert>
+
+</mapper>

@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.AdvertisementDao">
+<parameterMap type="com.linkwee.web.model.Advertisement" id="AdvertisementParameterMap" />	
+<!-- Result Map-->
+<resultMap  type="com.linkwee.web.model.Advertisement" id="AdvertisementResultMap">
+	<result column="f_id" property="id" jdbcType="INTEGER"/>
+	<result column="f_page_index" property="pageIndex" jdbcType="VARCHAR"/>
+	<result column="f_page_index_desc" property="pageIndexDesc" jdbcType="VARCHAR"/>
+	<result column="f_img_url" property="imgUrl" jdbcType="VARCHAR"/>
+	<result column="f_link_url" property="linkUrl" jdbcType="VARCHAR"/>
+	<result column="f_show_index" property="showIndex" jdbcType="INTEGER"/>
+	<result column="f_status" property="status" jdbcType="INTEGER"/>
+	<result column="f_app_type" property="appType" jdbcType="INTEGER"/>
+	<result column="f_valid_begin_date" property="validBeginDate" jdbcType="TIMESTAMP"/>
+	<result column="f_valid_end_date" property="validEndDate" jdbcType="TIMESTAMP"/>
+	<result column="f_share_title" property="shareTitle" jdbcType="VARCHAR"/>
+	<result column="f_share_desc" property="shareDesc" jdbcType="VARCHAR"/>
+	<result column="f_share_icon" property="shareIcon" jdbcType="VARCHAR"/>
+	<result column="f_share_link" property="shareLink" jdbcType="VARCHAR"/>
+</resultMap>
+  <sql id="Base_Column_List">
+    <trim suffixOverrides=",">
+	    	f_id,
+	    	f_page_index,
+	    	f_page_index_desc,
+	    	f_img_url,
+	    	f_link_url,
+	    	f_show_index,
+	    	f_status,
+	    	f_app_type,
+	    	f_valid_begin_date,
+	    	f_valid_end_date,
+	    	f_share_title,
+	    	f_share_desc,
+	    	f_share_icon,
+	    	f_share_link,
+    </trim>
+  </sql>  
+  
+   <sql id="Base_Column_List_T">
+    <trim suffixOverrides=",">
+	    	t.f_id,
+	    	t.f_page_index,
+	    	t.f_page_index_desc,
+	    	t.f_img_url,
+	    	t.f_link_url,
+	    	t.f_show_index,
+	    	t.f_status,
+	    	t.f_app_type,
+	    	f_valid_begin_date,
+	    	f_valid_end_date,
+    </trim>
+  </sql> 
+  	
+  <select id="getByPrimaryKey"  resultMap="AdvertisementResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_advertisement where  f_id = #{0}
+  </select>	
+
+  <delete id="deleteByPrimaryKey" >
+    delete from t_advertisement
+	<where>
+		f_id = #{0}
+	</where>
+  </delete>
+  
+  
+  <insert id="add" parameterMap="AdvertisementParameterMap" useGeneratedKeys="true" keyProperty="id" >
+		INSERT INTO t_advertisement
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					f_id,
+				</if>
+			 	<if test=" null != pageIndex and ''!= pageIndex  ">
+					f_page_index,
+				</if>
+			 	<if test=" null != pageIndexDesc and ''!= pageIndexDesc  ">
+					f_page_index_desc,
+				</if>
+			 	<if test=" null != imgUrl and ''!= imgUrl  ">
+					f_img_url,
+				</if>
+			 	<if test=" null != linkUrl and ''!= linkUrl  ">
+					f_link_url,
+				</if>
+			 	<if test=" null != showIndex ">
+					f_show_index,
+				</if>
+			 	<if test=" null != status ">
+					f_status,
+				</if>
+			 	<if test=" null != appType ">
+					f_app_type,
+				</if>
+				<if test=" null != validBeginDate ">
+					f_valid_begin_date,
+				</if>
+				<if test=" null != validEndDate ">
+					f_valid_end_date,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != pageIndex and ''!= pageIndex  ">
+					 	#{pageIndex},
+				</if>
+			 	<if test=" null != pageIndexDesc and ''!= pageIndexDesc  ">
+					 	#{pageIndexDesc},
+				</if>
+			 	<if test=" null != imgUrl and ''!= imgUrl  ">
+					 	#{imgUrl},
+				</if>
+			 	<if test=" null != linkUrl and ''!= linkUrl  ">
+					 	#{linkUrl},
+				</if>
+			 	<if test=" null != showIndex ">
+					 	#{showIndex},
+				</if>
+			 	<if test=" null != status ">
+					 	#{status},
+				</if>
+			 	<if test=" null != appType ">
+					 	#{appType},
+				</if>
+				<if test=" null != validBeginDate ">
+					   #{validBeginDate},
+				</if>
+				<if test=" null != validEndDate ">
+					   #{validEndDate},
+				</if>
+		</trim>
+	</insert>
+  
+  
+  <update id="update" parameterMap="AdvertisementParameterMap">
+		UPDATE t_advertisement
+		<set>
+			<trim suffixOverrides=",">
+					<if test=" null != pageIndex and ''!= pageIndex  ">
+						f_page_index = #{pageIndex},
+					</if>
+					<if test=" null != pageIndexDesc and ''!= pageIndexDesc  ">
+						f_page_index_desc = #{pageIndexDesc},
+					</if>
+					<if test=" null != imgUrl and ''!= imgUrl  ">
+						f_img_url = #{imgUrl},
+					</if>
+					<if test=" null != linkUrl and ''!= linkUrl  ">
+						f_link_url = #{linkUrl},
+					</if>
+					<if test=" null != showIndex ">
+						f_show_index = #{showIndex},
+					</if>
+					<if test=" null != status ">
+						f_status = #{status},
+					</if>
+					<if test=" null != appType ">
+						f_app_type = #{appType},
+					</if>
+					<if test=" null != validBeginDate ">
+					   f_valid_begin_date = #{validBeginDate},
+				   </if>
+				  <if test=" null != validEndDate ">
+					  f_valid_end_date = #{validEndDate},
+				  </if>
+				  	<if test=" null != shareTitle and ''!= shareTitle  ">
+						f_share_title = #{shareTitle},
+					</if>
+					<if test=" null != shareDesc and ''!= shareDesc  ">
+						f_share_desc = #{shareDesc},
+					</if>
+					<if test=" null != shareIcon and ''!= shareIcon  ">
+						f_share_icon = #{shareIcon},
+					</if>
+					<if test=" null != shareLink and ''!= shareLink  ">
+						f_share_link = #{shareLink},
+					</if>
+			</trim>
+		</set>
+		<where>
+			 f_id = #{id}
+		</where>
+	</update>
+  
+  
+   <update id="updateWithEmpty" parameterMap="AdvertisementParameterMap">
+		UPDATE t_advertisement
+		<set>
+			<trim suffixOverrides=",">
+						f_page_index = #{pageIndex},
+						f_page_index_desc = #{pageIndexDesc},
+						f_img_url = #{imgUrl},
+						f_link_url = #{linkUrl},
+						f_show_index = #{showIndex},
+						f_status = #{status},
+						f_app_type = #{appType},
+						f_valid_begin_date = #{validBeginDate},
+						f_valid_end_date = #{validEndDate},
+			</trim>
+		</set>
+		<where>
+			 f_id = #{id}
+		</where>
+	</update>
+
+  <insert id="addBatch" parameterType="java.util.List">
+	insert into t_advertisement 
+	<trim prefix="(" suffix=")" >
+			<include refid="Base_Column_List" />
+	</trim>
+	VALUES
+	<foreach item="item" index="index" collection="list" separator=",">
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+				#{item.id,jdbcType=INTEGER},
+				#{item.pageIndex,jdbcType=VARCHAR},
+				#{item.pageIndexDesc,jdbcType=VARCHAR},
+				#{item.imgUrl,jdbcType=VARCHAR},
+				#{item.linkUrl,jdbcType=VARCHAR},
+				#{item.showIndex,jdbcType=INTEGER},
+				#{item.status,jdbcType=INTEGER},
+				#{item.appType,jdbcType=INTEGER},
+				#{item.validBeginDate,jdbcType=TIMESTAMP},
+				#{item.validEndDate,jdbcType=TIMESTAMP},
+			
+		</trim>
+	</foreach>
+</insert>
+
+ 
+<update id="updateBatch" parameterType="java.util.List">
+      <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update t_advertisement
+            <set>
+              	<trim suffixOverrides=",">
+					   <if test="item.pageIndex!=null and ''!= item.pageIndex  ">
+					        f_page_index = #{item.pageIndex,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.pageIndexDesc!=null and ''!= item.pageIndexDesc  ">
+					        f_page_index_desc = #{item.pageIndexDesc,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.imgUrl!=null and ''!= item.imgUrl  ">
+					        f_img_url = #{item.imgUrl,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.linkUrl!=null and ''!= item.linkUrl  ">
+					        f_link_url = #{item.linkUrl,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.showIndex!=null ">
+					        f_show_index = #{item.showIndex,jdbcType=INTEGER},
+					   </if>
+					   <if test="item.status!=null ">
+					        f_status = #{item.status,jdbcType=INTEGER},
+					   </if>
+					   <if test="item.appType!=null ">
+					        f_app_type = #{item.appType,jdbcType=INTEGER},
+					   </if>
+					   <if test="item.validBeginDate!=null">
+					        f_valid_begin_date = #{item.validBeginDate,jdbcType=TIMESTAMP},
+					   </if>
+					   <if test="item.validEndDate!=null">
+					        f_valid_end_date = #{item.validEndDate,jdbcType=TIMESTAMP},
+					   </if>
+			   </trim>
+            </set>
+             where f_id = #{item.id}
+     </foreach>
+</update>
+
+<update id="updateBatchWithEmpty" parameterType="java.util.List">
+      <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update t_advertisement
+            <set>
+              	<trim suffixOverrides=",">
+					        f_page_index = #{item.pageIndex,jdbcType=VARCHAR},
+					        f_page_index_desc = #{item.pageIndexDesc,jdbcType=VARCHAR},
+					        f_img_url = #{item.imgUrl,jdbcType=VARCHAR},
+					        f_link_url = #{item.linkUrl,jdbcType=VARCHAR},
+					        f_show_index = #{item.showIndex,jdbcType=INTEGER},
+					        f_status = #{item.status,jdbcType=INTEGER},
+					        f_app_type = #{item.appType,jdbcType=INTEGER},
+					        f_valid_begin_date = #{item.validBeginDate,jdbcType=TIMESTAMP},
+					        f_valid_end_date = #{item.validEndDate,jdbcType=TIMESTAMP},
+			   </trim>
+            </set>
+             where f_id = #{item.id}
+     </foreach>
+</update>         
+
+<delete id="deleteBatch" parameterType="Object">
+	DELETE FROM t_advertisement
+	<where>
+		<foreach item="item" index="index" collection="array"  open="(" separator="or" close=") ">
+			  f_id  = #{item}
+		</foreach>
+	</where>
+</delete>
+    
+ <sql id="Base_Condition">
+		   <if test=" null != id ">
+				AND	T.f_id = #{id}
+		</if>
+		   <if test=" null != pageIndex and ''!= pageIndex  ">
+				AND	T.f_page_index = #{pageIndex}
+		</if>
+		   <if test=" null != pageIndexDesc and ''!= pageIndexDesc  ">
+				AND	T.f_page_index_desc like CONCAT('%',#{pageIndexDesc},'%')
+		</if>
+		   <if test=" null != imgUrl and ''!= imgUrl  ">
+				AND	T.f_img_url = #{imgUrl}
+		</if>
+		   <if test=" null != linkUrl and ''!= linkUrl  ">
+				AND	T.f_link_url = #{linkUrl}
+		</if>
+		   <if test=" null != showIndex ">
+				AND	T.f_show_index = #{showIndex}
+		</if>
+		   <if test=" null != status ">
+				AND	T.f_status = #{status}
+		</if>
+		   <if test=" null != appType ">
+				AND	T.f_app_type = #{appType}
+		</if>
+		 <if test=" null != validBeginDate ">
+				AND	T.f_valid_begin_date = #{validBeginDate}
+		</if>
+		<if test=" null != validEndDate ">
+				AND	T.f_valid_end_date = #{validEndDate}
+		</if>
+ </sql>    
+<select id="list" resultMap="AdvertisementResultMap"  >
+		SELECT <include refid="Base_Column_List" /> FROM t_advertisement T WHERE 1=1
+		<include refid="Base_Condition" /> 
+		order by f_show_index
+</select>
+
+<select id="query" resultMap="AdvertisementResultMap"  >
+		SELECT <include refid="Base_Column_List" /> FROM t_advertisement T WHERE 1=1
+		<include refid="Base_Condition" />
+</select>
+
+<select id="findAdvList" resultMap="AdvertisementResultMap">
+		SELECT <include refid="Base_Column_List" /> FROM t_advertisement T WHERE 1=1
+		<include refid="Base_Condition" />
+		ORDER BY t.f_id desc
+
+
+</select>
+
+</mapper>

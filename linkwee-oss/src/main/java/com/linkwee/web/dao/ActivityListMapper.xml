@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.ActivityListMapper">
+	<!-- Result Map-->
+	<resultMap  type="com.linkwee.web.model.ActivityList" id="BaseResultMap">
+		<result column="f_id" property="id" jdbcType="INTEGER"/>
+		<result column="f_activity_name" property="activityName" jdbcType="VARCHAR"/>
+		<result column="f_activity_img" property="activityImg" jdbcType="VARCHAR"/>
+		<result column="f_link_url" property="linkUrl" jdbcType="VARCHAR"/>
+		<result column="f_start_date" property="startDate" jdbcType="TIMESTAMP"/>
+		<result column="f_end_date" property="endDate" jdbcType="TIMESTAMP"/>
+		<result column="f_status" property="status" jdbcType="INTEGER"/>
+		<result column="f_activity_type" property="activityType" jdbcType="INTEGER"/>
+		<result column="f_activity_code" property="activityCode" jdbcType="VARCHAR"/>
+		<result column="f_app_type" property="appType" jdbcType="INTEGER"/>
+		<result column="f_activity_end_img" property="activityEndImg" jdbcType="VARCHAR"/>
+		<result column="f_share_title" property="shareTitle" jdbcType="VARCHAR"/>
+		<result column="f_share_desc" property="shareDesc" jdbcType="VARCHAR"/>
+		<result column="f_share_icon" property="shareIcon" jdbcType="VARCHAR"/>
+		<result column="f_share_link" property="shareLink" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+  <sql id="Base_Column_List">
+    <trim suffixOverrides=",">
+	    	f_id,
+	    	f_activity_name,
+	    	f_activity_img,
+	    	f_link_url,
+	    	f_start_date,
+	    	f_end_date,
+	    	f_status,
+	    	f_activity_type,
+	    	f_activity_code,
+	    	f_app_type,
+	    	f_activity_end_img,
+	    	f_share_title,
+	    	f_share_desc,
+	    	f_share_icon,
+	    	f_share_link,
+    </trim>
+  </sql>  
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_activity_list
+    where  f_id = #{0}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_activity_list
+    where f_id = #{0}
+  </delete>
+
+  <insert id="insert" parameterType="com.linkwee.web.model.ActivityList" >
+    INSERT INTO t_activity_list
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					f_id,
+				</if>
+			 	<if test=" null != activityName and ''!= activityName  ">
+					f_activity_name,
+				</if>
+			 	<if test=" null != activityImg and ''!= activityImg  ">
+					f_activity_img,
+				</if>
+			 	<if test=" null != linkUrl and ''!= linkUrl  ">
+					f_link_url,
+				</if>
+			 	<if test=" null != startDate ">
+					f_start_date,
+				</if>
+			 	<if test=" null != endDate ">
+					f_end_date,
+				</if>
+			 	<if test=" null != status ">
+					f_status,
+				</if>
+			 	<if test=" null != activityType ">
+					f_activity_type,
+				</if>
+			 	<if test=" null != activityCode and ''!= activityCode  ">
+					f_activity_code,
+				</if>
+			 	<if test=" null != appType ">
+					f_app_type,
+				</if>
+			 	<if test=" null != activityEndImg and ''!= activityEndImg  ">
+					f_activity_end_img,
+				</if>
+			 	<if test=" null != shareTitle and ''!= shareTitle  ">
+					f_share_title,
+				</if>
+			 	<if test=" null != shareDesc and ''!= shareDesc  ">
+					f_share_desc,
+				</if>
+			 	<if test=" null != shareIcon and ''!= shareIcon  ">
+					f_share_icon,
+				</if>
+			 	<if test=" null != shareLink and ''!= shareLink  ">
+					f_share_link,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != activityName and ''!= activityName  ">
+					 	#{activityName},
+				</if>
+			 	<if test=" null != activityImg and ''!= activityImg  ">
+					 	#{activityImg},
+				</if>
+			 	<if test=" null != linkUrl and ''!= linkUrl  ">
+					 	#{linkUrl},
+				</if>
+			 	<if test=" null != startDate ">
+					 	#{startDate},
+				</if>
+			 	<if test=" null != endDate ">
+					 	#{endDate},
+				</if>
+			 	<if test=" null != status ">
+					 	#{status},
+				</if>
+			 	<if test=" null != activityType ">
+					 	#{activityType},
+				</if>
+			 	<if test=" null != activityCode and ''!= activityCode  ">
+					 	#{activityCode},
+				</if>
+			 	<if test=" null != appType ">
+					 	#{appType},
+				</if>
+			 	<if test=" null != activityEndImg and ''!= activityEndImg  ">
+					 	#{activityEndImg},
+				</if>
+			 	<if test=" null != shareTitle and ''!= shareTitle  ">
+					 	#{shareTitle},
+				</if>
+			 	<if test=" null != shareDesc and ''!= shareDesc  ">
+					 	#{shareDesc},
+				</if>
+			 	<if test=" null != shareIcon and ''!= shareIcon  ">
+					 	#{shareIcon},
+				</if>
+			 	<if test=" null != shareLink and ''!= shareLink  ">
+					 	#{shareLink},
+				</if>
+		</trim>
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.linkwee.web.model.ActivityList" useGeneratedKeys="true" keyProperty="id" >
+		INSERT INTO t_activity_list
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					f_id,
+				</if>
+			 	<if test=" null != activityName and ''!= activityName  ">
+					f_activity_name,
+				</if>
+			 	<if test=" null != activityImg and ''!= activityImg  ">
+					f_activity_img,
+				</if>
+			 	<if test=" null != linkUrl and ''!= linkUrl  ">
+					f_link_url,
+				</if>
+			 	<if test=" null != startDate ">
+					f_start_date,
+				</if>
+			 	<if test=" null != endDate ">
+					f_end_date,
+				</if>
+			 	<if test=" null != status ">
+					f_status,
+				</if>
+			 	<if test=" null != activityType ">
+					f_activity_type,
+				</if>
+			 	<if test=" null != activityCode and ''!= activityCode  ">
+					f_activity_code,
+				</if>
+			 	<if test=" null != appType ">
+					f_app_type,
+				</if>
+			 	<if test=" null != activityEndImg and ''!= activityEndImg  ">
+					f_activity_end_img,
+				</if>
+			 	<if test=" null != shareTitle and ''!= shareTitle  ">
+					f_share_title,
+				</if>
+			 	<if test=" null != shareDesc and ''!= shareDesc  ">
+					f_share_desc,
+				</if>
+			 	<if test=" null != shareIcon and ''!= shareIcon  ">
+					f_share_icon,
+				</if>
+			 	<if test=" null != shareLink and ''!= shareLink  ">
+					f_share_link,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != activityName and ''!= activityName  ">
+					 	#{activityName},
+				</if>
+			 	<if test=" null != activityImg and ''!= activityImg  ">
+					 	#{activityImg},
+				</if>
+			 	<if test=" null != linkUrl and ''!= linkUrl  ">
+					 	#{linkUrl},
+				</if>
+			 	<if test=" null != startDate ">
+					 	#{startDate},
+				</if>
+			 	<if test=" null != endDate ">
+					 	#{endDate},
+				</if>
+			 	<if test=" null != status ">
+					 	#{status},
+				</if>
+			 	<if test=" null != activityType ">
+					 	#{activityType},
+				</if>
+			 	<if test=" null != activityCode and ''!= activityCode  ">
+					 	#{activityCode},
+				</if>
+			 	<if test=" null != appType ">
+					 	#{appType},
+				</if>
+			 	<if test=" null != activityEndImg and ''!= activityEndImg  ">
+					 	#{activityEndImg},
+				</if>
+			 	<if test=" null != shareTitle and ''!= shareTitle  ">
+					 	#{shareTitle},
+				</if>
+			 	<if test=" null != shareDesc and ''!= shareDesc  ">
+					 	#{shareDesc},
+				</if>
+			 	<if test=" null != shareIcon and ''!= shareIcon  ">
+					 	#{shareIcon},
+				</if>
+			 	<if test=" null != shareLink and ''!= shareLink  ">
+					 	#{shareLink},
+				</if>
+		</trim>
+	</insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.linkwee.web.model.ActivityList" >
+  		UPDATE t_activity_list
+		<set>
+			<trim suffixOverrides=",">
+					<if test=" null != activityName and ''!= activityName  ">
+						f_activity_name = #{activityName},
+					</if>
+					<if test=" null != activityImg and ''!= activityImg  ">
+						f_activity_img = #{activityImg},
+					</if>
+					<if test=" null != linkUrl and ''!= linkUrl  ">
+						f_link_url = #{linkUrl},
+					</if>
+					<if test=" null != startDate ">
+						f_start_date = #{startDate},
+					</if>
+					<if test=" null != endDate ">
+						f_end_date = #{endDate},
+					</if>
+					<if test=" null != status ">
+						f_status = #{status},
+					</if>
+					<if test=" null != activityType ">
+						f_activity_type = #{activityType},
+					</if>
+					<if test=" null != activityCode and ''!= activityCode  ">
+						f_activity_code = #{activityCode},
+					</if>
+					<if test=" null != appType ">
+						f_app_type = #{appType},
+					</if>
+					<if test=" null != activityEndImg and ''!= activityEndImg  ">
+						f_activity_end_img = #{activityEndImg},
+					</if>
+					<if test=" null != shareTitle and ''!= shareTitle  ">
+						f_share_title = #{shareTitle},
+					</if>
+					<if test=" null != shareDesc and ''!= shareDesc  ">
+						f_share_desc = #{shareDesc},
+					</if>
+					<if test=" null != shareIcon and ''!= shareIcon  ">
+						f_share_icon = #{shareIcon},
+					</if>
+					<if test=" null != shareLink and ''!= shareLink  ">
+						f_share_link = #{shareLink},
+					</if>
+			</trim>
+		</set>
+		<where>
+			 f_id = #{id}
+		</where>
+	</update>
+  
+	<update id="updateByPrimaryKey" parameterType="com.linkwee.web.model.ActivityList" >
+	    UPDATE t_activity_list
+	   <set>
+			<trim suffixOverrides=",">
+					<if test=" null != activityName and ''!= activityName  ">
+						f_activity_name = #{activityName},
+					</if>
+					<if test=" null != activityImg and ''!= activityImg  ">
+						f_activity_img = #{activityImg},
+					</if>
+					<if test=" null != linkUrl and ''!= linkUrl  ">
+						f_link_url = #{linkUrl},
+					</if>
+					<if test=" null != startDate ">
+						f_start_date = #{startDate},
+					</if>
+					<if test=" null != endDate ">
+						f_end_date = #{endDate},
+					</if>
+					<if test=" null != status ">
+						f_status = #{status},
+					</if>
+					<if test=" null != activityType ">
+						f_activity_type = #{activityType},
+					</if>
+					<if test=" null != activityCode and ''!= activityCode  ">
+						f_activity_code = #{activityCode},
+					</if>
+					<if test=" null != appType ">
+						f_app_type = #{appType},
+					</if>
+					<if test=" null != activityEndImg and ''!= activityEndImg  ">
+						f_activity_end_img = #{activityEndImg},
+					</if>
+					<if test=" null != shareTitle and ''!= shareTitle  ">
+						f_share_title = #{shareTitle},
+					</if>
+					<if test=" null != shareDesc and ''!= shareDesc  ">
+						f_share_desc = #{shareDesc},
+					</if>
+					<if test=" null != shareIcon and ''!= shareIcon  ">
+						f_share_icon = #{shareIcon},
+					</if>
+					<if test=" null != shareLink and ''!= shareLink  ">
+						f_share_link = #{shareLink},
+					</if>
+			</trim>
+		</set>
+		<where>
+			f_id = #{0}
+		</where>
+	  </update>
+
+	<!-- 分页条件查询 -->
+    <select id="selectBySearchInfo" resultMap="BaseResultMap" >
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM t_activity_list
+        <where> 
+        <if test="actitityName!=null and actitityName!='' ">  
+                f_activity_name LIKE CONCAT('%','${actitityName}','%' )  
+         </if>  
+        </where>
+        order by f_id desc
+    </select>
+
+</mapper>

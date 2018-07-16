@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.SysErrorLogMapper">
+	<!-- Result Map-->
+	<resultMap  type="com.linkwee.web.model.SysErrorLog" id="BaseResultMap">
+		<result column="id" property="id" jdbcType="INTEGER"/>
+		<result column="order_no" property="orderNo" jdbcType="VARCHAR"/>
+		<result column="method" property="method" jdbcType="VARCHAR"/>
+		<result column="req_parm" property="reqParm" jdbcType="LONGVARCHAR"/>
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+		<result column="remark" property="remark" jdbcType="VARCHAR"/>
+		<result column="cause" property="cause" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+  <sql id="Base_Column_List">
+    <trim suffixOverrides=",">
+	    	id,
+	    	order_no,
+	    	method,
+	    	req_parm,
+	    	create_time,
+	    	remark,
+	    	cause,
+    </trim>
+  </sql>  
+  
+  <sql id="Base_Condition">
+		<if test=" null != id ">
+			and id = #{id}
+		</if>
+		<if test=" null != orderNo and ''!= orderNo  ">
+			and order_no = #{orderNo}
+		</if>
+		<if test=" null != method and ''!= method  ">
+			and method = #{method}
+		</if>
+		<if test=" null != reqParm and ''!= reqParm  ">
+			and req_parm = #{reqParm}
+		</if>
+		<if test=" null != createTime ">
+			and create_time = #{createTime}
+		</if>
+		<if test=" null != remark and ''!= remark  ">
+			and remark = #{remark}
+		</if>
+		<if test=" null != cause and ''!= cause  ">
+			and cause = #{cause}
+		</if>
+  </sql>
+  
+  <select id="selectOneByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.web.model.SysErrorLog">
+		select <include refid="Base_Column_List" /> from tsys_error_log 
+		where 1=1 <include refid="Base_Condition" />
+  </select>
+  
+  <select id="selectByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.web.model.SysErrorLog">
+		select <include refid="Base_Column_List" /> from tsys_error_log 
+		where 1=1 <include refid="Base_Condition" />
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tsys_error_log
+    where  id = #{0}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tsys_error_log
+    where id = #{0}
+  </delete>
+
+  <insert id="insert" parameterType="com.linkwee.web.model.SysErrorLog" >
+    INSERT INTO tsys_error_log
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != orderNo and ''!= orderNo  ">
+					order_no,
+				</if>
+			 	<if test=" null != method and ''!= method  ">
+					method,
+				</if>
+			 	<if test=" null != reqParm and ''!= reqParm  ">
+					req_parm,
+				</if>
+			 	<if test=" null != createTime ">
+					create_time,
+				</if>
+			 	<if test=" null != remark and ''!= remark  ">
+					remark,
+				</if>
+				<if test=" null != cause and ''!= cause  ">
+					cause,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != orderNo and ''!= orderNo  ">
+					 	#{orderNo},
+				</if>
+			 	<if test=" null != method and ''!= method  ">
+					 	#{method},
+				</if>
+			 	<if test=" null != reqParm and ''!= reqParm  ">
+					 	#{reqParm},
+				</if>
+			 	<if test=" null != createTime ">
+					 	#{createTime},
+				</if>
+			 	<if test=" null != remark and ''!= remark  ">
+					 	#{remark},
+				</if>
+				<if test=" null != cause and ''!= cause  ">
+						#{cause},
+				</if>
+		</trim>
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.linkwee.web.model.SysErrorLog" useGeneratedKeys="true" keyProperty="id" >
+		INSERT INTO tsys_error_log
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != orderNo and ''!= orderNo  ">
+					order_no,
+				</if>
+			 	<if test=" null != method and ''!= method  ">
+					method,
+				</if>
+			 	<if test=" null != reqParm and ''!= reqParm  ">
+					req_parm,
+				</if>
+			 	<if test=" null != createTime ">
+					create_time,
+				</if>
+			 	<if test=" null != remark and ''!= remark  ">
+					remark,
+				</if>
+				<if test=" null != cause and ''!= cause  ">
+					cause,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != orderNo and ''!= orderNo  ">
+					 	#{orderNo},
+				</if>
+			 	<if test=" null != method and ''!= method  ">
+					 	#{method},
+				</if>
+			 	<if test=" null != reqParm and ''!= reqParm  ">
+					 	#{reqParm},
+				</if>
+			 	<if test=" null != createTime ">
+					 	#{createTime},
+				</if>
+			 	<if test=" null != remark and ''!= remark  ">
+					 	#{remark},
+				</if>
+				<if test=" null != cause and ''!= cause  ">
+						#{cause},
+				</if>
+		</trim>
+	</insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.linkwee.web.model.SysErrorLog" >
+  		UPDATE tsys_error_log
+		<set>
+			<trim suffixOverrides=",">
+					<if test=" null != orderNo and ''!= orderNo  ">
+						order_no = #{orderNo},
+					</if>
+					<if test=" null != method and ''!= method  ">
+						method = #{method},
+					</if>
+					<if test=" null != reqParm and ''!= reqParm  ">
+						req_parm = #{reqParm},
+					</if>
+					<if test=" null != createTime ">
+						create_time = #{createTime},
+					</if>
+					<if test=" null != remark and ''!= remark  ">
+						remark = #{remark},
+					</if>
+					<if test=" null != cause and ''!= cause  ">
+						cause = #{cause},
+					</if>
+			</trim>
+		</set>
+		<where>
+			 id = #{id}
+		</where>
+	</update>
+  
+	<update id="updateByPrimaryKey" parameterType="com.linkwee.web.model.SysErrorLog" >
+	    UPDATE tsys_error_log
+	   <set>
+			<trim suffixOverrides=",">
+					<if test=" null != orderNo and ''!= orderNo  ">
+						order_no = #{orderNo},
+					</if>
+					<if test=" null != method and ''!= method  ">
+						method = #{method},
+					</if>
+					<if test=" null != reqParm and ''!= reqParm  ">
+						req_parm = #{reqParm},
+					</if>
+					<if test=" null != createTime ">
+						create_time = #{createTime},
+					</if>
+					<if test=" null != remark and ''!= remark  ">
+						remark = #{remark},
+					</if>
+					<if test=" null != cause and ''!= cause  ">
+						cause = #{cause},
+					</if>
+			</trim>
+		</set>
+		<where>
+			id = #{0}
+		</where>
+	  </update>
+
+</mapper>

@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.CrmLineUserInfoMapper">
+	<!-- Result Map-->
+	<resultMap  type="com.linkwee.web.model.crm.CrmLineUserInfo" id="BaseResultMap">
+		<result column="id" property="id" jdbcType="INTEGER"/>
+		<result column="open_id" property="openId" jdbcType="VARCHAR"/>
+		<result column="mobile" property="mobile" jdbcType="VARCHAR"/>
+		<result column="nick_name" property="nickName" jdbcType="VARCHAR"/>
+		<result column="head_img_url" property="headImgUrl" jdbcType="VARCHAR"/>
+		<result column="cfp_mobile" property="cfpMobile" jdbcType="VARCHAR"/>
+		<result column="cfp_user_id" property="cfpUserId" jdbcType="VARCHAR"/>
+		<result column="cfp_name" property="cfpName" jdbcType="VARCHAR"/>
+		<result column="activity_type" property="activityType" jdbcType="INTEGER"/>
+		<result column="remark" property="remark" jdbcType="VARCHAR"/>
+		<result column="invit_num" property="invitNum" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+  <sql id="Base_Column_List">
+    <trim suffixOverrides=",">
+	    	id,
+	    	open_id,
+	    	mobile,
+	    	nick_name,
+	    	head_img_url,
+	    	cfp_mobile,
+	    	cfp_user_id,
+	    	cfp_name,
+	    	activity_type,
+	    	remark,
+    </trim>
+  </sql>  
+  
+  <sql id="Base_Condition">
+		<if test=" null != id ">
+			and id = #{id}
+		</if>
+		<if test=" null != openId and ''!= openId  ">
+			and open_id = #{openId}
+		</if>
+		<if test=" null != mobile and ''!= mobile  ">
+			and mobile = #{mobile}
+		</if>
+		<if test=" null != nickName and ''!= nickName  ">
+			and nick_name = #{nickName}
+		</if>
+		<if test=" null != headImgUrl and ''!= headImgUrl  ">
+			and head_img_url = #{headImgUrl}
+		</if>
+		<if test=" null != cfpMobile and ''!= cfpMobile  ">
+			and cfp_mobile = #{cfpMobile}
+		</if>
+		<if test=" null != cfpUserId and ''!= cfpUserId  ">
+			and cfp_user_id = #{cfpUserId}
+		</if>
+		<if test=" null != cfpName and ''!= cfpName  ">
+			and cfp_name = #{cfpName}
+		</if>
+		<if test=" null != activityType ">
+			and activity_type = #{activityType}
+		</if>
+		<if test=" null != remark and ''!= remark  ">
+			and remark = #{remark}
+		</if>
+  </sql>
+  
+  <select id="selectOneByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.web.model.crm.CrmLineUserInfo">
+		select <include refid="Base_Column_List" /> from tcrm_line_user_info 
+		where 1=1 <include refid="Base_Condition" />
+  </select>
+  
+  <select id="selectByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.web.model.crm.CrmLineUserInfo">
+		select <include refid="Base_Column_List" /> from tcrm_line_user_info 
+		where 1=1 <include refid="Base_Condition" />
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tcrm_line_user_info
+    where  id = #{0}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tcrm_line_user_info
+    where id = #{0}
+  </delete>
+
+  <insert id="insert" parameterType="com.linkwee.web.model.crm.CrmLineUserInfo" >
+    INSERT INTO tcrm_line_user_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != openId and ''!= openId  ">
+					open_id,
+				</if>
+			 	<if test=" null != mobile and ''!= mobile  ">
+					mobile,
+				</if>
+			 	<if test=" null != nickName and ''!= nickName  ">
+					nick_name,
+				</if>
+			 	<if test=" null != headImgUrl and ''!= headImgUrl  ">
+					head_img_url,
+				</if>
+			 	<if test=" null != cfpMobile and ''!= cfpMobile  ">
+					cfp_mobile,
+				</if>
+			 	<if test=" null != cfpUserId and ''!= cfpUserId  ">
+					cfp_user_id,
+				</if>
+			 	<if test=" null != cfpName and ''!= cfpName  ">
+					cfp_name,
+				</if>
+			 	<if test=" null != activityType ">
+					activity_type,
+				</if>
+			 	<if test=" null != remark and ''!= remark  ">
+					remark,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != openId and ''!= openId  ">
+					 	#{openId},
+				</if>
+			 	<if test=" null != mobile and ''!= mobile  ">
+					 	#{mobile},
+				</if>
+			 	<if test=" null != nickName and ''!= nickName  ">
+					 	#{nickName},
+				</if>
+			 	<if test=" null != headImgUrl and ''!= headImgUrl  ">
+					 	#{headImgUrl},
+				</if>
+			 	<if test=" null != cfpMobile and ''!= cfpMobile  ">
+					 	#{cfpMobile},
+				</if>
+			 	<if test=" null != cfpUserId and ''!= cfpUserId  ">
+					 	#{cfpUserId},
+				</if>
+			 	<if test=" null != cfpName and ''!= cfpName  ">
+					 	#{cfpName},
+				</if>
+			 	<if test=" null != activityType ">
+					 	#{activityType},
+				</if>
+			 	<if test=" null != remark and ''!= remark  ">
+					 	#{remark},
+				</if>
+		</trim>
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.linkwee.web.model.crm.CrmLineUserInfo" useGeneratedKeys="true" keyProperty="id" >
+		INSERT INTO tcrm_line_user_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != openId and ''!= openId  ">
+					open_id,
+				</if>
+			 	<if test=" null != mobile and ''!= mobile  ">
+					mobile,
+				</if>
+			 	<if test=" null != nickName and ''!= nickName  ">
+					nick_name,
+				</if>
+			 	<if test=" null != headImgUrl and ''!= headImgUrl  ">
+					head_img_url,
+				</if>
+			 	<if test=" null != cfpMobile and ''!= cfpMobile  ">
+					cfp_mobile,
+				</if>
+			 	<if test=" null != cfpUserId and ''!= cfpUserId  ">
+					cfp_user_id,
+				</if>
+			 	<if test=" null != cfpName and ''!= cfpName  ">
+					cfp_name,
+				</if>
+			 	<if test=" null != activityType ">
+					activity_type,
+				</if>
+			 	<if test=" null != remark and ''!= remark  ">
+					remark,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != openId and ''!= openId  ">
+					 	#{openId},
+				</if>
+			 	<if test=" null != mobile and ''!= mobile  ">
+					 	#{mobile},
+				</if>
+			 	<if test=" null != nickName and ''!= nickName  ">
+					 	#{nickName},
+				</if>
+			 	<if test=" null != headImgUrl and ''!= headImgUrl  ">
+					 	#{headImgUrl},
+				</if>
+			 	<if test=" null != cfpMobile and ''!= cfpMobile  ">
+					 	#{cfpMobile},
+				</if>
+			 	<if test=" null != cfpUserId and ''!= cfpUserId  ">
+					 	#{cfpUserId},
+				</if>
+			 	<if test=" null != cfpName and ''!= cfpName  ">
+					 	#{cfpName},
+				</if>
+			 	<if test=" null != activityType ">
+					 	#{activityType},
+				</if>
+			 	<if test=" null != remark and ''!= remark  ">
+					 	#{remark},
+				</if>
+		</trim>
+	</insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.linkwee.web.model.crm.CrmLineUserInfo" >
+  		UPDATE tcrm_line_user_info
+		<set>
+			<trim suffixOverrides=",">
+					<if test=" null != openId and ''!= openId  ">
+						open_id = #{openId},
+					</if>
+					<if test=" null != mobile and ''!= mobile  ">
+						mobile = #{mobile},
+					</if>
+					<if test=" null != nickName and ''!= nickName  ">
+						nick_name = #{nickName},
+					</if>
+					<if test=" null != headImgUrl and ''!= headImgUrl  ">
+						head_img_url = #{headImgUrl},
+					</if>
+					<if test=" null != cfpMobile and ''!= cfpMobile  ">
+						cfp_mobile = #{cfpMobile},
+					</if>
+					<if test=" null != cfpUserId and ''!= cfpUserId  ">
+						cfp_user_id = #{cfpUserId},
+					</if>
+					<if test=" null != cfpName and ''!= cfpName  ">
+						cfp_name = #{cfpName},
+					</if>
+					<if test=" null != activityType ">
+						activity_type = #{activityType},
+					</if>
+					<if test=" null != remark and ''!= remark  ">
+						remark = #{remark},
+					</if>
+			</trim>
+		</set>
+		<where>
+			 id = #{id}
+		</where>
+	</update>
+  
+	<update id="updateByPrimaryKey" parameterType="com.linkwee.web.model.crm.CrmLineUserInfo" >
+	    UPDATE tcrm_line_user_info
+	   <set>
+			<trim suffixOverrides=",">
+					<if test=" null != openId and ''!= openId  ">
+						open_id = #{openId},
+					</if>
+					<if test=" null != mobile and ''!= mobile  ">
+						mobile = #{mobile},
+					</if>
+					<if test=" null != nickName and ''!= nickName  ">
+						nick_name = #{nickName},
+					</if>
+					<if test=" null != headImgUrl and ''!= headImgUrl  ">
+						head_img_url = #{headImgUrl},
+					</if>
+					<if test=" null != cfpMobile and ''!= cfpMobile  ">
+						cfp_mobile = #{cfpMobile},
+					</if>
+					<if test=" null != cfpUserId and ''!= cfpUserId  ">
+						cfp_user_id = #{cfpUserId},
+					</if>
+					<if test=" null != cfpName and ''!= cfpName  ">
+						cfp_name = #{cfpName},
+					</if>
+					<if test=" null != activityType ">
+						activity_type = #{activityType},
+					</if>
+					<if test=" null != remark and ''!= remark  ">
+						remark = #{remark},
+					</if>
+			</trim>
+		</set>
+		<where>
+			id = #{0}
+		</where>
+	  </update>
+
+	<!-- 分页条件查询 -->
+    <select id="selectBySearchInfo" resultMap="BaseResultMap" parameterType="com.linkwee.core.datatable.DataTable">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM tcrm_line_user_info
+        <where> 
+        <if test="dt.search!=null">  
+                name LIKE CONCAT('%','${dt.search.value}','%' )  
+         </if>  
+         <if test="dt.order!=null">  
+               <foreach collection="dt.order" index="index" item="item"
+                    open="order by" separator="," close=" ">
+                    ${item.name} ${item.dir} 
+                </foreach>
+         </if>  
+        </where>
+    </select>
+    
+     <select id="queryInvitationRecord" resultMap="BaseResultMap" >
+	    SELECT l.open_id, l.mobile, l.nick_name, l.head_img_url  
+        FROM tcrm_line_user_info l where l.activity_type = 1
+	    <if test=" null != cfpMobile and ''!= cfpMobile">
+		  AND l.cfp_mobile = #{cfpMobile}
+	    </if>
+          ORDER BY l.create_time DESC
+     </select>
+
+</mapper>

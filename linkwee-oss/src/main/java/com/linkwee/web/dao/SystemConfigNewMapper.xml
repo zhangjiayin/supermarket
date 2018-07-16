@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.SystemConfigNewMapper">
+<parameterMap type="com.linkwee.web.model.SystemConfigNew" id="SystemConfigNewParameterMap" />	
+<!-- Result Map-->
+<resultMap  type="com.linkwee.web.model.SystemConfigNew" id="BaseResultMap">
+	<result column="f_id" property="id" jdbcType="INTEGER"/>
+	<result column="f_name" property="name" jdbcType="VARCHAR"/>
+	<result column="f_type" property="type" jdbcType="VARCHAR"/>
+	<result column="f_key" property="key" jdbcType="VARCHAR"/>
+	<result column="f_value" property="value" jdbcType="VARCHAR"/>
+	<result column="f_remark" property="remark" jdbcType="VARCHAR"/>
+	<result column="f_crt_time" property="crtTime" jdbcType="TIMESTAMP"/>
+	<result column="f_app_type" property="appType" jdbcType="INTEGER"/>
+</resultMap>
+  <sql id="Base_Column_List">
+    <trim suffixOverrides=",">
+	    	f_id,
+	    	f_name,
+	    	f_type,
+	    	f_key,
+	    	f_value,
+	    	f_remark,
+	    	f_crt_time,
+	    	f_app_type,
+    </trim>
+  </sql>  
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_system_config_new
+    where  f_id = #{0}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_system_config_new
+    where f_id = #{0}
+  </delete>
+
+  <insert id="insert" parameterType="com.linkwee.web.model.SystemConfigNew" >
+    INSERT INTO t_system_config_new
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					f_id,
+				</if>
+			 	<if test=" null != name and ''!= name  ">
+					f_name,
+				</if>
+			 	<if test=" null != type and ''!= type  ">
+					f_type,
+				</if>
+			 	<if test=" null != key and ''!= key  ">
+					f_key,
+				</if>
+			 	<if test=" null != value and ''!= value  ">
+					f_value,
+				</if>
+			 	<if test=" null != remark and ''!= remark  ">
+					f_remark,
+				</if>
+			 	<if test=" null != crtTime ">
+					f_crt_time,
+				</if>
+			 	<if test=" null != appType ">
+					f_app_type,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != name and ''!= name  ">
+					 	#{name},
+				</if>
+			 	<if test=" null != type and ''!= type  ">
+					 	#{type},
+				</if>
+			 	<if test=" null != key and ''!= key  ">
+					 	#{key},
+				</if>
+			 	<if test=" null != value and ''!= value  ">
+					 	#{value},
+				</if>
+			 	<if test=" null != remark and ''!= remark  ">
+					 	#{remark},
+				</if>
+			 	<if test=" null != crtTime ">
+					 	#{crtTime},
+				</if>
+			 	<if test=" null != appType ">
+					 	#{appType},
+				</if>
+		</trim>
+  </insert>
+  
+  <insert id="insertSelective" parameterMap="SystemConfigNewParameterMap" useGeneratedKeys="true" keyProperty="id" >
+		INSERT INTO t_system_config_new
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					f_id,
+				</if>
+			 	<if test=" null != name and ''!= name  ">
+					f_name,
+				</if>
+			 	<if test=" null != type and ''!= type  ">
+					f_type,
+				</if>
+			 	<if test=" null != key and ''!= key  ">
+					f_key,
+				</if>
+			 	<if test=" null != value and ''!= value  ">
+					f_value,
+				</if>
+			 	<if test=" null != remark and ''!= remark  ">
+					f_remark,
+				</if>
+			 	<if test=" null != crtTime ">
+					f_crt_time,
+				</if>
+			 	<if test=" null != appType ">
+					f_app_type,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != name and ''!= name  ">
+					 	#{name},
+				</if>
+			 	<if test=" null != type and ''!= type  ">
+					 	#{type},
+				</if>
+			 	<if test=" null != key and ''!= key  ">
+					 	#{key},
+				</if>
+			 	<if test=" null != value and ''!= value  ">
+					 	#{value},
+				</if>
+			 	<if test=" null != remark and ''!= remark  ">
+					 	#{remark},
+				</if>
+			 	<if test=" null != crtTime ">
+					 	#{crtTime},
+				</if>
+			 	<if test=" null != appType ">
+					 	#{appType},
+				</if>
+		</trim>
+	</insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.linkwee.web.model.SystemConfigNew" >
+  		UPDATE t_system_config_new
+		<set>
+			<trim suffixOverrides=",">
+					<if test=" null != name and ''!= name  ">
+						f_name = #{name},
+					</if>
+					<if test=" null != type and ''!= type  ">
+						f_type = #{type},
+					</if>
+					<if test=" null != key and ''!= key  ">
+						f_key = #{key},
+					</if>
+					<if test=" null != value and ''!= value  ">
+						f_value = #{value},
+					</if>
+					<if test=" null != remark and ''!= remark  ">
+						f_remark = #{remark},
+					</if>
+					<if test=" null != crtTime ">
+						f_crt_time = #{crtTime},
+					</if>
+					<if test=" null != appType ">
+						f_app_type = #{appType},
+					</if>
+			</trim>
+		</set>
+		<where>
+			 f_id = #{id}
+		</where>
+	</update>
+  
+	<update id="updateByPrimaryKey" parameterType="com.linkwee.web.model.SystemConfigNew" >
+	    UPDATE t_system_config_new
+	   <set>
+			<trim suffixOverrides=",">
+					<if test=" null != name and ''!= name  ">
+						f_name = #{name},
+					</if>
+					<if test=" null != type and ''!= type  ">
+						f_type = #{type},
+					</if>
+					<if test=" null != key and ''!= key  ">
+						f_key = #{key},
+					</if>
+					<if test=" null != value and ''!= value  ">
+						f_value = #{value},
+					</if>
+					<if test=" null != remark and ''!= remark  ">
+						f_remark = #{remark},
+					</if>
+					<if test=" null != crtTime ">
+						f_crt_time = #{crtTime},
+					</if>
+					<if test=" null != appType ">
+						f_app_type = #{appType},
+					</if>
+			</trim>
+		</set>
+		<where>
+			f_id = #{0}
+		</where>
+	  </update>
+
+	<!-- 分页条件查询 -->
+    <select id="selectBySearchInfo" resultMap="BaseResultMap" parameterType="com.linkwee.core.datatable.DataTable">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM t_system_config_new
+        <where> 
+        <if test="dt.search!=null">  
+                f_name LIKE CONCAT('%','${dt.search.value}','%' )  
+                or 
+                f_key LIKE CONCAT('%','${dt.search.value}','%' )  
+         </if>  
+        <!--  <if test="dt.order!=null">  
+               <foreach collection="dt.order" index="index" item="item"
+                    open="order by" separator="," close=" ">
+                    ${item.name} ${item.dir} 
+                </foreach>
+         </if>   -->
+        </where>
+    </select>
+
+</mapper>

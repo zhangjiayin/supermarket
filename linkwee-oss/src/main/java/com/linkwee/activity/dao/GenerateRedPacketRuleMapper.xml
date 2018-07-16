@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.activity.dao.GenerateRedPacketRuleMapper">
+
+	<parameterMap type="com.linkwee.activity.model.GenerateRedPacketRule" id="generateRedPacketRule" />
+	
+	<resultMap type="com.linkwee.activity.model.GenerateRedPacketRule" id="generateRedPacketRuleMap">
+		<result column="id" property="id"  javaType="Long" jdbcType="BIGINT" />
+		<result column="fid" property="fid"  javaType="String" jdbcType="VARCHAR" />
+		<result column="activity_id" property="activityId"  javaType="String" jdbcType="VARCHAR" />
+		<result column="activity_name" property="activityName"  javaType="String" jdbcType="VARCHAR" />
+		<result column="product_id" property="productId"  javaType="String" jdbcType="VARCHAR" />
+		<result column="product_name" property="productName"  javaType="String" jdbcType="VARCHAR" />
+		<result column="product_deadline" property="productDeadline"  javaType="Integer" jdbcType="INTEGER" />
+		<result column="create_condition" property="createCondition"  javaType="Integer" jdbcType="INTEGER"/>
+		<result column="red_paper_json" property="redPaperRuleJson"  javaType="String" jdbcType="VARCHAR" />
+		<result column="day" property="day"  javaType="Integer" jdbcType="TINYINT" />
+		<result column="init_date" property="initDate"  javaType="Date" jdbcType="DECIMAL" />
+		<result column="update_date" property="updateDate"  javaType="Date" jdbcType="TIMESTAMP" />
+	</resultMap>
+	
+	
+	<delete id="deleteActivityGenerateRule">
+		DELETE FROM t_create_red_paper_rule where activity_id=#{activityId}
+	</delete>
+	
+	
+	<insert id="insertSelective" parameterMap="generateRedPacketRule" >
+		INSERT INTO t_create_red_paper_rule    
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != fid and '' != fid ">
+					fid,
+				</if>
+			 	<if test=" null != activityId and '' != activityId ">
+					activity_id,
+				</if>
+			 	<if test=" null != activityName and '' != activityName ">
+					activity_name,
+				</if>
+			 	<if test=" null != productId and '' != productId ">
+					product_id,
+				</if>
+			 	<if test=" null != productName and '' != productName ">
+					product_name,
+				</if>
+				<if test=" null != productDeadline">
+					product_deadline,
+				</if>
+				<if test=" null != createCondition">
+					create_condition,
+				</if>
+			 	<if test=" null != redPaperRuleJson">
+					red_paper_json,
+				</if>
+			 	<if test=" null != day">
+					day,
+				</if>
+			 	<if test=" null != initDate">
+					init_date,
+				</if>
+			 	<if test=" null != updateDate">
+					update_date,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != fid and '' != fid ">
+					 	#{fid},
+				</if>
+			 	<if test=" null != activityId and '' != activityId ">
+					 	#{activityId},
+				</if>
+			 	<if test=" null != activityName and '' != activityName ">
+					 	#{activityName},
+				</if>
+			 	<if test=" null != productId and '' != productId ">
+					 	#{productId},
+				</if>
+			 	<if test=" null != productName and '' != productName ">
+					 	#{productName},
+				</if>
+				<if test=" null != productDeadline">
+						#{productDeadline},
+				</if>
+				<if test=" null != createCondition">
+						#{createCondition},
+				</if>
+			 	<if test=" null != redPaperRuleJson">
+					 	#{redPaperRuleJson},
+				</if>
+			 	<if test=" null != day">
+					 	#{day},
+				</if>
+			 	<if test=" null != initDate">
+					 	#{initDate,javaType=Date,jdbcType=DECIMAL},
+				</if>
+			 	<if test=" null != updateDate">
+					 	#{updateDate},
+				</if>
+		</trim>
+	</insert>
+	
+	<update id="updateByPrimaryKeySelective" parameterMap="generateRedPacketRule">
+		UPDATE t_create_red_paper_rule    
+		<set>
+			<trim suffixOverrides=",">
+				<if test=" null != activityId and '' != activityId ">
+					activity_id = #{activityId},
+				</if>
+				<if test=" null != activityName and '' != activityName ">
+					activity_name = #{activityName},
+				</if>
+				<if test=" null != productId and '' != productId ">
+					product_id = #{productId},
+				</if>
+				<if test=" null != productName and '' != productName ">
+					product_name = #{productName},
+				</if>
+				<if test=" null != redPaperRuleJson">
+					red_paper_json = #{redPaperRuleJson},
+				</if>
+				<if test=" null != day">
+					day = #{day},
+				</if>
+				<if test=" null != updateDate">
+					update_date = #{updateDate},
+				</if>
+			</trim>
+		</set>
+		<where>
+			<if test="null != fid and '' != fid">
+				fid = #{fid}
+			</if>
+		</where>
+	</update>
+	
+	<select id="getGenerateRedPacketRuleByActivityId" resultMap="generateRedPacketRuleMap">
+		SELECT fid,activity_id,red_paper_json FROM t_create_red_paper_rule WHERE  activity_id = #{activityId}
+	</select>
+	
+	
+</mapper>

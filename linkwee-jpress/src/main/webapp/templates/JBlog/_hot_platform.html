@@ -1,0 +1,18 @@
+
+<div class="common-bottom-right">
+<div class="tb-platform-title">
+<h1>
+<span>热门平台推荐</span>
+</h1>
+</div>
+<div class="hot-platform clearfix">
+<@jp.hotOrgs rows="4">
+<#list orgInfos as orgInfo>
+<div>
+<a href="${JPRESS_WEBSITE}/module/platform/platformDetail.html?orgNo=${orgInfo.orgNumber!}" target="_blank"><img src="${PC_IMG_WEBSITE+orgInfo.pcPlatformImg!}"></a>
+</div>
+</#list>               
+</@jp.hotOrgs>  
+</div>
+</div>
+

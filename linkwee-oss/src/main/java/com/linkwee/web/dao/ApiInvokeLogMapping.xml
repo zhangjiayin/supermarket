@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.ApiInvokeLogDao">
+<parameterMap type="com.linkwee.web.model.ApiInvokeLog" id="ApiInvokeLogParameterMap" />	
+<!-- Result Map-->
+<resultMap  type="com.linkwee.web.model.ApiInvokeLog" id="ApiInvokeLogResultMap">
+	<result column="f_id" property="id" jdbcType="INTEGER"/>
+	<result column="f_user_id" property="userId" jdbcType="VARCHAR"/>
+	<result column="f_api_name" property="apiName" jdbcType="VARCHAR"/>
+	<result column="f_access_count" property="accessCount" jdbcType="INTEGER"/>
+	<result column="f_chg_time" property="chgTime" jdbcType="TIMESTAMP"/>
+	<result column="f_app_type" property="appType" jdbcType="INTEGER"/>
+</resultMap>
+  <sql id="Base_Column_List">
+    <trim suffixOverrides=",">
+	    	f_id,
+	    	f_user_id,
+	    	f_api_name,
+	    	f_access_count,
+	    	f_chg_time,
+	    	f_app_type,
+    </trim>
+  </sql>  
+  
+   <sql id="Base_Column_List_T">
+    <trim suffixOverrides=",">
+	    	t.f_id,
+	    	t.f_user_id,
+	    	t.f_api_name,
+	    	t.f_access_count,
+	    	t.f_chg_time,
+	    	t.f_app_type,
+    </trim>
+  </sql> 
+  	
+  <select id="getByPrimaryKey"  resultMap="ApiInvokeLogResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_api_invoke_log where  f_id = #{0}
+  </select>	
+
+  <delete id="deleteByPrimaryKey" >
+    delete from t_api_invoke_log
+	<where>
+		f_id = #{0}
+	</where>
+  </delete>
+  
+  
+  <insert id="add" parameterMap="ApiInvokeLogParameterMap" useGeneratedKeys="true" keyProperty="id" >
+		INSERT INTO t_api_invoke_log
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					f_id,
+				</if>
+			 	<if test=" null != userId and ''!= userId  ">
+					f_user_id,
+				</if>
+			 	<if test=" null != apiName and ''!= apiName  ">
+					f_api_name,
+				</if>
+			 	<if test=" null != accessCount ">
+					f_access_count,
+				</if>
+			 	<if test=" null != chgTime ">
+					f_chg_time,
+				</if>
+			 	<if test=" null != appType ">
+					f_app_type,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != userId and ''!= userId  ">
+					 	#{userId},
+				</if>
+			 	<if test=" null != apiName and ''!= apiName  ">
+					 	#{apiName},
+				</if>
+			 	<if test=" null != accessCount ">
+					 	#{accessCount},
+				</if>
+			 	<if test=" null != chgTime ">
+					 	#{chgTime},
+				</if>
+			 	<if test=" null != appType ">
+					 	#{appType},
+				</if>
+		</trim>
+	</insert>
+  
+  
+  <update id="update" parameterMap="ApiInvokeLogParameterMap">
+		UPDATE t_api_invoke_log
+		<set>
+			<trim suffixOverrides=",">
+					<if test=" null != userId and ''!= userId  ">
+						f_user_id = #{userId},
+					</if>
+					<if test=" null != apiName and ''!= apiName  ">
+						f_api_name = #{apiName},
+					</if>
+					<if test=" null != accessCount ">
+						f_access_count = #{accessCount},
+					</if>
+					<if test=" null != chgTime ">
+						f_chg_time = #{chgTime},
+					</if>
+					<if test=" null != appType ">
+						f_app_type = #{appType},
+					</if>
+			</trim>
+		</set>
+		<where>
+			 f_id = #{id}
+		</where>
+	</update>
+  
+  
+   <update id="updateWithEmpty" parameterMap="ApiInvokeLogParameterMap">
+		UPDATE t_api_invoke_log
+		<set>
+			<trim suffixOverrides=",">
+						f_user_id = #{userId},
+						f_api_name = #{apiName},
+						f_access_count = #{accessCount},
+						f_chg_time = #{chgTime},
+						f_app_type = #{appType},
+			</trim>
+		</set>
+		<where>
+			 f_id = #{id}
+		</where>
+	</update>
+
+  <insert id="addBatch" parameterType="java.util.List">
+	insert into t_api_invoke_log 
+	<trim prefix="(" suffix=")" >
+			<include refid="Base_Column_List" />
+	</trim>
+	VALUES
+	<foreach item="item" index="index" collection="list" separator=",">
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+				#{item.id,jdbcType=INTEGER},
+				#{item.userId,jdbcType=VARCHAR},
+				#{item.apiName,jdbcType=VARCHAR},
+				#{item.accessCount,jdbcType=INTEGER},
+				#{item.chgTime,jdbcType=TIMESTAMP},
+				#{item.appType,jdbcType=INTEGER},
+		</trim>
+	</foreach>
+</insert>
+
+ 
+<update id="updateBatch" parameterType="java.util.List">
+      <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update t_api_invoke_log
+            <set>
+              	<trim suffixOverrides=",">
+					   <if test="item.userId!=null and ''!= item.userId  ">
+					        f_user_id = #{item.userId,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.apiName!=null and ''!= item.apiName  ">
+					        f_api_name = #{item.apiName,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.accessCount!=null ">
+					        f_access_count = #{item.accessCount,jdbcType=INTEGER},
+					   </if>
+					   <if test="item.chgTime!=null ">
+					        f_chg_time = #{item.chgTime,jdbcType=TIMESTAMP},
+					   </if>
+					   <if test="item.appType!=null ">
+					        f_app_type = #{item.appType,jdbcType=INTEGER},
+					   </if>
+			   </trim>
+            </set>
+             where f_id = #{item.id}
+     </foreach>
+</update>
+
+<update id="updateBatchWithEmpty" parameterType="java.util.List">
+      <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update t_api_invoke_log
+            <set>
+              	<trim suffixOverrides=",">
+					        f_user_id = #{item.userId,jdbcType=VARCHAR},
+					        f_api_name = #{item.apiName,jdbcType=VARCHAR},
+					        f_access_count = #{item.accessCount,jdbcType=INTEGER},
+					        f_chg_time = #{item.chgTime,jdbcType=TIMESTAMP},
+					        f_app_type = #{item.appType,jdbcType=INTEGER},
+			   </trim>
+            </set>
+             where f_id = #{item.id}
+     </foreach>
+</update>         
+
+<delete id="deleteBatch" parameterType="Object">
+	DELETE FROM t_api_invoke_log
+	<where>
+		<foreach item="item" index="index" collection="array"  open="(" separator="or" close=") ">
+			  f_id  = #{item}
+		</foreach>
+	</where>
+</delete>
+    
+ <sql id="Base_Condition">
+		   <if test=" null != id ">
+				AND	T.f_id = #{id}
+		</if>
+		   <if test=" null != userId and ''!= userId  ">
+				AND	T.f_user_id = #{userId}
+		</if>
+		   <if test=" null != apiName and ''!= apiName  ">
+				AND	T.f_api_name = #{apiName}
+		</if>
+		   <if test=" null != accessCount ">
+				AND	T.f_access_count = #{accessCount}
+		</if>
+		   <if test=" null != chgTime ">
+				AND	T.f_chg_time = #{chgTime}
+		</if>
+		   <if test=" null != appType ">
+				AND	T.f_app_type = #{appType}
+		</if>
+ </sql>    
+<select id="list" resultMap="ApiInvokeLogResultMap"  >
+		SELECT <include refid="Base_Column_List" /> FROM t_api_invoke_log T WHERE 1=1
+		<include refid="Base_Condition" />
+</select>
+
+<select id="query" resultMap="ApiInvokeLogResultMap"  >
+		SELECT <include refid="Base_Column_List" /> FROM t_api_invoke_log T WHERE 1=1
+		<include refid="Base_Condition" />
+</select>
+</mapper>

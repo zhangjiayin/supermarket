@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.ActRanklistMapper">
+	<!-- Result Map-->
+	<resultMap  type="com.linkwee.act.rankList.model.ActRanklist" id="BaseResultMap">
+		<result column="id" property="id" jdbcType="INTEGER"/>
+		<result column="ranklist_id" property="ranklistId" jdbcType="VARCHAR"/>
+		<result column="ranklist_name" property="ranklistName" jdbcType="VARCHAR"/>
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+		<result column="operator" property="operator" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+  <sql id="Base_Column_List">
+    <trim suffixOverrides=",">
+	    	id,
+	    	ranklist_id,
+	    	ranklist_name,
+	    	create_time,
+	    	update_time,
+	    	operator,
+    </trim>
+  </sql>
+  
+ <sql id="Base_Column_List_T">
+    <trim suffixOverrides=",">
+	    	t.id,
+	    	t.ranklist_id,
+	    	t.ranklist_name,
+	    	t.create_time,
+	    	t.update_time,
+	    	t.operator,
+    </trim>
+  </sql>  
+  
+  <sql id="Base_Condition">
+		<if test=" null != id ">
+			and id = #{id}
+		</if>
+		<if test=" null != ranklistId and ''!= ranklistId  ">
+			and ranklist_id = #{ranklistId}
+		</if>
+		<if test=" null != ranklistName and ''!= ranklistName  ">
+			and ranklist_name = #{ranklistName}
+		</if>
+		<if test=" null != createTime ">
+			and create_time = #{createTime}
+		</if>
+		<if test=" null != updateTime ">
+			and update_time = #{updateTime}
+		</if>
+		<if test=" null != operator and ''!= operator  ">
+			and operator = #{operator}
+		</if>
+  </sql>
+  
+  <select id="selectOneByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.act.rankList.model.ActRanklist">
+		select <include refid="Base_Column_List" /> from tact_ranklist 
+		where 1=1 <include refid="Base_Condition" />
+  </select>
+  
+  <select id="selectByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.act.rankList.model.ActRanklist">
+		select <include refid="Base_Column_List" /> from tact_ranklist 
+		where 1=1 <include refid="Base_Condition" />
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tact_ranklist
+    where  id = #{0}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tact_ranklist
+    where id = #{0}
+  </delete>
+
+  <insert id="insert" parameterType="com.linkwee.act.rankList.model.ActRanklist" >
+    INSERT INTO tact_ranklist
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != ranklistId and ''!= ranklistId  ">
+					ranklist_id,
+				</if>
+			 	<if test=" null != ranklistName and ''!= ranklistName  ">
+					ranklist_name,
+				</if>
+			 	<if test=" null != createTime ">
+					create_time,
+				</if>
+			 	<if test=" null != updateTime ">
+					update_time,
+				</if>
+			 	<if test=" null != operator and ''!= operator  ">
+					operator,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != ranklistId and ''!= ranklistId  ">
+					 	#{ranklistId},
+				</if>
+			 	<if test=" null != ranklistName and ''!= ranklistName  ">
+					 	#{ranklistName},
+				</if>
+			 	<if test=" null != createTime ">
+					 	#{createTime},
+				</if>
+			 	<if test=" null != updateTime ">
+					 	#{updateTime},
+				</if>
+			 	<if test=" null != operator and ''!= operator  ">
+					 	#{operator},
+				</if>
+		</trim>
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.linkwee.act.rankList.model.ActRanklist" useGeneratedKeys="true" keyProperty="id" >
+		INSERT INTO tact_ranklist
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != ranklistId and ''!= ranklistId  ">
+					ranklist_id,
+				</if>
+			 	<if test=" null != ranklistName and ''!= ranklistName  ">
+					ranklist_name,
+				</if>
+			 	<if test=" null != createTime ">
+					create_time,
+				</if>
+			 	<if test=" null != updateTime ">
+					update_time,
+				</if>
+			 	<if test=" null != operator and ''!= operator  ">
+					operator,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != ranklistId and ''!= ranklistId  ">
+					 	#{ranklistId},
+				</if>
+			 	<if test=" null != ranklistName and ''!= ranklistName  ">
+					 	#{ranklistName},
+				</if>
+			 	<if test=" null != createTime ">
+					 	#{createTime},
+				</if>
+			 	<if test=" null != updateTime ">
+					 	#{updateTime},
+				</if>
+			 	<if test=" null != operator and ''!= operator  ">
+					 	#{operator},
+				</if>
+		</trim>
+	</insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.linkwee.act.rankList.model.ActRanklist" >
+  		UPDATE tact_ranklist
+		<set>
+			<trim suffixOverrides=",">
+					<if test=" null != ranklistId and ''!= ranklistId  ">
+						ranklist_id = #{ranklistId},
+					</if>
+					<if test=" null != ranklistName and ''!= ranklistName  ">
+						ranklist_name = #{ranklistName},
+					</if>
+					<if test=" null != createTime ">
+						create_time = #{createTime},
+					</if>
+					<if test=" null != updateTime ">
+						update_time = #{updateTime},
+					</if>
+					<if test=" null != operator and ''!= operator  ">
+						operator = #{operator},
+					</if>
+			</trim>
+		</set>
+		<where>
+			 id = #{id}
+		</where>
+	</update>
+  
+	<update id="updateByPrimaryKey" parameterType="com.linkwee.act.rankList.model.ActRanklist" >
+	    UPDATE tact_ranklist
+	   <set>
+			<trim suffixOverrides=",">
+					<if test=" null != ranklistId and ''!= ranklistId  ">
+						ranklist_id = #{ranklistId},
+					</if>
+					<if test=" null != ranklistName and ''!= ranklistName  ">
+						ranklist_name = #{ranklistName},
+					</if>
+					<if test=" null != createTime ">
+						create_time = #{createTime},
+					</if>
+					<if test=" null != updateTime ">
+						update_time = #{updateTime},
+					</if>
+					<if test=" null != operator and ''!= operator  ">
+						operator = #{operator},
+					</if>
+			</trim>
+		</set>
+		<where>
+			id = #{0}
+		</where>
+	  </update>
+	  
+	  
+	<select id="exectRanklistSqlByPage" resultType="map" >
+		${sql}
+	</select>
+	<select id="exectRanklistSql" resultType="map" >
+		${sql}
+	</select>
+	
+	<select id="queryZybRanklist" resultType="com.linkwee.act.rankList.model.ActZybRanklistDetail">
+		SELECT
+			IFNULL(fd.feeProfit,0) feeProfit,
+			IFNULL(br.activityProfit,0) activityProfit,
+			IFNULL(f.leaderProfit, 0) leaderProfit,
+			c.user_id,
+			c.mobile userMobile,
+			c.head_image headImg,
+			ac.id_card idCard
+		FROM
+			tcrm_cfplanner c
+		LEFT JOIN tac_account_bind ac ON ac.user_id = c.user_id
+		LEFT JOIN (SELECT fd.profit_cfplanner_id,SUM(fd.fee_amount)feeProfit FROM tcim_feedetail fd WHERE fd.create_time BETWEEN #{preWeekStart} AND #{preWeekEnd} GROUP BY fd.profit_cfplanner_id)fd ON c.user_id = fd.profit_cfplanner_id
+		LEFT JOIN (SELECT br.user_id,SUM(br.trans_amount) activityProfit FROM tac_balance_record br WHERE br.trans_type in(3,4,14) AND br.create_time BETWEEN #{preWeekStart} AND #{preWeekEnd} GROUP BY br.user_id)br ON c.user_id = br.user_id
+		LEFT JOIN (SELECT f.owner_id,SUM(f.leader_profit)leaderProfit FROM tcim_leader_fee f WHERE f.create_time BETWEEN #{preWeekStart} AND #{preWeekEnd} GROUP BY f.owner_id) f ON c.user_id = f.owner_id  
+		WHERE
+			 feeProfit > 0 OR activityProfit > 0 OR leaderProfit>0
+		<!-- SELECT
+			IFNULL(SUM(fd.fee_amount),0) feeProfit,
+			IFNULL(SUM(br.trans_amount),0) activityProfit,
+			IFNULL(SUM(f.leader_profit), 0) leaderProfit,
+			cu.user_name userName,
+			cu.mobile userMobile,
+			c.head_image headImg,
+			ac.id_card idCard
+		FROM
+			tcrm_cfplanner c
+		LEFT JOIN tcrm_user_info cu ON c.user_id = cu.user_id
+		LEFT JOIN tcim_feedetail fd ON c.user_id = fd.profit_cfplanner_id
+		AND fd.create_time BETWEEN #{preWeekStart} AND #{preWeekEnd}
+		LEFT JOIN tac_balance_record br ON c.user_id = br.user_id
+		AND br.trans_type in(3,4,14)
+		AND br.create_time BETWEEN #{preWeekStart} AND #{preWeekEnd}
+		LEFT JOIN tcim_leader_fee f ON c.user_id = f.owner_id AND f.create_time BETWEEN #{preWeekStart} AND #{preWeekEnd}
+		LEFT JOIN tac_account_bind ac ON ac.user_id = c.user_id
+		WHERE
+			c.level_experience > 0
+		GROUP BY
+			c.user_id
+		HAVING
+			feeProfit > 0 OR activityProfit > 0 OR leaderProfit>0 -->
+	</select>
+	
+	<insert id="insetsZybRanks" parameterType="com.linkwee.act.rankList.model.ActZybRanklistDetail">
+		INSERT INTO tact_zyb_ranklist_detail    
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+				    	head_img,
+				    	user_mobile,
+				    	show_mobile,
+				    	user_name,
+				    	total_profit,
+				    	activity_profit,
+				    	fee_profit,
+				    	sort,
+				    	is_virtual
+		</trim>
+		VALUES
+		<foreach item="item" index="index" collection="zybRanklistDetail" separator=",">
+			<trim prefix="(" suffix=")" suffixOverrides=",">
+					 	#{item.headImg},
+					 	#{item.userMobile},
+					 	#{item.showMobile},
+					 	#{item.userName},
+					 	#{item.totalProfit},
+					 	#{item.activityProfit},
+					 	#{item.feeProfit},
+					 	#{item.sort},
+					 	#{item.isVirtual}
+			</trim>
+		</foreach>
+	</insert>
+
+	<update id="updateZybRankStatus">
+		UPDATE tact_zyb_ranklist_detail zyb SET zyb.`status`=0 WHERE zyb.`status`=1
+	</update>
+	
+	<insert id="insetsVirtualData" parameterType="com.linkwee.act.rankList.model.ActRanklistVirtualData">
+		INSERT INTO tact_ranklist_virtual_data    
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+						rank_list_code,
+						level_name,
+				    	head_img,
+				    	user_mobile,
+				    	total_profit,
+		</trim>
+		VALUES
+		<foreach item="item" index="index" collection="tdjlRanklistData" separator=",">
+			<trim prefix="(" suffix=")" suffixOverrides=",">
+						#{item.rankListCode},
+						#{item.levelName},
+					 	#{item.headImg},
+					 	#{item.userMobile},
+					 	#{item.totalProfit},
+			</trim>
+		</foreach>
+	</insert>
+	
+	<update id="updateRankListVirtualDataStatus">
+		UPDATE tact_ranklist_virtual_data rvd SET rvd.`status`=0 WHERE rvd.rank_list_code=#{ranklist_id} AND rvd.`status`=1
+	</update>
+	
+	
+</mapper>

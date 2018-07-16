@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd 
+  		http://www.springframework.org/schema/jee 
+  		http://www.springframework.org/schema/jee/spring-jee-2.0.xsd
+        http://code.alibabatech.com/schema/dubbo 
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd
+        ">
+ 	<!-- 账户中心 -->
+<!--  	<dubbo:registry address="218.17.71.27:2181,218.17.71.27:2182,218.17.71.27:2183" protocol="${dubbo.registry.protocol}" default="false" id="performRegistry"/>
+ 	<dubbo:consumer  id="accountcenterConsumer"   timeout="20000" check="false" version="${p2p.accountcenter.version}" group="${p2p.accountcenter.group}" registry="performRegistry" />
+ 	
+ 	
+    <dubbo:reference id="p2pInRecordAndPayService" interface="com.xiaoniu.account.service.IInRecordAndPayService"  consumer="accountcenterConsumer" />   
+ 	<dubbo:reference id="p2pIOutRecordSOAService" interface="com.xiaoniu.account.service.IOutRecordSOAService"  consumer="accountcenterConsumer" />
+	<dubbo:reference id="p2pPrepare2PayService" interface="com.xiaoniu.account.service.IPrepare2PayService"  consumer="accountcenterConsumer" />
+	<dubbo:reference id="p2pIUserAssetSOAService" interface="com.xiaoniu.account.service.IUserAssetSOAService"  consumer="accountcenterConsumer" /> -->
+	<!-- 本地环境 -->
+	<dubbo:consumer  id="accountcenterConsumer"   timeout="20000" check="false" version="1.0" group="p2p" />
+    <dubbo:reference id="p2pInRecordAndPayService" interface="com.xiaoniu.account.service.IInRecordAndPayService"  consumer="accountcenterConsumer" />   
+ 	<dubbo:reference id="p2pIOutRecordSOAService" interface="com.xiaoniu.account.service.IOutRecordSOAService"  consumer="accountcenterConsumer" />
+	<dubbo:reference id="p2pPrepare2PayService" interface="com.xiaoniu.account.service.IPrepare2PayService"  consumer="accountcenterConsumer" />
+	<dubbo:reference id="p2pIUserAssetSOAService" interface="com.xiaoniu.account.service.IUserAssetSOAService"  consumer="accountcenterConsumer" />
+	
+	
+	<dubbo:reference id="p2pUserAuthenticationService" interface="com.xiaoniu.account.service.IUserAuthenticationService"  consumer="accountcenterConsumer"/>
+	<dubbo:reference id="p2pIPayPasswordSOAService" interface="com.xiaoniu.account.service.IPayPasswordSOAService"  consumer="accountcenterConsumer"/> 
+</beans>

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.ActRanklistCustomMapper">
+	<!-- Result Map-->
+	<resultMap  type="com.linkwee.act.rankList.model.ActRanklistCustom" id="BaseResultMap">
+		<result column="id" property="id" jdbcType="INTEGER"/>
+		<result column="ranklist_id" property="ranklistId" jdbcType="VARCHAR"/>
+		<result column="key" property="key" jdbcType="VARCHAR"/>
+		<result column="value" property="value" jdbcType="LONGVARCHAR"/>
+	</resultMap>
+	
+  <sql id="Base_Column_List">
+    <trim suffixOverrides=",">
+	    	id,
+	    	ranklist_id,
+	    	key,
+	    	value,
+    </trim>
+  </sql>
+  
+ <sql id="Base_Column_List_T">
+    <trim suffixOverrides=",">
+	    	t.id,
+	    	t.ranklist_id,
+	    	t.key,
+	    	t.value,
+    </trim>
+  </sql>  
+  
+  <sql id="Base_Condition">
+		<if test=" null != id ">
+			and id = #{id}
+		</if>
+		<if test=" null != ranklistId and ''!= ranklistId  ">
+			and ranklist_id = #{ranklistId}
+		</if>
+		<if test=" null != key and ''!= key  ">
+			and key = #{key}
+		</if>
+		<if test=" null != value and ''!= value  ">
+			and value = #{value}
+		</if>
+  </sql>
+  
+  <select id="selectOneByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.act.rankList.model.ActRanklistCustom">
+		select <include refid="Base_Column_List" /> from tact_ranklist_custom 
+		where 1=1 <include refid="Base_Condition" />
+  </select>
+  
+  <select id="selectByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.act.rankList.model.ActRanklistCustom">
+		select <include refid="Base_Column_List" /> from tact_ranklist_custom 
+		where 1=1 <include refid="Base_Condition" />
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tact_ranklist_custom
+    where  id = #{0}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tact_ranklist_custom
+    where id = #{0}
+  </delete>
+
+  <insert id="insert" parameterType="com.linkwee.act.rankList.model.ActRanklistCustom" >
+    INSERT INTO tact_ranklist_custom
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != ranklistId and ''!= ranklistId  ">
+					ranklist_id,
+				</if>
+			 	<if test=" null != key and ''!= key  ">
+					key,
+				</if>
+			 	<if test=" null != value and ''!= value  ">
+					value,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != ranklistId and ''!= ranklistId  ">
+					 	#{ranklistId},
+				</if>
+			 	<if test=" null != key and ''!= key  ">
+					 	#{key},
+				</if>
+			 	<if test=" null != value and ''!= value  ">
+					 	#{value},
+				</if>
+		</trim>
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.linkwee.act.rankList.model.ActRanklistCustom" useGeneratedKeys="true" keyProperty="id" >
+		INSERT INTO tact_ranklist_custom
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != ranklistId and ''!= ranklistId  ">
+					ranklist_id,
+				</if>
+			 	<if test=" null != key and ''!= key  ">
+					key,
+				</if>
+			 	<if test=" null != value and ''!= value  ">
+					value,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != ranklistId and ''!= ranklistId  ">
+					 	#{ranklistId},
+				</if>
+			 	<if test=" null != key and ''!= key  ">
+					 	#{key},
+				</if>
+			 	<if test=" null != value and ''!= value  ">
+					 	#{value},
+				</if>
+		</trim>
+	</insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.linkwee.act.rankList.model.ActRanklistCustom" >
+  		UPDATE tact_ranklist_custom
+		<set>
+			<trim suffixOverrides=",">
+					<if test=" null != ranklistId and ''!= ranklistId  ">
+						ranklist_id = #{ranklistId},
+					</if>
+					<if test=" null != key and ''!= key  ">
+						key = #{key},
+					</if>
+					<if test=" null != value and ''!= value  ">
+						value = #{value},
+					</if>
+			</trim>
+		</set>
+		<where>
+			 id = #{id}
+		</where>
+	</update>
+  
+	<update id="updateByPrimaryKey" parameterType="com.linkwee.act.rankList.model.ActRanklistCustom" >
+	    UPDATE tact_ranklist_custom
+	   <set>
+			<trim suffixOverrides=",">
+					<if test=" null != ranklistId and ''!= ranklistId  ">
+						ranklist_id = #{ranklistId},
+					</if>
+					<if test=" null != key and ''!= key  ">
+						key = #{key},
+					</if>
+					<if test=" null != value and ''!= value  ">
+						value = #{value},
+					</if>
+			</trim>
+		</set>
+		<where>
+			id = #{0}
+		</where>
+	  </update>
+	  
+	  <select id="getRanklistCustomValueByKey" resultType="String">
+	  	select rc.value from tact_ranklist_custom rc where rc.ranklist_id = #{rankListId} AND rc.key = #{rankListKey}
+	  </select>
+
+
+
+</mapper>

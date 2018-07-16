@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.activity.dao.RedpacketAccountMapper">
+
+	<parameterMap type="com.linkwee.activity.model.RedpacketAccount" id="redPaperAccount" />
+	
+	<resultMap type="com.linkwee.activity.model.RedpacketAccount" id="redPaperAccountMap">
+		<result column="id" property="id"  javaType="Long" jdbcType="BIGINT" />
+		<result column="fid" property="fid"  javaType="String" jdbcType="VARCHAR" />
+		<result column="activity_id" property="activityId"  javaType="String" jdbcType="VARCHAR" />
+		<result column="father_id" property="fatherId"  javaType="String" jdbcType="VARCHAR" />
+		<result column="send_money" property="sendMoney"  javaType="Double" jdbcType="DECIMAL" />
+		<result column="redeem_money" property="redeemMoney"  javaType="Double" jdbcType="DECIMAL" />
+		<result column="money" property="money"  javaType="Double" jdbcType="DECIMAL" />
+		<result column="remark" property="remark"  javaType="String" jdbcType="VARCHAR" />
+		<result column="status" property="status"  javaType="Integer" jdbcType="TINYINT" />
+		<result column="init_date" property="initDate"  javaType="Date" jdbcType="DECIMAL" />
+		<result column="update_date" property="updateDate"  javaType="Date" jdbcType="TIMESTAMP" />
+	</resultMap>
+	
+	<insert id="addBatch"  parameterType="java.util.ArrayList">
+		INSERT INTO t_red_paper_account    
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+						id,
+						fid,
+						activity_id,
+						father_id,
+						send_money,
+						redeem_money,
+						money,
+						remark,
+						status,
+						init_date,
+						update_date,
+		</trim>
+		VALUES
+		<foreach item="item" index="index" collection="list" separator=",">
+			<trim prefix="(" suffix=")" suffixOverrides=",">
+						 #{item.id},
+						 #{item.fid},
+						 #{item.activityId},
+						 #{item.fatherId},
+						 #{item.sendMoney},
+						 #{item.redeemMoney},
+						 #{item.money},
+						 #{item.remark},
+						 #{item.status},
+						 #{item.initDate,javaType=Date,jdbcType=DECIMAL},
+						 #{item.updateDate},
+			</trim>
+		</foreach>
+	</insert>
+	
+	<insert id="insertSelective" parameterMap="redPaperAccount" >
+		INSERT INTO t_red_paper_account    
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != fid and '' != fid ">
+					fid,
+				</if>
+			 	<if test=" null != activityId and '' != activityId ">
+					activity_id,
+				</if>
+			 	<if test=" null != fatherId and '' != fatherId ">
+					father_id,
+				</if>
+			 	<if test=" null != sendMoney">
+					send_money,
+				</if>
+			 	<if test=" null != redeemMoney">
+					redeem_money,
+				</if>
+				<if test=" null != money">
+					money,
+				</if>
+				
+			 	<if test=" null != remark and '' != remark ">
+					remark,
+				</if>
+			 	<if test=" null != status">
+					status,
+				</if>
+			 	<if test=" null != initDate">
+					init_date,
+				</if>
+			 	<if test=" null != updateDate">
+					update_date,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != fid and '' != fid ">
+					 	#{fid},
+				</if>
+			 	<if test=" null != activityId and '' != activityId ">
+					 	#{activityId},
+				</if>
+			 	<if test=" null != fatherId and '' != fatherId ">
+					 	#{fatherId},
+				</if>
+			 	<if test=" null != sendMoney">
+					 	#{sendMoney},
+				</if>
+			 	<if test=" null != redeemMoney">
+					 	#{redeemMoney},
+				</if>
+				<if test=" null != money">
+					#{money},
+				</if>
+			 	<if test=" null != remark and '' != remark ">
+					 	#{remark},
+				</if>
+			 	<if test=" null != status">
+					 	#{status},
+				</if>
+			 	<if test=" null != initDate">
+					 	#{initDate,javaType=Date,jdbcType=DECIMAL},
+				</if>
+			 	<if test=" null != updateDate">
+					 	#{updateDate},
+				</if>
+		</trim>
+	</insert>
+	
+	<delete id="delete" parameterType="Object">
+		DELETE FROM t_red_paper_account     WHERE id IN
+		<foreach item="item" index="index" collection="array"  open="(" separator="," close=") ">
+			 #{item}
+		</foreach>
+	</delete>
+	
+	<update id="update" parameterMap="redPaperAccount">
+		UPDATE t_red_paper_account    
+		<set>
+			<trim suffixOverrides=",">
+				<if test=" null != id">
+					id = #{id},
+				</if>
+				<if test=" null != fid and '' != fid ">
+					fid = #{fid},
+				</if>
+				<if test=" null != activityId and '' != activityId ">
+					activity_id = #{activityId},
+				</if>
+				<if test=" null != fatherId and '' != fatherId ">
+					father_id = #{fatherId},
+				</if>
+				<if test=" null != sendMoney">
+					send_money = #{sendMoney},
+				</if>
+				<if test=" null != redeemMoney">
+					redeem_money = #{redeemMoney},
+				</if>
+				<if test=" null != money">
+					money = #{money},
+				</if>
+				<if test=" null != remark and '' != remark ">
+					remark = #{remark},
+				</if>
+				<if test=" null != status">
+					status = #{status},
+				</if>
+				<if test=" null != initDate">
+					init_date = #{initDate,javaType=Date,jdbcType=DECIMAL},
+				</if>
+				<if test=" null != updateDate">
+					update_date = #{updateDate},
+				</if>
+			</trim>
+		</set>
+		<where>
+			<if test="null != id and '' != id">
+				id = #{id}
+			</if>
+		</where>
+	</update>
+	
+	<!-- 更新已兑换金额 -->
+	<update id="updateRedeemMoney">
+		UPDATE t_red_paper_account SET redeem_money = redeem_money+#{redeemMoney} WHERE activity_id=#{activityId}
+	</update>
+	
+	<!-- 更新已派发金额 -->
+	<update id="updateSendMoney">
+		UPDATE t_red_paper_account SET send_money = send_money+#{sendMoney} WHERE activity_id=#{activityId}
+	</update>
+	<!-- 查询已兑换金额  -->
+	<select id="getRedeemMoney" resultMap="redPaperAccountMap" parameterType="String">
+		SELECT activity_id,money,redeem_money FROM t_red_paper_account WHERE activity_id=#{activityId} FOR UPDATE
+	</select>
+	<!-- 查询已派发金额  -->
+	<select id="getSendMoney" resultMap="redPaperAccountMap" parameterType="String">
+		SELECT activity_id,money,send_money FROM t_red_paper_account WHERE activity_id IN
+		<foreach item="item" index="index" collection="activityIds" separator="," open="("  close=")" >
+			#{item}
+		</foreach>
+		FOR UPDATE
+	</select>
+	<!-- 查询单个活动已派发金额  -->
+	<select id="getSingleSendMoney" resultMap="redPaperAccountMap" parameterType="String">
+		SELECT activity_id,money,send_money FROM t_red_paper_account WHERE activity_id = #{activityId} FOR UPDATE
+	</select>
+	
+	
+	<select id="getList" resultMap="redPaperAccountMap" parameterMap="redPaperAccount">
+		SELECT * FROM t_red_paper_account    
+		<where>
+			1=1
+			<if test=" null != id">
+				AND id = #{id}
+			</if>
+			<if test=" null != fid and '' != fid ">
+				AND fid LIKE '%${fid}%'
+			</if>
+			<if test=" null != activityId and '' != activityId ">
+				AND activity_id LIKE '%${activityId}%'
+			</if>
+			<if test=" null != fatherId and '' != fatherId ">
+				AND father_id LIKE '%${fatherId}%'
+			</if>
+			<if test=" null != sendMoney">
+				AND send_money = #{sendMoney}
+			</if>
+			<if test=" null != redeemMoney">
+				AND redeem_money = #{redeemMoney}
+			</if>
+			<if test=" null != money">
+				AND	money = #{money},
+			</if>
+			<if test=" null != remark and '' != remark ">
+				AND remark LIKE '%${remark}%'
+			</if>
+			<if test=" null != status">
+				AND status = #{status}
+			</if>
+			<if test=" null != initDate">
+				AND init_date = #{initDate,javaType=Date,jdbcType=DECIMAL}
+			</if>
+			<if test=" null != updateDate">
+				AND update_date = #{updateDate}
+			</if>
+		</where>
+			ORDER BY id DESC  LIMIT ${(page-1)*rows},#{rows}
+	</select>
+	
+	<select id="count" resultType="Long" parameterMap="redPaperAccount">
+		SELECT COUNT(id) FROM t_red_paper_account    
+		<where>
+			1=1
+			<if test=" null != id">
+				AND id = #{id}
+			</if>
+			<if test=" null != fid and '' != fid ">
+				AND fid LIKE '%${fid}%'
+			</if>
+			<if test=" null != activityId and '' != activityId ">
+				AND activity_id LIKE '%${activityId}%'
+			</if>
+			<if test=" null != fatherId and '' != fatherId ">
+				AND father_id LIKE '%${fatherId}%'
+			</if>
+			<if test=" null != sendMoney">
+				AND send_money = #{sendMoney}
+			</if>
+			<if test=" null != redeemMoney">
+				AND redeem_money = #{redeemMoney}
+			</if>
+			<if test=" null != remark and '' != remark ">
+				AND remark LIKE '%${remark}%'
+			</if>
+			<if test=" null != status">
+				AND status = #{status}
+			</if>
+			<if test=" null != initDate">
+				AND init_date = #{initDate,javaType=Date,jdbcType=DECIMAL}
+			</if>
+			<if test=" null != updateDate">
+				AND update_date = #{updateDate}
+			</if>
+		</where>
+	</select>
+	
+	<select id="getObject" resultMap="redPaperAccountMap" parameterType="Long">
+		SELECT * FROM t_red_paper_account  WHERE id = #{0}
+	</select>
+	
+</mapper>

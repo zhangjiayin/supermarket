@@ -1,0 +1,1738 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.CrmSalesOrgMapper">
+	<!-- Result Map-->
+	<resultMap  type="com.linkwee.web.model.CrmSalesOrg" id="BaseResultMap">
+		<result column="id" property="id" jdbcType="INTEGER"/>
+		<result column="sales_org_id" property="salesOrgId" jdbcType="VARCHAR"/>
+		<result column="name" property="name" jdbcType="VARCHAR"/>
+		<result column="city" property="city" jdbcType="VARCHAR"/>
+		<result column="legal_person" property="legalPerson" jdbcType="VARCHAR"/>
+		<result column="contacts" property="contacts" jdbcType="VARCHAR"/>
+		<result column="contact_mobile" property="contactMobile" jdbcType="VARCHAR"/>
+		<result column="manager_account" property="managerAccount" jdbcType="VARCHAR"/>
+		<result column="password" property="password" jdbcType="VARCHAR"/>
+		<result column="cooperation_time" property="cooperationTime" jdbcType="TIMESTAMP"/>
+		<result column="cooperation_status" property="cooperationStatus" jdbcType="INTEGER"/>
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+		<result column="last_update_time" property="lastUpdateTime" jdbcType="TIMESTAMP"/>
+	</resultMap>
+	
+  <sql id="Base_Column_List">
+    <trim suffixOverrides=",">
+	    	id,
+	    	sales_org_id,
+	    	name,
+	    	city,
+	    	legal_person,
+	    	contacts,
+	    	contact_mobile,
+	    	manager_account,
+	    	password,
+	    	cooperation_time,
+	    	cooperation_status,
+	    	create_time,
+	    	last_update_time,
+    </trim>
+  </sql>  
+  
+  <sql id="Base_Condition">
+		<if test=" null != id ">
+			and id = #{id}
+		</if>
+		<if test=" null != salesOrgId and ''!= salesOrgId  ">
+			and sales_org_id = #{salesOrgId}
+		</if>
+		<if test=" null != name and ''!= name  ">
+			and name = #{name}
+		</if>
+		<if test=" null != city and ''!= city  ">
+			and city = #{city}
+		</if>
+		<if test=" null != legalPerson and ''!= legalPerson  ">
+			and legal_person = #{legalPerson}
+		</if>
+		<if test=" null != contacts and ''!= contacts  ">
+			and contacts = #{contacts}
+		</if>
+		<if test=" null != contactMobile and ''!= contactMobile  ">
+			and contact_mobile = #{contactMobile}
+		</if>
+		<if test=" null != managerAccount and ''!= managerAccount  ">
+			and manager_account = #{managerAccount}
+		</if>
+		<if test=" null != password and ''!= password  ">
+			and password = #{password}
+		</if>
+		<if test=" null != cooperationTime ">
+			and cooperation_time = #{cooperationTime}
+		</if>
+		<if test=" null != cooperationStatus ">
+			and cooperation_status = #{cooperationStatus}
+		</if>
+		<if test=" null != createTime ">
+			and create_time = #{createTime}
+		</if>
+		<if test=" null != lastUpdateTime ">
+			and last_update_time = #{lastUpdateTime}
+		</if>
+  </sql>
+  
+  <select id="selectOneByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.web.model.CrmSalesOrg">
+		select <include refid="Base_Column_List" /> from tcrm_sales_org 
+		where 1=1 <include refid="Base_Condition" /> limit 1
+  </select>
+  
+  <select id="selectByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.web.model.CrmSalesOrg">
+		select <include refid="Base_Column_List" /> from tcrm_sales_org 
+		where 1=1 <include refid="Base_Condition" />
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tcrm_sales_org
+    where  id = #{0}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tcrm_sales_org
+    where id = #{0}
+  </delete>
+
+  <insert id="insert" parameterType="com.linkwee.web.model.CrmSalesOrg" >
+    INSERT INTO tcrm_sales_org
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != salesOrgId and ''!= salesOrgId  ">
+					sales_org_id,
+				</if>
+			 	<if test=" null != name and ''!= name  ">
+					name,
+				</if>
+			 	<if test=" null != city and ''!= city  ">
+					city,
+				</if>
+			 	<if test=" null != legalPerson and ''!= legalPerson  ">
+					legal_person,
+				</if>
+			 	<if test=" null != contacts and ''!= contacts  ">
+					contacts,
+				</if>
+			 	<if test=" null != contactMobile and ''!= contactMobile  ">
+					contact_mobile,
+				</if>
+			 	<if test=" null != managerAccount and ''!= managerAccount  ">
+					manager_account,
+				</if>
+			 	<if test=" null != password and ''!= password  ">
+					password,
+				</if>
+			 	<if test=" null != cooperationTime ">
+					cooperation_time,
+				</if>
+			 	<if test=" null != cooperationStatus ">
+					cooperation_status,
+				</if>
+			 	<if test=" null != createTime ">
+					create_time,
+				</if>
+			 	<if test=" null != lastUpdateTime ">
+					last_update_time,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != salesOrgId and ''!= salesOrgId  ">
+					 	#{salesOrgId},
+				</if>
+			 	<if test=" null != name and ''!= name  ">
+					 	#{name},
+				</if>
+			 	<if test=" null != city and ''!= city  ">
+					 	#{city},
+				</if>
+			 	<if test=" null != legalPerson and ''!= legalPerson  ">
+					 	#{legalPerson},
+				</if>
+			 	<if test=" null != contacts and ''!= contacts  ">
+					 	#{contacts},
+				</if>
+			 	<if test=" null != contactMobile and ''!= contactMobile  ">
+					 	#{contactMobile},
+				</if>
+			 	<if test=" null != managerAccount and ''!= managerAccount  ">
+					 	#{managerAccount},
+				</if>
+			 	<if test=" null != password and ''!= password  ">
+					 	#{password},
+				</if>
+			 	<if test=" null != cooperationTime ">
+					 	#{cooperationTime},
+				</if>
+			 	<if test=" null != cooperationStatus ">
+					 	#{cooperationStatus},
+				</if>
+			 	<if test=" null != createTime ">
+					 	#{createTime},
+				</if>
+			 	<if test=" null != lastUpdateTime ">
+					 	#{lastUpdateTime},
+				</if>
+		</trim>
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.linkwee.web.model.CrmSalesOrg" useGeneratedKeys="true" keyProperty="id" >
+		INSERT INTO tcrm_sales_org
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != salesOrgId and ''!= salesOrgId  ">
+					sales_org_id,
+				</if>
+			 	<if test=" null != name and ''!= name  ">
+					name,
+				</if>
+			 	<if test=" null != city and ''!= city  ">
+					city,
+				</if>
+			 	<if test=" null != legalPerson and ''!= legalPerson  ">
+					legal_person,
+				</if>
+			 	<if test=" null != contacts and ''!= contacts  ">
+					contacts,
+				</if>
+			 	<if test=" null != contactMobile and ''!= contactMobile  ">
+					contact_mobile,
+				</if>
+			 	<if test=" null != managerAccount and ''!= managerAccount  ">
+					manager_account,
+				</if>
+			 	<if test=" null != password and ''!= password  ">
+					password,
+				</if>
+			 	<if test=" null != cooperationTime ">
+					cooperation_time,
+				</if>
+			 	<if test=" null != cooperationStatus ">
+					cooperation_status,
+				</if>
+			 	<if test=" null != createTime ">
+					create_time,
+				</if>
+			 	<if test=" null != lastUpdateTime ">
+					last_update_time,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != salesOrgId and ''!= salesOrgId  ">
+					 	#{salesOrgId},
+				</if>
+			 	<if test=" null != name and ''!= name  ">
+					 	#{name},
+				</if>
+			 	<if test=" null != city and ''!= city  ">
+					 	#{city},
+				</if>
+			 	<if test=" null != legalPerson and ''!= legalPerson  ">
+					 	#{legalPerson},
+				</if>
+			 	<if test=" null != contacts and ''!= contacts  ">
+					 	#{contacts},
+				</if>
+			 	<if test=" null != contactMobile and ''!= contactMobile  ">
+					 	#{contactMobile},
+				</if>
+			 	<if test=" null != managerAccount and ''!= managerAccount  ">
+					 	#{managerAccount},
+				</if>
+			 	<if test=" null != password and ''!= password  ">
+					 	#{password},
+				</if>
+			 	<if test=" null != cooperationTime ">
+					 	#{cooperationTime},
+				</if>
+			 	<if test=" null != cooperationStatus ">
+					 	#{cooperationStatus},
+				</if>
+			 	<if test=" null != createTime ">
+					 	#{createTime},
+				</if>
+			 	<if test=" null != lastUpdateTime ">
+					 	#{lastUpdateTime},
+				</if>
+		</trim>
+	</insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.linkwee.web.model.CrmSalesOrg" >
+  		UPDATE tcrm_sales_org
+		<set>
+			<trim suffixOverrides=",">
+					<if test=" null != salesOrgId and ''!= salesOrgId  ">
+						sales_org_id = #{salesOrgId},
+					</if>
+					<if test=" null != name and ''!= name  ">
+						name = #{name},
+					</if>
+					<if test=" null != city and ''!= city  ">
+						city = #{city},
+					</if>
+					<if test=" null != legalPerson and ''!= legalPerson  ">
+						legal_person = #{legalPerson},
+					</if>
+					<if test=" null != contacts and ''!= contacts  ">
+						contacts = #{contacts},
+					</if>
+					<if test=" null != contactMobile and ''!= contactMobile  ">
+						contact_mobile = #{contactMobile},
+					</if>
+					<if test=" null != managerAccount and ''!= managerAccount  ">
+						manager_account = #{managerAccount},
+					</if>
+					<if test=" null != password and ''!= password  ">
+						password = #{password},
+					</if>
+					<if test=" null != cooperationTime ">
+						cooperation_time = #{cooperationTime},
+					</if>
+					<if test=" null != cooperationStatus ">
+						cooperation_status = #{cooperationStatus},
+					</if>
+					<if test=" null != createTime ">
+						create_time = #{createTime},
+					</if>
+					<if test=" null != lastUpdateTime ">
+						last_update_time = #{lastUpdateTime},
+					</if>
+			</trim>
+		</set>
+		<where>
+			 id = #{id}
+		</where>
+	</update>
+  
+	<update id="updateByPrimaryKey" parameterType="com.linkwee.web.model.CrmSalesOrg" >
+	    UPDATE tcrm_sales_org
+	   <set>
+			<trim suffixOverrides=",">
+					<if test=" null != salesOrgId and ''!= salesOrgId  ">
+						sales_org_id = #{salesOrgId},
+					</if>
+					<if test=" null != name and ''!= name  ">
+						name = #{name},
+					</if>
+					<if test=" null != city and ''!= city  ">
+						city = #{city},
+					</if>
+					<if test=" null != legalPerson and ''!= legalPerson  ">
+						legal_person = #{legalPerson},
+					</if>
+					<if test=" null != contacts and ''!= contacts  ">
+						contacts = #{contacts},
+					</if>
+					<if test=" null != contactMobile and ''!= contactMobile  ">
+						contact_mobile = #{contactMobile},
+					</if>
+					<if test=" null != managerAccount and ''!= managerAccount  ">
+						manager_account = #{managerAccount},
+					</if>
+					<if test=" null != password and ''!= password  ">
+						password = #{password},
+					</if>
+					<if test=" null != cooperationTime ">
+						cooperation_time = #{cooperationTime},
+					</if>
+					<if test=" null != cooperationStatus ">
+						cooperation_status = #{cooperationStatus},
+					</if>
+					<if test=" null != createTime ">
+						create_time = #{createTime},
+					</if>
+					<if test=" null != lastUpdateTime ">
+						last_update_time = #{lastUpdateTime},
+					</if>
+			</trim>
+		</set>
+		<where>
+			id = #{0}
+		</where>
+	  </update>
+	  
+	  
+	  <select id="getLcsStatistical" resultType="com.linkwee.web.response.LcsStatisticalResponse">
+	  	SELECT COUNT(DISTINCT c.user_id) totalCount,	IFNULL(SUM(case when f.fee_type='1001' then f.product_amount else 0 end ),0) totalAmount FROM `tcrm_cfplanner` c LEFT JOIN tcim_fee f ON f.profit_cfplanner_id = c.user_id WHERE
+		c.sales_org_id = #{salesOrgId}
+	  </select>
+	  
+	  <select id="getLcsStatisticalList" resultType="com.linkwee.web.response.LcsStatisticalListResponse">
+		  	SELECT
+				u.user_name name,
+				u.mobile,
+				m.city,
+				c.create_time time,
+				c.sales_org_depth depth,
+				COUNT(DISTINCT i.user_id) customers,
+				IFNULL(SUM(case when f.fee_type='1001' then f.product_amount else 0 end ),0) totalAmount,
+				IFNULL(SUM(case when f.fee_type='1001' then f.fee_amount else 0 end ),0) totalFee,
+				IFNULL(SUM(case when f.fee_type='1001' AND DATE_FORMAT(f.create_time,'%Y-%m')=DATE_FORMAT(now(),'%Y-%m') then f.fee_amount else 0 end),0) monthFee,
+				IFNULL(SUM(case when f.fee_type='1001' AND DATE_FORMAT(f.create_time,'%Y-%m')=DATE_FORMAT(now(),'%Y-%m') then f.product_amount else 0 end),0) monthAmount
+			FROM
+				tcrm_cfplanner c
+			LEFT JOIN tcrm_user_info u ON c.user_id = u.user_id
+			LEFT JOIN tcrm_investor i ON i.cfplanner = c.user_id
+			LEFT JOIN tcim_fee f ON f.profit_cfplanner_id = c.user_id AND f.investor_id = i.user_id
+			LEFT JOIN tsys_mobile_area m ON m.mobile = LEFT (c.mobile, 7)
+			WHERE
+				c.sales_org_id = #{salesOrgId}
+				<if test=" null != nameOrMobile and '' != nameOrMobile">
+					AND (u.mobile = #{nameOrMobile} OR u.user_name= #{nameOrMobile})
+				</if>
+				<if test=" null != city and '' != city">
+					AND m.city = #{city}
+				</if>
+			GROUP BY c.user_id
+			ORDER BY totalAmount DESC
+	  </select>
+	  
+	  <select id="getCustomerStatisticalList" resultType="com.linkwee.web.response.CustomerStatisticalListResponse">
+			SELECT
+			u.user_name name,
+			u.mobile,
+			ab.id_card idcard,
+			a.is_free_customer source,
+			u.create_time time,
+			IFNULL(SUM(i.invest_amt),0) totalAmt,
+			COUNT(i.invest_id) totalCount,
+			IFNULL(SUM(CASE WHEN i.`status`=1 THEN i.invest_amt ELSE NULL END),0) investAmt,
+			COUNT(CASE WHEN i.`status`=1 THEN i.invest_id ELSE NULL END )investCount,
+			IFNULL(SUM(case when f.fee_type='1001' then f.fee_amount else 0 end ),0) fee
+			FROM
+				tcrm_investor a
+			LEFT JOIN tac_account_bind ab ON ab.user_id = a.user_id
+			LEFT JOIN tcrm_user_info u ON u.user_id = a.user_id
+			LEFT JOIN tcim_product_invest_record i ON a.user_id = i.user_id
+			LEFT JOIN tcim_fee f ON a.cfplanner = f.profit_cfplanner_id AND i.invest_id = f.bill_id AND f.fee_type='1001'
+			WHERE 
+				a.cfplanner = (SELECT c.user_id FROM tcrm_cfplanner c where c.mobile = #{mobile} AND c.sales_org_id=#{salesOrgId})
+				<if test=" null != nameOrMobile and '' != nameOrMobile">
+					AND (u.mobile = #{nameOrMobile} OR u.user_name= #{nameOrMobile})
+				</if>
+			GROUP BY a.user_id
+			ORDER BY totalAmt DESC
+	  </select>
+	  
+	  <select id="getStockYearpurAmt" resultType="map">
+	  	SELECT IFNULL(znh,0) znh,IFNULL(gdnh,0) gdnh ,IFNULL(gdinvest,0) gdinvest  FROM 
+			(
+			SELECT
+			  SUM(f.yearpur_amount) gdnh,SUM(f.product_amount) gdinvest
+			FROM
+			  tcrm_cfplanner c
+			LEFT JOIN tcrm_user_info u ON c.user_id = u.user_id
+			LEFT JOIN tsys_mobile_area m ON m.mobile = LEFT(c.mobile,7)
+			LEFT JOIN tcim_fee f ON c.user_id = f.profit_cfplanner_id
+			AND f.fee_type = '1001'
+			AND DATE(f.create_time) BETWEEN #{req.startDate}
+			AND #{req.endDate}
+			AND f.fee_amount > 0
+			<where>
+				c.sales_org_id = #{salesOrgId}
+				<if test=" null != req.city and '' != req.city">
+					AND m.city = #{req.city} 
+				</if>	
+				<if test=" null != req.platfrom and '' != req.platfrom">
+					AND f.product_org_id = #{req.platfrom}
+				</if>
+				<if test=" null != req.nameOrMobile and '' != req.nameOrMobile">
+					AND (u.mobile = #{req.nameOrMobile} OR u.user_name= #{req.nameOrMobile})
+				</if>
+			</where>
+			) a,
+			(
+			SELECT
+			 SUM(f.yearpur_amount) znh
+			FROM
+			  tcrm_cfplanner c
+			LEFT JOIN tcrm_user_info u ON c.user_id = u.user_id
+			LEFT JOIN tsys_mobile_area m ON m.mobile = LEFT(c.mobile,7)
+			LEFT JOIN  tcim_feedetail f ON c.user_id = f.profit_cfplanner_id
+			AND f.fee_type = '1001'
+			AND DATE(f.create_time) BETWEEN #{req.startDate}
+			AND #{req.endDate}
+			AND f.fee_amount > 0
+			<where>
+				c.sales_org_id = #{salesOrgId}
+				<if test=" null != req.city and '' != req.city">
+					AND m.city = #{req.city} 
+				</if>	
+				<if test=" null != req.platfrom and '' != req.platfrom">
+					AND f.product_org_id = #{req.platfrom}
+				</if>
+				<if test=" null != req.nameOrMobile and '' != req.nameOrMobile">
+					AND (u.mobile = #{req.nameOrMobile} OR u.user_name= #{req.nameOrMobile})
+				</if>
+			</where>
+			) b
+	  
+	  </select>
+	  
+	  <select id="getTeamStatistical" resultType="com.linkwee.web.response.TeamStatisticalResponse">
+	  
+	  		SELECT
+					COUNT(*) investCount,
+					COUNT(DISTINCT c.user_id) lcsCount,
+					IFNULL(SUM(f.product_amount),0) totalAmt,
+					IFNULL(SUM(f.yearpur_amount),0) totalYearpurAmt,
+					IFNULL(SUM(f.fee_amount),0) totalFeeAmt
+					FROM
+						tcrm_cfplanner c
+					LEFT JOIN tcrm_user_info u ON c.user_id = u.user_id
+					LEFT JOIN tsys_mobile_area m ON m.mobile = LEFT (c.mobile, 7)
+					LEFT JOIN tcim_fee f ON f.profit_cfplanner_id = c.user_id AND f.fee_type = '1001' 
+					LEFT JOIN tcim_org_info o ON f.product_org_id = o.org_number
+					
+					WHERE
+						c.sales_org_id = #{salesOrgId}	
+						<if test=" null != req.city and '' != req.city">
+							AND m.city = #{req.city} 
+						</if>	
+						<if test=" null != req.platfrom and '' != req.platfrom">
+							AND o.org_number = #{req.platfrom}
+						</if>
+						<if test=" null != req.nameOrMobile and '' != req.nameOrMobile">
+							AND (u.mobile = #{req.nameOrMobile} OR u.user_name= #{req.nameOrMobile})
+						</if>
+						AND DATE(f.create_time) BETWEEN #{req.startDate} AND #{req.endDate}
+						
+						<!-- <if test=" null != req.startDate and '' != req.startDate">
+							<![CDATA[  AND DATE_FORMAT(f.create_time, '%Y-%m-%d')  >= DATE_FORMAT(#{req.startDate}, '%Y-%m-%d') ]]> 
+						</if>
+						<if test=" null != req.endDate and '' != req.endDate">
+							<![CDATA[  AND DATE_FORMAT(f.create_time, '%Y-%m-%d')  <= DATE_FORMAT(#{req.endDate}, '%Y-%m-%d') ]]> 
+						</if> -->	
+					GROUP BY c.user_id HAVING totalAmt>0
+	  
+	  </select>
+	  
+	  <select id="getTeamStatisticalList" resultType="com.linkwee.web.response.TeamStatisticalListResponse">
+	  		SELECT
+					u.user_name cfpName,
+					u.mobile cfpMobile,
+					m.city,
+					iu.user_name customerName,
+					iu.mobile customerMobile,
+					IFNULL(f.product_amount, 0) investAmt ,
+					o.`name` platfromName,
+					f.create_time time
+				FROM
+					tcrm_cfplanner c
+				LEFT JOIN tcrm_user_info u ON c.user_id = u.user_id
+				LEFT JOIN tsys_mobile_area m ON m.mobile = LEFT (c.mobile, 7)
+				LEFT JOIN tcim_fee f ON f.profit_cfplanner_id = c.user_id
+				AND f.fee_type = '1001'
+				LEFT JOIN tcrm_user_info iu ON f.investor_id = iu.user_id
+				LEFT JOIN tcim_org_info o ON f.product_org_id = o.org_number
+				WHERE
+					c.sales_org_id = #{salesOrgId}	
+					<![CDATA[ AND f.product_amount>0 ]]> 
+					<if test=" null != req.city and '' != req.city">
+						AND m.city = #{req.city} 
+					</if>	
+					<if test=" null != req.platfrom and '' != req.platfrom">
+						AND o.org_number = #{req.platfrom}
+					</if>
+					<if test=" null != req.nameOrMobile and '' != req.nameOrMobile">
+						AND (u.mobile = #{req.nameOrMobile} OR u.user_name= #{req.nameOrMobile})
+					</if>
+					AND DATE(f.create_time) BETWEEN #{req.startDate} AND #{req.endDate}
+					
+				<!-- 	<if test=" null != req.startDate and '' != req.startDate">
+						<![CDATA[  AND DATE_FORMAT(f.create_time, '%Y-%m-%d')  >= DATE_FORMAT(#{req.startDate}, '%Y-%m-%d') ]]> 
+					</if>
+					<if test=" null != req.endDate and '' != req.endDate">
+						<![CDATA[  AND DATE_FORMAT(f.create_time, '%Y-%m-%d')  <= DATE_FORMAT(#{req.endDate}, '%Y-%m-%d') ]]> 
+					</if> -->
+			 ORDER BY f.create_time desc 
+	  </select>
+	  
+	  <select id="getPlatfroms" resultType="map">
+	  		SELECT o.`name` as org_name,o.org_number org_number FROM tcim_org_info o where o.status = 1
+	  </select>
+	  
+	  
+	  <!-- 投资分布 -->
+	  <select id="getInvestmentStatisticsTotal" resultType="BigDecimal">
+  		 SELECT
+			IFNULL(SUM(i.invest_amt), 0) value
+		FROM
+			tcim_org_info o
+		LEFT JOIN tcim_product_invest_record i ON o.org_number = i.platfrom
+		RIGHT JOIN tcrm_cfplanner c ON c.sales_org_id = #{salesOrgId} AND i.user_id = c.user_id 
+		<where>
+			 1=1
+			<if test=" null != platfrom and  platfrom != '' ">
+				AND o.org_number = #{platfrom}
+			</if>
+			<if test=" null != startTime and  startTime != '' ">
+				AND DATE_FORMAT(i.start_time,'%Y-%m-%d')  <![CDATA[   >= ]]> #{startTime}
+			</if>
+			<if test=" null != endTime and  endTime != '' ">
+				AND DATE_FORMAT(i.start_time,'%Y-%m-%d')  <![CDATA[   <= ]]> #{endTime}
+			</if>
+		</where>
+  	</select>
+  	
+  	
+  	 <select id="getInvestmentStatisticsList" resultType="map">
+  		 SELECT
+			IFNULL(SUM(i.invest_amt), 0)/10000 value,
+			count(i.id) investCount,
+			count(DISTINCT i.user_id) personCount,
+			IFNULL(sum(case i.`status` when 1 then i.invest_amt else 0 end), 0)/10000 holdAmount,
+			IFNULL(sum(case i.`status` when 2 then i.invest_amt else 0 end), 0)/10000 returningAmount,
+			IFNULL(sum(case i.`status` when 3 then i.invest_amt else 0 end), 0)/10000 returnedAmount,
+			o.`name`
+		FROM
+			tcim_org_info o
+		LEFT JOIN tcim_product_invest_record i ON o.org_number = i.platfrom
+		RIGHT JOIN tcrm_cfplanner c ON c.sales_org_id = #{salesOrgId} AND i.user_id = c.user_id 
+		<where>
+			 o.`status` = 1 
+			<if test=" null != platfrom and  platfrom != '' ">
+				AND o.org_number = #{platfrom}
+			</if>
+			<if test=" null != startTime and  startTime != '' ">
+				AND DATE_FORMAT(i.start_time,'%Y-%m-%d')  <![CDATA[   >= ]]> #{startTime}
+			</if>
+			<if test=" null != endTime and  endTime != '' ">
+				AND DATE_FORMAT(i.start_time,'%Y-%m-%d')  <![CDATA[   <= ]]> #{endTime}
+			</if>
+		</where>
+		
+		GROUP BY
+			o.org_number
+		ORDER BY
+			value DESC
+  	</select>
+  		
+  	<select id="queryTotalStatisticData" resultType="com.linkwee.web.response.TotalStatisticResponse" parameterType="com.linkwee.web.request.DataStatisticsRequest">
+		SELECT
+			*
+		FROM
+			(
+				SELECT
+					IFNULL(SUM(tpir.invest_amt), 0)/10000 AS saleAmount,
+					COUNT(DISTINCT(tc.user_id)) AS saleNumber,
+					IFNULL(
+						SUM(
+							tpir.invest_amt * tp.dead_line_min_value / 360
+						),
+						0
+					) / 10000 AS saleYearAmount,
+					IFNULL(
+						SUM(
+							CASE tpir.is_first_invest
+							WHEN 1 THEN
+								tpir.invest_amt
+							ELSE
+								0
+							END
+						),
+						0
+					) / 10000 AS firstInvestAmount,
+					IFNULL(
+						SUM(
+							CASE tpir.is_first_invest
+							WHEN 0 THEN
+								tpir.invest_amt
+							ELSE
+								0
+							END
+						),
+						0
+					) / 10000 AS repInvestAmount
+				FROM
+					tcim_product_invest_record tpir,
+					tcrm_cfplanner tc,
+					tcrm_investor ti,
+					tcim_product tp
+				WHERE
+					tpir.product_id = tp.product_id
+				AND tp.`status` <![CDATA[ <> ]]> 3
+				AND tpir.user_id = ti.user_id
+				AND ti.cfplanner = tc.user_id
+				AND tc.sales_org_id = #{salesOrgId}
+				<if test=" null != startTime and  startTime != '' ">
+				AND DATE_FORMAT(tpir.start_time,'%Y-%m-%d') <![CDATA[ >= ]]> DATE_FORMAT(#{startTime},'%Y-%m-%d')
+				</if>
+				<if test=" null != endTime and  endTime != '' ">
+				AND DATE_FORMAT(tpir.start_time,'%Y-%m-%d') <![CDATA[ <= ]]> DATE_FORMAT(#{endTime},'%Y-%m-%d')
+				</if>			
+			) temp1,
+			(
+				SELECT
+					COUNT(DISTINCT ti.user_id) AS firstInvestNumber
+				FROM
+					tcim_product_invest_record tpir,
+					tcrm_cfplanner tc,
+					tcrm_investor ti
+				WHERE
+					tpir.user_id = ti.user_id
+				AND ti.cfplanner = tc.user_id
+				AND tc.sales_org_id = #{salesOrgId}
+				<if test=" null != startTime and  startTime != '' ">
+				AND DATE_FORMAT(tpir.start_time,'%Y-%m-%d') <![CDATA[ >= ]]> DATE_FORMAT(#{startTime},'%Y-%m-%d')
+				</if>
+				<if test=" null != endTime and  endTime != '' ">
+				AND DATE_FORMAT(tpir.start_time,'%Y-%m-%d') <![CDATA[ <= ]]> DATE_FORMAT(#{endTime},'%Y-%m-%d')
+				</if>
+				AND tpir.is_first_invest = 1
+			) temp2,
+			(
+				SELECT
+					COUNT(DISTINCT ti.user_id) AS repInvestNumber
+				FROM
+					tcim_product_invest_record tpir,
+					tcrm_cfplanner tc,
+					tcrm_investor ti
+				WHERE
+					tpir.user_id = ti.user_id
+				AND ti.cfplanner = tc.user_id
+				AND tc.sales_org_id = #{salesOrgId}
+				<if test=" null != startTime and  startTime != '' ">
+				AND DATE_FORMAT(tpir.start_time,'%Y-%m-%d') <![CDATA[ >= ]]> DATE_FORMAT(#{startTime},'%Y-%m-%d')
+				</if>
+				<if test=" null != endTime and  endTime != '' ">
+				AND DATE_FORMAT(tpir.start_time,'%Y-%m-%d') <![CDATA[ <= ]]> DATE_FORMAT(#{endTime},'%Y-%m-%d')
+				</if>
+				AND tpir.is_first_invest = 0
+			) temp3,
+			(
+				SELECT
+					COUNT(DISTINCT ti.user_id) AS investingNumber,
+					IFNULL(SUM(tpir.invest_amt), 0) / 10000 AS investingAmount
+				FROM
+					tcim_product_invest_record tpir,
+					tcim_product tp,
+					tcrm_cfplanner tc,
+					tcrm_investor ti
+				WHERE
+					tpir.user_id = ti.user_id
+				AND tp.product_id = tpir.product_id
+				AND tp.`status` <![CDATA[ <> ]]> 3
+				AND ti.cfplanner = tc.user_id
+				AND tc.sales_org_id = #{salesOrgId}
+				AND tpir.STATUS IN (1, 2, 4)
+			) temp4,
+			(
+				SELECT
+					IFNULL(SUM(tf.fee_amount), 0) / 10000 AS myFeeAmount
+				FROM
+					tcim_product_invest_record tpir,
+					tcrm_cfplanner tc,
+					tcrm_investor ti,
+					tcim_fee tf,
+					tcim_product tp
+				WHERE
+					tpir.user_id = ti.user_id
+				AND tp.product_id = tpir.product_id
+				AND tp.`status` <![CDATA[ <> ]]> 3
+				AND tf.bill_id = tpir.invest_id
+				AND ti.cfplanner = tc.user_id
+				AND tc.sales_org_id = #{salesOrgId}
+				AND tf.profit_cfplanner_id = #{salesOrgId}
+			) temp5,
+			(
+				SELECT
+					COUNT(DISTINCT tc.user_id) AS teamNumber
+				FROM
+					tcrm_cfplanner tc
+				WHERE
+					tc.sales_org_id = #{salesOrgId}
+				<if test=" null != startTime and  startTime != '' ">
+				AND DATE_FORMAT(tc.cfp_reg_time,'%Y-%m-%d') <![CDATA[ >= ]]> DATE_FORMAT(#{startTime},'%Y-%m-%d')
+				</if>
+				<if test=" null != endTime and  endTime != '' ">
+				AND DATE_FORMAT(tc.cfp_reg_time,'%Y-%m-%d') <![CDATA[ <= ]]> DATE_FORMAT(#{endTime},'%Y-%m-%d')
+				</if>
+			) temp6,
+			(
+				SELECT
+					COUNT(DISTINCT tc.user_id) AS profitTeamNumber
+				FROM
+					tcrm_cfplanner tc
+				WHERE
+					tc.sales_org_id = #{salesOrgId}
+				AND tc.sales_org_depth <![CDATA[ < ]]> 4
+				<if test=" null != startTime and  startTime != '' ">
+				AND DATE_FORMAT(tc.cfp_reg_time,'%Y-%m-%d') <![CDATA[ >= ]]> DATE_FORMAT(#{startTime},'%Y-%m-%d')
+				</if>
+				<if test=" null != endTime and  endTime != '' ">
+				AND DATE_FORMAT(tc.cfp_reg_time,'%Y-%m-%d') <![CDATA[ <= ]]> DATE_FORMAT(#{endTime},'%Y-%m-%d')
+				</if>
+			) temp7
+	</select>
+	
+	<select id="getPlatformSale" resultType="com.linkwee.web.response.PlatformSaleResponse" parameterType="com.linkwee.web.request.PlatformSaleRequest">
+	  	SELECT
+			*
+		FROM
+			(
+				SELECT
+					tpir.platfrom AS platform,
+					toi.`name` AS orgName,
+					IFNULL(SUM(tpir.invest_amt), 0) / 10000 AS saleAmount,
+					COUNT(DISTINCT(tc.user_id)) AS saleNumber,
+					IFNULL(
+						SUM(
+							tpir.invest_amt * tp.dead_line_min_value / 360
+						),
+						0
+					) / 10000 AS saleYearAmount,
+					IFNULL(
+						SUM(
+							CASE tpir.is_platfrom_first_invest
+							WHEN 1 THEN
+								tpir.invest_amt
+							ELSE
+								0
+							END
+						),
+						0
+					) / 10000 AS platformFirstInvestAmount,
+					IFNULL(
+						SUM(
+							CASE tpir.is_platfrom_first_invest
+							WHEN 0 THEN
+								tpir.invest_amt
+							ELSE
+								0
+							END
+						),
+						0
+					) / 10000 AS platformRepInvestAmount,
+					IFNULL(
+						SUM(
+							CASE tpir.is_platfrom_first_invest
+							WHEN 1 THEN
+								tpir.invest_amt * tp.dead_line_min_value / 360
+							ELSE
+								0
+							END
+						),
+						0
+					) / 10000 AS platformFirstInvestYearAmount,
+					IFNULL(
+						SUM(
+							CASE tpir.is_platfrom_first_invest
+							WHEN 0 THEN
+								tpir.invest_amt * tp.dead_line_min_value / 360
+							ELSE
+								0
+							END
+						),
+						0
+					) / 10000 AS platformRepInvestYearAmount
+				FROM
+					tcim_product_invest_record tpir,
+					tcrm_cfplanner tc,
+					tcrm_investor ti,
+					tcim_product tp,
+					tcim_org_info toi
+				WHERE
+					tpir.product_id = tp.product_id
+				AND tp.`status` <![CDATA[ <> ]]> 3
+				AND tpir.platfrom = toi.org_number
+				AND tpir.user_id = ti.user_id
+				AND ti.cfplanner = tc.user_id
+				AND tc.sales_org_id = #{salesOrgId}
+				<if test=" null != startTime and  startTime != '' ">
+				AND DATE_FORMAT(tpir.start_time,'%Y-%m-%d') <![CDATA[ >= ]]> DATE_FORMAT(#{startTime},'%Y-%m-%d')
+				</if>
+				<if test=" null != endTime and  endTime != '' ">
+				AND DATE_FORMAT(tpir.start_time,'%Y-%m-%d') <![CDATA[ <= ]]> DATE_FORMAT(#{endTime},'%Y-%m-%d')
+				</if>
+				GROUP BY
+					tpir.platfrom
+			) temp1,
+			(
+				SELECT
+					tpir.platfrom AS orgNumber,
+					COUNT(DISTINCT ti.user_id) AS investingNumber,
+					IFNULL(SUM(tpir.invest_amt), 0) / 10000 AS investingAmount
+				FROM
+					tcim_product_invest_record tpir,
+					tcrm_cfplanner tc,
+					tcim_product tp,
+					tcrm_investor ti
+				WHERE
+					tpir.user_id = ti.user_id
+				AND tp.product_id = tpir.product_id
+				AND tp.`status` <![CDATA[ <> ]]> 3
+				AND ti.cfplanner = tc.user_id
+				AND tc.sales_org_id = #{salesOrgId}
+				AND tpir.STATUS IN (1, 2, 4)
+				GROUP BY
+					tpir.platfrom
+			) temp2
+		WHERE
+			temp1.platform = temp2.orgNumber
+		ORDER BY
+			temp1.platform DESC
+    </select>
+      
+    <select id="getLevelSale" resultType="com.linkwee.web.response.LevelSaleResponse" parameterType="com.linkwee.web.request.PlatformSaleRequest">
+	  	SELECT
+			*
+		FROM
+			(
+				SELECT
+					tc.sales_org_depth AS LEVEL,
+					IFNULL(SUM(tpir.invest_amt), 0) / 10000 AS saleAmount,
+					IFNULL(
+						SUM(
+							tpir.invest_amt * tp.dead_line_min_value / 360
+						),
+						0
+					) / 10000 AS saleYearAmount,
+					IFNULL(
+						SUM(
+							CASE tpir.is_first_invest
+							WHEN 1 THEN
+								tpir.invest_amt
+							ELSE
+								0
+							END
+						),
+						0
+					) / 10000 AS firstInvestAmount,
+					IFNULL(
+						SUM(
+							CASE tpir.is_first_invest
+							WHEN 0 THEN
+								tpir.invest_amt
+							ELSE
+								0
+							END
+						),
+						0
+					) / 10000 AS repInvestAmount,
+					IFNULL(
+						SUM(
+							CASE tpir.is_first_invest
+							WHEN 1 THEN
+								tpir.invest_amt * tp.dead_line_min_value / 360
+							ELSE
+								0
+							END
+						),
+						0
+					) / 10000 AS firstInvestYearAmount,
+					IFNULL(
+						SUM(
+							CASE tpir.is_first_invest
+							WHEN 0 THEN
+								tpir.invest_amt * tp.dead_line_min_value / 360
+							ELSE
+								0
+							END
+						),
+						0
+					) / 10000 AS repInvestYearAmount
+				FROM
+					tcim_product_invest_record tpir,
+					tcrm_cfplanner tc,
+					tcrm_investor ti,
+					tcim_product tp
+				WHERE
+					tpir.product_id = tp.product_id
+				AND tp.`status` <![CDATA[ <> ]]> 3
+				AND tpir.user_id = ti.user_id
+				AND ti.cfplanner = tc.user_id
+				AND tc.sales_org_id = #{salesOrgId}
+				<if test=" null != startTime and  startTime != '' ">
+				AND DATE_FORMAT(tpir.start_time,'%Y-%m-%d') <![CDATA[ >= ]]> DATE_FORMAT(#{startTime},'%Y-%m-%d')
+				</if>
+				<if test=" null != endTime and  endTime != '' ">
+				AND DATE_FORMAT(tpir.start_time,'%Y-%m-%d') <![CDATA[ <= ]]> DATE_FORMAT(#{endTime},'%Y-%m-%d')
+				</if>
+				GROUP BY
+					tc.sales_org_depth
+			) temp1,
+			(
+				SELECT
+					tc.sales_org_depth depth,
+					IFNULL(SUM(tpir.invest_amt), 0) / 10000 AS investingAmount
+				FROM
+					tcim_product_invest_record tpir,
+					tcrm_cfplanner tc,
+					tcim_product tp,
+					tcrm_investor ti
+				WHERE
+					tpir.user_id = ti.user_id
+				AND tp.product_id = tpir.product_id
+				AND tp.`status` <![CDATA[ <> ]]> 3
+				AND ti.cfplanner = tc.user_id
+				AND tc.sales_org_id = #{salesOrgId}
+				AND tpir. STATUS IN (1, 2, 4)
+				GROUP BY
+					tc.sales_org_depth
+			) temp2
+		WHERE
+			temp1. LEVEL = temp2.depth
+		ORDER BY
+			temp1. LEVEL ASC
+    </select>
+    
+    <select id="lcsTeamSaleRecordList" resultType="com.linkwee.web.response.TeamSaleRecordResponse" parameterType="com.linkwee.web.request.TeamSaleRequest">
+	  	SELECT * FROM (
+	  	SELECT
+			toi.`name` AS orgName,
+			tpir.invest_amt AS saleAmount,
+			tp.dead_line_min_value AS productDeadLineMinValue,
+			DATE_FORMAT(tpir.start_time,'%Y-%m-%d %H:%i:%s') AS saleTime,
+			tpir.is_first_invest AS isFirstInvest,
+			tc.mobile AS mobile,
+			tc.user_id AS userId,
+			tui.user_name AS userName,
+			tc.sales_org_depth AS teamLevel,
+			(
+				SELECT
+					IFNULL(SUM(tf.fee_amount), 0)
+				FROM
+					tcim_fee tf
+				WHERE
+					tf.bill_id = tpir.invest_id
+				AND tf.profit_cfplanner_id = #{salesOrgId}
+			) AS myFeeAmount
+		FROM
+			tcim_product_invest_record tpir,
+			tcrm_cfplanner tc,
+			tcrm_investor ti,
+			tcim_product tp,
+			tcim_org_info toi,
+			tcrm_user_info tui
+		WHERE
+			tpir.product_id = tp.product_id
+		AND tp.`status` <![CDATA[ <> ]]> 3
+		AND tpir.platfrom = toi.org_number
+		AND tpir.user_id = ti.user_id
+		AND ti.cfplanner = tc.user_id
+		AND tui.user_id = tc.user_id
+		AND tc.sales_org_id = #{salesOrgId}
+		<if test=" null != startTime and  startTime != '' ">
+		AND DATE_FORMAT(tpir.start_time,'%Y-%m-%d') <![CDATA[ >= ]]> DATE_FORMAT(#{startTime},'%Y-%m-%d')
+		</if>
+		<if test=" null != endTime and  endTime != '' ">
+		AND DATE_FORMAT(tpir.start_time,'%Y-%m-%d') <![CDATA[ <= ]]> DATE_FORMAT(#{endTime},'%Y-%m-%d')
+		</if>
+		<choose>  
+           	<when test="isFirstInvest == 1">AND tpir.is_first_invest = 1</when>  
+           	<when test="isFirstInvest == 0">AND tpir.is_first_invest = 0</when>  
+           	<when test="isFirstInvest == 2"></when> 
+        </choose>
+        <choose>  
+           	<when test="teamLevel == 0"></when>  
+           	<otherwise>  
+                AND tc.sales_org_depth = #{teamLevel}
+            </otherwise>  
+        </choose>
+        ORDER BY tpir.start_time DESC
+        ) temp
+        ORDER BY saleTime DESC
+    </select>
+    
+    <select id="getTeamMaxDepth" resultType="java.lang.Integer">
+	  	SELECT IFNULL(MAX(sales_org_depth),0) FROM tcrm_cfplanner WHERE sales_org_id = #{salesOrgId}
+    </select>
+    
+    <select id="lcsDetail" resultType="com.linkwee.web.response.LcsDetailResponse" parameterType="com.linkwee.web.request.LcsDetailRequest">		
+			SELECT
+				*,
+			IF (IFNULL(tempStatus, 0) = 1, 0, 1) AS fouseStatus
+			FROM
+				(
+					SELECT
+						tui.user_name AS userName,
+						tui.mobile AS mobile,
+						tc.job_grade AS LEVEL,
+						DATE_FORMAT(
+							tc.create_time,
+							'%Y-%m-%d %H:%i:%s'
+						) AS regTime,
+						DATE_FORMAT(
+							tc.rect_visit_time,
+							'%Y-%m-%d %H:%i:%s'
+						) AS lastLoginTime,
+						tc.sales_org_depth AS teamDepth,
+						tuiparent.mobile AS parentMobile,
+						tuiparent.user_name AS parentUserName,
+						(
+							SELECT
+								DATE_FORMAT(
+									tpir.start_time,
+									'%Y-%m-%d %H:%i:%s'
+								)
+							FROM
+								tcim_product_invest_record tpir
+							WHERE
+								tpir.user_id = tui.user_id
+							ORDER BY
+								tpir.start_time ASC
+							LIMIT 1
+						) AS firstInvestTime,
+						(
+							SELECT
+								IFNULL(SUM(tpir.invest_amt), 0)
+							FROM
+								tcim_product_invest_record tpir,
+								tcim_product tp,
+								tcrm_investor ti
+							WHERE
+								tpir.user_id = ti.user_id
+							AND	tpir.product_id = tp.product_id
+							AND tp.`status` <![CDATA[ <> ]]> 3
+							AND ti.cfplanner = tc.user_id
+							AND tpir. STATUS IN (1, 2, 4)
+						) AS investingAmount,
+						(
+							SELECT
+								tsfi. STATUS
+							FROM
+								tcrm_sales_fouse_info tsfi
+							WHERE
+								tsfi.sales_org_id = tc.sales_org_id
+							AND tsfi.cfplanner = tc.user_id
+						) AS tempStatus
+					FROM
+						tcrm_cfplanner tc,
+						tcrm_user_info tui,
+						tcrm_cfplanner tcparent,
+						tcrm_user_info tuiparent
+					WHERE
+						tc.user_id = tui.user_id
+					AND tc.sales_org_id = #{salesOrgId}
+					AND tc.parent_id = tcparent.user_id
+					AND tcparent.user_id = tuiparent.user_id
+					AND (
+						tui.user_name = #{mobileOrName}
+						OR tui.mobile = #{mobileOrName}
+					)
+				) temp
+    </select>
+    
+    <select id="lcsSaleInfo" resultType="com.linkwee.web.response.LcsSaleInfoResponse" parameterType="com.linkwee.web.request.LcsSaleRequest">
+	  	SELECT
+			*
+		FROM
+			(
+				SELECT
+					IFNULL(SUM(sale), 0) AS saleAmount,
+					IFNULL(SUM(saleYear), 0) AS saleYearAmount,
+					IFNULL(SUM(myFee), 0) AS myFeeAmount
+				FROM
+					(
+						SELECT
+							tpir.invest_amt AS sale,
+							tpir.invest_amt * tp.dead_line_min_value / 360 AS saleYear,
+							(
+								SELECT
+									IFNULL(SUM(tf.fee_amount), 0)
+								FROM
+									tcim_fee tf
+								WHERE
+									tf.bill_id = tpir.invest_id
+								AND tf.profit_cfplanner_id = #{salesOrgId}
+							) AS myFee
+						FROM
+							tcim_product_invest_record tpir,
+							tcrm_cfplanner tc,
+							tcrm_investor ti,
+							tcim_product tp
+						WHERE
+							tpir.product_id = tp.product_id
+						AND tp.`status` <![CDATA[ <> ]]> 3
+						AND tpir.user_id = ti.user_id
+						AND ti.cfplanner = tc.user_id
+						AND tc.mobile = #{lcsMobile}
+						AND tc.sales_org_id = #{salesOrgId}
+						<if test=" null != startTime and  startTime != '' ">
+						AND DATE_FORMAT(tpir.start_time,'%Y-%m-%d') <![CDATA[ >= ]]> DATE_FORMAT(#{startTime},'%Y-%m-%d')
+						</if>
+						<if test=" null != endTime and  endTime != '' ">
+						AND DATE_FORMAT(tpir.start_time,'%Y-%m-%d') <![CDATA[ <= ]]> DATE_FORMAT(#{endTime},'%Y-%m-%d')
+						</if>
+						<choose>  
+				           	<when test="productStatus == 1">AND tpir.status = 3</when>  
+				           	<when test="productStatus == 2">AND tpir.status in (1,2)</when> 
+				           	<when test="productStatus == 3">AND tpir.status = 4</when> 
+				        </choose>
+					) temp
+			) tt,
+			(
+				SELECT
+					COUNT(DISTINCT user_id) teamNumber,
+					IFNULL(
+						sum(
+							CASE temp2.depth
+							WHEN 1 THEN
+								1
+							ELSE
+								0
+							END
+						),
+						0
+					) directNumber,
+					IFNULL(
+						sum(
+							CASE temp2.depth
+							WHEN 1 THEN
+								1
+							WHEN 2 THEN
+								1
+							WHEN 3 THEN
+								1
+							ELSE
+								0
+							END
+						),
+						0
+					) profitNumber
+				FROM
+					(
+						${teamSql}
+					) temp2
+			) ttt
+    </select>
+    
+    <select id="lcsSaleList" resultType="com.linkwee.web.response.LcsSaleListResponse" parameterType="com.linkwee.web.request.LcsSaleRequest">
+		SELECT * FROM 
+		(SELECT
+			toi.`name` AS orgName,
+			tpir.invest_amt AS saleAmount,
+			tp.dead_line_min_value AS productDeadLineMinValue,
+			DATE_FORMAT(
+				tpir.start_time,
+				'%Y-%m-%d %H:%i:%s'
+			) AS saleTime,
+			DATE_FORMAT(
+				tpir.end_time,
+				'%Y-%m-%d %H:%i:%s'
+			) AS saleEndTime,
+			tp.product_name AS productName,
+			tpir.`status` AS investStatus ,
+			(
+				SELECT
+					IFNULL(SUM(tf.fee_amount), 0)
+				FROM
+					tcim_fee tf
+				WHERE
+					tf.bill_id = tpir.invest_id
+				AND tf.profit_cfplanner_id = #{salesOrgId}
+			) AS myFeeAmount
+		FROM
+			tcim_product_invest_record tpir,
+			tcrm_cfplanner tc,
+			tcrm_investor ti,
+			tcim_product tp,
+			tcim_org_info toi
+		WHERE
+			tpir.product_id = tp.product_id
+		AND tp.`status` <![CDATA[ <> ]]> 3
+		AND tpir.platfrom = toi.org_number
+		AND tpir.user_id = ti.user_id
+		AND ti.cfplanner = tc.user_id
+		AND tc.mobile = #{lcsMobile}
+		AND tc.sales_org_id = #{salesOrgId}
+    	<if test=" null != startTime and  startTime != '' ">
+		AND DATE_FORMAT(tpir.start_time,'%Y-%m-%d') <![CDATA[ >= ]]> DATE_FORMAT(#{startTime},'%Y-%m-%d')
+		</if>
+		<if test=" null != endTime and  endTime != '' ">
+		AND DATE_FORMAT(tpir.start_time,'%Y-%m-%d') <![CDATA[ <= ]]> DATE_FORMAT(#{endTime},'%Y-%m-%d')
+		</if>
+		<choose>  
+           	<when test="productStatus == 1">AND tpir.status = 3</when>  
+           	<when test="productStatus == 2">AND tpir.status in (1,2)</when> 
+           	<when test="productStatus == 3">AND tpir.status = 4</when> 
+        </choose>
+        ) temp
+    </select>
+    
+    <select id="queryLcsUserId" resultType="java.lang.String">
+		SELECT user_id FROM tcrm_cfplanner WHERE mobile=#{lcsMobile}
+    </select>
+    
+    <select id="lcsSearchInfoList" resultType="com.linkwee.web.response.LcsSearchInfoResponse" parameterType="com.linkwee.web.request.LcsSearchRequest">
+		SELECT *,IF (IFNULL(tempStatus, 0) = 1, 0, 1) AS fouseStatus
+		 FROM 
+		(SELECT
+			tui.user_name AS userName,
+			tc.user_id AS userId,
+			tui.mobile AS mobile,
+			tc.sales_org_depth AS teamDepth,
+			DATE_FORMAT(
+				tc.create_time,
+				'%Y-%m-%d %H:%i:%s'
+			) AS regTime,
+			DATE_FORMAT(
+				tc.rect_visit_time,
+				'%Y-%m-%d %H:%i:%s'
+			) AS lastLoginTime,
+			(
+				SELECT
+					IFNULL(SUM(tpir.invest_amt), 0)
+				FROM
+					tcim_product_invest_record tpir,
+					tcim_product tp,
+					tcrm_investor ti
+				WHERE
+					tpir.user_id = ti.user_id
+				AND tp.product_id = tpir.product_id
+				AND tp.`status` <![CDATA[ <> ]]> 3
+				AND ti.cfplanner = tc.user_id
+			) AS totalSaleAmount,
+			(
+				SELECT
+					IFNULL(SUM(tpir.invest_amt), 0)
+				FROM
+					tcim_product_invest_record tpir,
+					tcim_product tp,
+					tcrm_investor ti
+				WHERE
+					tpir.user_id = ti.user_id
+				AND tp.product_id = tpir.product_id
+				AND tp.`status` <![CDATA[ <> ]]> 3
+				AND ti.cfplanner = tc.user_id
+				AND DATE_FORMAT(NOW(), '%Y-%m') = DATE_FORMAT(tpir.start_time, '%Y-%m')
+			) AS monthSaleAmount,
+			(
+				SELECT
+					IFNULL(SUM(tpir.invest_amt), 0)
+				FROM
+					tcim_product_invest_record tpir,
+					tcim_product tp,
+					tcrm_investor ti
+				WHERE
+					tpir.user_id = ti.user_id
+				AND tp.product_id = tpir.product_id
+				AND tp.`status` <![CDATA[ <> ]]> 3
+				AND ti.cfplanner = tc.user_id
+				AND tpir. STATUS IN (1, 2, 4)
+			) AS investingAmount,
+			(
+				SELECT
+					IFNULL(SUM(tf.fee_amount), 0)
+				FROM
+					tcim_fee tf,
+					tcim_product_invest_record tpir,
+					tcim_product tp,
+					tcrm_investor ti
+				WHERE
+					tf.bill_id = tpir.invest_id
+				AND tp.product_id = tpir.product_id
+				AND tp.`status` <![CDATA[ <> ]]> 3	
+				AND tpir.user_id = ti.user_id
+				AND ti.cfplanner = tc.user_id
+				AND tf.profit_cfplanner_id = #{salesOrgId}
+			) AS myFeeAmount,
+			(
+				SELECT
+					tsfi. STATUS
+				FROM
+					tcrm_sales_fouse_info tsfi
+				WHERE
+					tsfi.sales_org_id = tc.sales_org_id
+				AND tsfi.cfplanner = tc.user_id
+			) AS tempStatus
+		FROM
+			tcrm_cfplanner tc,
+			tcrm_user_info tui
+		WHERE
+			tc.user_id = tui.user_id
+		AND tc.sales_org_id = #{salesOrgId}
+		<!-- <if test=" null != mobileOrName and  mobileOrName != '' "> -->
+		AND (
+			tui.user_name LIKE CONCAT('%',#{mobileOrName},'%') 
+			OR tui.mobile LIKE CONCAT('%',#{mobileOrName},'%') 
+		)
+		<!-- </if> -->
+		) temp			
+    </select>
+    
+    <select id="lcsTeamNumber" resultType="java.lang.Integer" parameterType="com.linkwee.web.request.LcsSaleRequest">			
+		SELECT
+			COUNT(DISTINCT user_id) teamNumber
+		FROM
+			(
+				${teamSql}
+			) temp		
+    </select>
+    
+    <insert id="lcsSearchRecord" parameterType="com.linkwee.web.request.LcsSearchRequest" >
+    	INSERT into tcrm_sales_lcs_search_record (sales_org_id,search_info,create_time) VALUES (#{salesOrgId},#{mobileOrName},now())
+    </insert>
+    
+    <select id="searchHistory" resultType="java.lang.String">			
+		SELECT DISTINCT
+			search_info
+		FROM
+			tcrm_sales_lcs_search_record
+		WHERE
+			sales_org_id = #{salesOrgId}
+		ORDER BY
+			create_time DESC
+		LIMIT 10	
+    </select>
+       
+    <select id="hasFoused" resultType="java.lang.Integer" parameterType="com.linkwee.web.request.LcsFouseRequest">			
+		SELECT
+			COUNT(*)
+		FROM
+			tcrm_sales_fouse_info
+		WHERE
+			sales_org_id = #{salesOrgId}
+		AND cfplanner = #{cfplanner}
+    </select>
+    
+    <update id="updateLcsFouseStatus" parameterType="com.linkwee.web.request.LcsFouseRequest">			
+		UPDATE tcrm_sales_fouse_info
+		SET `status` = #{status},
+ 		update_time = NOW()
+		WHERE
+			sales_org_id = #{salesOrgId}
+		AND cfplanner = #{cfplanner}
+    </update>
+    
+    <insert id="insertFouseStatus" parameterType="com.linkwee.web.request.LcsFouseRequest" >
+    	INSERT into tcrm_sales_fouse_info (sales_org_id,cfplanner,status,create_time) VALUES (#{salesOrgId},#{cfplanner},#{status},now())
+    </insert>
+       
+    <select id="lcsFouseList" resultType="com.linkwee.web.response.LcsSearchInfoResponse" parameterType="com.linkwee.web.request.LcsSearchRequest">
+		SELECT *,IF (IFNULL(tempStatus, 0) = 1, 0, 1) AS fouseStatus
+		 FROM 
+		(SELECT
+			tui.user_name AS userName,
+			tc.user_id AS userId,
+			tui.mobile AS mobile,
+			tc.sales_org_depth AS teamDepth,
+			DATE_FORMAT(
+				tc.create_time,
+				'%Y-%m-%d %H:%i:%s'
+			) AS regTime,
+			DATE_FORMAT(
+				tc.rect_visit_time,
+				'%Y-%m-%d %H:%i:%s'
+			) AS lastLoginTime,
+			(
+				SELECT
+					IFNULL(SUM(tpir.invest_amt), 0)
+				FROM
+					tcim_product_invest_record tpir,
+					tcim_product tp,
+					tcrm_investor ti
+				WHERE
+					tpir.user_id = ti.user_id
+				AND tp.product_id = tpir.product_id
+				AND tp.`status` <![CDATA[ <> ]]> 3
+				AND ti.cfplanner = tc.user_id
+			) AS totalSaleAmount,
+			(
+				SELECT
+					IFNULL(SUM(tpir.invest_amt), 0)
+				FROM
+					tcim_product_invest_record tpir,
+					tcim_product tp,
+					tcrm_investor ti
+				WHERE
+					tpir.user_id = ti.user_id
+				AND tp.product_id = tpir.product_id
+				AND tp.`status` <![CDATA[ <> ]]> 3
+				AND ti.cfplanner = tc.user_id
+				AND DATE_FORMAT(NOW(), '%Y-%m') = DATE_FORMAT(tpir.start_time, '%Y-%m')
+			) AS monthSaleAmount,
+			(
+				SELECT
+					IFNULL(SUM(tpir.invest_amt), 0)
+				FROM
+					tcim_product_invest_record tpir,
+					tcim_product tp,
+					tcrm_investor ti
+				WHERE
+					tpir.user_id = ti.user_id
+				AND tp.product_id = tpir.product_id
+				AND tp.`status` <![CDATA[ <> ]]> 3
+				AND ti.cfplanner = tc.user_id
+				AND tpir. STATUS IN (1, 2, 4)
+			) AS investingAmount,
+			(
+				SELECT
+					IFNULL(SUM(tf.fee_amount), 0)
+				FROM
+					tcim_fee tf,
+					tcim_product_invest_record tpir,
+					tcim_product tp,
+					tcrm_investor ti
+				WHERE
+					tf.bill_id = tpir.invest_id
+				AND tp.product_id = tpir.product_id
+				AND tp.`status` <![CDATA[ <> ]]> 3
+				AND tpir.user_id = ti.user_id
+				AND ti.cfplanner = tc.user_id
+				AND tf.profit_cfplanner_id = #{salesOrgId}
+			) AS myFeeAmount,	
+			tsfi. STATUS AS tempStatus,
+			tsfi.update_time updateTime
+		FROM
+			tcrm_cfplanner tc,
+			tcrm_user_info tui,
+			tcrm_sales_fouse_info tsfi
+		WHERE
+			tc.user_id = tui.user_id
+		AND tc.sales_org_id = #{salesOrgId}
+		AND tsfi.sales_org_id = tc.sales_org_id
+		AND tsfi.cfplanner = tc.user_id
+		AND tsfi.status = 1
+		ORDER BY tsfi.update_time DESC
+		) temp	
+		ORDER BY updateTime DESC,fouseStatus DESC		
+    </select>
+    
+    <select id="lcsUnSaleList" resultType="com.linkwee.web.response.LcsSearchInfoResponse" parameterType="com.linkwee.web.request.LcsSearchRequest">
+		SELECT
+			*
+		FROM
+			(
+				SELECT
+					tui.user_name AS userName,
+					tc.user_id AS userId,
+					tui.mobile AS mobile,
+					tc.sales_org_depth AS teamDepth,
+					DATE_FORMAT(
+						tc.create_time,
+						'%Y-%m-%d %H:%i:%s'
+					) AS regTime,
+					DATE_FORMAT(
+						tc.rect_visit_time,
+						'%Y-%m-%d %H:%i:%s'
+					) AS lastLoginTime,
+					(
+						SELECT
+							IFNULL(SUM(tpir.invest_amt), 0)
+						FROM
+							tcim_product_invest_record tpir,
+							tcim_product tp,
+							tcrm_investor ti
+						WHERE
+							tpir.user_id = ti.user_id
+						AND tp.product_id = tpir.product_id
+						AND tp.`status` <![CDATA[ <> ]]> 3
+						AND ti.cfplanner = tc.user_id
+					) AS totalSaleAmount,
+					(
+						SELECT
+							IFNULL(SUM(tpir.invest_amt), 0)
+						FROM
+							tcim_product_invest_record tpir,
+							tcim_product tp,
+							tcrm_investor ti
+						WHERE
+							tpir.user_id = ti.user_id
+						AND tp.product_id = tpir.product_id
+						AND tp.`status` <![CDATA[ <> ]]> 3
+						AND ti.cfplanner = tc.user_id
+						AND tpir. STATUS IN (1, 2, 4)
+					) AS investingAmount,
+					IFNULL(SUM(tpir.invest_amt), 0) AS saleAmount
+				FROM
+					tcrm_cfplanner tc
+				LEFT JOIN tcrm_user_info tui ON tc.user_id = tui.user_id
+				LEFT JOIN tcrm_investor ti ON ti.cfplanner = tc.user_id
+				LEFT JOIN tcim_product_invest_record tpir ON tpir.user_id = ti.user_id
+				<if test=" null != unSaleStartTime and  unSaleStartTime != '' ">
+				AND DATE_FORMAT(tpir.start_time,'%Y-%m-%d') <![CDATA[ >= ]]> DATE_FORMAT(#{unSaleStartTime},'%Y-%m-%d')
+				</if>
+				<if test=" null != unSaleEndTime and  unSaleEndTime != '' ">
+				AND DATE_FORMAT(tpir.start_time,'%Y-%m-%d') <![CDATA[ <= ]]> DATE_FORMAT(#{unSaleEndTime},'%Y-%m-%d')
+				</if>
+				WHERE
+					tc.sales_org_id = #{salesOrgId}			
+				GROUP BY
+					tc.user_id
+			) temp
+		WHERE
+			saleAmount = 0	
+		ORDER BY lastLoginTime DESC		
+    </select>
+    
+    <select id="lcsFlowDeadLineUnRepaymentList" resultType="com.linkwee.web.response.TeamSaleRecordResponse" parameterType="com.linkwee.web.request.TeamSaleRequest">
+    	SELECT
+			*
+		FROM
+			(
+				SELECT
+					toi.`name` AS orgName,
+					tpir.invest_amt AS saleAmount,
+					tp.dead_line_min_value AS productDeadLineMinValue,
+					tp.dead_line_max_value AS productDeadLineMaxValue,
+					DATE_FORMAT(
+						tpir.start_time,
+						'%Y-%m-%d %H:%i:%s'
+					) AS saleTime,
+					tpir.is_first_invest AS isFirstInvest,
+					tc.mobile AS mobile,
+					tc.user_id AS userId,
+					tui.user_name AS userName,
+					tc.sales_org_depth AS teamLevel,
+					(
+						SELECT
+							IFNULL(SUM(tf.fee_amount), 0)
+						FROM
+							tcim_fee tf
+						WHERE
+							tf.bill_id = tpir.invest_id
+						AND tf.profit_cfplanner_id = #{salesOrgId}
+					) AS myFeeAmount,
+					tp.product_name AS productName,
+					(
+						CASE tp.is_collect
+						WHEN 1 THEN
+							DATE_FORMAT(
+								tpir.start_time,
+								'%Y-%m-%d %H:%i:%s'
+							)
+						ELSE
+							DATE_FORMAT(
+								tp.sale_end_time,
+								'%Y-%m-%d %H:%i:%s'
+							)
+						END
+					) AS investSuccessTime
+				FROM
+					tcim_product_invest_record tpir,
+					tcrm_cfplanner tc,
+					tcrm_investor ti,
+					tcim_product tp,
+					tcim_org_info toi,
+					tcrm_user_info tui
+				WHERE
+					tpir.product_id = tp.product_id
+				AND tp.`status` <![CDATA[ <> ]]> 3
+				AND tpir.platfrom = toi.org_number
+				AND tpir.user_id = ti.user_id
+				AND ti.cfplanner = tc.user_id
+				AND tui.user_id = tc.user_id
+				AND tc.sales_org_id = #{salesOrgId}
+				AND tp.is_fixed_deadline = 2
+				AND toi.org_fee_type = 2
+				AND toi.org_isstaticproduct = 0
+				AND tpir.`status` <![CDATA[ <> ]]> 3
+				AND toi.org_number = 'OPEN_XINYONGBAO_WEB'
+				AND (
+					(tp.is_collect = 1)
+					OR (
+						tp.is_collect = 2
+						AND tp.`status` = 2
+					)
+				)			
+				<if test=" null != nameOrMobile and '' != nameOrMobile">
+					AND (
+						tui.user_name LIKE CONCAT('%',#{nameOrMobile},'%') 
+						OR tui.mobile LIKE CONCAT('%',#{nameOrMobile},'%') 
+					)
+				</if>
+				ORDER BY
+					tpir.start_time DESC
+			) temp
+		WHERE
+			DATE_FORMAT(
+				DATE_ADD(
+				investSuccessTime,
+				INTERVAL productDeadLineMinValue+1 DAY
+			),'%Y-%m-%d') <![CDATA[ < ]]> DATE_FORMAT(NOW(),'%Y-%m-%d')
+		AND DATE_FORMAT(
+			DATE_ADD(
+			investSuccessTime,
+			INTERVAL productDeadLineMaxValue+1 DAY
+		),'%Y-%m-%d') <![CDATA[ > ]]> DATE_FORMAT(NOW(),'%Y-%m-%d')
+		ORDER BY
+			saleTime DESC
+	</select>
+	
+	<select id="unRepaymentListTotal" resultType="com.linkwee.web.response.UnRepaymentTotalResponse" parameterType="com.linkwee.web.request.TeamSaleRequest">
+    	SELECT
+			IFNULL(SUM(investAmount), 0) AS investAmount
+		FROM
+			(
+				SELECT
+					tpir.stock_invest_amt AS investAmount,
+					tp.dead_line_min_value AS productDeadLineMinValue,
+					tp.dead_line_max_value AS productDeadLineMaxValue,
+					(
+						CASE tp.is_collect
+						WHEN 1 THEN
+							DATE_FORMAT(
+								tpir.start_time,
+								'%Y-%m-%d %H:%i:%s'
+							)
+						ELSE
+							DATE_FORMAT(
+								tp.sale_end_time,
+								'%Y-%m-%d %H:%i:%s'
+							)
+						END
+					) AS investSuccessTime
+				FROM
+					tcim_product_invest_record tpir,
+					tcrm_cfplanner tc,
+					tcrm_investor ti,
+					tcim_product tp,
+					tcim_org_info toi,
+					tcrm_user_info tui
+				WHERE
+					tpir.product_id = tp.product_id
+				AND tp.`status` <![CDATA[ <> ]]> 3
+				AND tpir.platfrom = toi.org_number
+				AND tpir.user_id = ti.user_id
+				AND ti.cfplanner = tc.user_id
+				AND tui.user_id = tc.user_id
+				AND tc.sales_org_id = #{salesOrgId}
+				AND tp.is_fixed_deadline = 2
+				AND toi.org_fee_type = 2
+				AND toi.org_isstaticproduct = 0
+				AND tpir.`status` <![CDATA[ <> ]]> 3
+				AND toi.org_number = 'OPEN_XINYONGBAO_WEB'
+				AND (
+					(tp.is_collect = 1)
+					OR (
+						tp.is_collect = 2
+						AND tp.`status` = 2
+					)
+				)
+				<if test=" null != nameOrMobile and '' != nameOrMobile">
+					AND (
+						tui.user_name LIKE CONCAT('%',#{nameOrMobile},'%') 
+						OR tui.mobile LIKE CONCAT('%',#{nameOrMobile},'%') 
+					)
+				</if>
+			) temp
+		WHERE
+			DATE_FORMAT(
+				DATE_ADD(
+				investSuccessTime,
+				INTERVAL productDeadLineMinValue+1 DAY
+			),'%Y-%m-%d') <![CDATA[ < ]]> DATE_FORMAT(NOW(),'%Y-%m-%d')
+		AND DATE_FORMAT(
+			DATE_ADD(
+			investSuccessTime,
+			INTERVAL productDeadLineMaxValue+1 DAY
+		),'%Y-%m-%d') <![CDATA[ > ]]> DATE_FORMAT(NOW(),'%Y-%m-%d')
+	</select>
+</mapper>

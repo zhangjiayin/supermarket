@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<models>
+	<model class="com.linkwee.activity.model.ExcelModel">
+		<property name="mobile"  excelTitleName="手机号码"  datatype="int" maxlength="15"   />
+	</model>
+
+</models>

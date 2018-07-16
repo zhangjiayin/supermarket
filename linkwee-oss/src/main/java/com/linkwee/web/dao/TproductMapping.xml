@@ -1,0 +1,707 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.TproductDao">
+<parameterMap type="com.linkwee.web.model.Tproduct" id="TproductParameterMap" />	
+<!-- Result Map-->
+<resultMap  type="com.linkwee.web.model.Tproduct" id="TproductResultMap">
+	<result column="id" property="id" jdbcType="INTEGER"/>
+	<result column="product_name" property="productName" jdbcType="VARCHAR"/>
+	<result column="product_desc" property="productDesc" jdbcType="VARCHAR"/>
+	<result column="product_type_id" property="productTypeId" jdbcType="VARCHAR"/>
+	<result column="dead_line_type" property="deadLineType" jdbcType="TINYINT"/>
+	<result column="dead_line_value" property="deadLineValue" jdbcType="INTEGER"/>
+	<result column="fid" property="fid" jdbcType="VARCHAR"/>
+	<result column="fdelstatus" property="fdelstatus" jdbcType="TINYINT"/>
+	<result column="fcreatetime" property="fcreatetime" jdbcType="TIMESTAMP"/>
+	<result column="fupdatetime" property="fupdatetime" jdbcType="TIMESTAMP"/>
+	<result column="COLLECT_BEGIN_TIME" property="collectBeginTime" jdbcType="TIMESTAMP"/>
+	<result column="COLLECT_END_TIME" property="collectEndTime" jdbcType="TIMESTAMP"/>
+	<result column="COLLECT_FINISH_TIME" property="collectFinishTime" jdbcType="TIMESTAMP"/>
+	<result column="INTEREST_WAY" property="interestWay" jdbcType="CHAR"/>
+	<result column="VALID_BEGIN_DATE" property="validBeginDate" jdbcType="TIMESTAMP"/>
+	<result column="VALID_END_DATE" property="validEndDate" jdbcType="TIMESTAMP"/>
+	<result column="FIX_RATE" property="fixRate" jdbcType="DECIMAL"/>
+	<result column="FLOW_MIN_RATE" property="flowMinRate" jdbcType="DECIMAL"/>
+	<result column="FLOW_MAX_RATE" property="flowMaxRate" jdbcType="DECIMAL"/>
+	<result column="IS_FLOW" property="isFlow" jdbcType="CHAR"/>
+	<result column="fbiznumber" property="fbiznumber" jdbcType="VARCHAR"/>
+	<result column="f_collect_line_min_value" property="collectLineMinValue" jdbcType="INTEGER"/>
+	<result column="f_collect_line_max_value" property="collectLineMaxValue" jdbcType="INTEGER"/>	
+	<result column="f_collect_rate" property="collectRate" jdbcType="DECIMAL"/>
+	<result column="f_sale_status" property="saleStatus" jdbcType="VARCHAR"/>
+	<result column="f_type_value" property="typeValue" jdbcType="INTEGER"/>
+</resultMap>
+  <sql id="Base_Column_List">
+    <trim suffixOverrides=",">
+	    	id,
+	    	product_name,
+	    	product_desc,
+	    	product_type_id,
+	    	dead_line_type,
+	    	dead_line_value,
+	    	fid,
+	    	fdelstatus,
+	    	fcreatetime,
+	    	fupdatetime,
+	    	COLLECT_BEGIN_TIME,
+	    	COLLECT_END_TIME,
+	    	COLLECT_FINISH_TIME,
+	    	INTEREST_WAY,
+	    	VALID_BEGIN_DATE,
+	    	VALID_END_DATE,
+	    	FIX_RATE,
+	    	FLOW_MIN_RATE,
+	    	FLOW_MAX_RATE,
+	    	IS_FLOW,
+	    	fbiznumber,
+    </trim>
+  </sql>  
+  
+   <sql id="Base_Column_List_T">
+    <trim suffixOverrides=",">
+	    	t.id,
+	    	t.product_name,
+	    	t.product_desc,
+	    	t.product_type_id,
+	    	t.dead_line_type,
+	    	t.dead_line_value,
+	    	t.fid,
+	    	t.fdelstatus,
+	    	t.fcreatetime,
+	    	t.fupdatetime,
+	    	t.COLLECT_BEGIN_TIME,
+	    	t.COLLECT_END_TIME,
+	    	t.COLLECT_FINISH_TIME,
+	    	t.INTEREST_WAY,
+	    	t.VALID_BEGIN_DATE,
+	    	t.VALID_END_DATE,
+	    	t.FIX_RATE,
+	    	t.FLOW_MIN_RATE,
+	    	t.FLOW_MAX_RATE,
+	    	t.IS_FLOW,
+	    	t.fbiznumber,
+    </trim>
+  </sql> 
+  	
+  <select id="getByPrimaryKey"  resultMap="TproductResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tproduct where  id = #{0}
+  </select>	
+
+  <delete id="deleteByPrimaryKey" >
+    delete from tproduct
+	<where>
+		id = #{0}
+	</where>
+  </delete>
+  
+  
+  <insert id="add" parameterMap="TproductParameterMap" useGeneratedKeys="true" keyProperty="id" >
+		INSERT INTO tproduct
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != productName and ''!= productName  ">
+					product_name,
+				</if>
+			 	<if test=" null != productDesc and ''!= productDesc  ">
+					product_desc,
+				</if>
+			 	<if test=" null != productTypeId and ''!= productTypeId  ">
+					product_type_id,
+				</if>
+			 	<if test=" null != deadLineType ">
+					dead_line_type,
+				</if>
+			 	<if test=" null != deadLineValue ">
+					dead_line_value,
+				</if>
+			 	<if test=" null != fid and ''!= fid  ">
+					fid,
+				</if>
+			 	<if test=" null != fdelstatus ">
+					fdelstatus,
+				</if>
+			 	<if test=" null != fcreatetime ">
+					fcreatetime,
+				</if>
+			 	<if test=" null != fupdatetime ">
+					fupdatetime,
+				</if>
+			 	<if test=" null != collectBeginTime ">
+					COLLECT_BEGIN_TIME,
+				</if>
+			 	<if test=" null != collectEndTime ">
+					COLLECT_END_TIME,
+				</if>
+			 	<if test=" null != collectFinishTime ">
+					COLLECT_FINISH_TIME,
+				</if>
+			 	<if test=" null != interestWay and ''!= interestWay  ">
+					INTEREST_WAY,
+				</if>
+			 	<if test=" null != validBeginDate ">
+					VALID_BEGIN_DATE,
+				</if>
+			 	<if test=" null != validEndDate ">
+					VALID_END_DATE,
+				</if>
+			 	<if test=" null != fixRate ">
+					FIX_RATE,
+				</if>
+			 	<if test=" null != flowMinRate ">
+					FLOW_MIN_RATE,
+				</if>
+			 	<if test=" null != flowMaxRate ">
+					FLOW_MAX_RATE,
+				</if>
+			 	<if test=" null != isFlow and ''!= isFlow  ">
+					IS_FLOW,
+				</if>
+			 	<if test=" null != fbiznumber and ''!= fbiznumber  ">
+					fbiznumber,
+				</if>
+				<if test=" null != collectLineMinValue ">
+					f_collect_line_min_value,
+				</if>
+			 	<if test=" null != collectLineMaxValue ">
+					f_collect_line_max_value,
+				</if>
+			 	<if test=" null != collectRate ">
+					f_collect_rate,
+				</if>
+			 	<if test=" null != saleStatus and ''!= saleStatus  ">
+					f_sale_status,
+				</if>
+			 	<if test=" null != typeValue ">
+					f_type_value,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != productName and ''!= productName  ">
+					 	#{productName},
+				</if>
+			 	<if test=" null != productDesc and ''!= productDesc  ">
+					 	#{productDesc},
+				</if>
+			 	<if test=" null != productTypeId and ''!= productTypeId  ">
+					 	#{productTypeId},
+				</if>
+			 	<if test=" null != deadLineType ">
+					 	#{deadLineType},
+				</if>
+			 	<if test=" null != deadLineValue ">
+					 	#{deadLineValue},
+				</if>
+			 	<if test=" null != fid and ''!= fid  ">
+					 	#{fid},
+				</if>
+			 	<if test=" null != fdelstatus ">
+					 	#{fdelstatus},
+				</if>
+			 	<if test=" null != fcreatetime ">
+					 	#{fcreatetime},
+				</if>
+			 	<if test=" null != fupdatetime ">
+					 	#{fupdatetime},
+				</if>
+			 	<if test=" null != collectBeginTime ">
+					 	#{collectBeginTime},
+				</if>
+			 	<if test=" null != collectEndTime ">
+					 	#{collectEndTime},
+				</if>
+			 	<if test=" null != collectFinishTime ">
+					 	#{collectFinishTime},
+				</if>
+			 	<if test=" null != interestWay and ''!= interestWay  ">
+					 	#{interestWay},
+				</if>
+			 	<if test=" null != validBeginDate ">
+					 	#{validBeginDate},
+				</if>
+			 	<if test=" null != validEndDate ">
+					 	#{validEndDate},
+				</if>
+			 	<if test=" null != fixRate ">
+					 	#{fixRate},
+				</if>
+			 	<if test=" null != flowMinRate ">
+					 	#{flowMinRate},
+				</if>
+			 	<if test=" null != flowMaxRate ">
+					 	#{flowMaxRate},
+				</if>
+			 	<if test=" null != isFlow and ''!= isFlow  ">
+					 	#{isFlow},
+				</if>
+			 	<if test=" null != fbiznumber and ''!= fbiznumber  ">
+					 	#{fbiznumber},
+				</if>
+				<if test=" null != collectLineMinValue ">
+					 	#{collectLineMinValue},
+				</if>
+			 	<if test=" null != collectLineMaxValue ">
+					 	#{collectLineMaxValue},
+				</if>
+			 	<if test=" null != collectRate ">
+					 	#{collectRate},
+				</if>
+			 	<if test=" null != saleStatus and ''!= saleStatus  ">
+					 	#{saleStatus},
+				</if>
+			 	<if test=" null != typeValue ">
+					 	#{typeValue},
+				</if>
+		</trim>
+	</insert>
+  
+  
+  <update id="update" parameterMap="TproductParameterMap">
+		UPDATE tproduct
+		<set>
+			<trim suffixOverrides=",">
+					<if test=" null != productName and ''!= productName  ">
+						product_name = #{productName},
+					</if>
+					<if test=" null != productDesc and ''!= productDesc  ">
+						product_desc = #{productDesc},
+					</if>
+					<if test=" null != productTypeId and ''!= productTypeId  ">
+						product_type_id = #{productTypeId},
+					</if>
+					<if test=" null != deadLineType ">
+						dead_line_type = #{deadLineType},
+					</if>
+					<if test=" null != deadLineValue ">
+						dead_line_value = #{deadLineValue},
+					</if>
+					<if test=" null != fdelstatus ">
+						fdelstatus = #{fdelstatus},
+					</if>
+					<if test=" null != fcreatetime ">
+						fcreatetime = #{fcreatetime},
+					</if>
+					<if test=" null != fupdatetime ">
+						fupdatetime = #{fupdatetime},
+					</if>
+					<if test=" null != collectBeginTime ">
+						COLLECT_BEGIN_TIME = #{collectBeginTime},
+					</if>
+					<if test=" null != collectEndTime ">
+						COLLECT_END_TIME = #{collectEndTime},
+					</if>
+					<if test=" null != collectFinishTime ">
+						COLLECT_FINISH_TIME = #{collectFinishTime},
+					</if>
+					<if test=" null != interestWay and ''!= interestWay  ">
+						INTEREST_WAY = #{interestWay},
+					</if>
+					<if test=" null != validBeginDate ">
+						VALID_BEGIN_DATE = #{validBeginDate},
+					</if>
+					<if test=" null != validEndDate ">
+						VALID_END_DATE = #{validEndDate},
+					</if>
+					<if test=" null != fixRate ">
+						FIX_RATE = #{fixRate},
+					</if>
+					<if test=" null != flowMinRate ">
+						FLOW_MIN_RATE = #{flowMinRate},
+					</if>
+					<if test=" null != flowMaxRate ">
+						FLOW_MAX_RATE = #{flowMaxRate},
+					</if>
+					<if test=" null != isFlow and ''!= isFlow  ">
+						IS_FLOW = #{isFlow},
+					</if>
+					<if test=" null != fbiznumber and ''!= fbiznumber  ">
+						fbiznumber = #{fbiznumber},
+					</if>
+					<if test=" null != collectLineMinValue ">
+						f_collect_line_min_value = #{collectLineMinValue},
+					</if>
+					<if test=" null != collectLineMaxValue ">
+						f_collect_line_max_value = #{collectLineMaxValue},
+					</if>
+					<if test=" null != collectRate ">
+						f_collect_rate = #{collectRate},
+					</if>
+					<if test=" null != saleStatus and ''!= saleStatus  ">
+						f_sale_status = #{saleStatus},
+					</if>
+					<if test=" null != typeValue ">
+						f_type_value = #{typeValue},
+					</if>
+			</trim>
+		</set>
+		<where>
+			 fid = #{fid}
+		</where>
+	</update>
+    <update id="updateByFid" parameterMap="TproductParameterMap">
+		UPDATE tproduct
+		<set>
+			<trim suffixOverrides=",">
+					<if test=" null != productName and ''!= productName  ">
+						product_name = #{productName},
+					</if>
+					<if test=" null != productDesc and ''!= productDesc  ">
+						product_desc = #{productDesc},
+					</if>
+					<if test=" null != productTypeId and ''!= productTypeId  ">
+						product_type_id = #{productTypeId},
+					</if>
+					<if test=" null != deadLineType ">
+						dead_line_type = #{deadLineType},
+					</if>
+					<if test=" null != deadLineValue ">
+						dead_line_value = #{deadLineValue},
+					</if>
+					<if test=" null != fdelstatus ">
+						fdelstatus = #{fdelstatus},
+					</if>
+					<if test=" null != fcreatetime ">
+						fcreatetime = #{fcreatetime},
+					</if>
+					<if test=" null != fupdatetime ">
+						fupdatetime = #{fupdatetime},
+					</if>
+					<if test=" null != collectBeginTime ">
+						COLLECT_BEGIN_TIME = #{collectBeginTime},
+					</if>
+					<if test=" null != collectEndTime ">
+						COLLECT_END_TIME = #{collectEndTime},
+					</if>
+					<if test=" null != collectFinishTime ">
+						COLLECT_FINISH_TIME = #{collectFinishTime},
+					</if>
+					<if test=" null != interestWay and ''!= interestWay  ">
+						INTEREST_WAY = #{interestWay},
+					</if>
+					<if test=" null != validBeginDate ">
+						VALID_BEGIN_DATE = #{validBeginDate},
+					</if>
+					<if test=" null != validEndDate ">
+						VALID_END_DATE = #{validEndDate},
+					</if>
+					<if test=" null != fixRate ">
+						FIX_RATE = #{fixRate},
+					</if>
+					<if test=" null != flowMinRate ">
+						FLOW_MIN_RATE = #{flowMinRate},
+					</if>
+					<if test=" null != flowMaxRate ">
+						FLOW_MAX_RATE = #{flowMaxRate},
+					</if>
+					<if test=" null != isFlow and ''!= isFlow  ">
+						IS_FLOW = #{isFlow},
+					</if>
+					<if test=" null != fbiznumber and ''!= fbiznumber  ">
+						fbiznumber = #{fbiznumber},
+					</if>
+					<if test=" null != collectLineMinValue ">
+						f_collect_line_min_value = #{collectLineMinValue},
+					</if>
+					<if test=" null != collectLineMaxValue ">
+						f_collect_line_max_value = #{collectLineMaxValue},
+					</if>
+					<if test=" null != collectRate ">
+						f_collect_rate = #{collectRate},
+					</if>
+					<if test=" null != saleStatus and ''!= saleStatus  ">
+						f_sale_status = #{saleStatus},
+					</if>
+					<if test=" null != typeValue ">
+						f_type_value = #{typeValue},
+					</if>
+			</trim>
+		</set>
+		<where>
+			 fid = #{fid}
+		</where>
+	</update>
+  
+   <update id="updateWithEmpty" parameterMap="TproductParameterMap">
+		UPDATE tproduct
+		<set>
+			<trim suffixOverrides=",">
+						product_name = #{productName},
+						product_desc = #{productDesc},
+						product_type_id = #{productTypeId},
+						dead_line_type = #{deadLineType},
+						dead_line_value = #{deadLineValue},
+						fid = #{fid},
+						fdelstatus = #{fdelstatus},
+						fcreatetime = #{fcreatetime},
+						fupdatetime = #{fupdatetime},
+						COLLECT_BEGIN_TIME = #{collectBeginTime},
+						COLLECT_END_TIME = #{collectEndTime},
+						COLLECT_FINISH_TIME = #{collectFinishTime},
+						INTEREST_WAY = #{interestWay},
+						VALID_BEGIN_DATE = #{validBeginDate},
+						VALID_END_DATE = #{validEndDate},
+						FIX_RATE = #{fixRate},
+						FLOW_MIN_RATE = #{flowMinRate},
+						FLOW_MAX_RATE = #{flowMaxRate},
+						IS_FLOW = #{isFlow},
+						fbiznumber = #{fbiznumber},
+			</trim>
+		</set>
+		<where>
+			 id = #{id}
+		</where>
+	</update>
+
+  <insert id="addBatch" parameterType="java.util.List">
+	insert into tproduct 
+	<trim prefix="(" suffix=")" >
+			<include refid="Base_Column_List" />
+	</trim>
+	VALUES
+	<foreach item="item" index="index" collection="list" separator=",">
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+				#{item.id,jdbcType=INTEGER},
+				#{item.productName,jdbcType=VARCHAR},
+				#{item.productDesc,jdbcType=VARCHAR},
+				#{item.productTypeId,jdbcType=VARCHAR},
+				#{item.deadLineType,jdbcType=TINYINT},
+				#{item.deadLineValue,jdbcType=INTEGER},
+				#{item.fid,jdbcType=VARCHAR},
+				#{item.fdelstatus,jdbcType=TINYINT},
+				#{item.fcreatetime,jdbcType=TIMESTAMP},
+				#{item.fupdatetime,jdbcType=TIMESTAMP},
+				#{item.collectBeginTime,jdbcType=TIMESTAMP},
+				#{item.collectEndTime,jdbcType=TIMESTAMP},
+				#{item.collectFinishTime,jdbcType=TIMESTAMP},
+				#{item.interestWay,jdbcType=CHAR},
+				#{item.validBeginDate,jdbcType=TIMESTAMP},
+				#{item.validEndDate,jdbcType=TIMESTAMP},
+				#{item.fixRate,jdbcType=DECIMAL},
+				#{item.flowMinRate,jdbcType=DECIMAL},
+				#{item.flowMaxRate,jdbcType=DECIMAL},
+				#{item.isFlow,jdbcType=CHAR},
+				#{item.fbiznumber,jdbcType=VARCHAR},
+		</trim>
+	</foreach>
+</insert>
+
+ 
+<update id="updateBatch" parameterType="java.util.List">
+      <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update tproduct
+            <set>
+              	<trim suffixOverrides=",">
+					   <if test="item.productName!=null and ''!= item.productName  ">
+					        product_name = #{item.productName,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.productDesc!=null and ''!= item.productDesc  ">
+					        product_desc = #{item.productDesc,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.productTypeId!=null and ''!= item.productTypeId  ">
+					        product_type_id = #{item.productTypeId,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.deadLineType!=null ">
+					        dead_line_type = #{item.deadLineType,jdbcType=TINYINT},
+					   </if>
+					   <if test="item.deadLineValue!=null ">
+					        dead_line_value = #{item.deadLineValue,jdbcType=INTEGER},
+					   </if>
+					   <if test="item.fid!=null and ''!= item.fid  ">
+					        fid = #{item.fid,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.fdelstatus!=null ">
+					        fdelstatus = #{item.fdelstatus,jdbcType=TINYINT},
+					   </if>
+					   <if test="item.fcreatetime!=null ">
+					        fcreatetime = #{item.fcreatetime,jdbcType=TIMESTAMP},
+					   </if>
+					   <if test="item.fupdatetime!=null ">
+					        fupdatetime = #{item.fupdatetime,jdbcType=TIMESTAMP},
+					   </if>
+					   <if test="item.collectBeginTime!=null ">
+					        COLLECT_BEGIN_TIME = #{item.collectBeginTime,jdbcType=TIMESTAMP},
+					   </if>
+					   <if test="item.collectEndTime!=null ">
+					        COLLECT_END_TIME = #{item.collectEndTime,jdbcType=TIMESTAMP},
+					   </if>
+					   <if test="item.collectFinishTime!=null ">
+					        COLLECT_FINISH_TIME = #{item.collectFinishTime,jdbcType=TIMESTAMP},
+					   </if>
+					   <if test="item.interestWay!=null and ''!= item.interestWay  ">
+					        INTEREST_WAY = #{item.interestWay,jdbcType=CHAR},
+					   </if>
+					   <if test="item.validBeginDate!=null ">
+					        VALID_BEGIN_DATE = #{item.validBeginDate,jdbcType=TIMESTAMP},
+					   </if>
+					   <if test="item.validEndDate!=null ">
+					        VALID_END_DATE = #{item.validEndDate,jdbcType=TIMESTAMP},
+					   </if>
+					   <if test="item.fixRate!=null ">
+					        FIX_RATE = #{item.fixRate,jdbcType=DECIMAL},
+					   </if>
+					   <if test="item.flowMinRate!=null ">
+					        FLOW_MIN_RATE = #{item.flowMinRate,jdbcType=DECIMAL},
+					   </if>
+					   <if test="item.flowMaxRate!=null ">
+					        FLOW_MAX_RATE = #{item.flowMaxRate,jdbcType=DECIMAL},
+					   </if>
+					   <if test="item.isFlow!=null and ''!= item.isFlow  ">
+					        IS_FLOW = #{item.isFlow,jdbcType=CHAR},
+					   </if>
+					   <if test="item.fbiznumber!=null and ''!= item.fbiznumber  ">
+					        fbiznumber = #{item.fbiznumber,jdbcType=VARCHAR},
+					   </if>
+			   </trim>
+            </set>
+             where id = #{item.id}
+     </foreach>
+</update>
+
+<update id="updateBatchWithEmpty" parameterType="java.util.List">
+      <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update tproduct
+            <set>
+              	<trim suffixOverrides=",">
+					        product_name = #{item.productName,jdbcType=VARCHAR},
+					        product_desc = #{item.productDesc,jdbcType=VARCHAR},
+					        product_type_id = #{item.productTypeId,jdbcType=VARCHAR},
+					        dead_line_type = #{item.deadLineType,jdbcType=TINYINT},
+					        dead_line_value = #{item.deadLineValue,jdbcType=INTEGER},
+					        fid = #{item.fid,jdbcType=VARCHAR},
+					        fdelstatus = #{item.fdelstatus,jdbcType=TINYINT},
+					        fcreatetime = #{item.fcreatetime,jdbcType=TIMESTAMP},
+					        fupdatetime = #{item.fupdatetime,jdbcType=TIMESTAMP},
+					        COLLECT_BEGIN_TIME = #{item.collectBeginTime,jdbcType=TIMESTAMP},
+					        COLLECT_END_TIME = #{item.collectEndTime,jdbcType=TIMESTAMP},
+					        COLLECT_FINISH_TIME = #{item.collectFinishTime,jdbcType=TIMESTAMP},
+					        INTEREST_WAY = #{item.interestWay,jdbcType=CHAR},
+					        VALID_BEGIN_DATE = #{item.validBeginDate,jdbcType=TIMESTAMP},
+					        VALID_END_DATE = #{item.validEndDate,jdbcType=TIMESTAMP},
+					        FIX_RATE = #{item.fixRate,jdbcType=DECIMAL},
+					        FLOW_MIN_RATE = #{item.flowMinRate,jdbcType=DECIMAL},
+					        FLOW_MAX_RATE = #{item.flowMaxRate,jdbcType=DECIMAL},
+					        IS_FLOW = #{item.isFlow,jdbcType=CHAR},
+					        fbiznumber = #{item.fbiznumber,jdbcType=VARCHAR},
+			   </trim>
+            </set>
+             where id = #{item.id}
+     </foreach>
+</update>         
+
+<delete id="deleteBatch" parameterType="Object">
+	DELETE FROM tproduct
+	<where>
+		<foreach item="item" index="index" collection="array"  open="(" separator="or" close=") ">
+			  id  = #{item}
+		</foreach>
+	</where>
+</delete>
+    
+ <sql id="Base_Condition">
+		   <if test=" null != id ">
+				AND	T.id = #{id}
+		</if>
+		   <if test=" null != productName and ''!= productName  ">
+				AND	T.product_name = #{productName}
+		</if>
+		   <if test=" null != productDesc and ''!= productDesc  ">
+				AND	T.product_desc = #{productDesc}
+		</if>
+		   <if test=" null != productTypeId and ''!= productTypeId  ">
+				AND	T.product_type_id = #{productTypeId}
+		</if>
+		   <if test=" null != deadLineType ">
+				AND	T.dead_line_type = #{deadLineType}
+		</if>
+		   <if test=" null != deadLineValue ">
+				AND	T.dead_line_value = #{deadLineValue}
+		</if>
+		   <if test=" null != fid and ''!= fid  ">
+				AND	T.fid = #{fid}
+		</if>
+		   <if test=" null != fdelstatus ">
+				AND	T.fdelstatus = #{fdelstatus}
+		</if>
+		   <if test=" null != fcreatetime ">
+				AND	T.fcreatetime = #{fcreatetime}
+		</if>
+		   <if test=" null != fupdatetime ">
+				AND	T.fupdatetime = #{fupdatetime}
+		</if>
+		   <if test=" null != collectBeginTime ">
+				AND	T.COLLECT_BEGIN_TIME = #{collectBeginTime}
+		</if>
+		   <if test=" null != collectEndTime ">
+				AND	T.COLLECT_END_TIME = #{collectEndTime}
+		</if>
+		   <if test=" null != collectFinishTime ">
+				AND	T.COLLECT_FINISH_TIME = #{collectFinishTime}
+		</if>
+		   <if test=" null != interestWay and ''!= interestWay  ">
+				AND	T.INTEREST_WAY = #{interestWay}
+		</if>
+		   <if test=" null != validBeginDate ">
+				AND	T.VALID_BEGIN_DATE = #{validBeginDate}
+		</if>
+		   <if test=" null != validEndDate ">
+				AND	T.VALID_END_DATE = #{validEndDate}
+		</if>
+		   <if test=" null != fixRate ">
+				AND	T.FIX_RATE = #{fixRate}
+		</if>
+		   <if test=" null != flowMinRate ">
+				AND	T.FLOW_MIN_RATE = #{flowMinRate}
+		</if>
+		   <if test=" null != flowMaxRate ">
+				AND	T.FLOW_MAX_RATE = #{flowMaxRate}
+		</if>
+		   <if test=" null != isFlow and ''!= isFlow  ">
+				AND	T.IS_FLOW = #{isFlow}
+		</if>
+		   <if test=" null != fbiznumber and ''!= fbiznumber  ">
+				AND	T.fbiznumber = #{fbiznumber}
+		</if>
+ </sql>    
+<select id="list" resultMap="TproductResultMap"  >
+		SELECT <include refid="Base_Column_List" /> FROM tproduct T WHERE 1=1
+		<include refid="Base_Condition" />
+</select>
+
+<select id="query" resultMap="TproductResultMap"  >
+		SELECT <include refid="Base_Column_List" /> FROM tproduct T WHERE 1=1
+		<include refid="Base_Condition" />
+</select>
+
+  <select id="getByFid"  resultMap="TproductResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tproduct where   fid = #{fid}
+  </select>	
+  
+  	 <update id="updateChannelProduct" parameterMap="TproductParameterMap">
+		UPDATE tproduct    
+		<set>
+			<trim suffixOverrides=",">
+				<if test=" null != saleStatus and '' != saleStatus ">
+					f_sale_status = #{saleStatus},
+				</if>
+			</trim>
+		</set>
+		<where>
+			<if test="null != fid and '' != fid">
+				fid = #{fid}
+			</if>
+		</where>
+	</update>
+	
+<select id="getTproductId"  resultType="int">
+	select IFNULL(max(id),0)+1 from tproduct
+</select>
+
+</mapper>

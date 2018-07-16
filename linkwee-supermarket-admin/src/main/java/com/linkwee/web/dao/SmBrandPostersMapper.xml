@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.SmBrandPostersMapper">
+	<!-- Result Map-->
+	<resultMap  type="com.linkwee.web.model.SmBrandPosters" id="BaseResultMap">
+		<result column="id" property="id" jdbcType="INTEGER"/>
+		<result column="type_value" property="typeValue" jdbcType="VARCHAR"/>
+		<result column="status" property="status" jdbcType="INTEGER"/>
+		<result column="image" property="image" jdbcType="VARCHAR"/>
+		<result column="small_image" property="smallImage" jdbcType="VARCHAR"/>
+		<result column="show_inx" property="showInx" jdbcType="INTEGER"/>
+		<result column="creator" property="creator" jdbcType="VARCHAR"/>
+		<result column="valid_begin" property="validBegin" jdbcType="TIMESTAMP"/>
+		<result column="valid_end" property="validEnd" jdbcType="TIMESTAMP"/>
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+		<result column="modifiy_time" property="modifiyTime" jdbcType="TIMESTAMP"/>
+		<result column="remark" property="remark" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<resultMap  type="com.linkwee.web.response.acc.SmBrandPosterResponse" id="BrandPosterResultMap">
+		<result column="type_value" property="typeId" jdbcType="INTEGER"/>
+		<result column="name" property="posterName" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+  <sql id="Base_Column_List">
+    <trim suffixOverrides=",">
+	    	id,
+	    	type_value,
+	    	status,
+	    	image,
+	    	small_image,
+	    	show_inx,
+	    	creator,
+	    	valid_begin,
+	    	valid_end,
+	    	create_time,
+	    	modifiy_time,
+	    	remark,
+    </trim>
+  </sql>  
+  
+  <sql id="Base_Condition">
+		<if test=" null != id ">
+			and id = #{id}
+		</if>
+		<if test=" null != typeValue ">
+			and type_value = #{typeValue}
+		</if>
+		<if test=" null != status ">
+			and status = #{status}
+		</if>
+		<if test=" null != image and ''!= image  ">
+			and image = #{image}
+		</if>
+		<if test=" null != smallImage and ''!= smallImage  ">
+			and small_image = #{smallImage}
+		</if>
+		<if test=" null != showInx ">
+			and show_inx = #{showInx}
+		</if>
+		<if test=" null != creator and ''!= creator  ">
+			and creator = #{creator}
+		</if>
+		<if test=" null != validBegin ">
+			and valid_begin = #{validBegin}
+		</if>
+		<if test=" null != validEnd ">
+			and valid_end = #{validEnd}
+		</if>
+		<if test=" null != createTime ">
+			and create_time = #{createTime}
+		</if>
+		<if test=" null != modifiyTime ">
+			and modifiy_time = #{modifiyTime}
+		</if>
+		<if test=" null != remark and ''!= remark  ">
+			and remark = #{remark}
+		</if>
+  </sql>
+  
+  <select id="selectOneByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.web.model.SmBrandPosters">
+		select <include refid="Base_Column_List" /> from tsm_brand_posters 
+		where 1=1 <include refid="Base_Condition" />
+  </select>
+  
+  <select id="selectByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.web.model.SmBrandPosters">
+		select <include refid="Base_Column_List" /> from tsm_brand_posters 
+		where 1=1 <include refid="Base_Condition" />
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tsm_brand_posters
+    where  id = #{0}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tsm_brand_posters
+    where id = #{0}
+  </delete>
+
+  <insert id="insert" parameterType="com.linkwee.web.model.SmBrandPosters" >
+    INSERT INTO tsm_brand_posters
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != typeValue ">
+					type_value,
+				</if>
+			 	<if test=" null != status ">
+					status,
+				</if>
+			 	<if test=" null != image and ''!= image  ">
+					image,
+				</if>
+			 	<if test=" null != smallImage and ''!= smallImage  ">
+					small_image,
+				</if>
+			 	<if test=" null != showInx ">
+					show_inx,
+				</if>
+			 	<if test=" null != creator and ''!= creator  ">
+					creator,
+				</if>
+			 	<if test=" null != validBegin ">
+					valid_begin,
+				</if>
+			 	<if test=" null != validEnd ">
+					valid_end,
+				</if>
+			 	<if test=" null != createTime ">
+					create_time,
+				</if>
+			 	<if test=" null != modifiyTime ">
+					modifiy_time,
+				</if>
+			 	<if test=" null != remark and ''!= remark  ">
+					remark,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != typeValue ">
+					 	#{typeValue},
+				</if>
+			 	<if test=" null != status ">
+					 	#{status},
+				</if>
+			 	<if test=" null != image and ''!= image  ">
+					 	#{image},
+				</if>
+			 	<if test=" null != smallImage and ''!= smallImage  ">
+					 	#{smallImage},
+				</if>
+			 	<if test=" null != showInx ">
+					 	#{showInx},
+				</if>
+			 	<if test=" null != creator and ''!= creator  ">
+					 	#{creator},
+				</if>
+			 	<if test=" null != validBegin ">
+					 	#{validBegin},
+				</if>
+			 	<if test=" null != validEnd ">
+					 	#{validEnd},
+				</if>
+			 	<if test=" null != createTime ">
+					 	#{createTime},
+				</if>
+			 	<if test=" null != modifiyTime ">
+					 	#{modifiyTime},
+				</if>
+			 	<if test=" null != remark and ''!= remark  ">
+					 	#{remark},
+				</if>
+		</trim>
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.linkwee.web.model.SmBrandPosters" useGeneratedKeys="true" keyProperty="id" >
+		INSERT INTO tsm_brand_posters
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != typeValue ">
+					type_value,
+				</if>
+			 	<if test=" null != status ">
+					status,
+				</if>
+			 	<if test=" null != image and ''!= image  ">
+					image,
+				</if>
+			 	<if test=" null != smallImage and ''!= smallImage  ">
+					small_image,
+				</if>
+			 	<if test=" null != showInx ">
+					show_inx,
+				</if>
+			 	<if test=" null != creator and ''!= creator  ">
+					creator,
+				</if>
+			 	<if test=" null != validBegin ">
+					valid_begin,
+				</if>
+			 	<if test=" null != validEnd ">
+					valid_end,
+				</if>
+			 	<if test=" null != createTime ">
+					create_time,
+				</if>
+			 	<if test=" null != modifiyTime ">
+					modifiy_time,
+				</if>
+			 	<if test=" null != remark and ''!= remark  ">
+					remark,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != typeValue ">
+					 	#{typeValue},
+				</if>
+			 	<if test=" null != status ">
+					 	#{status},
+				</if>
+			 	<if test=" null != image and ''!= image  ">
+					 	#{image},
+				</if>
+			 	<if test=" null != smallImage and ''!= smallImage  ">
+					 	#{smallImage},
+				</if>
+			 	<if test=" null != showInx ">
+					 	#{showInx},
+				</if>
+			 	<if test=" null != creator and ''!= creator  ">
+					 	#{creator},
+				</if>
+			 	<if test=" null != validBegin ">
+					 	#{validBegin},
+				</if>
+			 	<if test=" null != validEnd ">
+					 	#{validEnd},
+				</if>
+			 	<if test=" null != createTime ">
+					 	#{createTime},
+				</if>
+			 	<if test=" null != modifiyTime ">
+					 	#{modifiyTime},
+				</if>
+			 	<if test=" null != remark and ''!= remark  ">
+					 	#{remark},
+				</if>
+		</trim>
+	</insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.linkwee.web.model.SmBrandPosters" >
+  		UPDATE tsm_brand_posters
+		<set>
+			<trim suffixOverrides=",">
+					<if test=" null != typeValue ">
+						type_value = #{typeValue},
+					</if>
+					<if test=" null != status ">
+						status = #{status},
+					</if>
+					<if test=" null != image and ''!= image  ">
+						image = #{image},
+					</if>
+					<if test=" null != smallImage and ''!= smallImage  ">
+						small_image = #{smallImage},
+					</if>
+					<if test=" null != showInx ">
+						show_inx = #{showInx},
+					</if>
+					<if test=" null != creator and ''!= creator  ">
+						creator = #{creator},
+					</if>
+					<if test=" null != validBegin ">
+						valid_begin = #{validBegin},
+					</if>
+					<if test=" null != validEnd ">
+						valid_end = #{validEnd},
+					</if>
+					<if test=" null != createTime ">
+						create_time = #{createTime},
+					</if>
+					<if test=" null != modifiyTime ">
+						modifiy_time = #{modifiyTime},
+					</if>
+					<if test=" null != remark and ''!= remark  ">
+						remark = #{remark},
+					</if>
+			</trim>
+		</set>
+		<where>
+			 id = #{id}
+		</where>
+	</update>
+  
+	<update id="updateByPrimaryKey" parameterType="com.linkwee.web.model.SmBrandPosters" >
+	    UPDATE tsm_brand_posters
+	   <set>
+			<trim suffixOverrides=",">
+					<if test=" null != typeValue ">
+						type_value = #{typeValue},
+					</if>
+					<if test=" null != status ">
+						status = #{status},
+					</if>
+					<if test=" null != image and ''!= image  ">
+						image = #{image},
+					</if>
+					<if test=" null != smallImage and ''!= smallImage  ">
+						small_image = #{smallImage},
+					</if>
+					<if test=" null != showInx ">
+						show_inx = #{showInx},
+					</if>
+					<if test=" null != creator and ''!= creator  ">
+						creator = #{creator},
+					</if>
+					<if test=" null != validBegin ">
+						valid_begin = #{validBegin},
+					</if>
+					<if test=" null != validEnd ">
+						valid_end = #{validEnd},
+					</if>
+					<if test=" null != createTime ">
+						create_time = #{createTime},
+					</if>
+					<if test=" null != modifiyTime ">
+						modifiy_time = #{modifiyTime},
+					</if>
+					<if test=" null != remark and ''!= remark  ">
+						remark = #{remark},
+					</if>
+			</trim>
+		</set>
+		<where>
+			id = #{0}
+		</where>
+	  </update>
+
+	<!-- 分页条件查询 -->
+    <select id="selectBySearchInfo" resultMap="BaseResultMap" parameterType="com.linkwee.core.datatable.DataTable">
+        SELECT
+            id,
+	    	case when type_value='1' then '推荐' when type_value='2' then '正能量' when type_value='3' then '理念' when type_value='4' then '节日' else '' end as type_value,
+	    	status,
+	    	image,
+	    	small_image,
+	    	show_inx,
+	    	creator,
+	    	valid_begin,
+	    	valid_end,
+	    	create_time,
+	    	modifiy_time,
+	    	remark  
+        FROM tsm_brand_posters  
+        <where> 
+        <if test="typeValue!=null">  
+                type_value = #{typeValue} 
+         </if>  
+         <if test="dt.order!=null">  
+               <foreach collection="dt.order" index="index" item="item"
+                    open="order by" separator="," close=" ">
+                    ${item.name} ${item.dir} 
+                </foreach>
+         </if>  
+        </where>
+    </select>
+    
+    
+    <select id="findBrandPosters" resultMap="BaseResultMap">
+			SELECT <include refid="Base_Column_List" /> FROM tsm_brand_posters T WHERE 1=1
+			<include refid="Base_Condition" />
+			ORDER BY t.id desc
+	</select>
+	
+	<update id="overheadSmBrandPosters" parameterType="com.linkwee.web.model.SmBrandPosters" >
+	      update tsm_brand_posters set show_inx=show_inx+1 where type_value =#{typeValue}  and status=0
+	</update>
+	
+	
+	<select id="selectBrandPosterList" resultMap="BrandPosterResultMap" parameterType="com.linkwee.web.response.acc.SmBrandPosterResponse">
+		SELECT type_value,name FROM tsm_brand_posters_type WHERE status=0
+	</select>
+
+</mapper>

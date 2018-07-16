@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.CimOrgFeeRecordLogMapper">
+	<!-- Result Map-->
+	<resultMap  type="com.linkwee.web.model.CimOrgFeeRecordLog" id="BaseResultMap">
+		<result column="id" property="id" jdbcType="INTEGER"/>
+		<result column="org_number" property="orgNumber" jdbcType="VARCHAR"/>
+		<result column="fee_rule_id" property="feeRuleId" jdbcType="VARCHAR"/>
+		<result column="fee_ratio" property="feeRatio" jdbcType="DECIMAL"/>
+		<result column="fee_val" property="feeVal" jdbcType="DECIMAL"/>
+		<result column="interval_min_val" property="intervalMinVal" jdbcType="DECIMAL"/>
+		<result column="interval_max_val" property="intervalMaxVal" jdbcType="DECIMAL"/>
+		<result column="interval_unit" property="intervalUnit" jdbcType="VARCHAR"/>
+		<result column="creattime" property="creattime" jdbcType="TIMESTAMP"/>
+		<result column="creator" property="creator" jdbcType="VARCHAR"/>
+		<result column="updatetime" property="updatetime" jdbcType="TIMESTAMP"/>
+		<result column="updater" property="updater" jdbcType="VARCHAR"/>
+		<result column="remark" property="remark" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+  <sql id="Base_Column_List">
+    <trim suffixOverrides=",">
+	    	id,
+	    	org_number,
+	    	fee_rule_id,
+	    	fee_ratio,
+	    	fee_val,
+	    	interval_min_val,
+	    	interval_max_val,
+	    	interval_unit,
+	    	creattime,
+	    	creator,
+	    	updatetime,
+	    	updater,
+	    	remark,
+    </trim>
+  </sql>
+  
+ <sql id="Base_Column_List_T">
+    <trim suffixOverrides=",">
+	    	t.id,
+	    	t.org_number,
+	    	t.fee_rule_id,
+	    	t.fee_ratio,
+	    	t.fee_val,
+	    	t.interval_min_val,
+	    	t.interval_max_val,
+	    	t.interval_unit,
+	    	t.creattime,
+	    	t.creator,
+	    	t.updatetime,
+	    	t.updater,
+	    	t.remark,
+    </trim>
+  </sql>  
+  
+  <sql id="Base_Condition">
+		<if test=" null != id ">
+			and id = #{id}
+		</if>
+		<if test=" null != orgNumber and ''!= orgNumber  ">
+			and org_number = #{orgNumber}
+		</if>
+		<if test=" null != feeRuleId and ''!= feeRuleId  ">
+			and fee_rule_id = #{feeRuleId}
+		</if>
+		<if test=" null != feeRatio ">
+			and fee_ratio = #{feeRatio}
+		</if>
+		<if test=" null != feeVal ">
+			and fee_val = #{feeVal}
+		</if>
+		<if test=" null != intervalMinVal ">
+			and interval_min_val = #{intervalMinVal}
+		</if>
+		<if test=" null != intervalMaxVal ">
+			and interval_max_val = #{intervalMaxVal}
+		</if>
+		<if test=" null != intervalUnit and ''!= intervalUnit  ">
+			and interval_unit = #{intervalUnit}
+		</if>
+		<if test=" null != creattime ">
+			and creattime = #{creattime}
+		</if>
+		<if test=" null != creator and ''!= creator  ">
+			and creator = #{creator}
+		</if>
+		<if test=" null != updatetime ">
+			and updatetime = #{updatetime}
+		</if>
+		<if test=" null != updater and ''!= updater  ">
+			and updater = #{updater}
+		</if>
+		<if test=" null != remark and ''!= remark  ">
+			and remark = #{remark}
+		</if>
+  </sql>
+  
+  <select id="selectOneByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.web.model.CimOrgFeeRecordLog">
+		select <include refid="Base_Column_List" /> from tcim_org_fee_record_log 
+		where 1=1 <include refid="Base_Condition" />
+  </select>
+  
+  <select id="selectByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.web.model.CimOrgFeeRecordLog">
+		select <include refid="Base_Column_List" /> from tcim_org_fee_record_log 
+		where 1=1 <include refid="Base_Condition" />
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tcim_org_fee_record_log
+    where  id = #{0}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tcim_org_fee_record_log
+    where id = #{0}
+  </delete>
+
+  <insert id="insert" parameterType="com.linkwee.web.model.CimOrgFeeRecordLog" >
+    INSERT INTO tcim_org_fee_record_log
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != orgNumber and ''!= orgNumber  ">
+					org_number,
+				</if>
+			 	<if test=" null != feeRuleId and ''!= feeRuleId  ">
+					fee_rule_id,
+				</if>
+			 	<if test=" null != feeRatio ">
+					fee_ratio,
+				</if>
+			 	<if test=" null != feeVal ">
+					fee_val,
+				</if>
+			 	<if test=" null != intervalMinVal ">
+					interval_min_val,
+				</if>
+			 	<if test=" null != intervalMaxVal ">
+					interval_max_val,
+				</if>
+			 	<if test=" null != intervalUnit and ''!= intervalUnit  ">
+					interval_unit,
+				</if>
+			 	<if test=" null != creattime ">
+					creattime,
+				</if>
+			 	<if test=" null != creator and ''!= creator  ">
+					creator,
+				</if>
+			 	<if test=" null != updatetime ">
+					updatetime,
+				</if>
+			 	<if test=" null != updater and ''!= updater  ">
+					updater,
+				</if>
+			 	<if test=" null != remark and ''!= remark  ">
+					remark,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != orgNumber and ''!= orgNumber  ">
+					 	#{orgNumber},
+				</if>
+			 	<if test=" null != feeRuleId and ''!= feeRuleId  ">
+					 	#{feeRuleId},
+				</if>
+			 	<if test=" null != feeRatio ">
+					 	#{feeRatio},
+				</if>
+			 	<if test=" null != feeVal ">
+					 	#{feeVal},
+				</if>
+			 	<if test=" null != intervalMinVal ">
+					 	#{intervalMinVal},
+				</if>
+			 	<if test=" null != intervalMaxVal ">
+					 	#{intervalMaxVal},
+				</if>
+			 	<if test=" null != intervalUnit and ''!= intervalUnit  ">
+					 	#{intervalUnit},
+				</if>
+			 	<if test=" null != creattime ">
+					 	#{creattime},
+				</if>
+			 	<if test=" null != creator and ''!= creator  ">
+					 	#{creator},
+				</if>
+			 	<if test=" null != updatetime ">
+					 	#{updatetime},
+				</if>
+			 	<if test=" null != updater and ''!= updater  ">
+					 	#{updater},
+				</if>
+			 	<if test=" null != remark and ''!= remark  ">
+					 	#{remark},
+				</if>
+		</trim>
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.linkwee.web.model.CimOrgFeeRecordLog" useGeneratedKeys="true" keyProperty="id" >
+		INSERT INTO tcim_org_fee_record_log
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != orgNumber and ''!= orgNumber  ">
+					org_number,
+				</if>
+			 	<if test=" null != feeRuleId and ''!= feeRuleId  ">
+					fee_rule_id,
+				</if>
+			 	<if test=" null != feeRatio ">
+					fee_ratio,
+				</if>
+			 	<if test=" null != feeVal ">
+					fee_val,
+				</if>
+			 	<if test=" null != intervalMinVal ">
+					interval_min_val,
+				</if>
+			 	<if test=" null != intervalMaxVal ">
+					interval_max_val,
+				</if>
+			 	<if test=" null != intervalUnit and ''!= intervalUnit  ">
+					interval_unit,
+				</if>
+			 	<if test=" null != creattime ">
+					creattime,
+				</if>
+			 	<if test=" null != creator and ''!= creator  ">
+					creator,
+				</if>
+			 	<if test=" null != updatetime ">
+					updatetime,
+				</if>
+			 	<if test=" null != updater and ''!= updater  ">
+					updater,
+				</if>
+			 	<if test=" null != remark and ''!= remark  ">
+					remark,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != orgNumber and ''!= orgNumber  ">
+					 	#{orgNumber},
+				</if>
+			 	<if test=" null != feeRuleId and ''!= feeRuleId  ">
+					 	#{feeRuleId},
+				</if>
+			 	<if test=" null != feeRatio ">
+					 	#{feeRatio},
+				</if>
+			 	<if test=" null != feeVal ">
+					 	#{feeVal},
+				</if>
+			 	<if test=" null != intervalMinVal ">
+					 	#{intervalMinVal},
+				</if>
+			 	<if test=" null != intervalMaxVal ">
+					 	#{intervalMaxVal},
+				</if>
+			 	<if test=" null != intervalUnit and ''!= intervalUnit  ">
+					 	#{intervalUnit},
+				</if>
+			 	<if test=" null != creattime ">
+					 	#{creattime},
+				</if>
+			 	<if test=" null != creator and ''!= creator  ">
+					 	#{creator},
+				</if>
+			 	<if test=" null != updatetime ">
+					 	#{updatetime},
+				</if>
+			 	<if test=" null != updater and ''!= updater  ">
+					 	#{updater},
+				</if>
+			 	<if test=" null != remark and ''!= remark  ">
+					 	#{remark},
+				</if>
+		</trim>
+	</insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.linkwee.web.model.CimOrgFeeRecordLog" >
+  		UPDATE tcim_org_fee_record_log
+		<set>
+			<trim suffixOverrides=",">
+					<if test=" null != orgNumber and ''!= orgNumber  ">
+						org_number = #{orgNumber},
+					</if>
+					<if test=" null != feeRuleId and ''!= feeRuleId  ">
+						fee_rule_id = #{feeRuleId},
+					</if>
+					<if test=" null != feeRatio ">
+						fee_ratio = #{feeRatio},
+					</if>
+					<if test=" null != feeVal ">
+						fee_val = #{feeVal},
+					</if>
+					<if test=" null != intervalMinVal ">
+						interval_min_val = #{intervalMinVal},
+					</if>
+					<if test=" null != intervalMaxVal ">
+						interval_max_val = #{intervalMaxVal},
+					</if>
+					<if test=" null != intervalUnit and ''!= intervalUnit  ">
+						interval_unit = #{intervalUnit},
+					</if>
+					<if test=" null != creattime ">
+						creattime = #{creattime},
+					</if>
+					<if test=" null != creator and ''!= creator  ">
+						creator = #{creator},
+					</if>
+					<if test=" null != updatetime ">
+						updatetime = #{updatetime},
+					</if>
+					<if test=" null != updater and ''!= updater  ">
+						updater = #{updater},
+					</if>
+					<if test=" null != remark and ''!= remark  ">
+						remark = #{remark},
+					</if>
+			</trim>
+		</set>
+		<where>
+			 id = #{id}
+		</where>
+	</update>
+  
+	<update id="updateByPrimaryKey" parameterType="com.linkwee.web.model.CimOrgFeeRecordLog" >
+	    UPDATE tcim_org_fee_record_log
+	   <set>
+			<trim suffixOverrides=",">
+					<if test=" null != orgNumber and ''!= orgNumber  ">
+						org_number = #{orgNumber},
+					</if>
+					<if test=" null != feeRuleId and ''!= feeRuleId  ">
+						fee_rule_id = #{feeRuleId},
+					</if>
+					<if test=" null != feeRatio ">
+						fee_ratio = #{feeRatio},
+					</if>
+					<if test=" null != feeVal ">
+						fee_val = #{feeVal},
+					</if>
+					<if test=" null != intervalMinVal ">
+						interval_min_val = #{intervalMinVal},
+					</if>
+					<if test=" null != intervalMaxVal ">
+						interval_max_val = #{intervalMaxVal},
+					</if>
+					<if test=" null != intervalUnit and ''!= intervalUnit  ">
+						interval_unit = #{intervalUnit},
+					</if>
+					<if test=" null != creattime ">
+						creattime = #{creattime},
+					</if>
+					<if test=" null != creator and ''!= creator  ">
+						creator = #{creator},
+					</if>
+					<if test=" null != updatetime ">
+						updatetime = #{updatetime},
+					</if>
+					<if test=" null != updater and ''!= updater  ">
+						updater = #{updater},
+					</if>
+					<if test=" null != remark and ''!= remark  ">
+						remark = #{remark},
+					</if>
+			</trim>
+		</set>
+		<where>
+			id = #{0}
+		</where>
+	  </update>
+
+	<!-- 分页条件查询 -->
+    <select id="selectBySearchInfo" resultMap="BaseResultMap" parameterType="com.linkwee.core.datatable.DataTable">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM tcim_org_fee_record_log
+        <where> 
+        <if test="dt.search!=null">  
+                name LIKE CONCAT('%','${dt.search.value}','%' )  
+         </if>  
+         <if test="dt.order!=null">  
+               <foreach collection="dt.order" index="index" item="item"
+                    open="order by" separator="," close=" ">
+                    ${item.name} ${item.dir} 
+                </foreach>
+         </if>  
+        </where>
+    </select>
+
+</mapper>

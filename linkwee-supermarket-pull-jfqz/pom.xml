@@ -1,0 +1,177 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.linkwee</groupId>
+  <artifactId>linkwee-supermarket-pull-jfqz</artifactId>
+  <packaging>war</packaging>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>linkwee-supermarket-pull-jfqz Maven Webapp</name>
+
+    <properties>
+        <!-- base setting -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.build.locales>zh_CN</project.build.locales>
+        <project.build.jdk>1.7</project.build.jdk>
+
+        <!-- plugin versions -->
+        <plugin.mybatis.generator>1.3.2</plugin.mybatis.generator>
+        <plugin.maven-compiler>3.1</plugin.maven-compiler>
+        <plugin.jetty.version>8.1.16.v20140903</plugin.jetty.version>
+
+        <!-- lib versions -->
+        <junit.version>4.11</junit.version>
+        <spring.version>4.1.4.RELEASE</spring.version>
+        <slf4j.version>1.6.6</slf4j.version>
+        <log4j.version>1.2.12</log4j.version>
+        <httpclient.version>4.3.2</httpclient.version>
+        <jackson.version>1.9.13</jackson.version>
+        <jackson.databind.version>2.5.3</jackson.databind.version>
+        <dubbo.version>2.5.3</dubbo.version>
+        <curator.version>2.7.1</curator.version>
+        <servlet.version>3.0.1</servlet.version>
+        <google.collections.version>1.0</google.collections.version>
+        <cglib.version>3.1</cglib.version>
+        <shiro.version>1.2.3</shiro.version>
+        <commons.fileupload.version>1.3.1</commons.fileupload.version>
+        <commons.codec.version>1.9</commons.codec.version>
+        <commons.beanutils.version>1.9.2</commons.beanutils.version>
+        <commons.net.version>3.3</commons.net.version>
+        <aspectj.version>1.7.4</aspectj.version>
+        <fastjson.version>1.2.8</fastjson.version>
+        <druid.version>1.0.5</druid.version>
+        <hibernate.validator.version>5.1.3.Final</hibernate.validator.version>
+    </properties>
+
+    <dependencies>
+		<!-- 依赖领会核心框架 -->
+		<dependency>
+			<groupId>com.linkwee</groupId>
+			<artifactId>linkwee-framework</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<!-- 公共依赖需要在parent中定义， 项目自己的独特依赖才定义在这里-->
+		<!-- 引入elastic-job核心模块 -->
+		<dependency>
+		    <groupId>com.dangdang</groupId>
+		    <artifactId>elastic-job-core</artifactId>
+		    <version>1.1.1</version>
+		</dependency>
+		<!-- 使用springframework自定义命名空间时引入 -->
+		<dependency>
+		    <groupId>com.dangdang</groupId>
+		    <artifactId>elastic-job-spring</artifactId>
+		    <version>1.1.1</version>
+		</dependency>
+		<!-- DruidDataSource -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid</artifactId>
+			<version>${druid.version}</version>
+		</dependency>
+        
+        <!-- zookeeper apache -->
+		<dependency>
+			<groupId>org.apache.zookeeper</groupId>
+			<artifactId>zookeeper</artifactId>
+			<version>3.4.8</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.101tec</groupId>
+			<artifactId>zkclient</artifactId>
+			<version>0.7</version>
+		</dependency>
+		<!-- end zookeeper -->
+		
+		<!-- servlet api -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>${servlet.version}</version>
+			<scope>provided</scope>
+		</dependency> 
+        
+        <!-- https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15on -->
+        <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcprov-jdk15on</artifactId>
+            <version>1.54</version>
+        </dependency>
+        
+        	<dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>18.0</version>
+        </dependency>
+        
+        <dependency>
+		    <groupId>joda-time</groupId>
+		    <artifactId>joda-time</artifactId>
+		    <version>2.9.4</version>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp -->
+		<dependency>
+		    <groupId>com.squareup.okhttp3</groupId>
+		    <artifactId>okhttp</artifactId>
+		    <version>3.8.1</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.apache.httpcomponents</groupId>
+		    <artifactId>httpclient</artifactId>
+		    <version>4.5.2</version>
+		</dependency>
+		
+	</dependencies>
+    
+      <build>
+        <finalName>linkwee-supermarket-pull-jfqz</finalName>
+        
+        <plugins>
+          <plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.6</version>
+				<configuration>
+					<warName>ROOT</warName>
+				</configuration>
+			</plugin>
+			
+            <!--Maven编译插件 配置-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${plugin.maven-compiler}</version>
+                <configuration>
+                    <source>${project.build.jdk}</source>
+                    <target>${project.build.jdk}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+        </plugins>
+
+		<!--配置Maven 对resource文件 过滤 -->
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>**/*.jpg</include>
+					<include>**/*.properties</include>
+					<include>**/*.xml</include>
+				</includes>
+				<filtering>true</filtering>
+			</resource>
+			<resource>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**/*.properties</include>
+					<include>**/*.xml</include>
+				</includes>
+				<filtering>false</filtering>
+			</resource>
+		</resources>
+    </build>
+    
+</project>
+

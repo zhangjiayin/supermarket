@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.CfpRelevantProfitDao">
+
+    <!--*********************************-->
+    <!--理财师销售与收益列表查询-->
+    <!--*********************************-->
+    <select id="findCfpSaleList" resultType="com.linkwee.web.response.LcsSalesAndEarningDetailResp">
+          select	t.f_number as number,t.f_name as `name`,t.f_mobile as mobile ,
+    ( select IFNULL(SUM(b.fpuramount),0) from trecvrequest b where b.fsaleusernumber = t.f_mobile and b.foptype = 2 and b.fdelstatus = 0) as investmentTotalAmount,
+    ( select IFNULL(COUNT(b.fcustomernumber),0) from trecvrequest b where b.fsaleusernumber = t.f_mobile and b.foptype = 2 and b.fdelstatus = 0) as investmentCount,
+
+    (
+      select IFNULL(sum(tx.fpuramount),0) from (
+          select tf.f_mobile as mobile,count(bx.fbillnumber) as nums,bx.foptype,bx.fpuramount
+    from t_sale_user_info tf left join trecvrequest bx on tf.f_mobile = bx.fsaleusernumber
+    where (tf.f_mobile =#{mobile} or tf.f_name = #{mobile}) and (bx.foptype = 2 or bx.foptype=3) group by bx.fbillnumber,bx.foptype
+    ) as tx
+    where tx.nums = 1 and tx.foptype = 2 and tx.mobile = t.f_mobile
+    ) as amountTotal,
+    (select IFNULL(sum(d.ffeeamount),0) from tfeedetail d where d.fsaleusernumber = t.f_number and d.ffeetype = '1002') as recommendedAmount,
+    (select IFNULL(sum(d.ffeeamount),0) from tfeedetail d where d.fsaleusernumber = t.f_number and d.ffeetype = '1008') as profitTotalAmount,
+    (select IFNULL(sum(d.ffeeamount),0) from tfeedetail d where d.fsaleusernumber = t.f_number and d.ffeetype = '1001') as tfee
+
+    from t_sale_user_info t
+    where 1=1  and (t.f_mobile = #{mobile} or t.f_name =#{mobile}) and t.f_is_cfp= 1
+    </select>
+
+    <!--*********************-->
+    <!--查询理财师当前正在投资的客户-->
+    <!--*********************-->
+    <select id="findCurrentInvertorList" resultType="com.linkwee.web.model.CfpCustomerInvertingModel">
+select * from (
+select t.fbillnumber,c.fcustomername as customerName,p.product_name as productName,
+	p.dead_line_value as deadLineValue,
+  DATE_FORMAT(t.fbizdate,'%Y-%m-%d %H:%i:%s') as bizDate,DATE_FORMAT(DATE_ADD(t.fbizdate,INTERVAL p.dead_line_value DAY),'%Y-%m-%d %H:%i:%s') as redeemDate,
+t.fpuramount as amount,t.foptype
+from trecvrequest t
+left join tusercustomerrel c on t.fcustomerid = c.fcustomerid
+left join tproduct p on t.fproductnumber = p.fid
+where 1=1
+        <if test="searchText!=null and searchText!=''">
+            AND (c.fcustomername LIKE CONCAT(CONCAT('%',#{searchText}),'%') OR c.fcustomermobile LIKE CONCAT(CONCAT('%',#{searchText}),'%'))
+        </if>
+and (t.foptype = 2 or t.foptype=3)
+and t.fsaleusernumber =(
+select f_mobile from t_sale_user_info where (f_mobile = #{mobile} or f_name=#{mobile}) AND f_is_cfp = 1 limit 1) and t.fbillnumber is not null  group by t.fbillnumber
+) as u where u.foptype = 2 ORDER BY  u.bizDate DESC
+    </select>
+
+    <!--*********************-->
+    <!--查询理财师当前正在投资的客户总的金额-->
+    <!--*********************-->
+    <select id="findCurrentInvertorAmount" resultType="java.lang.Double">
+  select IFNULL(SUM(u.amount),0) from (
+select t.fbillnumber,c.fcustomername as customerName,p.product_name as productName,
+	p.dead_line_value as deadLineValue,
+  DATE_FORMAT(t.fbizdate,'%Y-%m-%d %H:%i:%s') as bizDate,DATE_FORMAT(DATE_ADD(t.fbizdate,INTERVAL p.dead_line_value DAY),'%Y-%m-%d %H:%i:%s') as redeemDate,
+t.fpuramount as amount,t.foptype
+from trecvrequest t
+left join tusercustomerrel c on t.fcustomerid = c.fcustomerid
+left join tproduct p on t.fproductnumber = p.fid
+where 1=1
+        <if test="searchText!=null and searchText!=''">
+            AND (c.fcustomername LIKE CONCAT(CONCAT('%',#{searchText}),'%') OR c.fcustomermobile LIKE CONCAT(CONCAT('%',#{searchText}),'%'))
+        </if>
+and (t.foptype = 2 or t.foptype=3) and t.fsaleusernumber =(select f_mobile from t_sale_user_info where (f_mobile = #{mobile} or f_name=#{mobile}) AND f_is_cfp = 1  limit 1) and t.fbillnumber is not null  group by t.fbillnumber
+) as u where u.foptype = 2
+    </select>
+
+    <!--****************-->
+    <!--查询理财师下一级与二级理财师的信息与推荐收益情况-->
+    <!--****************-->
+    <select id="queryCfpTeamList" resultType="com.linkwee.web.response.CfpTeamListResp">
+
+
+SELECT
+  ms.f_number as `number`,
+  ms.f_mobile as mobile,
+  ms.f_name as name,
+  ms.level,
+  mc.createTime,
+  mc.totalNums,
+  mc.totalAmount,
+  mc.feeAmount
+FROM (
+       SELECT s.f_number,s.f_mobile,s.f_name,'v1' as level,s.f_parent_id,s.f_create_time FROM  t_sale_user_info s WHERE  s.f_parent_id =#{query.number}
+       UNION ALL SELECT t.f_number,t.f_mobile,t.f_name,'v2',t.f_parent_id,t.f_create_time FROM t_sale_user_info t
+       WHERE t.f_parent_id IN (SELECT a.f_number FROM  t_sale_user_info a WHERE  a.f_parent_id =#{query.number})
+     ) ms LEFT JOIN (
+SELECT bx.f_number as number,
+       bx.f_mobile as mobile,bx.f_name as `name`,bx.level as `level`,
+       bx.f_parent_id as parentId, DATE_FORMAT(bx.f_create_time,'%Y-%m-%d %H:%i') as createTime,
+       count(bx.fbillnumber) as totalNums,
+       sum(bx.fpuramount) totalAmount,
+       sum(ifnull(d.ffeeamount,0)) as feeAmount FROM (
+           SELECT  s.*,r.fbillnumber,r.fpuramount,max(r.foptype) as optype FROM (
+                                                                                    SELECT s.f_number,s.f_mobile,s.f_name,'v1' as level,s.f_parent_id,s.f_create_time FROM  t_sale_user_info s WHERE  s.f_parent_id =#{query.number}
+                                                                                    UNION ALL SELECT t.f_number,t.f_mobile,t.f_name,'v2',t.f_parent_id,t.f_create_time FROM t_sale_user_info t
+                                                                                    WHERE t.f_parent_id IN (SELECT a.f_number FROM  t_sale_user_info a WHERE  a.f_parent_id =#{query.number})
+                                                                                  ) as s LEFT JOIN trecvrequest r ON  s.f_mobile = r.fsaleusernumber AND r.foptype !=0 GROUP BY r.fbillnumber
+       ) bx LEFT JOIN (SELECT * FROM tfeedetail dl WHERE  dl.fsaleusernumber =  #{query.number} AND dl.ffeetype = '1002') as d ON d.fbillnumber = bx.fbillnumber GROUP BY bx.f_number ORDER BY bx.f_create_time DESC) as mc
+  ON ms.f_number = mc.number WHERE 1=1
+  <if test="query.searchText!=null and query.searchText!=''"> AND (ms.f_mobile =#{query.searchText} OR ms.f_name LIKE CONCAT(CONCAT('%',#{query.searchText}),'%'))</if>
+  ORDER BY mc.feeAmount DESC
+
+
+
+    </select>
+
+    <!--***********************-->
+    <!--查询理财师一级客户投资情况不包括非直属投资客户-->
+    <!--***********************-->
+    <select id="queryCfpCustomerProfitList" resultType="com.linkwee.web.response.CfpCustomerProfitListResp">
+
+SELECT  tt.fcustomerid,
+        tt.fcustomermobile as customerMobile,
+        tt.fcustomername as customerName,
+        tix.orgName,
+        tix.createTime,
+        tix.feeAmount,
+        tix.curNums,
+        tix.totalAmount,
+        tix.curAmount,
+        tix.totalNums FROM  ( SELECT cc.fcustomerid,cc.fcustomermobile,cc.fcustomername,
+                    cc.fcreatetime ,cc.fregorgfrom,cc.fregbizfrom
+                  FROM  tusercustomerrel cc WHERE cc.fcurrsaleuser = #{query.number}) as tt
+LEFT JOIN (
+    SELECT sum(if(optype=2,1,0)) as curNums,count(optype) as totalNums,tk.fcustomerid,tk.fcustomername as customerName,tk.fcustomermobile as customerMobile,
+           tk.fregbizfrom as orgName,
+           DATE_FORMAT(tk.fcreatetime,'%Y-%m-%d %H:%i') as createTime,
+           sum(ifnull(fd.ffeeamount,0)) as feeAmount,
+           sum(tk.fpuramount) as totalAmount,
+           sum(if(optype=2,tk.fpuramount,0)) as curAmount
+    FROM (
+           SELECT tx.*,r.fbillnumber,r.fpuramount,max(r.foptype) as optype
+           FROM (
+                  SELECT cc.fcustomerid,cc.fcustomermobile,cc.fcustomername,
+                    cc.fcreatetime ,cc.fregorgfrom,cc.fregbizfrom
+                  FROM  tusercustomerrel cc WHERE cc.fcurrsaleuser =#{query.number}
+                ) as tx   LEFT JOIN trecvrequest r ON  tx.fcustomerid = r.fcustomerid AND r.foptype != 0
+           GROUP BY r.fbillnumber
+         ) as tk LEFT JOIN (SELECT * FROM  tfeedetail d WHERE  d.fsaleusernumber = #{query.number} AND ffeetype = '1001') as fd
+        ON fd.fbillnumber = tk.fbillnumber GROUP BY tk.fcustomerid order by tk.fcreatetime desc
+    ) as tix ON tt.fcustomerid = tix.fcustomerid WHERE 1=1
+    <if test="query.searchText!=null and query.searchText!=''"> AND (tt.fcustomermobile = #{query.searchText} OR tt.fcustomername LIKE CONCAT(CONCAT('%',#{query.searchText}),'%'))</if>
+    ORDER BY tt.fcustomerid DESC
+    </select>
+
+
+</mapper>

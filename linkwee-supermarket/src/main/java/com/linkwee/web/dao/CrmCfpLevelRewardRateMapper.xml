@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.CrmCfpLevelRewardRateMapper">
+	<!-- Result Map-->
+	<resultMap  type="com.linkwee.web.model.CrmCfpLevelRewardRate" id="BaseResultMap">
+		<result column="id" property="id" jdbcType="INTEGER"/>
+		<result column="level_code" property="levelCode" jdbcType="VARCHAR"/>
+		<result column="base_fee_rate" property="baseFeeRate" jdbcType="INTEGER"/>
+		<result column="recommend_rate" property="recommendRate" jdbcType="INTEGER"/>
+		<result column="child_allowance_rate" property="childAllowanceRate" jdbcType="INTEGER"/>
+		<result column="team_allowance_rate" property="teamAllowanceRate" jdbcType="INTEGER"/>
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+	</resultMap>
+	
+  <sql id="Base_Column_List">
+    <trim suffixOverrides=",">
+	    	id,
+	    	level_code,
+	    	base_fee_rate,
+	    	recommend_rate,
+	    	child_allowance_rate,
+	    	team_allowance_rate,
+	    	create_time,
+    </trim>
+  </sql>
+  
+ <sql id="Base_Column_List_T">
+    <trim suffixOverrides=",">
+	    	t.id,
+	    	t.level_code,
+	    	t.base_fee_rate,
+	    	t.recommend_rate,
+	    	t.child_allowance_rate,
+	    	t.team_allowance_rate,
+	    	t.create_time,
+    </trim>
+  </sql>  
+  
+  <sql id="Base_Condition">
+		<if test=" null != id ">
+			and id = #{id}
+		</if>
+		<if test=" null != levelCode and ''!= levelCode  ">
+			and level_code = #{levelCode}
+		</if>
+		<if test=" null != baseFeeRate ">
+			and base_fee_rate = #{baseFeeRate}
+		</if>
+		<if test=" null != recommendRate ">
+			and recommend_rate = #{recommendRate}
+		</if>
+		<if test=" null != childAllowanceRate ">
+			and child_allowance_rate = #{childAllowanceRate}
+		</if>
+		<if test=" null != teamAllowanceRate ">
+			and team_allowance_rate = #{teamAllowanceRate}
+		</if>
+		<if test=" null != createTime ">
+			and create_time = #{createTime}
+		</if>
+  </sql>
+  
+  <select id="selectOneByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.web.model.CrmCfpLevelRewardRate">
+		select <include refid="Base_Column_List" /> from tcrm_cfp_level_reward_rate 
+		where 1=1 <include refid="Base_Condition" />
+  </select>
+  
+  <select id="selectByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.web.model.CrmCfpLevelRewardRate">
+		select <include refid="Base_Column_List" /> from tcrm_cfp_level_reward_rate 
+		where 1=1 <include refid="Base_Condition" />
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tcrm_cfp_level_reward_rate
+    where  id = #{0}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tcrm_cfp_level_reward_rate
+    where id = #{0}
+  </delete>
+
+  <insert id="insert" parameterType="com.linkwee.web.model.CrmCfpLevelRewardRate" >
+    INSERT INTO tcrm_cfp_level_reward_rate
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != levelCode and ''!= levelCode  ">
+					level_code,
+				</if>
+			 	<if test=" null != baseFeeRate ">
+					base_fee_rate,
+				</if>
+			 	<if test=" null != recommendRate ">
+					recommend_rate,
+				</if>
+			 	<if test=" null != childAllowanceRate ">
+					child_allowance_rate,
+				</if>
+			 	<if test=" null != teamAllowanceRate ">
+					team_allowance_rate,
+				</if>
+			 	<if test=" null != createTime ">
+					create_time,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != levelCode and ''!= levelCode  ">
+					 	#{levelCode},
+				</if>
+			 	<if test=" null != baseFeeRate ">
+					 	#{baseFeeRate},
+				</if>
+			 	<if test=" null != recommendRate ">
+					 	#{recommendRate},
+				</if>
+			 	<if test=" null != childAllowanceRate ">
+					 	#{childAllowanceRate},
+				</if>
+			 	<if test=" null != teamAllowanceRate ">
+					 	#{teamAllowanceRate},
+				</if>
+			 	<if test=" null != createTime ">
+					 	#{createTime},
+				</if>
+		</trim>
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.linkwee.web.model.CrmCfpLevelRewardRate" useGeneratedKeys="true" keyProperty="id" >
+		INSERT INTO tcrm_cfp_level_reward_rate
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != levelCode and ''!= levelCode  ">
+					level_code,
+				</if>
+			 	<if test=" null != baseFeeRate ">
+					base_fee_rate,
+				</if>
+			 	<if test=" null != recommendRate ">
+					recommend_rate,
+				</if>
+			 	<if test=" null != childAllowanceRate ">
+					child_allowance_rate,
+				</if>
+			 	<if test=" null != teamAllowanceRate ">
+					team_allowance_rate,
+				</if>
+			 	<if test=" null != createTime ">
+					create_time,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != levelCode and ''!= levelCode  ">
+					 	#{levelCode},
+				</if>
+			 	<if test=" null != baseFeeRate ">
+					 	#{baseFeeRate},
+				</if>
+			 	<if test=" null != recommendRate ">
+					 	#{recommendRate},
+				</if>
+			 	<if test=" null != childAllowanceRate ">
+					 	#{childAllowanceRate},
+				</if>
+			 	<if test=" null != teamAllowanceRate ">
+					 	#{teamAllowanceRate},
+				</if>
+			 	<if test=" null != createTime ">
+					 	#{createTime},
+				</if>
+		</trim>
+	</insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.linkwee.web.model.CrmCfpLevelRewardRate" >
+  		UPDATE tcrm_cfp_level_reward_rate
+		<set>
+			<trim suffixOverrides=",">
+					<if test=" null != levelCode and ''!= levelCode  ">
+						level_code = #{levelCode},
+					</if>
+					<if test=" null != baseFeeRate ">
+						base_fee_rate = #{baseFeeRate},
+					</if>
+					<if test=" null != recommendRate ">
+						recommend_rate = #{recommendRate},
+					</if>
+					<if test=" null != childAllowanceRate ">
+						child_allowance_rate = #{childAllowanceRate},
+					</if>
+					<if test=" null != teamAllowanceRate ">
+						team_allowance_rate = #{teamAllowanceRate},
+					</if>
+					<if test=" null != createTime ">
+						create_time = #{createTime},
+					</if>
+			</trim>
+		</set>
+		<where>
+			 id = #{id}
+		</where>
+	</update>
+  
+	<update id="updateByPrimaryKey" parameterType="com.linkwee.web.model.CrmCfpLevelRewardRate" >
+	    UPDATE tcrm_cfp_level_reward_rate
+	   <set>
+			<trim suffixOverrides=",">
+					<if test=" null != levelCode and ''!= levelCode  ">
+						level_code = #{levelCode},
+					</if>
+					<if test=" null != baseFeeRate ">
+						base_fee_rate = #{baseFeeRate},
+					</if>
+					<if test=" null != recommendRate ">
+						recommend_rate = #{recommendRate},
+					</if>
+					<if test=" null != childAllowanceRate ">
+						child_allowance_rate = #{childAllowanceRate},
+					</if>
+					<if test=" null != teamAllowanceRate ">
+						team_allowance_rate = #{teamAllowanceRate},
+					</if>
+					<if test=" null != createTime ">
+						create_time = #{createTime},
+					</if>
+			</trim>
+		</set>
+		<where>
+			id = #{0}
+		</where>
+	  </update>
+
+	<!-- 分页条件查询 -->
+    <select id="selectBySearchInfo" resultMap="BaseResultMap" parameterType="com.linkwee.core.datatable.DataTable">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM tcrm_cfp_level_reward_rate
+        <where> 
+        <if test="dt.search!=null">  
+                name LIKE CONCAT('%','${dt.search.value}','%' )  
+         </if>  
+         <if test="dt.order!=null">  
+               <foreach collection="dt.order" index="index" item="item"
+                    open="order by" separator="," close=" ">
+                    ${item.name} ${item.dir} 
+                </foreach>
+         </if>  
+        </where>
+    </select>
+
+</mapper>

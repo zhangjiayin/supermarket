@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.SmGrowthHandbookCfplevelRelationMapper">
+	<!-- Result Map-->
+	<resultMap  type="com.linkwee.web.model.SmGrowthHandbookCfplevelRelation" id="BaseResultMap">
+		<result column="id" property="id" jdbcType="INTEGER"/>
+		<result column="growth_handbook_id" property="growthHandbookId" jdbcType="INTEGER"/>
+		<result column="cfp_level_code" property="cfpLevelCode" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+  <sql id="Base_Column_List">
+    <trim suffixOverrides=",">
+	    	id,
+	    	growth_handbook_id,
+	    	cfp_level_code,
+    </trim>
+  </sql>
+  
+ <sql id="Base_Column_List_T">
+    <trim suffixOverrides=",">
+	    	t.id,
+	    	t.growth_handbook_id,
+	    	t.cfp_level_code,
+    </trim>
+  </sql>  
+  
+  <sql id="Base_Condition">
+		<if test=" null != id ">
+			and id = #{id}
+		</if>
+		<if test=" null != growthHandbookId ">
+			and growth_handbook_id = #{growthHandbookId}
+		</if>
+		<if test=" null != cfpLevelCode and ''!= cfpLevelCode  ">
+			and cfp_level_code = #{cfpLevelCode}
+		</if>
+  </sql>
+  
+  <select id="selectOneByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.web.model.SmGrowthHandbookCfplevelRelation">
+		select <include refid="Base_Column_List" /> from tsm_growth_handbook_cfplevel_relation 
+		where 1=1 <include refid="Base_Condition" />
+  </select>
+  
+  <select id="selectByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.web.model.SmGrowthHandbookCfplevelRelation">
+		select <include refid="Base_Column_List" /> from tsm_growth_handbook_cfplevel_relation 
+		where 1=1 <include refid="Base_Condition" />
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tsm_growth_handbook_cfplevel_relation
+    where  id = #{0}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tsm_growth_handbook_cfplevel_relation
+    where id = #{0}
+  </delete>
+
+  <insert id="insert" parameterType="com.linkwee.web.model.SmGrowthHandbookCfplevelRelation" >
+    INSERT INTO tsm_growth_handbook_cfplevel_relation
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != growthHandbookId ">
+					growth_handbook_id,
+				</if>
+			 	<if test=" null != cfpLevelCode and ''!= cfpLevelCode  ">
+					cfp_level_code,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != growthHandbookId ">
+					 	#{growthHandbookId},
+				</if>
+			 	<if test=" null != cfpLevelCode and ''!= cfpLevelCode  ">
+					 	#{cfpLevelCode},
+				</if>
+		</trim>
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.linkwee.web.model.SmGrowthHandbookCfplevelRelation" useGeneratedKeys="true" keyProperty="id" >
+		INSERT INTO tsm_growth_handbook_cfplevel_relation
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != growthHandbookId ">
+					growth_handbook_id,
+				</if>
+			 	<if test=" null != cfpLevelCode and ''!= cfpLevelCode  ">
+					cfp_level_code,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != growthHandbookId ">
+					 	#{growthHandbookId},
+				</if>
+			 	<if test=" null != cfpLevelCode and ''!= cfpLevelCode  ">
+					 	#{cfpLevelCode},
+				</if>
+		</trim>
+	</insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.linkwee.web.model.SmGrowthHandbookCfplevelRelation" >
+  		UPDATE tsm_growth_handbook_cfplevel_relation
+		<set>
+			<trim suffixOverrides=",">
+					<if test=" null != growthHandbookId ">
+						growth_handbook_id = #{growthHandbookId},
+					</if>
+					<if test=" null != cfpLevelCode and ''!= cfpLevelCode  ">
+						cfp_level_code = #{cfpLevelCode},
+					</if>
+			</trim>
+		</set>
+		<where>
+			 id = #{id}
+		</where>
+	</update>
+  
+	<update id="updateByPrimaryKey" parameterType="com.linkwee.web.model.SmGrowthHandbookCfplevelRelation" >
+	    UPDATE tsm_growth_handbook_cfplevel_relation
+	   <set>
+			<trim suffixOverrides=",">
+					<if test=" null != growthHandbookId ">
+						growth_handbook_id = #{growthHandbookId},
+					</if>
+					<if test=" null != cfpLevelCode and ''!= cfpLevelCode  ">
+						cfp_level_code = #{cfpLevelCode},
+					</if>
+			</trim>
+		</set>
+		<where>
+			id = #{0}
+		</where>
+	  </update>
+
+	<!-- 分页条件查询 -->
+    <select id="selectBySearchInfo" resultMap="BaseResultMap" parameterType="com.linkwee.core.datatable.DataTable">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM tsm_growth_handbook_cfplevel_relation
+        <where> 
+        <if test="dt.search!=null">  
+                name LIKE CONCAT('%','${dt.search.value}','%' )  
+         </if>  
+         <if test="dt.order!=null">  
+               <foreach collection="dt.order" index="index" item="item"
+                    open="order by" separator="," close=" ">
+                    ${item.name} ${item.dir} 
+                </foreach>
+         </if>  
+        </where>
+    </select>
+     
+    <delete id="deleteByGrowthHandbookId" parameterType="java.lang.Integer" >
+	    delete from tsm_growth_handbook_cfplevel_relation
+	    where growth_handbook_id = #{0}
+	</delete>
+
+</mapper>

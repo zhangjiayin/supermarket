@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.CustomerDeviceDao">
+<parameterMap type="com.linkwee.web.model.CustomerDevice"
+		id="CustomerDeviceParameterMap" />
+	<!-- Result Map -->
+	<resultMap type="com.linkwee.web.model.CustomerDevice"
+		id="CustomerDeviceResultMap">
+		<result column="f_id" property="id" jdbcType="INTEGER" />
+		<result column="f_member_no" property="memberNo" jdbcType="VARCHAR" />
+		<result column="f_token" property="token" jdbcType="VARCHAR" />
+		<result column="f_device_id" property="deviceId" jdbcType="VARCHAR" />
+		<result column="f_device_type" property="deviceType" jdbcType="VARCHAR" />
+		<result column="f_device_detail" property="deviceDetail" jdbcType="VARCHAR" />
+		<result column="f_device_resolution" property="deviceResolution"
+			jdbcType="VARCHAR" />
+		<result column="f_system_version" property="systemVersion"
+			jdbcType="VARCHAR" />
+		<result column="f_appversion" property="appversion" jdbcType="VARCHAR" />
+		<result column="f_create_date" property="createDate" jdbcType="TIMESTAMP" />
+		<result column="f_login_lasttime" property="loginLasttime"
+			jdbcType="TIMESTAMP" />
+		<result column="f_app_type" property="appType" jdbcType="TINYINT" />
+		<result column="f_is_sendplatformnotice" property="isSendplatformnotice" jdbcType="TINYINT" />
+		<result column="f_is_sendinteractnotice" property="isSendinteractnotice" jdbcType="TINYINT" />
+	</resultMap>
+
+	<insert id="add" parameterMap="CustomerDeviceParameterMap"
+		useGeneratedKeys="true" keyProperty="msgId">
+		INSERT INTO t_customer_device
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test=" null != id ">
+				f_id,
+			</if>
+			<if test=" null != memberNo and ''!= memberNo  ">
+				f_member_no,
+			</if>
+			<if test=" null != token and ''!= token  ">
+				f_token,
+			</if>
+			<if test=" null != deviceId and ''!=deviceId ">
+				f_device_id,
+			</if>
+			<if test=" null != deviceType and ''!=deviceType  ">
+				f_device_type,
+			</if>
+			<if test=" null != deviceDetail and ''!=deviceDetail  ">
+				f_device_detail,
+			</if>
+			<if test=" null != deviceResolution and ''!= deviceResolution  ">
+				f_device_resolution,
+			</if>
+			<if test=" null != systemVersion and ''!=systemVersion ">
+				f_system_version,
+			</if>
+			<if test=" null != appversion and ''!=appversion ">
+				f_appversion,
+			</if>
+			<if test=" null != createDate ">
+				f_create_date,
+			</if>
+			<if test=" null != loginLasttime ">
+				f_login_lasttime,
+			</if>
+			<if test=" null != appType ">
+				f_app_type,
+			</if>
+			<if test=" null != isSendplatformnotice ">
+				f_is_sendplatformnotice,
+			</if>
+			<if test=" null != isSendinteractnotice ">
+				f_is_sendinteractnotice,
+			</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			<if test=" null != id ">
+				#{id},
+			</if>
+			<if test=" null != memberNo and ''!= memberNo  ">
+				#{memberNo},
+			</if>
+			<if test=" null != token and ''!= token  ">
+				#{token},
+			</if>
+			<if test=" null != deviceId and ''!=deviceId ">
+				#{deviceId},
+			</if>
+			<if test=" null != deviceType and ''!=deviceType  ">
+				#{deviceType},
+			</if>
+			<if test=" null != deviceDetail and ''!=deviceDetail  ">
+				#{deviceDetail},
+			</if>
+			<if test=" null != deviceResolution and ''!= deviceResolution  ">
+				#{deviceResolution},
+			</if>
+			<if test=" null != systemVersion and ''!=systemVersion ">
+				#{systemVersion},
+			</if>
+			<if test=" null != appversion and ''!=appversion ">
+				#{appversion},
+			</if>
+			<if test=" null != createDate ">
+				#{createDate},
+			</if>
+			<if test=" null != loginLasttime ">
+				#{loginLasttime},
+			</if>
+			<if test=" null != appType ">
+				#{appType},
+			</if>
+			<if test=" null != isSendplatformnotice ">
+				#{isSendplatformnotice},
+			</if>
+			<if test=" null != isSendinteractnotice ">
+				#{isSendinteractnotice},
+			</if>
+		</trim>
+	</insert>
+
+
+	<update id="updateCustomerDevice" parameterMap="CustomerDeviceParameterMap">
+		UPDATE t_customer_device
+		<set>
+			<trim suffixOverrides=",">
+				
+					f_token = #{token},
+				<if test=" null != deviceId and ''!=deviceId ">
+					f_device_id = #{deviceId},
+				</if>
+				<if test=" null != deviceType and ''!=deviceType  ">
+					f_device_type = #{deviceType},
+				</if>
+				<if test=" null != deviceDetail and ''!=deviceDetail  ">
+					f_device_detail = #{deviceDetail},
+				</if>
+				<if test=" null != deviceResolution and ''!= deviceResolution  ">
+					f_device_resolution = #{deviceResolution},
+				</if>
+				<if test=" null != systemVersion and ''!=systemVersion ">
+					f_system_version = #{systemVersion},
+				</if>
+				<if test=" null != appversion and ''!=appversion ">
+					f_appversion = #{appversion},
+				</if>
+				<if test=" null != createDate ">
+					f_create_date=#{createDate},
+				</if>
+				<if test=" null != loginLasttime ">
+					f_login_lasttime=#{loginLasttime},
+				</if>
+				<if test=" null != appType ">
+					f_app_type=#{appType},
+				</if>
+				<if test=" null != isSendplatformnotice ">
+					f_is_sendplatformnotice =#{isSendplatformnotice},
+				</if>
+				<if test=" null != isSendinteractnotice ">
+					f_is_sendinteractnotice =#{isSendinteractnotice},
+				</if>
+			</trim>
+		</set>
+		<where>
+			1=1
+			<if test=" null != id ">
+				and f_id = #{id} 
+			</if>
+			<if test=" null != memberNo and ''!= memberNo  ">
+				and f_member_no = #{memberNo}
+			</if>
+			<if test=" null != appType ">
+				and f_app_type = #{appType}
+			</if>
+		</where>
+	</update>
+
+	<select id="query" resultMap="CustomerDeviceResultMap" parameterMap="CustomerDeviceParameterMap">
+		SELECT * FROM t_customer_device T WHERE f_member_no = #{memberNo} and f_app_type = #{appType}
+	</select>
+	<delete id="delete" parameterMap="CustomerDeviceParameterMap">
+		delete from t_customer_device 
+		<where>
+			 f_member_no = #{memberNo} and f_app_type = #{appType}
+		</where>
+	</delete>
+</mapper>

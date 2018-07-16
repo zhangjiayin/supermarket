@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.CimInsuranceCateMapper">
+	<!-- Result Map-->
+	<resultMap  type="com.linkwee.web.model.CimInsuranceCate" id="BaseResultMap">
+		<result column="cate_id" property="cateId" jdbcType="INTEGER"/>
+		<result column="cate_name" property="cateName" jdbcType="VARCHAR"/>
+		<result column="order_num" property="orderNum" jdbcType="INTEGER"/>
+		<result column="cate_logo_investor" property="cateLogoInvestor" jdbcType="VARCHAR"/>
+		<result column="cate_logo_channel" property="cateLogoChannel" jdbcType="VARCHAR"/>
+		<result column="disabled" property="disabled" jdbcType="INTEGER"/>
+		<result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP"/>
+		<result column="description" property="description" jdbcType="VARCHAR"/>
+		<result column="url_link" property="urlLink" jdbcType="VARCHAR"/>
+		<result column="cate_declare" property="cateDeclare" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+  <sql id="Base_Column_List">
+    <trim suffixOverrides=",">
+	    	cate_id,
+	    	cate_name,
+	    	order_num,
+	    	cate_logo_investor,
+	    	cate_logo_channel,
+	    	disabled,
+	    	modify_time,
+	    	description,
+	    	url_link,
+	    	cate_declare,
+    </trim>
+  </sql>
+  
+ <sql id="Base_Column_List_T">
+    <trim suffixOverrides=",">
+	    	t.cate_id,
+	    	t.cate_name,
+	    	t.order_num,
+	    	t.cate_logo_investor,
+	    	t.cate_logo_channel,
+	    	t.disabled,
+	    	t.modify_time,
+	    	t.description,
+	    	t.url_link,
+	    	t.cate_declare,
+    </trim>
+  </sql>  
+  
+  <sql id="Base_Condition">
+		<if test=" null != cateId ">
+			and cate_id = #{cateId}
+		</if>
+		<if test=" null != cateName and ''!= cateName  ">
+			and cate_name = #{cateName}
+		</if>
+		<if test=" null != orderNum ">
+			and order_num = #{orderNum}
+		</if>
+		<if test=" null != cateLogoInvestor and ''!= cateLogoInvestor  ">
+			and cate_logo_investor = #{cateLogoInvestor}
+		</if>
+		<if test=" null != cateLogoChannel and ''!= cateLogoChannel  ">
+			and cate_logo_channel = #{cateLogoChannel}
+		</if>
+		<if test=" null != disabled ">
+			and disabled = #{disabled}
+		</if>
+		<if test=" null != modifyTime ">
+			and modify_time = #{modifyTime}
+		</if>
+		<if test=" null != description and ''!= description  ">
+			and description = #{description}
+		</if>
+		<if test=" null != urlLink and ''!= urlLink  ">
+			and url_link = #{urlLink}
+		</if>
+		<if test=" null != cateDeclare and ''!= cateDeclare  ">
+			and cate_declare = #{cateDeclare}
+		</if>
+  </sql>
+  
+  <select id="selectOneByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.web.model.CimInsuranceCate">
+		select <include refid="Base_Column_List" /> from tcim_insurance_cate 
+		where 1=1 <include refid="Base_Condition" />
+  </select>
+  
+  <select id="selectByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.web.model.CimInsuranceCate">
+		select <include refid="Base_Column_List" /> from tcim_insurance_cate 
+		where 1=1 <include refid="Base_Condition" />
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tcim_insurance_cate
+    where  cate_id = #{0}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tcim_insurance_cate
+    where cate_id = #{0}
+  </delete>
+
+  <insert id="insert" parameterType="com.linkwee.web.model.CimInsuranceCate" >
+    INSERT INTO tcim_insurance_cate
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != cateId ">
+					cate_id,
+				</if>
+			 	<if test=" null != cateName and ''!= cateName  ">
+					cate_name,
+				</if>
+			 	<if test=" null != orderNum ">
+					order_num,
+				</if>
+			 	<if test=" null != cateLogoInvestor and ''!= cateLogoInvestor  ">
+					cate_logo_investor,
+				</if>
+			 	<if test=" null != cateLogoChannel and ''!= cateLogoChannel  ">
+					cate_logo_channel,
+				</if>
+			 	<if test=" null != disabled ">
+					disabled,
+				</if>
+			 	<if test=" null != modifyTime ">
+					modify_time,
+				</if>
+			 	<if test=" null != description and ''!= description  ">
+					description,
+				</if>
+			 	<if test=" null != urlLink and ''!= urlLink  ">
+					url_link,
+				</if>
+			 	<if test=" null != cateDeclare and ''!= cateDeclare  ">
+					cate_declare,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != cateId ">
+					 	#{cateId},
+				</if>
+			 	<if test=" null != cateName and ''!= cateName  ">
+					 	#{cateName},
+				</if>
+			 	<if test=" null != orderNum ">
+					 	#{orderNum},
+				</if>
+			 	<if test=" null != cateLogoInvestor and ''!= cateLogoInvestor  ">
+					 	#{cateLogoInvestor},
+				</if>
+			 	<if test=" null != cateLogoChannel and ''!= cateLogoChannel  ">
+					 	#{cateLogoChannel},
+				</if>
+			 	<if test=" null != disabled ">
+					 	#{disabled},
+				</if>
+			 	<if test=" null != modifyTime ">
+					 	#{modifyTime},
+				</if>
+			 	<if test=" null != description and ''!= description  ">
+					 	#{description},
+				</if>
+			 	<if test=" null != urlLink and ''!= urlLink  ">
+					 	#{urlLink},
+				</if>
+			 	<if test=" null != cateDeclare and ''!= cateDeclare  ">
+					 	#{cateDeclare},
+				</if>
+		</trim>
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.linkwee.web.model.CimInsuranceCate" useGeneratedKeys="true" keyProperty="cateId" >
+		INSERT INTO tcim_insurance_cate
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != cateId ">
+					cate_id,
+				</if>
+			 	<if test=" null != cateName and ''!= cateName  ">
+					cate_name,
+				</if>
+			 	<if test=" null != orderNum ">
+					order_num,
+				</if>
+			 	<if test=" null != cateLogoInvestor and ''!= cateLogoInvestor  ">
+					cate_logo_investor,
+				</if>
+			 	<if test=" null != cateLogoChannel and ''!= cateLogoChannel  ">
+					cate_logo_channel,
+				</if>
+			 	<if test=" null != disabled ">
+					disabled,
+				</if>
+			 	<if test=" null != modifyTime ">
+					modify_time,
+				</if>
+			 	<if test=" null != description and ''!= description  ">
+					description,
+				</if>
+			 	<if test=" null != urlLink and ''!= urlLink  ">
+					url_link,
+				</if>
+			 	<if test=" null != cateDeclare and ''!= cateDeclare  ">
+					cate_declare,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != cateId ">
+					 	#{cateId},
+				</if>
+			 	<if test=" null != cateName and ''!= cateName  ">
+					 	#{cateName},
+				</if>
+			 	<if test=" null != orderNum ">
+					 	#{orderNum},
+				</if>
+			 	<if test=" null != cateLogoInvestor and ''!= cateLogoInvestor  ">
+					 	#{cateLogoInvestor},
+				</if>
+			 	<if test=" null != cateLogoChannel and ''!= cateLogoChannel  ">
+					 	#{cateLogoChannel},
+				</if>
+			 	<if test=" null != disabled ">
+					 	#{disabled},
+				</if>
+			 	<if test=" null != modifyTime ">
+					 	#{modifyTime},
+				</if>
+			 	<if test=" null != description and ''!= description  ">
+					 	#{description},
+				</if>
+			 	<if test=" null != urlLink and ''!= urlLink  ">
+					 	#{urlLink},
+				</if>
+			 	<if test=" null != cateDeclare and ''!= cateDeclare  ">
+					 	#{cateDeclare},
+				</if>
+		</trim>
+	</insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.linkwee.web.model.CimInsuranceCate" >
+  		UPDATE tcim_insurance_cate
+		<set>
+			<trim suffixOverrides=",">
+					<if test=" null != cateName and ''!= cateName  ">
+						cate_name = #{cateName},
+					</if>
+					<if test=" null != orderNum ">
+						order_num = #{orderNum},
+					</if>
+					<if test=" null != cateLogoInvestor and ''!= cateLogoInvestor  ">
+						cate_logo_investor = #{cateLogoInvestor},
+					</if>
+					<if test=" null != cateLogoChannel and ''!= cateLogoChannel  ">
+						cate_logo_channel = #{cateLogoChannel},
+					</if>
+					<if test=" null != disabled ">
+						disabled = #{disabled},
+					</if>
+					<if test=" null != modifyTime ">
+						modify_time = #{modifyTime},
+					</if>
+					<if test=" null != description and ''!= description  ">
+						description = #{description},
+					</if>
+					<if test=" null != urlLink and ''!= urlLink  ">
+						url_link = #{urlLink},
+					</if>
+					<if test=" null != cateDeclare and ''!= cateDeclare  ">
+						cate_declare = #{cateDeclare},
+					</if>
+			</trim>
+		</set>
+		<where>
+			 cate_id = #{cateId}
+		</where>
+	</update>
+  
+	<update id="updateByPrimaryKey" parameterType="com.linkwee.web.model.CimInsuranceCate" >
+	    UPDATE tcim_insurance_cate
+	   <set>
+			<trim suffixOverrides=",">
+					<if test=" null != cateName and ''!= cateName  ">
+						cate_name = #{cateName},
+					</if>
+					<if test=" null != orderNum ">
+						order_num = #{orderNum},
+					</if>
+					<if test=" null != cateLogoInvestor and ''!= cateLogoInvestor  ">
+						cate_logo_investor = #{cateLogoInvestor},
+					</if>
+					<if test=" null != cateLogoChannel and ''!= cateLogoChannel  ">
+						cate_logo_channel = #{cateLogoChannel},
+					</if>
+					<if test=" null != disabled ">
+						disabled = #{disabled},
+					</if>
+					<if test=" null != modifyTime ">
+						modify_time = #{modifyTime},
+					</if>
+					<if test=" null != description and ''!= description  ">
+						description = #{description},
+					</if>
+					<if test=" null != urlLink and ''!= urlLink  ">
+						url_link = #{urlLink},
+					</if>
+					<if test=" null != cateDeclare and ''!= cateDeclare  ">
+						cate_declare = #{cateDeclare},
+					</if>
+			</trim>
+		</set>
+		<where>
+			cate_id = #{0}
+		</where>
+	  </update>
+
+	<!-- 分页条件查询 -->
+    <select id="selectBySearchInfo" resultMap="BaseResultMap" parameterType="com.linkwee.core.datatable.DataTable">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM tcim_insurance_cate
+        <where> 
+        <if test="dt.search!=null">  
+                cate_name LIKE CONCAT('%','${dt.search.value}','%' )  or cate_id LIKE CONCAT('%','${dt.search.value}','%' ) 
+         </if>  
+         <if test="dt.order!=null">  
+               <foreach collection="dt.order" index="index" item="item"
+                    open="order by" separator="," close=" ">
+                    ${item.name} ${item.dir} 
+                </foreach>
+         </if>  
+        </where>
+    </select>
+
+	<!-- 查询datatable editor 选项 -->
+    <select id="getDataTableEditorOptions" resultType="com.linkwee.core.datatable.DataTableEditorOption">
+		SELECT
+			  tic.cate_id AS value,
+		      tic.cate_name AS label
+		FROM
+			tcim_insurance_cate tic
+		WHERE 
+			tic.disabled = 0
+    </select>  
+</mapper>

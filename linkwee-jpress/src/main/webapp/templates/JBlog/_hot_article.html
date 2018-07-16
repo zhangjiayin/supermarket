@@ -1,0 +1,22 @@
+
+<div class="common-top-right">
+    <div class="right-nav-title">
+        <h1>
+            <span class="title">热评文章</span>
+        </h1>                       
+    </div>
+    
+    <ul>
+    <@jp.contents module="article" count="6" orderBy="comment_count" hasThumbnail="true">
+        <#list contents as content>
+        <li class="x-layout-100 person-relative x-margin-bottom-10" style="max-width:250px">
+            <a class="ellipsis" href="/c/${content.id}.html">
+                 ${content.title!}
+            </a>
+        </li>
+        </#list>
+    </@jp.contents>
+    </ul>            
+</div>
+
+

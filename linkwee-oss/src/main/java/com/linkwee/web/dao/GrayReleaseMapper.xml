@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.GrayReleaseMapper">
+
+    <parameterMap type="com.linkwee.web.model.GrayRelease" id="grayReleaseMap" />
+	<!-- Result Map-->
+	<resultMap  type="com.linkwee.web.model.GrayRelease" id="BaseResultMap">
+		<result column="f_id" property="id" jdbcType="INTEGER"/>
+		<result column="f_pid" property="pid" jdbcType="VARCHAR"/>
+		<result column="f_type" property="type" jdbcType="INTEGER"/>
+		<result column="f_status" property="status" jdbcType="INTEGER"/>
+		<result column="f_mobile" property="mobile" jdbcType="VARCHAR"/>
+		<result column="f_user_id" property="userId" jdbcType="VARCHAR"/>
+		<result column="f_user_name" property="userName" jdbcType="VARCHAR"/>
+		<result column="f_start_time" property="startTime" jdbcType="TIMESTAMP"/>
+		<result column="f_end_time" property="endTime" jdbcType="TIMESTAMP"/>
+	</resultMap>
+	
+  <sql id="Base_Column_List">
+    <trim suffixOverrides=",">
+	    	f_id,
+	    	f_pid,
+	    	f_type,
+	    	f_status,
+	    	f_mobile,
+	    	f_user_id,
+	    	f_user_name,
+	    	f_start_time,
+	    	f_end_time,
+    </trim>
+  </sql>  
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_gray_release
+    where  f_id = #{0}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_gray_release
+    where f_id = #{0}
+  </delete>
+
+  <insert id="insert" parameterType="com.linkwee.web.model.GrayRelease" >
+    INSERT INTO t_gray_release
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					f_id,
+				</if>
+			 	<if test=" null != pid and ''!= pid  ">
+					f_pid,
+				</if>
+			 	<if test=" null != type ">
+					f_type,
+				</if>
+			 	<if test=" null != status ">
+					f_status,
+				</if>
+			 	<if test=" null != mobile and ''!= mobile  ">
+					f_mobile,
+				</if>
+			 	<if test=" null != userId and ''!= userId  ">
+					f_user_id,
+				</if>
+			 	<if test=" null != userName and ''!= userName  ">
+					f_user_name,
+				</if>
+			 	<if test=" null != startTime ">
+					f_start_time,
+				</if>
+			 	<if test=" null != endTime ">
+					f_end_time,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != pid and ''!= pid  ">
+					 	#{pid},
+				</if>
+			 	<if test=" null != type ">
+					 	#{type},
+				</if>
+			 	<if test=" null != status ">
+					 	#{status},
+				</if>
+			 	<if test=" null != mobile and ''!= mobile  ">
+					 	#{mobile},
+				</if>
+			 	<if test=" null != userId and ''!= userId  ">
+					 	#{userId},
+				</if>
+			 	<if test=" null != userName and ''!= userName  ">
+					 	#{userName},
+				</if>
+			 	<if test=" null != startTime ">
+					 	#{startTime},
+				</if>
+			 	<if test=" null != endTime ">
+					 	#{endTime},
+				</if>
+		</trim>
+  </insert>
+  
+  <insert id="insertSelective" parameterMap="grayReleaseMap" useGeneratedKeys="true" keyProperty="id" >
+		INSERT INTO t_gray_release
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					f_id,
+				</if>
+			 	<if test=" null != pid and ''!= pid  ">
+					f_pid,
+				</if>
+			 	<if test=" null != type ">
+					f_type,
+				</if>
+			 	<if test=" null != status ">
+					f_status,
+				</if>
+			 	<if test=" null != mobile and ''!= mobile  ">
+					f_mobile,
+				</if>
+			 	<if test=" null != userId and ''!= userId  ">
+					f_user_id,
+				</if>
+			 	<if test=" null != userName and ''!= userName  ">
+					f_user_name,
+				</if>
+			 	<if test=" null != startTime ">
+					f_start_time,
+				</if>
+			 	<if test=" null != endTime ">
+					f_end_time,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != pid and ''!= pid  ">
+					 	#{pid},
+				</if>
+			 	<if test=" null != type ">
+					 	#{type},
+				</if>
+			 	<if test=" null != status ">
+					 	#{status},
+				</if>
+			 	<if test=" null != mobile and ''!= mobile  ">
+					 	#{mobile},
+				</if>
+			 	<if test=" null != userId and ''!= userId  ">
+					 	#{userId},
+				</if>
+			 	<if test=" null != userName and ''!= userName  ">
+					 	#{userName},
+				</if>
+			 	<if test=" null != startTime ">
+					 	#{startTime},
+				</if>
+			 	<if test=" null != endTime ">
+					 	#{endTime},
+				</if>
+		</trim>
+	</insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.linkwee.web.model.GrayRelease" >
+  		UPDATE t_gray_release
+		<set>
+			<trim suffixOverrides=",">
+					<if test=" null != pid and ''!= pid  ">
+						f_pid = #{pid},
+					</if>
+					<if test=" null != type ">
+						f_type = #{type},
+					</if>
+					<if test=" null != status ">
+						f_status = #{status},
+					</if>
+					<if test=" null != mobile and ''!= mobile  ">
+						f_mobile = #{mobile},
+					</if>
+					<if test=" null != userId and ''!= userId  ">
+						f_user_id = #{userId},
+					</if>
+					<if test=" null != userName and ''!= userName  ">
+						f_user_name = #{userName},
+					</if>
+					<if test=" null != startTime ">
+						f_start_time = #{startTime},
+					</if>
+					<if test=" null != endTime ">
+						f_end_time = #{endTime},
+					</if>
+			</trim>
+		</set>
+		<where>
+			 f_id = #{id}
+		</where>
+	</update>
+  
+	<update id="updateByPrimaryKey" parameterType="com.linkwee.web.model.GrayRelease" >
+	    UPDATE t_gray_release
+	   <set>
+			<trim suffixOverrides=",">
+					<if test=" null != pid and ''!= pid  ">
+						f_pid = #{pid},
+					</if>
+					<if test=" null != type ">
+						f_type = #{type},
+					</if>
+					<if test=" null != status ">
+						f_status = #{status},
+					</if>
+					<if test=" null != mobile and ''!= mobile  ">
+						f_mobile = #{mobile},
+					</if>
+					<if test=" null != userId and ''!= userId  ">
+						f_user_id = #{userId},
+					</if>
+					<if test=" null != userName and ''!= userName  ">
+						f_user_name = #{userName},
+					</if>
+					<if test=" null != startTime ">
+						f_start_time = #{startTime},
+					</if>
+					<if test=" null != endTime ">
+						f_end_time = #{endTime},
+					</if>
+			</trim>
+		</set>
+		<where>
+			f_id = #{0}
+		</where>
+	  </update>
+
+	<!-- 分页条件查询 -->
+    <select id="selectBySearchInfo" resultMap="BaseResultMap" parameterType="com.linkwee.core.datatable.DataTable">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM t_gray_release
+        <where> 
+        <if test="dt.search!=null">  
+                f_mobile LIKE CONCAT('%','${dt.search.value}','%' )  
+         </if>  
+         <if test="dt.order!=null">  
+               <foreach collection="dt.order" index="index" item="item"
+                    open="order by" separator="," close=" ">
+                    ${item.name} ${item.dir} 
+                </foreach>
+         </if>  
+        </where>
+    </select>
+    
+    <select id="selectByMobile" resultMap="BaseResultMap"  >
+		SELECT <include refid="Base_Column_List" /> FROM t_gray_release T WHERE 1=1 
+		and T.f_mobile = #{mobile}
+	</select>
+	
+	<select id="queryRedpaperWhiteListUser" resultMap="BaseResultMap"  >
+			SELECT <include refid="Base_Column_List" /> FROM t_gray_release
+	</select>
+</mapper>

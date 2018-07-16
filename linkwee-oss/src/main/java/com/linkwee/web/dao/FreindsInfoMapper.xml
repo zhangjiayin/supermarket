@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.FreindsInfoMapper">
+<parameterMap type="com.linkwee.web.model.FreindsInfo" id="FreindsInfoParameterMap" />	
+<!-- Result Map-->
+<resultMap  type="com.linkwee.web.model.FreindsInfo" id="FreindsInfoResultMap">
+	<result column="f_id" property="id" jdbcType="INTEGER"/>
+	<result column="f_user_id" property="userId" jdbcType="VARCHAR"/>
+	<result column="f_user_name" property="userName" jdbcType="VARCHAR"/>
+	<result column="f_mobile" property="mobile" jdbcType="VARCHAR"/>
+	<result column="f_user_source" property="userSource" jdbcType="INTEGER"/>
+	<result column="f_qrcode" property="qrcode" jdbcType="VARCHAR"/>
+	<result column="f_ref_user" property="refUser" jdbcType="VARCHAR"/>
+	<result column="f_crt_time" property="crtTime" jdbcType="TIMESTAMP"/>
+	<result column="f_modify_time" property="modifyTime" jdbcType="TIMESTAMP"/>
+	<result column="f_status" property="status" jdbcType="INTEGER"/>
+	<result column="f_locked" property="locked" jdbcType="TINYINT"/>
+	<result column="f_image" property="image" jdbcType="VARCHAR"/>
+	<result column="authentication" property="authentication" jdbcType="VARCHAR"/>
+	<result column="invest_amount" property="investAmount" jdbcType="DOUBLE"/>
+</resultMap>
+
+	<!-- 分页条件查询 -->
+    <select id="selectBySearchInfo" resultMap="FreindsInfoResultMap" parameterType="com.linkwee.core.datatable.DataTable">
+        SELECT
+        CASE 
+        WHEN f_user_name is null or f_user_name ='' or f_user_name ='null'   THEN '未认证'
+ 		WHEN f_user_name is not null and f_user_name !='' and f_user_name !='null' THEN '已认证' 
+ 		end as authentication,
+ 		(SELECT IFNULL(sum(fpuramount),0) from trecvrequest where fcustomerid=t.f_user_id and foptype=2) as invest_amount,
+        t.*
+        FROM t_investor_user_info t
+        <where> 
+        t.f_ref_user=#{userId}
+        <if test="dt.search!=null">  
+               and (
+               t.f_user_name LIKE CONCAT('%','${dt.search.value}','%' )
+               or t.f_mobile LIKE CONCAT('%','${dt.search.value}','%' )
+               )
+         </if>  
+        </where>
+        order by f_id DESC
+    </select>
+
+</mapper>

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.CimProductInvestRecordPullMapper">
+
+	<!-- Result Map-->
+	<resultMap  type="com.linkwee.web.model.CimProductInvestRecordPull" id="BaseResultMap">
+		<result column="id" property="id" jdbcType="INTEGER"/>
+		<result column="invest_id" property="investId" jdbcType="VARCHAR"/>
+		<result column="tx_id" property="txId" jdbcType="VARCHAR"/>
+		<result column="user_id" property="userId" jdbcType="VARCHAR"/>
+		<result column="product_id" property="productId" jdbcType="VARCHAR"/>
+		<result column="invest_amt" property="investAmt" jdbcType="DECIMAL"/>
+		<result column="stock_invest_amt" property="stockInvestAmt" jdbcType="DECIMAL"/>
+		<result column="profit" property="profit" jdbcType="DECIMAL"/>
+		<result column="invest_start_time" property="investStartTime" jdbcType="TIMESTAMP"/>
+		<result column="invest_end_time" property="investEndTime" jdbcType="TIMESTAMP"/>
+		<result column="platfrom" property="platfrom" jdbcType="VARCHAR"/>
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+		<result column="update_status" property="updateStatus" jdbcType="INTEGER"/>
+	</resultMap>
+
+<insert id="inserts">
+INSERT INTO tcim_product_invest_record_pull
+<trim prefix="(" suffix=")" suffixOverrides=",">
+	    	invest_id,
+	    	tx_id,
+	    	user_id,
+	    	product_id,
+	    	invest_amt,
+	    	stock_invest_amt,
+	    	profit,
+	    	invest_start_time,
+	    	invest_end_time,
+	    	platfrom,
+    	</trim>
+VALUES
+
+<foreach item="item" index="index" collection="investRecords"  separator="," >
+			<trim prefix="(" suffix=")" suffixOverrides=",">
+				#{item.investId},
+				#{item.txId},
+				#{item.userId},
+				#{item.productId},
+				#{item.investAmt},
+				#{item.investAmt},
+				#{item.profit},	
+				#{item.investStartTime},	
+				#{item.investEndTime},	
+				#{item.platfrom},
+			</trim>
+		</foreach>
+</insert>
+
+<update id="updateInvestRecordInStatus">
+	UPDATE tcim_product_invest_record_pull i SET i.update_status = #{afterStatus},i.message=#{msg},i.update_time = NOW() WHERE i.update_status IN 
+	<foreach item="item" index="index" collection="preStatus"  open="(" separator="," close=")">
+			#{item}
+		</foreach>
+</update>
+
+<update id="updatePushInvestRecordStatus">
+	UPDATE tcim_product_invest_record_pull i SET i.update_status = #{status},i.update_time = NOW(),
+	i.message = (CASE i.invest_id
+	<foreach item="item" collection="results">
+		when '${item.bizId}' then '${item.msg}'
+	</foreach>
+	END)
+	
+	WHERE i.invest_id IN 
+	<foreach item="item" index="index" collection="results" open="(" separator="," close=")" >
+		#{item.bizId}
+	</foreach>
+
+</update>
+
+<select id="getInvestRecordIds" resultType="string">
+		SELECT
+			t.invest_id
+		FROM
+			tcim_product_invest_record_pull t
+		WHERE
+		t.invest_id in
+		<foreach item="item" index="index" collection="investRecords" open="(" separator="," close=")" >
+			#{item.investId}
+		</foreach>
+</select>
+
+<select id="getInvestRecord" resultMap="BaseResultMap">
+		SELECT
+			t.invest_id,
+			t.tx_id,
+			t.user_id,
+			t.product_id,
+			t.invest_amt,
+			t.profit,
+			t.invest_start_time,
+			t.invest_end_time,
+			t.platfrom
+		FROM
+			tcim_product_invest_record_pull t
+		WHERE
+			t.update_status IN (1, 2)
+</select>
+
+<select id="getStockInvestAmt" resultType="BigDecimal">
+		SELECT
+			ifnull(t.stock_invest_amt,0)
+		FROM
+			tcim_product_invest_record_pull t
+			where t.invest_id = #{investId}
+</select>
+
+  
+</mapper>

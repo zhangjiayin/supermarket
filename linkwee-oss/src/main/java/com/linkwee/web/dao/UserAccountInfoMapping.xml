@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.UserAccountInfoDao">
+<parameterMap type="com.linkwee.web.model.UserAccountInfo" id="UserAccountInfoParameterMap" />	
+<!-- Result Map-->
+<resultMap  type="com.linkwee.web.model.UserAccountInfo" id="UserAccountInfoResultMap">
+	<result column="id" property="id" jdbcType="INTEGER"/>
+	<result column="f_user_id" property="userId" jdbcType="VARCHAR"/>
+	<result column="f_mobile" property="mobile" jdbcType="VARCHAR"/>
+	<result column="f_user_name" property="userName" jdbcType="VARCHAR"/>
+	<result column="f_id_card" property="idCard" jdbcType="VARCHAR"/>
+	<result column="f_bank_code" property="bankCode" jdbcType="VARCHAR"/>
+	<result column="f_bank_name" property="bankName" jdbcType="VARCHAR"/>
+	<result column="f_bank_card" property="bankCard" jdbcType="VARCHAR"/>
+</resultMap>
+  <sql id="Base_Column_List">
+    <trim suffixOverrides=",">
+	    	id,
+	    	f_user_id,
+	    	f_mobile,
+	    	f_user_name,
+	    	f_id_card,
+	    	f_bank_code,
+	    	f_bank_name,
+	    	f_bank_card,
+	    	f_remark,
+    </trim>
+  </sql>  
+  
+   <sql id="Base_Column_List_T">
+    <trim suffixOverrides=",">
+	    	t.id,
+	    	t.f_user_id,
+	    	t.f_mobile,
+	    	t.f_user_name,
+	    	t.f_id_card,
+	    	t.f_bank_code,
+	    	t.f_bank_name,
+	    	t.f_bank_card,
+	    	t.f_remark,
+    </trim>
+  </sql> 
+  	
+  <select id="getByPrimaryKey"  resultMap="UserAccountInfoResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_user_account_info where  id = #{0}
+  </select>	
+
+  <delete id="deleteByPrimaryKey" >
+    delete from t_user_account_info
+	<where>
+		id = #{0}
+	</where>
+  </delete>
+  
+  
+  <insert id="add" parameterMap="UserAccountInfoParameterMap" useGeneratedKeys="true" keyProperty="id" >
+		INSERT INTO t_user_account_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != userId and ''!= userId  ">
+					f_user_id,
+				</if>
+			 	<if test=" null != mobile and ''!= mobile  ">
+					f_mobile,
+				</if>
+			 	<if test=" null != userName and ''!= userName  ">
+					f_user_name,
+				</if>
+			 	<if test=" null != idCard and ''!= idCard  ">
+					f_id_card,
+				</if>
+			 	<if test=" null != bankCode and ''!= bankCode  ">
+					f_bank_code,
+				</if>
+			 	<if test=" null != bankName and ''!= bankName  ">
+					f_bank_name,
+				</if>
+			 	<if test=" null != bankCard and ''!= bankCard  ">
+					f_bank_card,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != userId and ''!= userId  ">
+					 	#{userId},
+				</if>
+			 	<if test=" null != mobile and ''!= mobile  ">
+					 	#{mobile},
+				</if>
+			 	<if test=" null != userName and ''!= userName  ">
+					 	#{userName},
+				</if>
+			 	<if test=" null != idCard and ''!= idCard  ">
+					 	#{idCard},
+				</if>
+			 	<if test=" null != bankCode and ''!= bankCode  ">
+					 	#{bankCode},
+				</if>
+			 	<if test=" null != bankName and ''!= bankName  ">
+					 	#{bankName},
+				</if>
+			 	<if test=" null != bankCard and ''!= bankCard  ">
+					 	#{bankCard},
+				</if>
+		</trim>
+	</insert>
+  
+  
+  <update id="update" parameterMap="UserAccountInfoParameterMap">
+		UPDATE t_user_account_info
+		<set>
+			<trim suffixOverrides=",">
+					<if test=" null != userId and ''!= userId  ">
+						f_user_id = #{userId},
+					</if>
+					<if test=" null != mobile and ''!= mobile  ">
+						f_mobile = #{mobile},
+					</if>
+					<if test=" null != userName and ''!= userName  ">
+						f_user_name = #{userName},
+					</if>
+					<if test=" null != idCard and ''!= idCard  ">
+						f_id_card = #{idCard},
+					</if>
+					<if test=" null != bankCode and ''!= bankCode  ">
+						f_bank_code = #{bankCode},
+					</if>
+					<if test=" null != bankName and ''!= bankName  ">
+						f_bank_name = #{bankName},
+					</if>
+					<if test=" null != bankCard and ''!= bankCard  ">
+						f_bank_card = #{bankCard},
+					</if>
+			</trim>
+		</set>
+		<where>
+			 id = #{id}
+		</where>
+	</update>
+  
+  
+   <update id="updateWithEmpty" parameterMap="UserAccountInfoParameterMap">
+		UPDATE t_user_account_info
+		<set>
+			<trim suffixOverrides=",">
+						f_user_id = #{userId},
+						f_mobile = #{mobile},
+						f_user_name = #{userName},
+						f_id_card = #{idCard},
+						f_bank_code = #{bankCode},
+						f_bank_name = #{bankName},
+						f_bank_card = #{bankCard},
+			</trim>
+		</set>
+		<where>
+			 id = #{id}
+		</where>
+	</update>
+
+  <insert id="addBatch" parameterType="java.util.List">
+	insert into t_user_account_info 
+	<trim prefix="(" suffix=")" >
+			<include refid="Base_Column_List" />
+	</trim>
+	VALUES
+	<foreach item="item" index="index" collection="list" separator=",">
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+				#{item.id,jdbcType=INTEGER},
+				#{item.userId,jdbcType=VARCHAR},
+				#{item.mobile,jdbcType=VARCHAR},
+				#{item.userName,jdbcType=VARCHAR},
+				#{item.idCard,jdbcType=VARCHAR},
+				#{item.bankCode,jdbcType=VARCHAR},
+				#{item.bankName,jdbcType=VARCHAR},
+				#{item.bankCard,jdbcType=VARCHAR},
+				#{item.remark,jdbcType=VARCHAR},
+		</trim>
+	</foreach>
+</insert>
+
+ 
+<update id="updateBatch" parameterType="java.util.List">
+      <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update t_user_account_info
+            <set>
+              	<trim suffixOverrides=",">
+					   <if test="item.userId!=null and ''!= item.userId  ">
+					        f_user_id = #{item.userId,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.mobile!=null and ''!= item.mobile  ">
+					        f_mobile = #{item.mobile,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.userName!=null and ''!= item.userName  ">
+					        f_user_name = #{item.userName,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.idCard!=null and ''!= item.idCard  ">
+					        f_id_card = #{item.idCard,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.bankCode!=null and ''!= item.bankCode  ">
+					        f_bank_code = #{item.bankCode,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.bankName!=null and ''!= item.bankName  ">
+					        f_bank_name = #{item.bankName,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.bankCard!=null and ''!= item.bankCard  ">
+					        f_bank_card = #{item.bankCard,jdbcType=VARCHAR},
+					   </if>
+			   </trim>
+            </set>
+             where id = #{item.id}
+     </foreach>
+</update>
+
+<update id="updateBatchWithEmpty" parameterType="java.util.List">
+      <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update t_user_account_info
+            <set>
+              	<trim suffixOverrides=",">
+					        f_user_id = #{item.userId,jdbcType=VARCHAR},
+					        f_mobile = #{item.mobile,jdbcType=VARCHAR},
+					        f_user_name = #{item.userName,jdbcType=VARCHAR},
+					        f_id_card = #{item.idCard,jdbcType=VARCHAR},
+					        f_bank_code = #{item.bankCode,jdbcType=VARCHAR},
+					        f_bank_name = #{item.bankName,jdbcType=VARCHAR},
+					        f_bank_card = #{item.bankCard,jdbcType=VARCHAR},
+			   </trim>
+            </set>
+             where id = #{item.id}
+     </foreach>
+</update>         
+
+<delete id="deleteBatch" parameterType="Object">
+	DELETE FROM t_user_account_info
+	<where>
+		<foreach item="item" index="index" collection="array"  open="(" separator="or" close=") ">
+			  id  = #{item}
+		</foreach>
+	</where>
+</delete>
+    
+ <sql id="Base_Condition">
+		   <if test=" null != id ">
+				AND	T.id = #{id}
+		</if>
+		   <if test=" null != userId and ''!= userId  ">
+				AND	T.f_user_id = #{userId}
+		</if>
+		   <if test=" null != mobile and ''!= mobile  ">
+				AND	T.f_mobile = #{mobile}
+		</if>
+		   <if test=" null != userName and ''!= userName  ">
+				AND	T.f_user_name = #{userName}
+		</if>
+		   <if test=" null != idCard and ''!= idCard  ">
+				AND	T.f_id_card = #{idCard}
+		</if>
+		   <if test=" null != bankCode and ''!= bankCode  ">
+				AND	T.f_bank_code = #{bankCode}
+		</if>
+		   <if test=" null != bankName and ''!= bankName  ">
+				AND	T.f_bank_name = #{bankName}
+		</if>
+		   <if test=" null != bankCard and ''!= bankCard  ">
+				AND	T.f_bank_card = #{bankCard}
+		</if>
+ </sql>    
+<select id="list" resultMap="UserAccountInfoResultMap"  >
+		SELECT <include refid="Base_Column_List" /> FROM t_user_account_info T WHERE 1=1
+		<include refid="Base_Condition" />
+</select>
+
+<select id="query" resultMap="UserAccountInfoResultMap"  >
+		SELECT <include refid="Base_Column_List" /> FROM t_user_account_info T WHERE 1=1
+		<include refid="Base_Condition" />
+</select>
+
+</mapper>

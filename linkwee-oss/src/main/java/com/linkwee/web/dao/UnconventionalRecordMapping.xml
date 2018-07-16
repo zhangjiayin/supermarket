@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.UnconventionalRecordDao">
+<parameterMap type="com.linkwee.web.model.UnconventionalRecord" id="UnconventionalRecordParameterMap" />	
+<!-- Result Map-->
+<resultMap  type="com.linkwee.web.model.UnconventionalRecord" id="UnconventionalRecordResultMap">
+	<result column="f_id" property="id" jdbcType="INTEGER"/>
+	<result column="f_lcs_number" property="lcsNumber" jdbcType="VARCHAR"/>
+	<result column="f_opt_type" property="optType" jdbcType="INTEGER"/>
+	<result column="f_effective_time" property="effectiveTime" jdbcType="TIMESTAMP"/>
+	<result column="f_extended" property="extended" jdbcType="VARCHAR"/>
+	<result column="f_opt_user_number" property="optUserNumber" jdbcType="VARCHAR"/>
+	<result column="f_opt_user_name" property="optUserName" jdbcType="VARCHAR"/>
+	<result column="f_crt_time" property="crtTime" jdbcType="TIMESTAMP"/>
+	<result column="f_modify_time" property="modifyTime" jdbcType="TIMESTAMP"/>
+	<result column="f_remark" property="remark" jdbcType="VARCHAR"/>
+	<result column="f_customer_mobile" property="customerMobile" jdbcType="VARCHAR"/>
+	<result column="f_cfp_mobile" property="cfpMobile" jdbcType="VARCHAR"/>
+</resultMap>
+  <sql id="Base_Column_List">
+    <trim suffixOverrides=",">
+	    	f_id,
+	    	f_lcs_number,
+	    	f_opt_type,
+	    	f_effective_time,
+	    	f_extended,
+	    	f_opt_user_number,
+	    	f_opt_user_name,
+	    	f_crt_time,
+	    	f_modify_time,
+	    	f_remark,
+    </trim>
+  </sql>  
+  
+   <sql id="Base_Column_List_T">
+    <trim suffixOverrides=",">
+	    	t.f_id,
+	    	t.f_lcs_number,
+	    	t.f_opt_type,
+	    	t.f_effective_time,
+	    	t.f_extended,
+	    	t.f_opt_user_number,
+	    	t.f_opt_user_name,
+	    	t.f_crt_time,
+	    	t.f_modify_time,
+	    	t.f_remark,
+    </trim>
+  </sql> 
+  	
+  <select id="getByPrimaryKey"  resultMap="UnconventionalRecordResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_unconventional_record where  f_id = #{0}
+  </select>	
+
+  <delete id="deleteByPrimaryKey" >
+    delete from t_unconventional_record
+	<where>
+		f_id = #{0}
+	</where>
+  </delete>
+  
+  
+  <insert id="add" parameterMap="UnconventionalRecordParameterMap" useGeneratedKeys="true" keyProperty="id" >
+		INSERT INTO t_unconventional_record
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					f_id,
+				</if>
+			 	<if test=" null != lcsNumber and ''!= lcsNumber  ">
+					f_lcs_number,
+				</if>
+			 	<if test=" null != optType ">
+					f_opt_type,
+				</if>
+			 	<if test=" null != effectiveTime ">
+					f_effective_time,
+				</if>
+			 	<if test=" null != extended and ''!= extended  ">
+					f_extended,
+				</if>
+			 	<if test=" null != optUserNumber and ''!= optUserNumber  ">
+					f_opt_user_number,
+				</if>
+			 	<if test=" null != optUserName and ''!= optUserName  ">
+					f_opt_user_name,
+				</if>
+			 	<if test=" null != crtTime ">
+					f_crt_time,
+				</if>
+			 	<if test=" null != modifyTime ">
+					f_modify_time,
+				</if>
+			 	<if test=" null != remark and ''!= remark  ">
+					f_remark,
+				</if>
+				<if test=" null != customerMobile and ''!= customerMobile  ">
+					f_customer_mobile,
+				</if>
+				<if test=" null != cfpMobile and ''!= cfpMobile  ">
+					f_cfp_mobile,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != lcsNumber and ''!= lcsNumber  ">
+					 	#{lcsNumber},
+				</if>
+			 	<if test=" null != optType ">
+					 	#{optType},
+				</if>
+			 	<if test=" null != effectiveTime ">
+					 	#{effectiveTime},
+				</if>
+			 	<if test=" null != extended and ''!= extended  ">
+					 	#{extended},
+				</if>
+			 	<if test=" null != optUserNumber and ''!= optUserNumber  ">
+					 	#{optUserNumber},
+				</if>
+			 	<if test=" null != optUserName and ''!= optUserName  ">
+					 	#{optUserName},
+				</if>
+			 	<if test=" null != crtTime ">
+					 	#{crtTime},
+				</if>
+			 	<if test=" null != modifyTime ">
+					 	#{modifyTime},
+				</if>
+			 	<if test=" null != remark and ''!= remark  ">
+					 	#{remark},
+				</if>
+				<if test=" null != customerMobile and ''!= customerMobile  ">
+					 	#{customerMobile},
+				</if>
+				<if test=" null != cfpMobile and ''!= cfpMobile  ">
+					 	#{cfpMobile},
+				</if>
+		</trim>
+	</insert>
+  
+  
+  <update id="update" parameterMap="UnconventionalRecordParameterMap">
+		UPDATE t_unconventional_record
+		<set>
+			<trim suffixOverrides=",">
+					<if test=" null != lcsNumber and ''!= lcsNumber  ">
+						f_lcs_number = #{lcsNumber},
+					</if>
+					<if test=" null != optType ">
+						f_opt_type = #{optType},
+					</if>
+					<if test=" null != effectiveTime ">
+						f_effective_time = #{effectiveTime},
+					</if>
+					<if test=" null != extended and ''!= extended  ">
+						f_extended = #{extended},
+					</if>
+					<if test=" null != optUserNumber and ''!= optUserNumber  ">
+						f_opt_user_number = #{optUserNumber},
+					</if>
+					<if test=" null != optUserName and ''!= optUserName  ">
+						f_opt_user_name = #{optUserName},
+					</if>
+					<if test=" null != crtTime ">
+						f_crt_time = #{crtTime},
+					</if>
+					<if test=" null != modifyTime ">
+						f_modify_time = #{modifyTime},
+					</if>
+					<if test=" null != remark and ''!= remark  ">
+						f_remark = #{remark},
+					</if>
+			</trim>
+		</set>
+		<where>
+			 f_id = #{id}
+		</where>
+	</update>
+  
+
+  <insert id="addBatch" parameterType="java.util.List">
+	insert into t_unconventional_record 
+	<trim prefix="(" suffix=")" >
+			<include refid="Base_Column_List" />
+	</trim>
+	VALUES
+	<foreach item="item" index="index" collection="list" separator=",">
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+				 #{item.id,jdbcType=INTEGER}, #{item.lcsNumber,jdbcType=VARCHAR}, #{item.optType,jdbcType=INTEGER}, #{item.effectiveTime,jdbcType=TIMESTAMP}, #{item.extended,jdbcType=VARCHAR}, #{item.optUserNumber,jdbcType=VARCHAR}, #{item.optUserName,jdbcType=VARCHAR}, #{item.crtTime,jdbcType=TIMESTAMP}, #{item.modifyTime,jdbcType=TIMESTAMP}, #{item.remark,jdbcType=VARCHAR},
+		</trim>
+	</foreach>
+</insert>
+
+ 
+<update id="updateBatch" parameterType="java.util.List">
+      <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update t_unconventional_record
+            <set>
+              	<trim suffixOverrides=",">
+					   <if test="item.lcsNumber!=null and ''!= item.lcsNumber  ">
+					        f_lcs_number = #{item.lcsNumber,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.optType!=null ">
+					        f_opt_type = #{item.optType,jdbcType=INTEGER},
+					   </if>
+					   <if test="item.effectiveTime!=null ">
+					        f_effective_time = #{item.effectiveTime,jdbcType=TIMESTAMP},
+					   </if>
+					   <if test="item.extended!=null and ''!= item.extended  ">
+					        f_extended = #{item.extended,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.optUserNumber!=null and ''!= item.optUserNumber  ">
+					        f_opt_user_number = #{item.optUserNumber,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.optUserName!=null and ''!= item.optUserName  ">
+					        f_opt_user_name = #{item.optUserName,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.crtTime!=null ">
+					        f_crt_time = #{item.crtTime,jdbcType=TIMESTAMP},
+					   </if>
+					   <if test="item.modifyTime!=null ">
+					        f_modify_time = #{item.modifyTime,jdbcType=TIMESTAMP},
+					   </if>
+					   <if test="item.remark!=null and ''!= item.remark  ">
+					        f_remark = #{item.remark,jdbcType=VARCHAR},
+					   </if>
+			   </trim>
+            </set>
+             where f_id = #{item.id}
+     </foreach>
+</update>         
+
+<delete id="deleteBatch" parameterType="Object">
+	DELETE FROM t_unconventional_record
+	<where>
+		<foreach item="item" index="index" collection="array"  open="(" separator="or" close=") ">
+			  f_id  = #{item}
+		</foreach>
+	</where>
+</delete>
+    
+ <sql id="Base_Condition">
+		   <if test=" null != query.id ">
+				AND	T.f_id = #{query.id}
+		</if>
+		   <if test=" null != query.lcsNumber and ''!= query.lcsNumber  ">
+				AND	T.f_lcs_number = #{query.lcsNumber}
+		</if>
+		   <if test=" null != query.optType ">
+				AND	T.f_opt_type = #{query.optType}
+		</if>
+		   <if test=" null != query.effectiveTime ">
+				AND	T.f_effective_time = #{query.effectiveTime}
+		</if>
+		   <if test=" null != query.extended and ''!= query.extended  ">
+				AND	T.f_extended = #{query.extended}
+		</if>
+		   <if test=" null != query.optUserNumber and ''!= query.optUserNumber  ">
+				AND	T.f_opt_user_number = #{query.optUserNumber}
+		</if>
+		   <if test=" null != query.optUserName and ''!= query.optUserName  ">
+				AND	T.f_opt_user_name = #{query.optUserName}
+		</if>
+		   <if test=" null != query.crtTime ">
+				AND	T.f_crt_time = #{query.crtTime}
+		</if>
+		   <if test=" null != query.modifyTime ">
+				AND	T.f_modify_time = #{query.modifyTime}
+		</if>
+		   <if test=" null != query.remark and ''!= query.remark  ">
+				AND	T.f_remark = #{query.remark}
+		</if>
+	    <if test=" null != query.customerMobile and ''!= query.customerMobile ">
+				AND	T.f_customer_mobile = #{query.customerMobile}
+		</if>
+	    <if test=" null != query.cfpMobile and ''!= query.cfpMobile ">
+				AND	T.f_cfp_mobile = #{query.cfpMobile}
+		</if>
+ </sql>    
+<select id="list" resultMap="UnconventionalRecordResultMap"  >
+		SELECT <include refid="Base_Column_List" /> FROM t_unconventional_record T WHERE 1=1
+		<include refid="Base_Condition" />
+</select>
+
+<select id="query" resultMap="UnconventionalRecordResultMap"  >
+		SELECT <include refid="Base_Column_List" /> FROM t_unconventional_record T WHERE 1=1
+		<include refid="Base_Condition" />
+</select>
+
+
+<select id="queryUnconventionalRecord" resultType="int" >
+		select count(1) from t_unconventional_record where f_opt_type=1 and  now() &lt;= DATE_ADD(f_effective_time,INTERVAL 180 DAY) and f_cfp_mobile = #{cfpMobile}
+</select>
+
+<select id="queryUnreCordPage" resultMap="UnconventionalRecordResultMap">
+	SELECT f_id,f_lcs_number,f_opt_type,f_effective_time,f_extended,f_opt_user_number,f_opt_user_name,f_crt_time,f_modify_time,f_remark,f_customer_mobile,f_cfp_mobile
+	FROM t_unconventional_record T WHERE 1=1
+	<if test=" null != query.optTypes ">
+		and	f_opt_type in (#{query.optTypes})
+	</if>
+	<include refid="Base_Condition" />
+</select>
+
+	<!--****************************************-->
+	<!--查询理财师变更记录-->
+	<!--****************************************-->
+	<select id="queryCfpLevelOptRecord" resultType="com.linkwee.web.model.UnconventionalRecord">
+SELECT ur.f_remark as remark ,ur.f_crt_time as crtTime FROM t_sale_user_info ts LEFT JOIN t_unconventional_record ur ON ts.f_number = ur.f_lcs_number
+WHERE 1=1 AND  ts.f_mobile = #{cfpMobile}  AND ur.f_opt_type in (7,8,9) AND ts.f_is_cfp = 1
+	</select>
+	
+<!--查询更换归属理财师操作记录-->
+<select id="queryChangeLcsRecord" resultType="com.linkwee.web.model.ChangeLcsRecord">
+	SELECT r.f_id, r.f_crt_time as createTime, r.f_cfp_mobile lcsMobile,r.f_opt_type type,  s.f_name as lcsName from t_unconventional_record  r
+	LEFT JOIN t_sale_user_info s on r.f_cfp_mobile=s.f_mobile
+	where r.f_opt_type in (3,6)
+	and r.f_customer_mobile=#{customerMobile}
+</select>
+
+</mapper>

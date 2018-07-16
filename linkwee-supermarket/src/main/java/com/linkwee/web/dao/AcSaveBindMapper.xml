@@ -1,0 +1,399 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.AcSaveBindMapper">
+	<!-- Result Map-->
+	<resultMap  type="com.linkwee.api.request.acc.AcSaveBind" id="BaseResultMap">
+		<result column="id" property="id" jdbcType="BIGINT"/>
+		<result column="mobile" property="mobile" jdbcType="VARCHAR"/>
+		<result column="reserve_mobile" property="reserveMobile" jdbcType="VARCHAR"/>
+		<result column="user_name" property="userName" jdbcType="VARCHAR"/>
+		<result column="id_card" property="idCard" jdbcType="VARCHAR"/>
+		<result column="bank_card" property="bankCard" jdbcType="VARCHAR"/>
+		<result column="kaihuhang" property="kaihuhang" jdbcType="VARCHAR"/>
+		<result column="region" property="region" jdbcType="VARCHAR"/>
+		<result column="tran_pwd" property="tranPwd" jdbcType="VARCHAR"/>
+		<result column="consignee" property="consignee" jdbcType="VARCHAR"/>
+		<result column="conMobile" property="conMobile" jdbcType="VARCHAR"/>
+		<result column="address" property="address" jdbcType="VARCHAR"/>
+		<result column="create_date" property="createDate" jdbcType="TIMESTAMP"/>
+		<result column="update_date" property="updateDate" jdbcType="TIMESTAMP"/>
+	</resultMap>
+	
+  <sql id="Base_Column_List">
+    <trim suffixOverrides=",">
+	    	id,
+	    	mobile,
+	    	reserve_mobile,
+	    	user_name,
+	    	id_card,
+	    	bank_card,
+	    	kaihuhang,
+	    	region,
+	    	tran_pwd,
+	    	consignee,
+	    	conMobile,
+	    	address,
+	    	create_date,
+	    	update_date,
+    </trim>
+  </sql>  
+  
+  <sql id="Base_Condition">
+		<if test=" null != id ">
+			and id = #{id}
+		</if>
+		<if test=" null != mobile and ''!= mobile  ">
+			and mobile = #{mobile}
+		</if>
+		<if test=" null != reserveMobile and ''!= reserveMobile  ">
+			and reserve_mobile = #{reserveMobile}
+		</if>
+		<if test=" null != userName and ''!= userName  ">
+			and user_name = #{userName}
+		</if>
+		<if test=" null != idCard and ''!= idCard  ">
+			and id_card = #{idCard}
+		</if>
+		<if test=" null != bankCard and ''!= bankCard  ">
+			and bank_card = #{bankCard}
+		</if>
+		<if test=" null != kaihuhang and ''!= kaihuhang  ">
+			and kaihuhang = #{kaihuhang}
+		</if>
+		<if test=" null != region and ''!= region  ">
+			and region = #{region}
+		</if>
+		<if test=" null != tranPwd and ''!= tranPwd  ">
+			and tran_pwd = #{tranPwd}
+		</if>
+		<if test=" null != consignee and ''!= consignee  ">
+			and consignee = #{consignee}
+		</if>
+		<if test=" null != conMobile and ''!= conMobile  ">
+			and conMobile = #{conMobile}
+		</if>
+		<if test=" null != address and ''!= address  ">
+			and address = #{address}
+		</if>
+		<if test=" null != createDate ">
+			and create_date = #{createDate}
+		</if>
+		<if test=" null != updateDate ">
+			and update_date = #{updateDate}
+		</if>
+  </sql>
+  
+  <select id="selectOneByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.api.request.acc.AcSaveBind">
+		select <include refid="Base_Column_List" /> from tac_save_bind 
+		where 1=1 <include refid="Base_Condition" />
+  </select>
+  
+  <select id="selectByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.api.request.acc.AcSaveBind">
+		select <include refid="Base_Column_List" /> from tac_save_bind 
+		where 1=1 <include refid="Base_Condition" />
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tac_save_bind
+    where  id = #{0}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tac_save_bind
+    where id = #{0}
+  </delete>
+
+  <insert id="insert" parameterType="com.linkwee.api.request.acc.AcSaveBind" >
+    INSERT INTO tac_save_bind
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != mobile and ''!= mobile  ">
+					mobile,
+				</if>
+			 	<if test=" null != reserveMobile and ''!= reserveMobile  ">
+					reserve_mobile,
+				</if>
+			 	<if test=" null != userName and ''!= userName  ">
+					user_name,
+				</if>
+			 	<if test=" null != idCard and ''!= idCard  ">
+					id_card,
+				</if>
+			 	<if test=" null != bankCard and ''!= bankCard  ">
+					bank_card,
+				</if>
+			 	<if test=" null != kaihuhang and ''!= kaihuhang  ">
+					kaihuhang,
+				</if>
+			 	<if test=" null != region and ''!= region  ">
+					region,
+				</if>
+			 	<if test=" null != tranPwd and ''!= tranPwd  ">
+					tran_pwd,
+				</if>
+			 	<if test=" null != consignee and ''!= consignee  ">
+					consignee,
+				</if>
+			 	<if test=" null != conMobile and ''!= conMobile  ">
+					conMobile,
+				</if>
+			 	<if test=" null != address and ''!= address  ">
+					address,
+				</if>
+			 	<if test=" null != createDate ">
+					create_date,
+				</if>
+			 	<if test=" null != updateDate ">
+					update_date,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != mobile and ''!= mobile  ">
+					 	#{mobile},
+				</if>
+			 	<if test=" null != reserveMobile and ''!= reserveMobile  ">
+					 	#{reserveMobile},
+				</if>
+			 	<if test=" null != userName and ''!= userName  ">
+					 	#{userName},
+				</if>
+			 	<if test=" null != idCard and ''!= idCard  ">
+					 	#{idCard},
+				</if>
+			 	<if test=" null != bankCard and ''!= bankCard  ">
+					 	#{bankCard},
+				</if>
+			 	<if test=" null != kaihuhang and ''!= kaihuhang  ">
+					 	#{kaihuhang},
+				</if>
+			 	<if test=" null != region and ''!= region  ">
+					 	#{region},
+				</if>
+			 	<if test=" null != tranPwd and ''!= tranPwd  ">
+					 	#{tranPwd},
+				</if>
+			 	<if test=" null != consignee and ''!= consignee  ">
+					 	#{consignee},
+				</if>
+			 	<if test=" null != conMobile and ''!= conMobile  ">
+					 	#{conMobile},
+				</if>
+			 	<if test=" null != address and ''!= address  ">
+					 	#{address},
+				</if>
+			 	<if test=" null != createDate ">
+					 	#{createDate},
+				</if>
+			 	<if test=" null != updateDate ">
+					 	#{updateDate},
+				</if>
+		</trim>
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.linkwee.api.request.acc.AcSaveBind" useGeneratedKeys="true" keyProperty="id" >
+		INSERT INTO tac_save_bind
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != mobile and ''!= mobile  ">
+					mobile,
+				</if>
+			 	<if test=" null != reserveMobile and ''!= reserveMobile  ">
+					reserve_mobile,
+				</if>
+			 	<if test=" null != userName and ''!= userName  ">
+					user_name,
+				</if>
+			 	<if test=" null != idCard and ''!= idCard  ">
+					id_card,
+				</if>
+			 	<if test=" null != bankCard and ''!= bankCard  ">
+					bank_card,
+				</if>
+			 	<if test=" null != kaihuhang and ''!= kaihuhang  ">
+					kaihuhang,
+				</if>
+			 	<if test=" null != region and ''!= region  ">
+					region,
+				</if>
+			 	<if test=" null != tranPwd and ''!= tranPwd  ">
+					tran_pwd,
+				</if>
+			 	<if test=" null != consignee and ''!= consignee  ">
+					consignee,
+				</if>
+			 	<if test=" null != conMobile and ''!= conMobile  ">
+					conMobile,
+				</if>
+			 	<if test=" null != address and ''!= address  ">
+					address,
+				</if>
+			 	<if test=" null != createDate ">
+					create_date,
+				</if>
+			 	<if test=" null != updateDate ">
+					update_date,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != mobile and ''!= mobile  ">
+					 	#{mobile},
+				</if>
+			 	<if test=" null != reserveMobile and ''!= reserveMobile  ">
+					 	#{reserveMobile},
+				</if>
+			 	<if test=" null != userName and ''!= userName  ">
+					 	#{userName},
+				</if>
+			 	<if test=" null != idCard and ''!= idCard  ">
+					 	#{idCard},
+				</if>
+			 	<if test=" null != bankCard and ''!= bankCard  ">
+					 	#{bankCard},
+				</if>
+			 	<if test=" null != kaihuhang and ''!= kaihuhang  ">
+					 	#{kaihuhang},
+				</if>
+			 	<if test=" null != region and ''!= region  ">
+					 	#{region},
+				</if>
+			 	<if test=" null != tranPwd and ''!= tranPwd  ">
+					 	#{tranPwd},
+				</if>
+			 	<if test=" null != consignee and ''!= consignee  ">
+					 	#{consignee},
+				</if>
+			 	<if test=" null != conMobile and ''!= conMobile  ">
+					 	#{conMobile},
+				</if>
+			 	<if test=" null != address and ''!= address  ">
+					 	#{address},
+				</if>
+			 	<if test=" null != createDate ">
+					 	#{createDate},
+				</if>
+			 	<if test=" null != updateDate ">
+					 	#{updateDate},
+				</if>
+		</trim>
+	</insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.linkwee.api.request.acc.AcSaveBind" >
+  		UPDATE tac_save_bind
+		<set>
+			<trim suffixOverrides=",">
+					<if test=" null != mobile and ''!= mobile  ">
+						mobile = #{mobile},
+					</if>
+					<if test=" null != reserveMobile and ''!= reserveMobile  ">
+						reserve_mobile = #{reserveMobile},
+					</if>
+					<if test=" null != userName and ''!= userName  ">
+						user_name = #{userName},
+					</if>
+					<if test=" null != idCard and ''!= idCard  ">
+						id_card = #{idCard},
+					</if>
+					<if test=" null != bankCard and ''!= bankCard  ">
+						bank_card = #{bankCard},
+					</if>
+					<if test=" null != kaihuhang and ''!= kaihuhang  ">
+						kaihuhang = #{kaihuhang},
+					</if>
+					<if test=" null != region and ''!= region  ">
+						region = #{region},
+					</if>
+					<if test=" null != tranPwd and ''!= tranPwd  ">
+						tran_pwd = #{tranPwd},
+					</if>
+					<if test=" null != consignee and ''!= consignee  ">
+						consignee = #{consignee},
+					</if>
+					<if test=" null != conMobile and ''!= conMobile  ">
+						conMobile = #{conMobile},
+					</if>
+					<if test=" null != address and ''!= address  ">
+						address = #{address},
+					</if>
+					<if test=" null != createDate ">
+						create_date = #{createDate},
+					</if>
+					<if test=" null != updateDate ">
+						update_date = #{updateDate},
+					</if>
+			</trim>
+		</set>
+		<where>
+			 mobile = #{mobile}
+		</where>
+	</update>
+  
+	<update id="updateByPrimaryKey" parameterType="com.linkwee.api.request.acc.AcSaveBind" >
+	    UPDATE tac_save_bind
+	   <set>
+			<trim suffixOverrides=",">
+					<if test=" null != mobile and ''!= mobile  ">
+						mobile = #{mobile},
+					</if>
+					<if test=" null != reserveMobile and ''!= reserveMobile  ">
+						reserve_mobile = #{reserveMobile},
+					</if>
+					<if test=" null != userName and ''!= userName  ">
+						user_name = #{userName},
+					</if>
+					<if test=" null != idCard and ''!= idCard  ">
+						id_card = #{idCard},
+					</if>
+					<if test=" null != bankCard and ''!= bankCard  ">
+						bank_card = #{bankCard},
+					</if>
+					<if test=" null != kaihuhang and ''!= kaihuhang  ">
+						kaihuhang = #{kaihuhang},
+					</if>
+					<if test=" null != region and ''!= region  ">
+						region = #{region},
+					</if>
+					<if test=" null != tranPwd and ''!= tranPwd  ">
+						tran_pwd = #{tranPwd},
+					</if>
+					<if test=" null != consignee and ''!= consignee  ">
+						consignee = #{consignee},
+					</if>
+					<if test=" null != conMobile and ''!= conMobile  ">
+						conMobile = #{conMobile},
+					</if>
+					<if test=" null != address and ''!= address  ">
+						address = #{address},
+					</if>
+					<if test=" null != createDate ">
+						create_date = #{createDate},
+					</if>
+					<if test=" null != updateDate ">
+						update_date = #{updateDate},
+					</if>
+			</trim>
+		</set>
+		<where>
+			mobile = #{mobile}
+		</where>
+	  </update>
+
+	<!-- 分页条件查询 -->
+    <select id="selectBySearchInfo" resultMap="BaseResultMap" parameterType="com.linkwee.core.datatable.DataTable">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM tac_save_bind where 1=1 
+    </select>
+
+</mapper>

@@ -1,0 +1,845 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.CimProductUnrecordInvestMapper">
+	<!-- Result Map-->
+	<resultMap  type="com.linkwee.web.model.CimProductUnrecordInvest" id="BaseResultMap">
+		<result column="id" property="id" jdbcType="INTEGER"/>
+		<result column="cfplanner_id" property="cfplannerId" jdbcType="VARCHAR"/>
+		<result column="user_id" property="userId" jdbcType="VARCHAR"/>
+		<result column="user_mobile" property="userMobile" jdbcType="VARCHAR"/>
+		<result column="user_name" property="userName" jdbcType="VARCHAR"/>
+		<result column="platfrom" property="platfrom" jdbcType="VARCHAR"/>
+		<result column="platfrom_name" property="platfromName" jdbcType="VARCHAR"/>
+		<result column="product_name" property="productName" jdbcType="VARCHAR"/>
+		<result column="product_dead_line_type" property="productDeadLineType" jdbcType="INTEGER"/>
+		<result column="product_dead_line_value" property="productDeadLineValue" jdbcType="INTEGER"/>
+		<result column="product_dead_line" property="productDeadLine" jdbcType="VARCHAR"/>
+		<result column="fee_rate" property="feeRate" jdbcType="DECIMAL"/>
+		<result column="fee_amt" property="feeAmt" jdbcType="DECIMAL"/>
+		<result column="invest_id" property="investId" jdbcType="VARCHAR"/>
+		<result column="invest_amt" property="investAmt" jdbcType="DECIMAL"/>
+		<result column="invest_time" property="investTime" jdbcType="TIMESTAMP"/>
+		<result column="end_time" property="endTime" jdbcType="TIMESTAMP"/>
+		<result column="invest_img" property="investImg" jdbcType="VARCHAR"/>
+		<result column="status" property="status" jdbcType="INTEGER"/>
+		<result column="remark" property="remark" jdbcType="VARCHAR"/>
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+		<result column="operator" property="operator" jdbcType="VARCHAR"/>
+		<result column="share_status" property="shareStatus" jdbcType="INTEGER"/>
+		<result column="check_time" property="checkTime" jdbcType="TIMESTAMP"/>
+		<result column="thumbs_up_times" property="thumbsUpTimes" jdbcType="INTEGER"/>
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		<trim suffixOverrides=",">
+			id,
+			cfplanner_id,
+			user_id,
+			user_mobile,
+			user_name,
+			platfrom,
+			platfrom_name,
+			product_name,
+			product_dead_line_type,
+			product_dead_line_value,
+			product_dead_line,
+			fee_rate,
+			fee_amt,
+			invest_id,
+			invest_amt,
+			invest_time,
+			end_time,
+			invest_img,
+			status,
+			remark,
+			create_time,
+			update_time,
+			operator,
+			share_status,
+			check_time,
+			thumbs_up_times,
+		</trim>
+	</sql>
+
+	<sql id="Base_Column_List_T">
+		<trim suffixOverrides=",">
+			t.id,
+			t.cfplanner_id,
+			t.user_id,
+			t.user_mobile,
+			t.user_name,
+			t.platfrom,
+			t.platfrom_name,
+			t.product_name,
+			t.product_dead_line_type,
+			t.product_dead_line_value,
+			t.product_dead_line,
+			t.fee_rate,
+			t.fee_amt,
+			t.invest_id,
+			t.invest_amt,
+			t.invest_time,
+			t.end_time,
+			t.invest_img,
+			t.status,
+			t.remark,
+			t.create_time,
+			t.update_time,
+			t.operator,
+			t.share_status,
+			t.check_time,
+			t.thumbs_up_times,
+		</trim>
+	</sql>
+
+	<sql id="Base_Condition">
+		<if test=" null != id ">
+			and id = #{id}
+		</if>
+		<if test=" null != cfplannerId and ''!= cfplannerId  ">
+			and cfplanner_id = #{cfplannerId}
+		</if>
+		<if test=" null != userId and ''!= userId  ">
+			and user_id = #{userId}
+		</if>
+		<if test=" null != userMobile and ''!= userMobile  ">
+			and user_mobile = #{userMobile}
+		</if>
+		<if test=" null != userName and ''!= userName  ">
+			and user_name = #{userName}
+		</if>
+		<if test=" null != platfrom and ''!= platfrom  ">
+			and platfrom = #{platfrom}
+		</if>
+		<if test=" null != platfromName and ''!= platfromName  ">
+			and platfrom_name = #{platfromName}
+		</if>
+		<if test=" null != productName and ''!= productName  ">
+			and product_name = #{productName}
+		</if>
+		<if test=" null != productDeadLineType ">
+			and product_dead_line_type = #{productDeadLineType}
+		</if>
+		<if test=" null != productDeadLineValue ">
+			and product_dead_line_value = #{productDeadLineValue}
+		</if>
+		<if test=" null != productDeadLine and ''!= productDeadLine  ">
+			and product_dead_line = #{productDeadLine}
+		</if>
+		<if test=" null != feeRate ">
+			and fee_rate = #{feeRate}
+		</if>
+		<if test=" null != feeAmt ">
+			and fee_amt = #{feeAmt}
+		</if>
+		<if test=" null != investId and ''!= investId  ">
+			and invest_id = #{investId}
+		</if>
+		<if test=" null != investAmt ">
+			and invest_amt = #{investAmt}
+		</if>
+		<if test=" null != investTime ">
+			and invest_time = #{investTime}
+		</if>
+		<if test=" null != endTime ">
+			and end_time = #{endTime}
+		</if>
+		<if test=" null != investImg and ''!= investImg  ">
+			and invest_img = #{investImg}
+		</if>
+		<if test=" null != status ">
+			and status = #{status}
+		</if>
+		<if test=" null != remark and ''!= remark  ">
+			and remark = #{remark}
+		</if>
+		<if test=" null != createTime ">
+			and create_time = #{createTime}
+		</if>
+		<if test=" null != updateTime ">
+			and update_time = #{updateTime}
+		</if>
+		<if test=" null != operator and ''!= operator  ">
+			and operator = #{operator}
+		</if>
+		<if test=" null != shareStatus ">
+			and share_status = #{shareStatus}
+		</if>
+		<if test=" null != checkTime ">
+			and check_time = #{checkTime}
+		</if>
+		<if test=" null != thumbsUpTimes ">
+			and thumbs_up_times = #{thumbsUpTimes}
+		</if>
+	</sql>
+
+	<select id="selectOneByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.web.model.CimProductUnrecordInvest">
+		select <include refid="Base_Column_List" /> from tcim_product_unrecord_invest
+		where 1=1 <include refid="Base_Condition" />
+	</select>
+
+	<select id="selectByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.web.model.CimProductUnrecordInvest">
+		select <include refid="Base_Column_List" /> from tcim_product_unrecord_invest
+		where 1=1 <include refid="Base_Condition" />
+	</select>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+		select
+		<include refid="Base_Column_List" />
+		from tcim_product_unrecord_invest
+		where  id = #{0}
+	</select>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+		delete from tcim_product_unrecord_invest
+		where id = #{0}
+	</delete>
+
+	<insert id="insert" parameterType="com.linkwee.web.model.CimProductUnrecordInvest" >
+		INSERT INTO tcim_product_unrecord_invest
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test=" null != id ">
+				id,
+			</if>
+			<if test=" null != cfplannerId and ''!= cfplannerId  ">
+				cfplanner_id,
+			</if>
+			<if test=" null != userId and ''!= userId  ">
+				user_id,
+			</if>
+			<if test=" null != userMobile and ''!= userMobile  ">
+				user_mobile,
+			</if>
+			<if test=" null != userName and ''!= userName  ">
+				user_name,
+			</if>
+			<if test=" null != platfrom and ''!= platfrom  ">
+				platfrom,
+			</if>
+			<if test=" null != platfromName and ''!= platfromName  ">
+				platfrom_name,
+			</if>
+			<if test=" null != productName and ''!= productName  ">
+				product_name,
+			</if>
+			<if test=" null != productDeadLineType ">
+				product_dead_line_type,
+			</if>
+			<if test=" null != productDeadLineValue ">
+				product_dead_line_value,
+			</if>
+			<if test=" null != productDeadLine and ''!= productDeadLine  ">
+				product_dead_line,
+			</if>
+			<if test=" null != feeRate ">
+				fee_rate,
+			</if>
+			<if test=" null != feeAmt ">
+				fee_amt,
+			</if>
+			<if test=" null != investId and ''!= investId  ">
+				invest_id,
+			</if>
+			<if test=" null != investAmt ">
+				invest_amt,
+			</if>
+			<if test=" null != investTime ">
+				invest_time,
+			</if>
+			<if test=" null != endTime ">
+				end_time,
+			</if>
+			<if test=" null != investImg and ''!= investImg  ">
+				invest_img,
+			</if>
+			<if test=" null != status ">
+				status,
+			</if>
+			<if test=" null != remark and ''!= remark  ">
+				remark,
+			</if>
+			<if test=" null != createTime ">
+				create_time,
+			</if>
+			<if test=" null != updateTime ">
+				update_time,
+			</if>
+			<if test=" null != operator and ''!= operator  ">
+				operator,
+			</if>
+			<if test=" null != shareStatus ">
+				share_status,
+			</if>
+			<if test=" null != checkTime ">
+				check_time,
+			</if>
+			<if test=" null != thumbsUpTimes ">
+				thumbs_up_times,
+			</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			<if test=" null != id ">
+				#{id},
+			</if>
+			<if test=" null != cfplannerId and ''!= cfplannerId  ">
+				#{cfplannerId},
+			</if>
+			<if test=" null != userId and ''!= userId  ">
+				#{userId},
+			</if>
+			<if test=" null != userMobile and ''!= userMobile  ">
+				#{userMobile},
+			</if>
+			<if test=" null != userName and ''!= userName  ">
+				#{userName},
+			</if>
+			<if test=" null != platfrom and ''!= platfrom  ">
+				#{platfrom},
+			</if>
+			<if test=" null != platfromName and ''!= platfromName  ">
+				#{platfromName},
+			</if>
+			<if test=" null != productName and ''!= productName  ">
+				#{productName},
+			</if>
+			<if test=" null != productDeadLineType ">
+				#{productDeadLineType},
+			</if>
+			<if test=" null != productDeadLineValue ">
+				#{productDeadLineValue},
+			</if>
+			<if test=" null != productDeadLine and ''!= productDeadLine  ">
+				#{productDeadLine},
+			</if>
+			<if test=" null != feeRate ">
+				#{feeRate},
+			</if>
+			<if test=" null != feeAmt ">
+				#{feeAmt},
+			</if>
+			<if test=" null != investId and ''!= investId  ">
+				#{investId},
+			</if>
+			<if test=" null != investAmt ">
+				#{investAmt},
+			</if>
+			<if test=" null != investTime ">
+				#{investTime},
+			</if>
+			<if test=" null != endTime ">
+				#{endTime},
+			</if>
+			<if test=" null != investImg and ''!= investImg  ">
+				#{investImg},
+			</if>
+			<if test=" null != status ">
+				#{status},
+			</if>
+			<if test=" null != remark and ''!= remark  ">
+				#{remark},
+			</if>
+			<if test=" null != createTime ">
+				#{createTime},
+			</if>
+			<if test=" null != updateTime ">
+				#{updateTime},
+			</if>
+			<if test=" null != operator and ''!= operator  ">
+				#{operator},
+			</if>
+			<if test=" null != shareStatus ">
+				#{shareStatus},
+			</if>
+			<if test=" null != checkTime ">
+				#{checkTime},
+			</if>
+			<if test=" null != thumbsUpTimes ">
+				#{thumbsUpTimes},
+			</if>
+		</trim>
+	</insert>
+
+	<insert id="insertSelective" parameterType="com.linkwee.web.model.CimProductUnrecordInvest" useGeneratedKeys="true" keyProperty="id" >
+		INSERT INTO tcim_product_unrecord_invest
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test=" null != id ">
+				id,
+			</if>
+			<if test=" null != cfplannerId and ''!= cfplannerId  ">
+				cfplanner_id,
+			</if>
+			<if test=" null != userId and ''!= userId  ">
+				user_id,
+			</if>
+			<if test=" null != userMobile and ''!= userMobile  ">
+				user_mobile,
+			</if>
+			<if test=" null != userName and ''!= userName  ">
+				user_name,
+			</if>
+			<if test=" null != platfrom and ''!= platfrom  ">
+				platfrom,
+			</if>
+			<if test=" null != platfromName and ''!= platfromName  ">
+				platfrom_name,
+			</if>
+			<if test=" null != productName and ''!= productName  ">
+				product_name,
+			</if>
+			<if test=" null != productDeadLineType ">
+				product_dead_line_type,
+			</if>
+			<if test=" null != productDeadLineValue ">
+				product_dead_line_value,
+			</if>
+			<if test=" null != productDeadLine and ''!= productDeadLine  ">
+				product_dead_line,
+			</if>
+			<if test=" null != feeRate ">
+				fee_rate,
+			</if>
+			<if test=" null != feeAmt ">
+				fee_amt,
+			</if>
+			<if test=" null != investId and ''!= investId  ">
+				invest_id,
+			</if>
+			<if test=" null != investAmt ">
+				invest_amt,
+			</if>
+			<if test=" null != investTime ">
+				invest_time,
+			</if>
+			<if test=" null != endTime ">
+				end_time,
+			</if>
+			<if test=" null != investImg and ''!= investImg  ">
+				invest_img,
+			</if>
+			<if test=" null != status ">
+				status,
+			</if>
+			<if test=" null != remark and ''!= remark  ">
+				remark,
+			</if>
+			<if test=" null != createTime ">
+				create_time,
+			</if>
+			<if test=" null != updateTime ">
+				update_time,
+			</if>
+			<if test=" null != operator and ''!= operator  ">
+				operator,
+			</if>
+			<if test=" null != shareStatus ">
+				share_status,
+			</if>
+			<if test=" null != checkTime ">
+				check_time,
+			</if>
+			<if test=" null != thumbsUpTimes ">
+				thumbs_up_times,
+			</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			<if test=" null != id ">
+				#{id},
+			</if>
+			<if test=" null != cfplannerId and ''!= cfplannerId  ">
+				#{cfplannerId},
+			</if>
+			<if test=" null != userId and ''!= userId  ">
+				#{userId},
+			</if>
+			<if test=" null != userMobile and ''!= userMobile  ">
+				#{userMobile},
+			</if>
+			<if test=" null != userName and ''!= userName  ">
+				#{userName},
+			</if>
+			<if test=" null != platfrom and ''!= platfrom  ">
+				#{platfrom},
+			</if>
+			<if test=" null != platfromName and ''!= platfromName  ">
+				#{platfromName},
+			</if>
+			<if test=" null != productName and ''!= productName  ">
+				#{productName},
+			</if>
+			<if test=" null != productDeadLineType ">
+				#{productDeadLineType},
+			</if>
+			<if test=" null != productDeadLineValue ">
+				#{productDeadLineValue},
+			</if>
+			<if test=" null != productDeadLine and ''!= productDeadLine  ">
+				#{productDeadLine},
+			</if>
+			<if test=" null != feeRate ">
+				#{feeRate},
+			</if>
+			<if test=" null != feeAmt ">
+				#{feeAmt},
+			</if>
+			<if test=" null != investId and ''!= investId  ">
+				#{investId},
+			</if>
+			<if test=" null != investAmt ">
+				#{investAmt},
+			</if>
+			<if test=" null != investTime ">
+				#{investTime},
+			</if>
+			<if test=" null != endTime ">
+				#{endTime},
+			</if>
+			<if test=" null != investImg and ''!= investImg  ">
+				#{investImg},
+			</if>
+			<if test=" null != status ">
+				#{status},
+			</if>
+			<if test=" null != remark and ''!= remark  ">
+				#{remark},
+			</if>
+			<if test=" null != createTime ">
+				#{createTime},
+			</if>
+			<if test=" null != updateTime ">
+				#{updateTime},
+			</if>
+			<if test=" null != operator and ''!= operator  ">
+				#{operator},
+			</if>
+			<if test=" null != shareStatus ">
+				#{shareStatus},
+			</if>
+			<if test=" null != checkTime ">
+				#{checkTime},
+			</if>
+			<if test=" null != thumbsUpTimes ">
+				#{thumbsUpTimes},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="updateByPrimaryKeySelective" parameterType="com.linkwee.web.model.CimProductUnrecordInvest" >
+		UPDATE tcim_product_unrecord_invest
+		<set>
+			<trim suffixOverrides=",">
+				<if test=" null != cfplannerId and ''!= cfplannerId  ">
+					cfplanner_id = #{cfplannerId},
+				</if>
+				<if test=" null != userId and ''!= userId  ">
+					user_id = #{userId},
+				</if>
+				<if test=" null != userMobile and ''!= userMobile  ">
+					user_mobile = #{userMobile},
+				</if>
+				<if test=" null != userName and ''!= userName  ">
+					user_name = #{userName},
+				</if>
+				<if test=" null != platfrom and ''!= platfrom  ">
+					platfrom = #{platfrom},
+				</if>
+				<if test=" null != platfromName and ''!= platfromName  ">
+					platfrom_name = #{platfromName},
+				</if>
+				<if test=" null != productName and ''!= productName  ">
+					product_name = #{productName},
+				</if>
+				<if test=" null != productDeadLineType ">
+					product_dead_line_type = #{productDeadLineType},
+				</if>
+				<if test=" null != productDeadLineValue ">
+					product_dead_line_value = #{productDeadLineValue},
+				</if>
+				<if test=" null != productDeadLine and ''!= productDeadLine  ">
+					product_dead_line = #{productDeadLine},
+				</if>
+				<if test=" null != feeRate ">
+					fee_rate = #{feeRate},
+				</if>
+				<if test=" null != feeAmt ">
+					fee_amt = #{feeAmt},
+				</if>
+				<if test=" null != investId and ''!= investId  ">
+					invest_id = #{investId},
+				</if>
+				<if test=" null != investAmt ">
+					invest_amt = #{investAmt},
+				</if>
+				<if test=" null != investTime ">
+					invest_time = #{investTime},
+				</if>
+				<if test=" null != endTime ">
+					end_time = #{endTime},
+				</if>
+				<if test=" null != investImg and ''!= investImg  ">
+					invest_img = #{investImg},
+				</if>
+				<if test=" null != status ">
+					status = #{status},
+				</if>
+				<if test=" null != remark and ''!= remark  ">
+					remark = #{remark},
+				</if>
+				<if test=" null != createTime ">
+					create_time = #{createTime},
+				</if>
+				<if test=" null != updateTime ">
+					update_time = #{updateTime},
+				</if>
+				<if test=" null != operator and ''!= operator  ">
+					operator = #{operator},
+				</if>
+				<if test=" null != shareStatus ">
+					share_status = #{shareStatus},
+				</if>
+				<if test=" null != checkTime ">
+					check_time = #{checkTime},
+				</if>
+				<if test=" null != thumbsUpTimes ">
+					thumbs_up_times = #{thumbsUpTimes},
+				</if>
+			</trim>
+		</set>
+		<where>
+			id = #{id}
+		</where>
+	</update>
+
+	<update id="updateByPrimaryKey" parameterType="com.linkwee.web.model.CimProductUnrecordInvest" >
+		UPDATE tcim_product_unrecord_invest
+		<set>
+			<trim suffixOverrides=",">
+				<if test=" null != cfplannerId and ''!= cfplannerId  ">
+					cfplanner_id = #{cfplannerId},
+				</if>
+				<if test=" null != userId and ''!= userId  ">
+					user_id = #{userId},
+				</if>
+				<if test=" null != userMobile and ''!= userMobile  ">
+					user_mobile = #{userMobile},
+				</if>
+				<if test=" null != userName and ''!= userName  ">
+					user_name = #{userName},
+				</if>
+				<if test=" null != platfrom and ''!= platfrom  ">
+					platfrom = #{platfrom},
+				</if>
+				<if test=" null != platfromName and ''!= platfromName  ">
+					platfrom_name = #{platfromName},
+				</if>
+				<if test=" null != productName and ''!= productName  ">
+					product_name = #{productName},
+				</if>
+				<if test=" null != productDeadLineType ">
+					product_dead_line_type = #{productDeadLineType},
+				</if>
+				<if test=" null != productDeadLineValue ">
+					product_dead_line_value = #{productDeadLineValue},
+				</if>
+				<if test=" null != productDeadLine and ''!= productDeadLine  ">
+					product_dead_line = #{productDeadLine},
+				</if>
+				<if test=" null != feeRate ">
+					fee_rate = #{feeRate},
+				</if>
+				<if test=" null != feeAmt ">
+					fee_amt = #{feeAmt},
+				</if>
+				<if test=" null != investId and ''!= investId  ">
+					invest_id = #{investId},
+				</if>
+				<if test=" null != investAmt ">
+					invest_amt = #{investAmt},
+				</if>
+				<if test=" null != investTime ">
+					invest_time = #{investTime},
+				</if>
+				<if test=" null != endTime ">
+					end_time = #{endTime},
+				</if>
+				<if test=" null != investImg and ''!= investImg  ">
+					invest_img = #{investImg},
+				</if>
+				<if test=" null != status ">
+					status = #{status},
+				</if>
+				<if test=" null != remark and ''!= remark  ">
+					remark = #{remark},
+				</if>
+				<if test=" null != createTime ">
+					create_time = #{createTime},
+				</if>
+				<if test=" null != updateTime ">
+					update_time = #{updateTime},
+				</if>
+				<if test=" null != operator and ''!= operator  ">
+					operator = #{operator},
+				</if>
+				<if test=" null != shareStatus ">
+					share_status = #{shareStatus},
+				</if>
+				<if test=" null != checkTime ">
+					check_time = #{checkTime},
+				</if>
+				<if test=" null != thumbsUpTimes ">
+					thumbs_up_times = #{thumbsUpTimes},
+				</if>
+			</trim>
+		</set>
+		<where>
+			id = #{0}
+		</where>
+	</update>
+
+	<!-- 分页条件查询 -->
+	<select id="selectBySearchInfo" resultMap="BaseResultMap" parameterType="com.linkwee.core.datatable.DataTable">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM tcim_product_unrecord_invest
+		<where>
+			<if test="dt.search!=null">
+				name LIKE CONCAT('%','${dt.search.value}','%' )
+			</if>
+			<if test="dt.order!=null">
+				<foreach collection="dt.order" index="index" item="item"
+						 open="order by" separator="," close=" ">
+					${item.name} ${item.dir}
+				</foreach>
+			</if>
+		</where>
+	</select>
+
+    <!-- 获取客户报单记录 -->
+    <select id="getCustomerUnrecordInvest" resultType="com.linkwee.api.response.tc.CustomerUnrecordInvestResponse">
+      SELECT
+      pui.platfrom_name platfromName,
+      pui.product_name productName,
+      pui.product_dead_line deadLine,
+      pui.product_dead_line_type deadLineType,
+      pui.invest_amt investAmt,
+      pui.invest_time time,
+      o.org_product_url url
+    FROM
+      tcim_product_unrecord_invest pui LEFT JOIN tcim_org_info o ON pui.platfrom = o.org_number
+    WHERE
+      pui.user_mobile = (SELECT mobile FROM tcrm_investor i where i.user_id= #{userId} LIMIT 1)  and pui.status=1
+      ORDER BY pui.invest_time DESC
+    </select>
+
+    <!-- 获取理财师报单 -->
+    <select id="getCfplannerUnrecordInvest" resultType="com.linkwee.api.response.tc.CfplannerUnrecordInvestResponse">
+      SELECT
+      pui.user_name name,
+      pui.user_mobile mobile,
+      pui.platfrom_name platfromName,
+      pui.invest_amt investAmt,
+      pui.product_name productName,
+      pui.`status` status,
+      pui.remark remark,
+      pui.update_time time,
+      pui.fee_amt feeAmt
+    FROM
+      tcim_product_unrecord_invest pui
+    WHERE
+      pui.cfplanner_id = #{userId}
+      ORDER BY pui.update_time DESC
+    </select>
+
+
+
+     <!-- 获取理财师报单列表 -->
+    <select id="getUnrecordInvestList" resultType="com.linkwee.web.response.tc.UnrecordInvestListResponse">
+      SELECT
+        pui.id id,
+      pui.user_name NAME,
+      pui.user_mobile mobile,
+      pui.platfrom_name platfromName,
+      pui.invest_amt investAmt,
+      pui.product_name productName,
+      pui.`status` STATUS,
+      pui.remark remark,
+      pui.invest_img img,
+      u.user_name cfpName,
+      pui.update_time time
+    FROM
+      tcim_product_unrecord_invest pui
+    LEFT JOIN tcrm_user_info u ON pui.cfplanner_id = u.user_id
+    <where>
+      1=1
+      <if test="null != mobile and ''!= mobile">
+        and pui.cfplanner_id = (SELECT user_id FROM tcrm_cfplanner c where c.mobile= #{mobile} LIMIT 1)
+      </if>
+      <if test="null != status">
+        and pui.status = #{status}
+      </if>
+    </where>
+    ORDER BY pui.update_time DESC
+    </select>
+	  
+	  
+	 <select id="getCfplannerUnrecordInvestCount" resultType="int">
+	 	  SELECT count(*) 
+	 	  FROM tcim_product_unrecord_invest pui 
+	 	  WHERE pui.cfplanner_id = #{userId}
+	 </select>
+	 
+	 <select id="unrecordPageList" resultType="com.linkwee.web.model.cim.CimUnrecordInvestListResp">
+	   select tpui.id as id,tpui.platfrom_name as platfromName,tcoi.platformlist_ico as platfromIco, CONCAT(truncate(IFNULL(tpui.invest_amt,0),2),'')  as investAmt,tpui.status,tpui.product_dead_line_value as productDeadLine,tpui.product_dead_line_value as deadLine,
+	     CONCAT(truncate(IFNULL(tpui.fee_amt,0),2),'') as feeAmt, tpui.invest_time as investTime,tpui.create_time as recordTime,tpui.update_time as updateTime,tpui.share_status as shareStatus,tpui.pay_status as payStatus,tpui.pay_time as payTime,tpui.fee_strategy as feeStrategy  
+	   from tcim_product_unrecord_invest tpui left join tcim_org_info_a tcoi on tpui.platfrom = tcoi.org_number where tpui.user_id = #{userId} and date_format(tpui.create_time, '%Y-%m-%d')<![CDATA[>]]> '2018-05-20'
+	   <if test="order==1">
+			and tpui.share_status = 0 and tpui.pay_status = 2 
+	   </if>
+	   order by tpui.update_time desc
+	 </select>
+	 
+	 <select id="sunburnDetail" resultType="com.linkwee.web.model.cim.CimUnrecordInvestListResp">
+	   select tpui.id as id,tpui.platfrom_name as platfromName,tcoi.platformlist_ico as platfromIco, CONCAT(truncate(IFNULL(tpui.invest_amt,0),2),'')  as investAmt ,tpui.status,tpui.product_dead_line_value as productDeadLine, 
+	      CONCAT(truncate(IFNULL(tpui.fee_amt,0),2),'') as feeAmt, tpui.invest_time as investTime,tpui.create_time as recordTime,tpui.update_time as updateTime,tpui.share_status as shareStatus,tpui.pay_status as payStatus,tpui.pay_time as payTime,tpui.fee_strategy as feeStrategy   
+	   from tcim_product_unrecord_invest tpui left join tcim_org_info_a tcoi on tpui.platfrom = tcoi.org_number where tpui.id = #{id}
+	 
+	 </select>
+	 
+	  <select id="sunburnPageList" resultType="com.linkwee.api.response.cim.CimSunburnListResponse">
+	   select tc.head_image as headImage,tpui.invest_img as investImage,tpui.id as id,concat(SUBSTRING(tpui.user_mobile  ,1 ,3) ,'****' ,SUBSTRING(tpui.user_mobile  ,8 ,4)) as mobile,tpui.platfrom_name as platfromName, CONCAT(truncate(IFNULL(tpui.invest_amt,0),2),'')  as investAmt ,tpui.status,tpui.product_dead_line_value as productDeadLine, 
+	     CONCAT(truncate(IFNULL(tpui.fee_amt,0),2),'') as feeAmt, tpui.invest_time as investTime,tpui.create_time as recordTime,tpui.update_time as updateTime,tpui.share_status as shareStatus,tpui.thumbs_up_times as thumbsTimes,tpui.fee_strategy as feeStrategy  
+	   from tcim_product_unrecord_invest tpui LEFT JOIN tcrm_cfplanner tc on tpui.user_id= tc.user_id where tpui.share_status=1 and date_format(tpui.create_time, '%Y-%m-%d')<![CDATA[>]]> '2018-05-20'
+	   <if test="type==1">
+			and tpui.user_id = #{userId} 
+	   </if>
+	   order by tpui.update_time desc
+	 </select>
+	 
+	 <update id="thumbsUp">
+        UPDATE tcim_product_unrecord_invest set thumbs_up_times=thumbs_up_times+1 where id=#{id}
+    </update>
+    
+     <select id="orgAtotalAmount" resultType="Double">
+       SELECT IFNULL(sum(t.fee_amt),0) totalAmt from tcim_product_unrecord_invest t where t.status=1 and t.user_id = #{userId} and date_format(t.create_time, '%Y-%m-%d')<![CDATA[>]]> '2018-05-20'
+  	</select>
+
+	<select id="orgAUserInfo" resultType="com.linkwee.api.response.cim.OrgAUserInfoResponse">
+		SELECT
+			tc.head_image AS headImg,
+			tui.user_name AS userName,
+			tui.mobile AS mobile,
+			IFNULL(sum(tpui.fee_amt), 0) totalCashBack
+		FROM
+			tcrm_user_info tui
+		LEFT JOIN tcrm_cfplanner tc ON tui.user_id = tc.user_id
+		LEFT JOIN tcim_product_unrecord_invest tpui ON tui.user_id = tpui.user_id
+		AND tpui. STATUS = 1
+		AND date_format(
+			tpui.create_time,
+			'%Y-%m-%d'
+		) <![CDATA[>]]> '2018-05-20'
+		WHERE
+			tui.user_id = #{userId}
+	</select>
+
+</mapper>

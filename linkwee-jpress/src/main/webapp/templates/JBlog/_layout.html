@@ -1,0 +1,84 @@
+<#macro script_import>
+</#macro>
+<#macro script>
+</#macro>
+<#macro css_import>
+</#macro>
+<#macro css>
+</#macro>
+<#macro layout>
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>${WEB_TITLE!WEB_NAME!} - ${WEB_SUBTITLE!'欢迎使用JPress'}</title>
+        <meta name="keywords" content="${META_KEYWORDS!}">
+        <meta name="description" content="${META_DESCRIPTION!}">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <link rel="stylesheet" href="${CTPATH}/assets/css/reset.css" />
+        <link rel="stylesheet" href="${CTPATH}/assets/css/common.css" />
+        <link rel="stylesheet" href="${CTPATH}/assets/css/app.css" />
+        <link rel="stylesheet" href="${CTPATH}/assets/font-awesome/css/font-awesome.min.css" />
+        <link rel="stylesheet" href="${CTPATH}/assets/mediaelement/mediaelementplayer.css" />
+        <@css_import />
+        <#if css ??>
+            <style type="text/css">
+            <@css />
+            </style>
+        </#if>
+    </head>
+
+    <body class="blog-body site-wrapper">
+        <!--   顶部工具栏    -->
+        <!--<div class="site-topbar">
+            <div class="container">
+                <div class="topbar-left">
+                    <span><img src="${CTPATH}/assets/images/index-tel.png"></span>
+                    <span>服务热线 : </span>
+                    <span>400-888-6987</span>
+                    <span class="margin">工作日 : 9:00-12:00</span>
+                    <span>13:30-18:00</span>
+                </div>
+                <div class="topbar-right">
+                    <span>
+                <span class="welcome-toobei">您好，欢迎您来到T呗！</span>
+                    <a class="login-toobei none" href="${JPRESS_WEBSITE}/module/user/login.html">登录</a>
+                    </span>
+                    <span class="none">
+                <a href="${JPRESS_WEBSITE}/module/user/register.html" class="register-button">注册领红包</a>
+              </span>
+                    <span><a href="${JPRESS_WEBSITE}/module/aboutUs/company.html">关于我们</a></span>
+                    <span><a href="${JPRESS_WEBSITE}/module/aboutUs/helpCenter.html">帮助中心</a></span>
+                    <span><a href="${JPRESS_WEBSITE}/module/platformFile/platformFile.html">网贷平台档案</a></span>
+                    <span>
+                <a class="wechat">
+                  <img src="${CTPATH}/assets/images/topbar_wechat.png">
+                  <span class="icon"><img src="${CTPATH}/assets/images/topbar_qrcode.png" alt="T呗二维码"></span>
+                    </a>
+                    </span>
+                </div>
+            </div>
+        </div>-->
+        <!--   头部工具栏    -->
+        <!--<div class="site-header">
+            <div class="container">
+                <div class="header-left">
+                    <img src="${CTPATH}/assets/images/tb_logo.png" alt="T呗LOGO">
+                    <span class="vertically"></span>
+                </div>
+                <div class="header-right">
+                    <ul>
+                        <li><a href="${JPRESS_WEBSITE}/index.html">首页</a></li>
+                        <li><a href="${JPRESS_WEBSITE}/module/product/list.html">选产品</a></li>
+                        <li><a href="${JPRESS_WEBSITE}/module/platform/platform.html">选平台</a></li>
+                        <li><a href="${JPRESS_WEBSITE}/module/safe/safe.html">安全保障</a></li>
+                        <li><a href="${JPRESS_WEBSITE}/module/account/account.html">我的账户</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>-->
+        <#nested>
+    </body>
+    </html>
+</#macro>
+

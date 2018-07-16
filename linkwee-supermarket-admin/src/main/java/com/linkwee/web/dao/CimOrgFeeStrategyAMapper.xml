@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.CimOrgFeeStrategyAMapper">
+	<!-- Result Map-->
+	<resultMap  type="com.linkwee.web.model.CimOrgFeeStrategyA" id="BaseResultMap">
+		<result column="id" property="id" jdbcType="INTEGER"/>
+		<result column="org_number" property="orgNumber" jdbcType="VARCHAR"/>
+		<result column="fee_strategy" property="feeStrategy" jdbcType="INTEGER"/>
+		<result column="fee_ratio" property="feeRatio" jdbcType="DECIMAL"/>
+		<result column="fee_val" property="feeVal" jdbcType="DECIMAL"/>
+		<result column="interval_min_val" property="intervalMinVal" jdbcType="DECIMAL"/>
+		<result column="interval_max_val" property="intervalMaxVal" jdbcType="DECIMAL"/>
+		<result column="interval_unit" property="intervalUnit" jdbcType="VARCHAR"/>
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+		<result column="creator" property="creator" jdbcType="VARCHAR"/>
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+		<result column="updater" property="updater" jdbcType="VARCHAR"/>
+		<result column="remark" property="remark" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+  <sql id="Base_Column_List">
+    <trim suffixOverrides=",">
+	    	id,
+	    	org_number,
+	    	fee_strategy,
+	    	fee_ratio,
+	    	fee_val,
+	    	interval_min_val,
+	    	interval_max_val,
+	    	interval_unit,
+	    	create_time,
+	    	creator,
+	    	update_time,
+	    	updater,
+	    	remark,
+    </trim>
+  </sql>
+  
+ <sql id="Base_Column_List_T">
+    <trim suffixOverrides=",">
+	    	t.id,
+	    	t.org_number,
+	    	t.fee_strategy,
+	    	t.fee_ratio,
+	    	t.fee_val,
+	    	t.interval_min_val,
+	    	t.interval_max_val,
+	    	t.interval_unit,
+	    	t.create_time,
+	    	t.creator,
+	    	t.update_time,
+	    	t.updater,
+	    	t.remark,
+    </trim>
+  </sql>  
+  
+  <sql id="Base_Condition">
+		<if test=" null != id ">
+			and id = #{id}
+		</if>
+		<if test=" null != orgNumber and ''!= orgNumber  ">
+			and org_number = #{orgNumber}
+		</if>
+		<if test=" null != feeStrategy ">
+			and fee_strategy = #{feeStrategy}
+		</if>
+		<if test=" null != feeRatio ">
+			and fee_ratio = #{feeRatio}
+		</if>
+		<if test=" null != feeVal ">
+			and fee_val = #{feeVal}
+		</if>
+		<if test=" null != intervalMinVal ">
+			and interval_min_val = #{intervalMinVal}
+		</if>
+		<if test=" null != intervalMaxVal ">
+			and interval_max_val = #{intervalMaxVal}
+		</if>
+		<if test=" null != intervalUnit and ''!= intervalUnit  ">
+			and interval_unit = #{intervalUnit}
+		</if>
+		<if test=" null != createTime ">
+			and create_time = #{createTime}
+		</if>
+		<if test=" null != creator and ''!= creator  ">
+			and creator = #{creator}
+		</if>
+		<if test=" null != updateTime ">
+			and update_time = #{updateTime}
+		</if>
+		<if test=" null != updater and ''!= updater  ">
+			and updater = #{updater}
+		</if>
+		<if test=" null != remark and ''!= remark  ">
+			and remark = #{remark}
+		</if>
+  </sql>
+  
+  <select id="selectOneByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.web.model.CimOrgFeeStrategyA">
+		select <include refid="Base_Column_List" /> from tcim_org_fee_strategy_a 
+		where 1=1 <include refid="Base_Condition" />
+  </select>
+  
+  <select id="selectByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.web.model.CimOrgFeeStrategyA">
+		select <include refid="Base_Column_List" /> from tcim_org_fee_strategy_a 
+		where 1=1 <include refid="Base_Condition" />
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tcim_org_fee_strategy_a
+    where  id = #{0}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tcim_org_fee_strategy_a
+    where id = #{0}
+  </delete>
+
+  <insert id="insert" parameterType="com.linkwee.web.model.CimOrgFeeStrategyA" >
+    INSERT INTO tcim_org_fee_strategy_a
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != orgNumber and ''!= orgNumber  ">
+					org_number,
+				</if>
+			 	<if test=" null != feeStrategy ">
+					fee_strategy,
+				</if>
+			 	<if test=" null != feeRatio ">
+					fee_ratio,
+				</if>
+			 	<if test=" null != feeVal ">
+					fee_val,
+				</if>
+			 	<if test=" null != intervalMinVal ">
+					interval_min_val,
+				</if>
+			 	<if test=" null != intervalMaxVal ">
+					interval_max_val,
+				</if>
+			 	<if test=" null != intervalUnit and ''!= intervalUnit  ">
+					interval_unit,
+				</if>
+			 	<if test=" null != createTime ">
+					create_time,
+				</if>
+			 	<if test=" null != creator and ''!= creator  ">
+					creator,
+				</if>
+			 	<if test=" null != updateTime ">
+					update_time,
+				</if>
+			 	<if test=" null != updater and ''!= updater  ">
+					updater,
+				</if>
+			 	<if test=" null != remark and ''!= remark  ">
+					remark,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != orgNumber and ''!= orgNumber  ">
+					 	#{orgNumber},
+				</if>
+			 	<if test=" null != feeStrategy ">
+					 	#{feeStrategy},
+				</if>
+			 	<if test=" null != feeRatio ">
+					 	#{feeRatio},
+				</if>
+			 	<if test=" null != feeVal ">
+					 	#{feeVal},
+				</if>
+			 	<if test=" null != intervalMinVal ">
+					 	#{intervalMinVal},
+				</if>
+			 	<if test=" null != intervalMaxVal ">
+					 	#{intervalMaxVal},
+				</if>
+			 	<if test=" null != intervalUnit and ''!= intervalUnit  ">
+					 	#{intervalUnit},
+				</if>
+			 	<if test=" null != createTime ">
+					 	#{createTime},
+				</if>
+			 	<if test=" null != creator and ''!= creator  ">
+					 	#{creator},
+				</if>
+			 	<if test=" null != updateTime ">
+					 	#{updateTime},
+				</if>
+			 	<if test=" null != updater and ''!= updater  ">
+					 	#{updater},
+				</if>
+			 	<if test=" null != remark and ''!= remark  ">
+					 	#{remark},
+				</if>
+		</trim>
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.linkwee.web.model.CimOrgFeeStrategyA" useGeneratedKeys="true" keyProperty="id" >
+		INSERT INTO tcim_org_fee_strategy_a
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != orgNumber and ''!= orgNumber  ">
+					org_number,
+				</if>
+			 	<if test=" null != feeStrategy ">
+					fee_strategy,
+				</if>
+			 	<if test=" null != feeRatio ">
+					fee_ratio,
+				</if>
+			 	<if test=" null != feeVal ">
+					fee_val,
+				</if>
+			 	<if test=" null != intervalMinVal ">
+					interval_min_val,
+				</if>
+			 	<if test=" null != intervalMaxVal ">
+					interval_max_val,
+				</if>
+			 	<if test=" null != intervalUnit and ''!= intervalUnit  ">
+					interval_unit,
+				</if>
+			 	<if test=" null != createTime ">
+					create_time,
+				</if>
+			 	<if test=" null != creator and ''!= creator  ">
+					creator,
+				</if>
+			 	<if test=" null != updateTime ">
+					update_time,
+				</if>
+			 	<if test=" null != updater and ''!= updater  ">
+					updater,
+				</if>
+			 	<if test=" null != remark and ''!= remark  ">
+					remark,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != orgNumber and ''!= orgNumber  ">
+					 	#{orgNumber},
+				</if>
+			 	<if test=" null != feeStrategy ">
+					 	#{feeStrategy},
+				</if>
+			 	<if test=" null != feeRatio ">
+					 	#{feeRatio},
+				</if>
+			 	<if test=" null != feeVal ">
+					 	#{feeVal},
+				</if>
+			 	<if test=" null != intervalMinVal ">
+					 	#{intervalMinVal},
+				</if>
+			 	<if test=" null != intervalMaxVal ">
+					 	#{intervalMaxVal},
+				</if>
+			 	<if test=" null != intervalUnit and ''!= intervalUnit  ">
+					 	#{intervalUnit},
+				</if>
+			 	<if test=" null != createTime ">
+					 	#{createTime},
+				</if>
+			 	<if test=" null != creator and ''!= creator  ">
+					 	#{creator},
+				</if>
+			 	<if test=" null != updateTime ">
+					 	#{updateTime},
+				</if>
+			 	<if test=" null != updater and ''!= updater  ">
+					 	#{updater},
+				</if>
+			 	<if test=" null != remark and ''!= remark  ">
+					 	#{remark},
+				</if>
+		</trim>
+	</insert>
+
+	<update id="updateByPrimaryKeySelective" parameterType="com.linkwee.web.model.CimOrgFeeStrategyA" >
+  		UPDATE tcim_org_fee_strategy_a
+		<set>
+			<trim suffixOverrides=",">
+					<if test=" null != orgNumber and ''!= orgNumber  ">
+						org_number = #{orgNumber},
+					</if>
+					<if test=" null != feeStrategy ">
+						fee_strategy = #{feeStrategy},
+					</if>
+					<if test=" null != feeRatio ">
+						fee_ratio = #{feeRatio},
+					</if>
+					<if test=" null != feeVal ">
+						fee_val = #{feeVal},
+					</if>
+					<if test=" null != intervalMinVal ">
+						interval_min_val = #{intervalMinVal},
+					</if>
+					<if test=" null != intervalMaxVal ">
+						interval_max_val = #{intervalMaxVal},
+					</if>
+					<if test=" null != intervalUnit and ''!= intervalUnit  ">
+						interval_unit = #{intervalUnit},
+					</if>
+					<if test=" null != createTime ">
+						create_time = #{createTime},
+					</if>
+					<if test=" null != creator and ''!= creator  ">
+						creator = #{creator},
+					</if>
+					<if test=" null != updateTime ">
+						update_time = #{updateTime},
+					</if>
+					<if test=" null != updater and ''!= updater  ">
+						updater = #{updater},
+					</if>
+					<if test=" null != remark and ''!= remark  ">
+						remark = #{remark},
+					</if>
+			</trim>
+		</set>
+		<where>
+			 id = #{id}
+		</where>
+	</update>
+  
+	<update id="updateByPrimaryKey" parameterType="com.linkwee.web.model.CimOrgFeeStrategyA" >
+	    UPDATE tcim_org_fee_strategy_a
+	   <set>
+			<trim suffixOverrides=",">
+					<if test=" null != orgNumber and ''!= orgNumber  ">
+						org_number = #{orgNumber},
+					</if>
+					<if test=" null != feeStrategy ">
+						fee_strategy = #{feeStrategy},
+					</if>
+					<if test=" null != feeRatio ">
+						fee_ratio = #{feeRatio},
+					</if>
+					<if test=" null != feeVal ">
+						fee_val = #{feeVal},
+					</if>
+					<if test=" null != intervalMinVal ">
+						interval_min_val = #{intervalMinVal},
+					</if>
+					<if test=" null != intervalMaxVal ">
+						interval_max_val = #{intervalMaxVal},
+					</if>
+					<if test=" null != intervalUnit and ''!= intervalUnit  ">
+						interval_unit = #{intervalUnit},
+					</if>
+					<if test=" null != createTime ">
+						create_time = #{createTime},
+					</if>
+					<if test=" null != creator and ''!= creator  ">
+						creator = #{creator},
+					</if>
+					<if test=" null != updateTime ">
+						update_time = #{updateTime},
+					</if>
+					<if test=" null != updater and ''!= updater  ">
+						updater = #{updater},
+					</if>
+					<if test=" null != remark and ''!= remark  ">
+						remark = #{remark},
+					</if>
+			</trim>
+		</set>
+		<where>
+			id = #{0}
+		</where>
+	  </update>
+
+	<!-- 分页条件查询 -->
+    <select id="selectBySearchInfo" resultMap="BaseResultMap" parameterType="com.linkwee.core.datatable.DataTable">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM tcim_org_fee_strategy_a
+        <where> 
+        <if test="dt.search!=null">  
+                name LIKE CONCAT('%','${dt.search.value}','%' )  
+         </if>  
+         <if test="dt.order!=null">  
+               <foreach collection="dt.order" index="index" item="item"
+                    open="order by" separator="," close=" ">
+                    ${item.name} ${item.dir} 
+                </foreach>
+         </if>  
+        </where>
+    </select>
+
+	<delete id="deleteByOrgNumber">
+		delete from tcim_org_fee_strategy_a
+		where org_number = #{orgNumber}
+	</delete>
+
+	<insert id="batchInsert" parameterType="com.linkwee.web.model.CimOrgFeeStrategyA" >
+		INSERT INTO tcim_org_fee_strategy_a(org_number,fee_strategy,fee_ratio,fee_val,interval_min_val,interval_max_val,interval_unit,update_time,updater)
+		<foreach collection="strategyASList" index="index" item="item"
+				 open="values" separator="," close="">
+			(#{item.orgNumber},#{item.feeStrategy},#{item.feeRatio},#{item.feeVal},#{item.intervalMinVal},#{item.intervalMaxVal},#{item.intervalUnit},#{item.updateTime},#{item.updater})
+		</foreach>
+	</insert>
+
+</mapper>

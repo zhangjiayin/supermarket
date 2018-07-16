@@ -1,0 +1,809 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.CfplannerManagerDao">
+
+<resultMap  type="com.linkwee.web.model.crm.CfpManagerDetailResp" id="LcsDetailResp">
+	<result column="id" property="id" />
+	<result column="user_name" property="userName" />
+	<result column="mobile" property="mobile" />
+	<result column="id_card" property="idCard" />
+	<result column="cfp_level" property="cfpLevel" />
+	<result column="parent_name" property="parentName" />
+	<result column="parent_mobile" property="parentMobile" />
+	<result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+	<result column="bank_card" property="bankCard" />
+	<result column="bank_name" property="bankName" />
+	<result column="id_card" property="idCard" />
+	<result column="disabled_login_time" property="disabledLoginTime" />
+	<result column="user_id" property="userId" />
+	<result column="rect_visit_time" property="rectVisitTime" jdbcType="TIMESTAMP"/>
+	<result column="city" property="city" />
+</resultMap>
+
+
+
+<!-- 查询理财师列表 -->
+<select id="queryLcsList" resultMap="LcsDetailResp" >
+	select 
+	(select 
+		(select ifnull(count(1),0) from tcrm_cfplanner where parent_id=c.user_id) +
+		(select ifnull(count(1),0) from tcrm_cfplanner where parent_id in 
+		(select user_id from tcrm_cfplanner where parent_id=c.user_id))) team_member_count,
+	(select count(1) from tcrm_investor where cfplanner=c.user_id) customer_count,
+	t.mobile as parent_mobile,
+	t.user_name as parent_name,
+	u.user_name,c.* 
+	from tcrm_cfplanner c 
+	left join tcrm_user_info u on c.user_id=u.user_id
+	left join tcrm_user_info t on t.user_id=c.parent_id
+	<where>
+	 	1=1
+	 	<if test=" null != query.nameOrmobile and ''!= query.nameOrmobile ">
+	 		and c.mobile  = #{query.nameOrmobile} or u.user_name =#{query.nameOrmobile}
+		</if>
+		<if test=" null != query.startDate">
+			and DATE_FORMAT(c.create_time, '%Y-%m-%d') &gt;=  DATE_FORMAT(#{query.startDate}, '%Y-%m-%d')
+		</if>
+		<if test=" null != query.endDate">
+			and DATE_FORMAT(c.create_time, '%Y-%m-%d') &lt;=  DATE_FORMAT(#{query.endDate}, '%Y-%m-%d')
+		</if>
+	 </where>
+	 order BY c.id
+</select>
+
+<!-- 查询理财师列表新 -->
+<select id="queryLcsListNew" resultType="com.linkwee.web.model.crm.CfplannerListNewResp" >
+	select 
+	(select 
+		(select ifnull(count(1),0) from tcrm_cfplanner where parent_id=c.user_id) +
+		(select ifnull(count(1),0) from tcrm_cfplanner where parent_id in 
+		(select user_id from tcrm_cfplanner where parent_id=c.user_id))) teamMemberCount,
+	(select count(1) from tcrm_investor where cfplanner=c.user_id) customerCount,
+	
+	(SELECT IFNULL(sum(yearpur_amount),0) from tcim_fee where profit_cfplanner_id=c.user_id and fee_type='1001' and date_format(create_time, '%Y-%m')=date_format(now(), '%Y-%m') ) totalSales,
+<!-- (SELECT count(id) from tcim_fee where profit_cfplanner_id=c.user_id and fee_type='1001') countSales, -->
+(SELECT IFNULL(sum(fee_amount),0) from tcim_feedetail where profit_cfplanner_id=c.user_id and fee_type='1001' and date_format(create_time, '%Y-%m')=date_format(now(), '%Y-%m') ) fee,
+(SELECT IFNULL(sum(fee_amount),0) from tcim_feedetail where profit_cfplanner_id=c.user_id and fee_type='1002' and date_format(create_time, '%Y-%m')=date_format(now(), '%Y-%m') ) allowance,
+(SELECT IFNULL(sum(fee_amount),0) from tcim_feedetail where profit_cfplanner_id=c.user_id and fee_type='1005' and date_format(create_time, '%Y-%m')=date_format(now(), '%Y-%m') ) directAllowance,
+(SELECT IFNULL(sum(fee_amount),0) from tcim_feedetail where profit_cfplanner_id=c.user_id and fee_type='1006' and date_format(create_time, '%Y-%m')=date_format(now(), '%Y-%m') ) teamAllowance,
+<!-- (SELECT IFNULL(sum(invest_amt),0) from tcim_product_invest_record where user_id=c.user_id and status=1) currInvestAmount, -->
+
+	u.user_name as userName,c.create_time as createTime,c.mobile,c.user_id as userId,c.job_grade as jobGrade
+	from tcrm_cfplanner c 
+	left join tcrm_user_info u on c.user_id=u.user_id
+	<where>
+	 	1=1
+	 	<if test=" null != query.nameOrmobile and ''!= query.nameOrmobile ">
+	 		and c.mobile  = #{query.nameOrmobile} or u.user_name =#{query.nameOrmobile}
+		</if>
+	 </where>
+	 order BY c.id
+</select>
+
+
+<!-- 查询理财师详情 -->
+<select id="queryLcsDetail" resultMap="LcsDetailResp" >
+	SELECT a.bank_card,a.bank_name,a.id_card, a.user_name,
+	t.mobile as parent_mobile,
+	t.user_name as parent_name,
+	c.* from tcrm_cfplanner c LEFT JOIN tac_account_bind a on c.user_id=a.user_id
+	left join tcrm_user_info t on t.user_id=c.parent_id
+	where c.mobile=#{mobile}
+</select>
+
+<!-- 查询理财师详情 -->
+<select id="queryLcsDetailNew" resultMap="LcsDetailResp" >
+	SELECT a.bank_card,a.bank_name,a.id_card, a.user_name,
+	t.mobile as parent_mobile,
+	t.user_name as parent_name,
+	ar.city,
+	c.* from tcrm_cfplanner c LEFT JOIN tac_account_bind a on c.user_id=a.user_id
+	left join tcrm_user_info t on t.user_id=c.parent_id
+	LEFT JOIN tsys_mobile_area ar on ar.mobile = left(c.mobile,7) 
+	where c.mobile=#{mobile}
+</select>
+
+<!--查询理财师团队信息-->
+<select id="queryCfpTeamList" resultType="com.linkwee.web.response.CfpTeamListResp">
+	SELECT
+	  ms.user_id as `number`,
+	  ms.mobile as mobile,
+	  ms.user_name as `name`,
+	  ms.level,
+	  ms.create_time as createTime,
+		t2.fee_amount as feeAmount,
+		t3.total_count as totalNums,
+		t3.total_invest as totalAmount
+FROM (
+		SELECT s.user_id,s.mobile,u.user_name,'v1' as level,s.parent_id,s.create_time , s.user_id tttt FROM  tcrm_cfplanner s LEFT JOIN tcrm_user_info u on u.user_id=s.user_id WHERE  s.parent_id =#{query.userId}
+		UNION ALL SELECT t.user_id,t.mobile,u.user_name,'v2',t.parent_id,t.create_time, t.parent_id tttt FROM tcrm_cfplanner t LEFT JOIN tcrm_user_info u on u.user_id=t.user_id 
+		WHERE t.parent_id IN (SELECT a.user_id FROM  tcrm_cfplanner a WHERE  a.parent_id =#{query.userId})
+		ORDER BY  tttt, level
+	   ) ms 
+LEFT JOIN 
+		(SELECT origin_cfplanner_id, IFNULL(sum(fee_amount),0) as fee_amount from tcim_feedetail 
+		where 1=1
+		and fee_type=1002
+		and profit_cfplanner_id=#{query.userId} 
+		GROUP BY
+		origin_cfplanner_id
+		) t2
+on t2.origin_cfplanner_id=ms.user_id
+LEFT JOIN 
+		(
+		SELECT IFNULL(sum(r.invest_amt),0) total_invest , IFNULL(count(r.id),0) total_count,i.cfplanner  from tcim_product_invest_record r LEFT JOIN tcrm_investor i
+		on r.user_id=i.user_id
+		LEFT JOIN tcrm_cfplanner c on c.user_id=i.cfplanner
+		where c.parent_id=#{query.userId} or c.parent_id in 
+		(SELECT user_id from tcrm_cfplanner where parent_id=#{query.userId} )
+		GROUP BY i.cfplanner
+		) t3
+on t3.cfplanner=ms.user_id
+	     WHERE 1=1
+	  <if test="query.searchText!=null and query.searchText!=''"> AND (ms.mobile =#{query.searchText} OR ms.user_name LIKE CONCAT(CONCAT('%',#{query.searchText}),'%'))</if>
+	  ORDER BY null
+</select>
+
+<!--  查询理财师直接、间接、三级理财师 -->
+<select id="queryLcsTeamDetail" resultType="com.linkwee.web.response.CfpTeamListResp">
+	select c.mobile as mobile,c.user_id,tu.user_name as name,'直接推荐理财师' as teamRela,case when c.job_grade='SM3' then '总监'  when c.job_grade='SM2' then '经理' when c.job_grade='SM1' then '顾问' else '见习' end jobGrade,c.update_time as bindTime,(case when f.fee_amount>0 then  f.fee_amount else 0 end) as monthAmount ,(case when g.directNums>0 then  g.directNums else 0 end) as directNums from tcrm_cfplanner c LEFT JOIN tcrm_user_info tu on c.user_id = tu.user_id
+  LEFT JOIN (SELECT profit_cfplanner_id,IFNULL(sum(yearpur_amount),0) as fee_amount from tcim_feedetail 
+		where profit_cfplanner_id in (select user_id from tcrm_cfplanner where parent_id=#{query.userId})
+		and fee_type=1001 and DATE_FORMAT(create_time,'%Y-%m')=DATE_FORMAT(now(),'%Y-%m') ) f on f.profit_cfplanner_id = c.user_id
+  LEFT JOIN (select count(parent_id) as directNums,parent_id from tcrm_cfplanner where parent_id in (select user_id from tcrm_cfplanner where parent_id=#{query.userId}) GROUP BY parent_id) g on g.parent_id=c.user_id
+ where c.parent_id=#{query.userId}
+
+union all
+
+select c.mobile as mobile,c.user_id,tu.user_name as name,'间接推荐理财师' as teamRela,case when c.job_grade='SM3' then '总监'  when c.job_grade='SM2' then '经理' when c.job_grade='SM1' then '顾问' else '见习' end jobGrade,c.update_time as bindTime,(case when f.fee_amount>0 then  f.fee_amount else 0 end) as monthAmount ,(case when g.directNums>0 then  g.directNums else 0 end) as directNums from tcrm_cfplanner c LEFT JOIN tcrm_user_info tu on c.user_id = tu.user_id
+  LEFT JOIN (SELECT profit_cfplanner_id,IFNULL(sum(yearpur_amount),0) as fee_amount from tcim_feedetail 
+		where profit_cfplanner_id in (select user_id from tcrm_cfplanner where parent_id in (select user_id from tcrm_cfplanner where parent_id=#{query.userId}))
+		and fee_type=1001 and DATE_FORMAT(create_time,'%Y-%m')=DATE_FORMAT(now(),'%Y-%m') ) f on f.profit_cfplanner_id = c.user_id
+  LEFT JOIN (select count(parent_id) as directNums,parent_id from tcrm_cfplanner where parent_id in (select user_id from tcrm_cfplanner where parent_id in (select user_id from tcrm_cfplanner where parent_id=#{query.userId})) GROUP BY parent_id) g on g.parent_id=c.user_id
+ where c.parent_id in (select user_id from tcrm_cfplanner where parent_id=#{query.userId})
+
+union all
+
+select c.mobile as mobile,c.user_id,tu.user_name as name,'三级推荐理财师' as teamRela,case when c.job_grade='SM3' then '总监'  when c.job_grade='SM2' then '经理' when c.job_grade='SM1' then '顾问' else '见习' end jobGrade,c.update_time as bindTime,(case when f.fee_amount>0 then  f.fee_amount else 0 end) as monthAmount ,(case when g.directNums>0 then  g.directNums else 0 end) as directNums from tcrm_cfplanner c LEFT JOIN tcrm_user_info tu on c.user_id = tu.user_id
+  LEFT JOIN (SELECT profit_cfplanner_id,IFNULL(sum(yearpur_amount),0) as fee_amount from tcim_feedetail 
+		where profit_cfplanner_id in (
+select user_id from tcrm_cfplanner where parent_id in (select user_id from tcrm_cfplanner where parent_id in (select user_id from tcrm_cfplanner where parent_id=#{query.userId}))
+)
+		and fee_type=1001 and DATE_FORMAT(create_time,'%Y-%m')=DATE_FORMAT(now(),'%Y-%m') ) f on f.profit_cfplanner_id = c.user_id
+  LEFT JOIN (select count(parent_id) as directNums,parent_id from tcrm_cfplanner where parent_id in (select user_id from tcrm_cfplanner where parent_id in (select user_id from tcrm_cfplanner where parent_id in (select user_id from tcrm_cfplanner where parent_id=#{query.userId}))) GROUP BY parent_id) g on g.parent_id=c.user_id
+ where c.parent_id in (select user_id from tcrm_cfplanner where parent_id in (select user_id from tcrm_cfplanner where parent_id=#{query.userId}))
+
+</select>
+
+<!--  查询理财师直接、间接、三级理财师 -->
+<select id="queryLcsTeamDetailCondition" resultType="com.linkwee.web.response.CfpTeamListResp">
+
+select tab.queryJobGrade,tab.mobile,tab.user_id,tab.name,tab.teamRela,case when tab.jobGrade='SM3' then '总监'  when tab.jobGrade='SM2' then '经理' when tab.jobGrade='SM1' then '顾问' else '见习' end jobGrade,tab.bindTime,(case when tab.monthAmount>0 then  tab.monthAmount else 0 end) as monthAmount ,(case when tab.directNums>0 then  tab.directNums else 0 end) as directNums from 
+  (	select '0' as queryJobGrade,c.mobile as mobile,c.user_id,tu.user_name as name,'直接推荐理财师' as teamRela,c.job_grade as jobGrade,c.update_time as bindTime,(case when f.fee_amount>0 then  f.fee_amount else 0 end) as monthAmount ,(case when g.directNums>0 then  g.directNums else 0 end) as directNums from tcrm_cfplanner c LEFT JOIN tcrm_user_info tu on c.user_id = tu.user_id
+  LEFT JOIN (SELECT profit_cfplanner_id,IFNULL(sum(yearpur_amount),0) as fee_amount from tcim_feedetail 
+		where profit_cfplanner_id in (select user_id from tcrm_cfplanner where parent_id=#{query.userId})
+		and fee_type=1001 and DATE_FORMAT(create_time,'%Y-%m')=DATE_FORMAT(now(),'%Y-%m') ) f on f.profit_cfplanner_id = c.user_id
+  LEFT JOIN (select count(parent_id) as directNums,parent_id from tcrm_cfplanner where parent_id in (select user_id from tcrm_cfplanner where parent_id=#{query.userId}) GROUP BY parent_id) g on g.parent_id=c.user_id
+ where c.parent_id=#{query.userId}
+
+union all
+
+select '1' as queryJobGrade,c.mobile as mobile,c.user_id,tu.user_name as name,'间接推荐理财师' as teamRela,c.job_grade as jobGrade,c.update_time as bindTime,(case when f.fee_amount>0 then  f.fee_amount else 0 end) as monthAmount ,(case when g.directNums>0 then  g.directNums else 0 end) as directNums from tcrm_cfplanner c LEFT JOIN tcrm_user_info tu on c.user_id = tu.user_id
+  LEFT JOIN (SELECT profit_cfplanner_id,IFNULL(sum(yearpur_amount),0) as fee_amount from tcim_feedetail 
+		where profit_cfplanner_id in (select user_id from tcrm_cfplanner where parent_id in (select user_id from tcrm_cfplanner where parent_id=#{query.userId}))
+		and fee_type=1001 and DATE_FORMAT(create_time,'%Y-%m')=DATE_FORMAT(now(),'%Y-%m') ) f on f.profit_cfplanner_id = c.user_id
+  LEFT JOIN (select count(parent_id) as directNums,parent_id from tcrm_cfplanner where parent_id in (select user_id from tcrm_cfplanner where parent_id in (select user_id from tcrm_cfplanner where parent_id=#{query.userId})) GROUP BY parent_id) g on g.parent_id=c.user_id
+ where c.parent_id in (select user_id from tcrm_cfplanner where parent_id=#{query.userId})
+
+union all
+
+select '2' as queryJobGrade,c.mobile as mobile,c.user_id,tu.user_name as name,'三级推荐理财师' as teamRela,c.job_grade as jobGrade,c.update_time as bindTime,(case when f.fee_amount>0 then  f.fee_amount else 0 end) as monthAmount ,(case when g.directNums>0 then  g.directNums else 0 end) as directNums from tcrm_cfplanner c LEFT JOIN tcrm_user_info tu on c.user_id = tu.user_id
+  LEFT JOIN (SELECT profit_cfplanner_id,IFNULL(sum(yearpur_amount),0) as fee_amount from tcim_feedetail 
+		where profit_cfplanner_id in (
+select user_id from tcrm_cfplanner where parent_id in (select user_id from tcrm_cfplanner where parent_id in (select user_id from tcrm_cfplanner where parent_id=#{query.userId}))
+)
+		and fee_type=1001 and DATE_FORMAT(create_time,'%Y-%m')=DATE_FORMAT(now(),'%Y-%m') ) f on f.profit_cfplanner_id = c.user_id
+  LEFT JOIN (select count(parent_id) as directNums,parent_id from tcrm_cfplanner where parent_id in (select user_id from tcrm_cfplanner where parent_id in (select user_id from tcrm_cfplanner where parent_id in (select user_id from tcrm_cfplanner where parent_id=#{query.userId}))) GROUP BY parent_id) g on g.parent_id=c.user_id
+ where c.parent_id in (select user_id from tcrm_cfplanner where parent_id in (select user_id from tcrm_cfplanner where parent_id=#{query.userId}))
+) tab where 
+	 	1=1
+	 	 <if test="query.searchText!=null and query.searchText!=''"> 
+	 	 AND (tab.mobile =#{query.searchText} OR tab.name LIKE CONCAT(CONCAT('%',#{query.searchText}),'%'))
+	 	 </if>
+		<if test=" null != query.jobGrade and ''!= query.jobGrade ">
+	 		and tab.queryJobGrade  = #{query.jobGrade} 
+		</if>
+</select>
+
+
+<!-- 津贴、奖励  -->
+<select id="queryRewardAllowanceCondition" resultType="com.linkwee.web.response.CfpTeamListResp">
+	select 
+	 i.cfplanner parentId,
+	(select u.mobile from tcrm_user_info u where user_id=i.cfplanner) mobile,
+	 (select u.user_name from tcrm_user_info u where user_id=i.cfplanner) name,
+	 f.fee_type rewardAllowance, 
+	 f.investor_id, 
+	case when f.fee_type='1002' then '推荐奖励' when f.fee_type='1005' then '直接管理津贴' when f.fee_type='1006' then '团队管理津贴' else '其他' end feeType,
+	 o.name orgName,p.product_name productName, p.dead_line_min_self_defined productTerm, 
+	f.product_amount productAmount, f.fee_amount feeAmount,
+	 f.create_time saleTime from tcim_fee f 
+	
+	LEFT JOIN tcim_product p on f.product_id=p.product_id 
+	LEFT JOIN tcim_org_info o on f.product_org_id=o.org_number 
+	,tcrm_investor i
+	 where  f.investor_id=i.user_id and f.fee_type in('1002','1005','1006') and 
+	 f.profit_cfplanner_id=#{query.userId}  
+	 	 <if test="query.searchText!=null and query.searchText!=''"> 
+	 	 AND (mobile =#{query.searchText} OR name LIKE CONCAT(CONCAT('%',#{query.searchText}),'%'))
+	 	 </if>
+		<if test=" null != query.rewardAllowance and ''!= query.rewardAllowance ">
+	 		and f.fee_type= #{query.rewardAllowance} 
+		</if>
+		 ORDER BY f.create_time desc
+</select>
+
+
+<select id="queryTeamRela" resultType="String">
+ select team.teamRela from 
+ (select '直接推荐理财师' teamRela,user_id from tcrm_cfplanner where parent_id=#{userId} 
+ union all select '间接推荐理财师' teamRela,user_id from tcrm_cfplanner where parent_id in (select user_id from tcrm_cfplanner where 
+ parent_id=#{userId}) 
+ union all select '三级推荐理财师' teamRela,user_id from tcrm_cfplanner where parent_id in 
+ (select user_id from tcrm_cfplanner where parent_id in (select user_id from tcrm_cfplanner where parent_id=#{userId})) ) 
+ team where team.user_id=#{parentId}
+</select>
+
+<!--理财师的客户列表-->
+<select id="queryCfpCustomerProfitList" resultType="com.linkwee.web.response.CfpCustomerProfitListResp">
+	SELECT
+			u.user_name as customerName,
+			a.mobile as customerMobile,
+			a.create_time as createTime,
+			IFNULL(b.investmentTotalAmount, 0) AS totalAmount,
+			IFNULL(b.investmentCount, 0) AS totalNums,
+			IFNULL(c.nowInvestmentAmount, 0) AS curAmount,
+			IFNULL(c.nowInvestmentCount, 0) AS curNums,
+			IFNULL(b.tfee, 0) AS feeAmount,
+			IF(a.is_free_customer=0,'邀请','自由客户')AS orgName,
+			ac.id_card as idCard
+	FROM tcrm_investor a 
+	LEFT JOIN 
+		tcrm_user_info u on u.user_id=a.user_id
+	LEFT JOIN 
+		tac_account_bind ac on ac.user_id=a.user_id
+	LEFT JOIN
+	    (SELECT 
+	      SUM(product_amount) AS investmentTotalAmount,
+	      COUNT(investor_id) AS investmentCount,
+	      SUM(fee_amount) AS tfee,
+	      investor_id 
+	    FROM
+	      tcim_fee 
+	    WHERE profit_cfplanner_id = #{query.userId}
+			and fee_type='1001'
+	    GROUP BY investor_id 
+	    ORDER BY NULL) b 
+	    ON a.user_id = b.investor_id 
+	    LEFT JOIN 
+	    (SELECT 
+	      SUM(invest_amt) AS nowInvestmentAmount,
+	      COUNT(invest_id) AS nowInvestmentCount,
+	      invest_id
+	    FROM
+	      tcim_product_invest_record a left join tcrm_investor b on a.user_id=b.user_id
+	    WHERE b.cfplanner = #{query.userId}
+	      AND a.`status`=2
+	    GROUP BY invest_id 
+	    ORDER BY NULL) c 
+	    ON c.invest_id = b.investor_id
+	    <where>
+	   		 a.cfplanner =#{query.userId}
+			<if test="query.searchText!=null and query.searchText!=''"> 
+			AND  (u.user_name = #{query.searchText} OR a.mobile = #{query.searchText})
+			</if>
+	  	</where>
+			ORDER BY a.create_time DESC
+
+</select>
+
+
+
+<!-- 数据图表start -->
+<!-- 根据日期查询理财师数据 -->
+<select id="getLcsDateStatic"  resultType="map" >
+	SELECT DATE_FORMAT(create_time,'%Y-%m-%d')as date,COUNT(1)as count FROM tcrm_cfplanner  
+	<where>
+		1=1
+		<choose>
+			<when test="null != startDate or null != endDate">
+					<if test=" null != startDate">
+						AND DATE_FORMAT(create_time, '%Y-%m-%d') &gt;=  DATE_FORMAT(#{startDate}, '%Y-%m-%d')
+					</if>
+					<if test=" null != endDate">
+						AND DATE_FORMAT(#{endDate}, '%Y-%m-%d') &gt;=  DATE_FORMAT(create_time, '%Y-%m-%d')
+					</if>
+			</when>
+			<otherwise>
+				AND  create_time BETWEEN DATE_SUB(CURDATE(), INTERVAL 7 DAY) AND  CURDATE()
+			</otherwise>
+		
+		</choose>
+	</where>
+	GROUP BY DATE_FORMAT(create_time,'%Y-%m-%d')
+</select>
+
+<!-- 查询理财师数量 -->
+<select id="getLcsDateStaticCount"  resultType="map" >
+	SELECT a.*,b.*,c.*,d.* FROM
+	(SELECT COUNT(1)AS curday FROM tcrm_cfplanner WHERE  DATE_FORMAT(create_time,'%Y-%m-%d')=CURDATE())a,
+	(SELECT COUNT(1)AS curWeek FROM  tcrm_cfplanner WHERE  create_time BETWEEN DATE_SUB(CURDATE(), INTERVAL 7 DAY) AND  CURDATE())b,   
+	(SELECT COUNT(1)AS curmonth FROM tcrm_cfplanner WHERE  DATE_FORMAT(create_time,'%Y-%m')=DATE_FORMAT(CURDATE(),'%Y-%m'))c,
+	(SELECT COUNT(1)AS total FROM tcrm_cfplanner )d
+</select>
+
+<!-- 根据日期查询理财师数据 -->
+<select id="getValidLcsDateStatic"  resultType="map" >
+	SELECT DATE_FORMAT(create_time,'%Y-%m-%d')as date,COUNT(1)as count FROM tcrm_cfplanner  
+	<where>
+		1=1 
+		AND cfp_level!='PROBATION'
+		<choose>
+			<when test="null != startDate or null != endDate">
+					<if test=" null != startDate">
+						AND DATE_FORMAT(create_time, '%Y-%m-%d') &gt;=  DATE_FORMAT(#{startDate}, '%Y-%m-%d')
+					</if>
+					<if test=" null != endDate">
+						AND DATE_FORMAT(#{endDate}, '%Y-%m-%d') &gt;=  DATE_FORMAT(create_time, '%Y-%m-%d')
+					</if>
+			</when>
+			<otherwise>
+				AND  create_time BETWEEN DATE_SUB(CURDATE(), INTERVAL 7 DAY) AND  CURDATE()
+			</otherwise>
+		
+		</choose>
+	</where>
+	GROUP BY DATE_FORMAT(create_time,'%Y-%m-%d')
+</select>
+
+<!-- 查询有效理财师数量 -->
+<select id="getValidLcsDateStaticCount"  resultType="map" >
+SELECT a.*,b.*,c.*,d.* FROM
+
+(SELECT COUNT(1)AS curday FROM tcrm_cfplanner WHERE 1=1 AND cfp_level!='PROBATION' AND DATE_FORMAT(create_time,'%Y-%m-%d')=CURDATE())a,
+
+(SELECT COUNT(1)AS curWeek FROM  tcrm_cfplanner WHERE 1=1 AND cfp_level!='PROBATION' AND  create_time BETWEEN DATE_SUB(CURDATE(), INTERVAL 7 DAY) AND  CURDATE())b,   
+
+(SELECT COUNT(1)AS curmonth FROM tcrm_cfplanner WHERE 1=1 AND cfp_level!='PROBATION' AND  DATE_FORMAT(create_time,'%Y-%m')=DATE_FORMAT(CURDATE(),'%Y-%m'))c,
+
+(SELECT COUNT(1)AS total FROM tcrm_cfplanner  WHERE 1=1 AND cfp_level!='PROBATION')d
+</select>
+<!-- 数据图表end -->
+
+<select id="getCfpWithoutChildrenAndParent"  resultType="com.linkwee.web.model.CfpLevelNode" >
+	SELECT
+		IFNULL(SUM(tf.yearpur_amount), 0) personAmount,
+		temp.*
+	FROM
+		(
+			SELECT
+				cfp1.*
+			FROM
+				tcrm_cfplanner cfp1
+			LEFT JOIN tcrm_cfplanner cfp2 ON cfp1.parent_id = cfp2.user_id
+			LEFT JOIN tcrm_cfplanner cfp3 ON cfp1.user_id = cfp3.parent_id
+			WHERE
+				cfp2.user_id IS NULL
+			AND cfp3.user_id IS NULL
+		) temp
+	LEFT JOIN tcim_feedetail tf ON tf.profit_cfplanner_id = temp.user_id and tf.fee_type = '1001'
+	<if test=" null != startDate">
+		AND DATE_FORMAT(tf.create_time, '%Y-%m-%d') &gt;=  DATE_FORMAT(#{startDate}, '%Y-%m-%d')
+	</if>
+	<if test=" null != endDate">
+		AND DATE_FORMAT(#{endDate}, '%Y-%m-%d') &gt;=  DATE_FORMAT(tf.create_time, '%Y-%m-%d')
+	</if>
+	GROUP BY
+		temp.user_id
+</select>
+
+<select id="getCfpWithChildrenButParent"  resultType="com.linkwee.web.model.CfpLevelNode" >
+	SELECT
+		IFNULL(SUM(tf.yearpur_amount), 0) personAmount,
+		temp.*
+	FROM
+		(
+			SELECT
+				cfp1.*
+			FROM
+				tcrm_cfplanner cfp1
+			LEFT JOIN tcrm_cfplanner cfp2 ON cfp1.parent_id = cfp2.user_id
+			LEFT JOIN tcrm_cfplanner cfp3 ON cfp1.user_id = cfp3.parent_id
+			WHERE
+				cfp2.user_id IS NULL
+			AND cfp3.user_id IS NOT NULL
+			GROUP BY
+				cfp1.user_id
+		) temp
+	LEFT JOIN tcim_feedetail tf ON tf.profit_cfplanner_id = temp.user_id and tf.fee_type = '1001'
+	<if test=" null != startDate">
+		AND DATE_FORMAT(tf.create_time, '%Y-%m-%d') &gt;=  DATE_FORMAT(#{startDate}, '%Y-%m-%d')
+	</if>
+	<if test=" null != endDate">
+		AND DATE_FORMAT(#{endDate}, '%Y-%m-%d') &gt;=  DATE_FORMAT(tf.create_time, '%Y-%m-%d')
+	</if>
+	GROUP BY
+		temp.user_id
+</select>
+
+<select id="getCfpWithChildrenAndParent"  resultType="com.linkwee.web.model.CfpLevelNode" >
+	SELECT
+		IFNULL(SUM(tf.yearpur_amount), 0) personAmount,
+		temp.*
+	FROM
+		(
+			SELECT
+				cfp1.*
+			FROM
+				tcrm_cfplanner cfp1
+			LEFT JOIN tcrm_cfplanner cfp2 ON cfp1.parent_id = cfp2.user_id
+			LEFT JOIN tcrm_cfplanner cfp3 ON cfp1.user_id = cfp3.parent_id
+			WHERE
+				cfp2.user_id IS NOT NULL
+			AND cfp3.user_id IS NOT NULL
+			GROUP BY
+				cfp1.user_id
+		) temp
+	LEFT JOIN tcim_feedetail tf ON tf.profit_cfplanner_id = temp.user_id and tf.fee_type = '1001'
+	<if test=" null != startDate">
+		AND DATE_FORMAT(tf.create_time, '%Y-%m-%d') &gt;=  DATE_FORMAT(#{startDate}, '%Y-%m-%d')
+	</if>
+	<if test=" null != endDate">
+		AND DATE_FORMAT(#{endDate}, '%Y-%m-%d') &gt;=  DATE_FORMAT(tf.create_time, '%Y-%m-%d')
+	</if>
+	GROUP BY
+		temp.user_id
+</select>
+
+<select id="getCfpWithoutChildrenButParent"  resultType="com.linkwee.web.model.CfpLevelNode" >
+	SELECT
+		IFNULL(SUM(tf.yearpur_amount), 0) personAmount,
+		temp.*
+	FROM
+		(
+			SELECT
+				cfp1.*
+			FROM
+				tcrm_cfplanner cfp1
+			LEFT JOIN tcrm_cfplanner cfp2 ON cfp1.parent_id = cfp2.user_id
+			LEFT JOIN tcrm_cfplanner cfp3 ON cfp1.user_id = cfp3.parent_id
+			WHERE
+				cfp2.user_id IS NOT NULL
+			AND cfp3.user_id IS NULL
+		) temp
+	LEFT JOIN tcim_feedetail tf ON tf.profit_cfplanner_id = temp.user_id and tf.fee_type = '1001'
+	<if test=" null != startDate">
+		AND DATE_FORMAT(tf.create_time, '%Y-%m-%d') &gt;=  DATE_FORMAT(#{startDate}, '%Y-%m-%d')
+	</if>
+	<if test=" null != endDate">
+		AND DATE_FORMAT(#{endDate}, '%Y-%m-%d') &gt;=  DATE_FORMAT(tf.create_time, '%Y-%m-%d')
+	</if>
+	GROUP BY
+		temp.user_id
+</select>
+
+
+
+<!-- <select id="getCfpWithoutChildrenAndParent"  resultType="com.linkwee.web.model.CfpLevelNode" >
+	SELECT * FROM (SELECT
+		IFNULL(SUM(tf.yearpur_amount), 0) personAmount,
+		cfp1.*
+	FROM
+		tcrm_cfplanner cfp1
+	,tcim_feedetail tf WHERE tf.profit_cfplanner_id = cfp1.user_id and tf.fee_type = '1001'
+	<if test=" null != startDate">
+		AND DATE_FORMAT(tf.create_time, '%Y-%m-%d') &gt;=  DATE_FORMAT(#{startDate}, '%Y-%m-%d')
+	</if>
+	<if test=" null != endDate">
+		AND DATE_FORMAT(#{endDate}, '%Y-%m-%d') &gt;=  DATE_FORMAT(tf.create_time, '%Y-%m-%d')
+	</if>
+	GROUP BY
+		cfp1.user_id) as table1
+LEFT JOIN
+(SELECT
+		IFNULL(SUM(tf.yearpur_amount), 0) personAmount,
+		cfp1.*
+	FROM
+		tcrm_cfplanner cfp1
+	,tcim_feedetail tf WHERE tf.profit_cfplanner_id = cfp1.user_id and tf.fee_type = '1001'
+	<if test=" null != startDate">
+		AND DATE_FORMAT(tf.create_time, '%Y-%m-%d') &gt;=  DATE_FORMAT(#{startDate}, '%Y-%m-%d')
+	</if>
+	<if test=" null != endDate">
+		AND DATE_FORMAT(#{endDate}, '%Y-%m-%d') &gt;=  DATE_FORMAT(tf.create_time, '%Y-%m-%d')
+	</if>
+	GROUP BY
+		cfp1.user_id) as table2 on table1.parent_id = table2.user_id
+LEFT JOIN
+(SELECT
+		IFNULL(SUM(tf.yearpur_amount), 0) personAmount,
+		cfp1.*
+	FROM
+		tcrm_cfplanner cfp1
+	,tcim_feedetail tf WHERE tf.profit_cfplanner_id = cfp1.user_id and tf.fee_type = '1001'
+	<if test=" null != startDate">
+		AND DATE_FORMAT(tf.create_time, '%Y-%m-%d') &gt;=  DATE_FORMAT(#{startDate}, '%Y-%m-%d')
+	</if>
+	<if test=" null != endDate">
+		AND DATE_FORMAT(#{endDate}, '%Y-%m-%d') &gt;=  DATE_FORMAT(tf.create_time, '%Y-%m-%d')
+	</if>
+	GROUP BY
+		cfp1.user_id) as table3 ON table1.user_id = table3.parent_id 
+WHERE
+			table3.user_id IS NULL and table2.user_id IS NULL;
+</select>
+
+<select id="getCfpWithChildrenButParent"  resultType="com.linkwee.web.model.CfpLevelNode" >
+	SELECT * FROM (SELECT
+		IFNULL(SUM(tf.yearpur_amount), 0) personAmount,
+		cfp1.*
+	FROM
+		tcrm_cfplanner cfp1
+	,tcim_feedetail tf WHERE tf.profit_cfplanner_id = cfp1.user_id and tf.fee_type = '1001'
+	<if test=" null != startDate">
+		AND DATE_FORMAT(tf.create_time, '%Y-%m-%d') &gt;=  DATE_FORMAT(#{startDate}, '%Y-%m-%d')
+	</if>
+	<if test=" null != endDate">
+		AND DATE_FORMAT(#{endDate}, '%Y-%m-%d') &gt;=  DATE_FORMAT(tf.create_time, '%Y-%m-%d')
+	</if>
+	GROUP BY
+		cfp1.user_id) as table1
+LEFT JOIN
+(SELECT
+		IFNULL(SUM(tf.yearpur_amount), 0) personAmount,
+		cfp1.*
+	FROM
+		tcrm_cfplanner cfp1
+	,tcim_feedetail tf WHERE tf.profit_cfplanner_id = cfp1.user_id and tf.fee_type = '1001'
+	<if test=" null != startDate">
+		AND DATE_FORMAT(tf.create_time, '%Y-%m-%d') &gt;=  DATE_FORMAT(#{startDate}, '%Y-%m-%d')
+	</if>
+	<if test=" null != endDate">
+		AND DATE_FORMAT(#{endDate}, '%Y-%m-%d') &gt;=  DATE_FORMAT(tf.create_time, '%Y-%m-%d')
+	</if>
+	GROUP BY
+		cfp1.user_id) as table2 on table1.parent_id = table2.user_id
+LEFT JOIN
+(SELECT
+		IFNULL(SUM(tf.yearpur_amount), 0) personAmount,
+		cfp1.*
+	FROM
+		tcrm_cfplanner cfp1
+	,tcim_feedetail tf WHERE tf.profit_cfplanner_id = cfp1.user_id and tf.fee_type = '1001'
+	<if test=" null != startDate">
+		AND DATE_FORMAT(tf.create_time, '%Y-%m-%d') &gt;=  DATE_FORMAT(#{startDate}, '%Y-%m-%d')
+	</if>
+	<if test=" null != endDate">
+		AND DATE_FORMAT(#{endDate}, '%Y-%m-%d') &gt;=  DATE_FORMAT(tf.create_time, '%Y-%m-%d')
+	</if>
+	GROUP BY
+		cfp1.user_id) as table3 ON table1.user_id = table3.parent_id 
+WHERE
+			table3.user_id IS NOT NULL and table2.user_id IS NULL
+ GROUP BY
+				table1.user_id;
+</select>
+
+<select id="getCfpWithChildrenAndParent"  resultType="com.linkwee.web.model.CfpLevelNode" >
+	SELECT * FROM (SELECT
+		IFNULL(SUM(tf.yearpur_amount), 0) personAmount,
+		cfp1.*
+	FROM
+		tcrm_cfplanner cfp1
+	,tcim_feedetail tf WHERE tf.profit_cfplanner_id = cfp1.user_id and tf.fee_type = '1001'
+	<if test=" null != startDate">
+		AND DATE_FORMAT(tf.create_time, '%Y-%m-%d') &gt;=  DATE_FORMAT(#{startDate}, '%Y-%m-%d')
+	</if>
+	<if test=" null != endDate">
+		AND DATE_FORMAT(#{endDate}, '%Y-%m-%d') &gt;=  DATE_FORMAT(tf.create_time, '%Y-%m-%d')
+	</if>
+	GROUP BY
+		cfp1.user_id) as table1
+LEFT JOIN
+(SELECT
+		IFNULL(SUM(tf.yearpur_amount), 0) personAmount,
+		cfp1.*
+	FROM
+		tcrm_cfplanner cfp1
+	,tcim_feedetail tf WHERE tf.profit_cfplanner_id = cfp1.user_id and tf.fee_type = '1001'
+	<if test=" null != startDate">
+		AND DATE_FORMAT(tf.create_time, '%Y-%m-%d') &gt;=  DATE_FORMAT(#{startDate}, '%Y-%m-%d')
+	</if>
+	<if test=" null != endDate">
+		AND DATE_FORMAT(#{endDate}, '%Y-%m-%d') &gt;=  DATE_FORMAT(tf.create_time, '%Y-%m-%d')
+	</if>
+	GROUP BY
+		cfp1.user_id) as table2 on table1.parent_id = table2.user_id
+LEFT JOIN
+(SELECT
+		IFNULL(SUM(tf.yearpur_amount), 0) personAmount,
+		cfp1.*
+	FROM
+		tcrm_cfplanner cfp1
+	,tcim_feedetail tf WHERE tf.profit_cfplanner_id = cfp1.user_id and tf.fee_type = '1001'
+	<if test=" null != startDate">
+		AND DATE_FORMAT(tf.create_time, '%Y-%m-%d') &gt;=  DATE_FORMAT(#{startDate}, '%Y-%m-%d')
+	</if>
+	<if test=" null != endDate">
+		AND DATE_FORMAT(#{endDate}, '%Y-%m-%d') &gt;=  DATE_FORMAT(tf.create_time, '%Y-%m-%d')
+	</if>
+	GROUP BY
+		cfp1.user_id) as table3 ON table1.user_id = table3.parent_id 
+WHERE
+			table3.user_id IS NOT NULL and table2.user_id IS NOT NULL
+GROUP BY
+				table1.user_id;
+</select>
+
+<select id="getCfpWithoutChildrenButParent"  resultType="com.linkwee.web.model.CfpLevelNode" >
+	SELECT * FROM (SELECT
+		IFNULL(SUM(tf.yearpur_amount), 0) personAmount,
+		cfp1.*
+	FROM
+		tcrm_cfplanner cfp1
+	,tcim_feedetail tf WHERE tf.profit_cfplanner_id = cfp1.user_id and tf.fee_type = '1001'
+	<if test=" null != startDate">
+		AND DATE_FORMAT(tf.create_time, '%Y-%m-%d') &gt;=  DATE_FORMAT(#{startDate}, '%Y-%m-%d')
+	</if>
+	<if test=" null != endDate">
+		AND DATE_FORMAT(#{endDate}, '%Y-%m-%d') &gt;=  DATE_FORMAT(tf.create_time, '%Y-%m-%d')
+	</if>
+	GROUP BY
+		cfp1.user_id) as table1
+LEFT JOIN
+(SELECT
+		IFNULL(SUM(tf.yearpur_amount), 0) personAmount,
+		cfp1.*
+	FROM
+		tcrm_cfplanner cfp1
+	,tcim_feedetail tf WHERE tf.profit_cfplanner_id = cfp1.user_id and tf.fee_type = '1001'
+	<if test=" null != startDate">
+		AND DATE_FORMAT(tf.create_time, '%Y-%m-%d') &gt;=  DATE_FORMAT(#{startDate}, '%Y-%m-%d')
+	</if>
+	<if test=" null != endDate">
+		AND DATE_FORMAT(#{endDate}, '%Y-%m-%d') &gt;=  DATE_FORMAT(tf.create_time, '%Y-%m-%d')
+	</if>
+	GROUP BY
+		cfp1.user_id) as table2 on table1.parent_id = table2.user_id
+LEFT JOIN
+(SELECT
+		IFNULL(SUM(tf.yearpur_amount), 0) personAmount,
+		cfp1.*
+	FROM
+		tcrm_cfplanner cfp1
+	,tcim_feedetail tf WHERE tf.profit_cfplanner_id = cfp1.user_id and tf.fee_type = '1001'
+	<if test=" null != startDate">
+		AND DATE_FORMAT(tf.create_time, '%Y-%m-%d') &gt;=  DATE_FORMAT(#{startDate}, '%Y-%m-%d')
+	</if>
+	<if test=" null != endDate">
+		AND DATE_FORMAT(#{endDate}, '%Y-%m-%d') &gt;=  DATE_FORMAT(tf.create_time, '%Y-%m-%d')
+	</if>
+	GROUP BY
+		cfp1.user_id) as table3 ON table1.user_id = table3.parent_id 
+WHERE
+			table3.user_id IS NULL and table2.user_id IS NOT NULL;
+</select> -->
+
+<!-- 理财师活动奖励 -->
+<select id="queryActivityReward"  resultType="Double" >
+SELECT ifnull(sum(r.trans_amount), 0)
+	    from tac_balance_record r 
+		where 
+		 user_id=#{userId}
+		and trans_type =14
+</select>
+
+<!-- 理财师推荐奖励 -->
+<select id="queryAllowance"  resultType="Double" >
+select ifnull(sum(fee_amount),0) from tcim_fee f where profit_cfplanner_id =#{userId}
+and fee_type=1002
+</select>
+
+<!-- 理财师客户在投金额 -->
+<select id="queryCurrInvestAmount"  resultType="Double" >
+SELECT IFNULL(SUM(t.invest_amt),0) FROM tcim_product_invest_record t 
+LEFT JOIN tcrm_investor i 
+on t.user_id=i.user_id
+WHERE i.cfplanner=#{userId} and t.status=1
+</select>
+
+<!-- 理财师佣金 -->
+<select id="queryFee"  resultType="Double" >
+select ifnull(sum(fee_amount),0) from tcim_fee f where profit_cfplanner_id =#{userId}
+and fee_type=1001
+</select>
+
+<!-- 可派发红包列表-->
+<select id="queryHongbaoList"  resultType="com.linkwee.web.model.crm.LcsHongbaoListResp" >
+select d.`name`,d.expires_date expireTime,d.money hongbaoAmount ,
+rd.invest_limit firstInvestLimit,rd.amount_limit amountLimit,rd.amount ,rd.product_limit productLimit,rd.product_deadline productDeadline,
+o.`name` as platform
+ from tact_redpacket_detail d 
+LEFT JOIN tact_redpacket_rule r
+on d.redpacket_id = r.redpacket_id
+LEFT JOIN tact_redpacket_rule_detail rd
+on r.rule_id=rd.rule_id
+LEFT JOIN tcim_org_info o 
+on o.org_number=rd.platform_id
+ where cfplanner_id=#{userId} 
+
+
+#and status=1
+
+</select>
+
+<!-- leader奖励 -->
+<select id="queryLeaderReward"  resultType="Double" >
+SELECT ifnull(sum(r.trans_amount), 0)
+	    from tac_balance_record r 
+		where 
+		 user_id=#{userId}
+		and trans_type =15
+</select>
+
+<!-- 累计销售额 -->
+<select id="queryTotalSaleAmount"  resultType="Double" >
+select ifnull(sum(product_amount),0) from tcim_fee f where profit_cfplanner_id =#{userId}
+and fee_type=1001
+</select>
+
+<!-- 累计销售笔数 -->
+<select id="queryTotalSaleCount"  resultType="int" >
+select count(id) from tcim_fee f where profit_cfplanner_id =#{userId}
+and fee_type=1001
+</select>
+
+<select id="queryCfpLevelList" resultType="com.linkwee.web.model.CrmCfpLevelRecord">
+	SELECT
+		*
+	FROM
+		tcrm_cfp_level_record
+	WHERE 1=1 
+	<if test="query.userId!=null and query.userId!=''"> 
+		AND user_id =#{query.userId}
+	</if>	  
+	ORDER BY
+		create_time DESC
+</select>
+
+
+<!--团队理财师收益贡献明细 -->
+<select id="queryTeamAllowanceList" resultType="com.linkwee.web.model.crm.TeamAllowanceListResp" >
+select c.job_grade as jobGrade, c.mobile, u.user_name as userName,c.create_time as createTime ,
+(select count(1) from tcrm_cfplanner where parent_id=c.user_id) as directChildren,
+IFNULL(t1.salesYearAmount,0) as salesYearAmount,IFNULL(t1.allowance,0) as allowance ,
+IFNULL(t1.directAllowance,0) as directAllowance,IFNULL(t1.teamAllowance,0) as teamAllowance,t1.relLevel from 
+(
+select 
+origin_cfplanner_id,low_type,
+sum(yearpur_amount) as salesYearAmount,
+case when fee_type=1002 then fee_amount end as allowance,
+case when fee_type=1005 then fee_amount end as directAllowance,
+case when fee_type=1006 then fee_amount end as teamAllowance,
+case when low_type=0 then '直接推荐理财师'
+		when low_type=1 then '间接推荐理财师'
+		when low_type=2 then '三级推荐理财师' end as relLevel
+ from tcim_fee where profit_cfplanner_id=#{query.userId}
+and fee_type in (1002, 1005 , 1006)
+GROUP BY origin_cfplanner_id
+) t1
+LEFT JOIN tcrm_cfplanner c on t1.origin_cfplanner_id=c.user_id
+LEFT JOIN tcrm_user_info u on t1.origin_cfplanner_id=u.user_id
+where 1=1 
+<if test=" query.status!=null and query.status!='' ">
+and t1.low_type=#{query.status}
+</if>
+
+</select>
+
+</mapper>

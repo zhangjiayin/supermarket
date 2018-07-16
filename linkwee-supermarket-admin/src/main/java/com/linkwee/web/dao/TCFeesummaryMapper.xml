@@ -1,0 +1,949 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.TCFeesummaryMapper">
+	<!-- Result Map-->
+	<resultMap  type="com.linkwee.tc.fee.model.TCFeeSummary" id="BaseResultMap">
+		<result column="id" property="id" jdbcType="INTEGER"/>
+		<result column="biz_id" property="bizId" jdbcType="VARCHAR"/>
+		<result column="type" property="type" jdbcType="INTEGER"/>
+		<result column="year" property="year" jdbcType="VARCHAR"/>
+		<result column="moth" property="moth" jdbcType="VARCHAR"/>
+		<result column="quarter" property="quarter" jdbcType="VARCHAR"/>
+		<result column="total_number" property="totalNumber" jdbcType="INTEGER"/>
+		<result column="total_profit" property="totalProfit" jdbcType="DECIMAL"/>
+		<result column="fee_profit_number" property="feeProfitNumber" jdbcType="INTEGER"/>
+		<result column="fee_profit" property="feeProfit" jdbcType="DECIMAL"/>
+		<result column="recommend_profit_numer" property="recommendProfitNumer" jdbcType="INTEGER"/>
+		<result column="recommend_profit" property="recommendProfit" jdbcType="DECIMAL"/>
+		<result column="child_management_profit_number" property="childManagementProfitNumber" jdbcType="INTEGER"/>
+		<result column="child_management_profit" property="childManagementProfit" jdbcType="DECIMAL"/>
+		<result column="team_management_profit_numer" property="teamManagementProfitNumer" jdbcType="INTEGER"/>
+		<result column="team_management_profit" property="teamManagementProfit" jdbcType="DECIMAL"/>
+		<result column="fee_profit_add" property="feeProfitAdd" jdbcType="DECIMAL"/>
+		<result column="fee_profit_add_number" property="feeProfitAddNumber" jdbcType="INTEGER"/>
+		<result column="recommend_profit_add_numer" property="recommendProfitAddNumer" jdbcType="INTEGER"/>
+		<result column="recommend_profit_add" property="recommendProfitAdd" jdbcType="DECIMAL"/>
+		<result column="person_fee_add_number" property="personFeeAddNumber" jdbcType="INTEGER"/>
+		<result column="person_fee_add" property="personFeeAdd" jdbcType="DECIMAL"/>
+		<result column="insurance_fee_profit_number" property="insuranceFeeProfitNumber" jdbcType="INTEGER"/>
+		<result column="insurance_fee_profit" property="insuranceFeeProfit" jdbcType="DECIMAL"/>
+		<result column="insurance_recommend_profit_numer" property="insuranceRecommendProfitNumer" jdbcType="INTEGER"/>
+		<result column="insurance_recommend_profit" property="insuranceRecommendProfit" jdbcType="DECIMAL"/>
+		<result column="insurance_child_management_profit_number" property="insuranceChildManagementProfitNumber" jdbcType="INTEGER"/>
+		<result column="insurance_child_management_profit" property="insuranceChildManagementProfit" jdbcType="DECIMAL"/>
+		<result column="insurance_team_management_profit_numer" property="insuranceTeamManagementProfitNumer" jdbcType="INTEGER"/>
+		<result column="insurance_team_management_profit" property="insuranceTeamManagementProfit" jdbcType="DECIMAL"/>
+		<result column="avg_fee_profit" property="avgFeeProfit" jdbcType="DECIMAL"/>
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+		<result column="operator" property="operator" jdbcType="VARCHAR"/>
+		<result column="send_operator" property="sendOperator" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+  <sql id="Base_Column_List">
+    <trim suffixOverrides=",">
+	    	id,
+	    	biz_id,
+	    	type,
+	    	year,
+	    	moth,
+	    	quarter,
+	    	total_number,
+	    	total_profit,
+	    	fee_profit_number,
+	    	fee_profit,
+	    	recommend_profit_numer,
+	    	recommend_profit,
+	    	child_management_profit_number,
+	    	child_management_profit,
+	    	team_management_profit_numer,
+	    	team_management_profit,
+	    	fee_profit_add,
+	    	fee_profit_add_number,
+	    	recommend_profit_add_numer,
+	    	recommend_profit_add,
+	    	person_fee_add_number,
+	    	person_fee_add,
+	    	insurance_fee_profit_number,
+	    	insurance_fee_profit,
+	    	insurance_recommend_profit_numer,
+	    	insurance_recommend_profit,
+	    	insurance_child_management_profit_number,
+	    	insurance_child_management_profit,
+	    	insurance_team_management_profit_numer,
+	    	insurance_team_management_profit,
+	    	avg_fee_profit,
+	    	create_time,
+	    	update_time,
+	    	operator,
+	    	send_operator,
+    </trim>
+  </sql>
+  
+ <sql id="Base_Column_List_T">
+    <trim suffixOverrides=",">
+	    	t.id,
+	    	t.biz_id,
+	    	t.type,
+	    	t.year,
+	    	t.moth,
+	    	t.quarter,
+	    	t.total_number,
+	    	t.total_profit,
+	    	t.fee_profit_number,
+	    	t.fee_profit,
+	    	t.recommend_profit_numer,
+	    	t.recommend_profit,
+	    	t.child_management_profit_number,
+	    	t.child_management_profit,
+	    	t.team_management_profit_numer,
+	    	t.team_management_profit,
+	    	t.fee_profit_add,
+	    	t.fee_profit_add_number,
+	    	t.recommend_profit_add_numer,
+	    	t.recommend_profit_add,
+	    	t.person_fee_add_number,
+	    	t.person_fee_add,
+	    	t.insurance_fee_profit_number,
+	    	t.insurance_fee_profit,
+	    	t.insurance_recommend_profit_numer,
+	    	t.insurance_recommend_profit,
+	    	t.insurance_child_management_profit_number,
+	    	t.insurance_child_management_profit,
+	    	t.insurance_team_management_profit_numer,
+	    	t.insurance_team_management_profit,
+	    	t.avg_fee_profit,
+	    	t.create_time,
+	    	t.update_time,
+	    	t.operator,
+	    	t.send_operator,
+    </trim>
+  </sql>  
+  
+  <sql id="Base_Condition">
+		<if test=" null != id ">
+			and id = #{id}
+		</if>
+		<if test=" null != bizId and ''!= bizId  ">
+			and biz_id = #{bizId}
+		</if>
+		<if test=" null != type ">
+			and type = #{type}
+		</if>
+		<if test=" null != year and ''!= year  ">
+			and year = #{year}
+		</if>
+		<if test=" null != moth and ''!= moth  ">
+			and moth = #{moth}
+		</if>
+		<if test=" null != quarter and ''!= quarter  ">
+			and quarter = #{quarter}
+		</if>
+		<if test=" null != totalNumber ">
+			and total_number = #{totalNumber}
+		</if>
+		<if test=" null != totalProfit ">
+			and total_profit = #{totalProfit}
+		</if>
+		<if test=" null != feeProfitNumber ">
+			and fee_profit_number = #{feeProfitNumber}
+		</if>
+		<if test=" null != feeProfit ">
+			and fee_profit = #{feeProfit}
+		</if>
+		<if test=" null != recommendProfitNumer ">
+			and recommend_profit_numer = #{recommendProfitNumer}
+		</if>
+		<if test=" null != recommendProfit ">
+			and recommend_profit = #{recommendProfit}
+		</if>
+		<if test=" null != childManagementProfitNumber ">
+			and child_management_profit_number = #{childManagementProfitNumber}
+		</if>
+		<if test=" null != childManagementProfit ">
+			and child_management_profit = #{childManagementProfit}
+		</if>
+		<if test=" null != teamManagementProfitNumer ">
+			and team_management_profit_numer = #{teamManagementProfitNumer}
+		</if>
+		<if test=" null != teamManagementProfit ">
+			and team_management_profit = #{teamManagementProfit}
+		</if>
+		<if test=" null != feeProfitAdd ">
+			and fee_profit_add = #{feeProfitAdd}
+		</if>
+		<if test=" null != feeProfitAddNumber ">
+			and fee_profit_add_number = #{feeProfitAddNumber}
+		</if>
+		<if test=" null != recommendProfitAddNumer ">
+			and recommend_profit_add_numer = #{recommendProfitAddNumer}
+		</if>
+		<if test=" null != recommendProfitAdd ">
+			and recommend_profit_add = #{recommendProfitAdd}
+		</if>
+		<if test=" null != personFeeAddNumber ">
+			and person_fee_add_number = #{personFeeAddNumber}
+		</if>
+		<if test=" null != personFeeAdd ">
+			and person_fee_add = #{personFeeAdd}
+		</if>
+		<if test=" null != insuranceFeeProfitNumber ">
+			and insurance_fee_profit_number = #{insuranceFeeProfitNumber}
+		</if>
+		<if test=" null != insuranceFeeProfit ">
+			and insurance_fee_profit = #{insuranceFeeProfit}
+		</if>
+		<if test=" null != insuranceRecommendProfitNumer ">
+			and insurance_recommend_profit_numer = #{insuranceRecommendProfitNumer}
+		</if>
+		<if test=" null != insuranceRecommendProfit ">
+			and insurance_recommend_profit = #{insuranceRecommendProfit}
+		</if>
+		<if test=" null != insuranceChildManagementProfitNumber ">
+			and insurance_child_management_profit_number = #{insuranceChildManagementProfitNumber}
+		</if>
+		<if test=" null != insuranceChildManagementProfit ">
+			and insurance_child_management_profit = #{insuranceChildManagementProfit}
+		</if>
+		<if test=" null != insuranceTeamManagementProfitNumer ">
+			and insurance_team_management_profit_numer = #{insuranceTeamManagementProfitNumer}
+		</if>
+		<if test=" null != insuranceTeamManagementProfit ">
+			and insurance_team_management_profit = #{insuranceTeamManagementProfit}
+		</if>
+		<if test=" null != avgFeeProfit ">
+			and avg_fee_profit = #{avgFeeProfit}
+		</if>
+		<if test=" null != createTime ">
+			and create_time = #{createTime}
+		</if>
+		<if test=" null != updateTime ">
+			and update_time = #{updateTime}
+		</if>
+		<if test=" null != operator and ''!= operator  ">
+			and operator = #{operator}
+		</if>
+		<if test=" null != sendOperator and ''!= sendOperator  ">
+			and send_operator = #{sendOperator}
+		</if>
+  </sql>
+  
+  <select id="selectOneByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.tc.fee.model.TCFeeSummary">
+		select <include refid="Base_Column_List" /> from tcim_feesummary 
+		where 1=1 <include refid="Base_Condition" />
+  </select>
+  
+  <select id="selectByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.tc.fee.model.TCFeeSummary">
+		select <include refid="Base_Column_List" /> from tcim_feesummary 
+		where 1=1 <include refid="Base_Condition" />
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tcim_feesummary
+    where  id = #{0}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tcim_feesummary
+    where id = #{0}
+  </delete>
+
+  <insert id="insert" parameterType="com.linkwee.tc.fee.model.TCFeeSummary" >
+    INSERT INTO tcim_feesummary
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != bizId and ''!= bizId  ">
+					biz_id,
+				</if>
+			 	<if test=" null != type ">
+					type,
+				</if>
+			 	<if test=" null != year and ''!= year  ">
+					year,
+				</if>
+			 	<if test=" null != moth and ''!= moth  ">
+					moth,
+				</if>
+			 	<if test=" null != quarter and ''!= quarter  ">
+					quarter,
+				</if>
+			 	<if test=" null != totalNumber ">
+					total_number,
+				</if>
+			 	<if test=" null != totalProfit ">
+					total_profit,
+				</if>
+			 	<if test=" null != feeProfitNumber ">
+					fee_profit_number,
+				</if>
+			 	<if test=" null != feeProfit ">
+					fee_profit,
+				</if>
+			 	<if test=" null != recommendProfitNumer ">
+					recommend_profit_numer,
+				</if>
+			 	<if test=" null != recommendProfit ">
+					recommend_profit,
+				</if>
+			 	<if test=" null != childManagementProfitNumber ">
+					child_management_profit_number,
+				</if>
+			 	<if test=" null != childManagementProfit ">
+					child_management_profit,
+				</if>
+			 	<if test=" null != teamManagementProfitNumer ">
+					team_management_profit_numer,
+				</if>
+			 	<if test=" null != teamManagementProfit ">
+					team_management_profit,
+				</if>
+			 	<if test=" null != feeProfitAdd ">
+					fee_profit_add,
+				</if>
+			 	<if test=" null != feeProfitAddNumber ">
+					fee_profit_add_number,
+				</if>
+			 	<if test=" null != recommendProfitAddNumer ">
+					recommend_profit_add_numer,
+				</if>
+			 	<if test=" null != recommendProfitAdd ">
+					recommend_profit_add,
+				</if>
+			 	<if test=" null != personFeeAddNumber ">
+					person_fee_add_number,
+				</if>
+			 	<if test=" null != personFeeAdd ">
+					person_fee_add,
+				</if>
+			 	<if test=" null != insuranceFeeProfitNumber ">
+					insurance_fee_profit_number,
+				</if>
+			 	<if test=" null != insuranceFeeProfit ">
+					insurance_fee_profit,
+				</if>
+			 	<if test=" null != insuranceRecommendProfitNumer ">
+					insurance_recommend_profit_numer,
+				</if>
+			 	<if test=" null != insuranceRecommendProfit ">
+					insurance_recommend_profit,
+				</if>
+			 	<if test=" null != insuranceChildManagementProfitNumber ">
+					insurance_child_management_profit_number,
+				</if>
+			 	<if test=" null != insuranceChildManagementProfit ">
+					insurance_child_management_profit,
+				</if>
+			 	<if test=" null != insuranceTeamManagementProfitNumer ">
+					insurance_team_management_profit_numer,
+				</if>
+			 	<if test=" null != insuranceTeamManagementProfit ">
+					insurance_team_management_profit,
+				</if>
+			 	<if test=" null != avgFeeProfit ">
+					avg_fee_profit,
+				</if>
+			 	<if test=" null != createTime ">
+					create_time,
+				</if>
+			 	<if test=" null != updateTime ">
+					update_time,
+				</if>
+			 	<if test=" null != operator and ''!= operator  ">
+					operator,
+				</if>
+			 	<if test=" null != sendOperator and ''!= sendOperator  ">
+					send_operator,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != bizId and ''!= bizId  ">
+					 	#{bizId},
+				</if>
+			 	<if test=" null != type ">
+					 	#{type},
+				</if>
+			 	<if test=" null != year and ''!= year  ">
+					 	#{year},
+				</if>
+			 	<if test=" null != moth and ''!= moth  ">
+					 	#{moth},
+				</if>
+			 	<if test=" null != quarter and ''!= quarter  ">
+					 	#{quarter},
+				</if>
+			 	<if test=" null != totalNumber ">
+					 	#{totalNumber},
+				</if>
+			 	<if test=" null != totalProfit ">
+					 	#{totalProfit},
+				</if>
+			 	<if test=" null != feeProfitNumber ">
+					 	#{feeProfitNumber},
+				</if>
+			 	<if test=" null != feeProfit ">
+					 	#{feeProfit},
+				</if>
+			 	<if test=" null != recommendProfitNumer ">
+					 	#{recommendProfitNumer},
+				</if>
+			 	<if test=" null != recommendProfit ">
+					 	#{recommendProfit},
+				</if>
+			 	<if test=" null != childManagementProfitNumber ">
+					 	#{childManagementProfitNumber},
+				</if>
+			 	<if test=" null != childManagementProfit ">
+					 	#{childManagementProfit},
+				</if>
+			 	<if test=" null != teamManagementProfitNumer ">
+					 	#{teamManagementProfitNumer},
+				</if>
+			 	<if test=" null != teamManagementProfit ">
+					 	#{teamManagementProfit},
+				</if>
+			 	<if test=" null != feeProfitAdd ">
+					 	#{feeProfitAdd},
+				</if>
+			 	<if test=" null != feeProfitAddNumber ">
+					 	#{feeProfitAddNumber},
+				</if>
+			 	<if test=" null != recommendProfitAddNumer ">
+					 	#{recommendProfitAddNumer},
+				</if>
+			 	<if test=" null != recommendProfitAdd ">
+					 	#{recommendProfitAdd},
+				</if>
+			 	<if test=" null != personFeeAddNumber ">
+					 	#{personFeeAddNumber},
+				</if>
+			 	<if test=" null != personFeeAdd ">
+					 	#{personFeeAdd},
+				</if>
+			 	<if test=" null != insuranceFeeProfitNumber ">
+					 	#{insuranceFeeProfitNumber},
+				</if>
+			 	<if test=" null != insuranceFeeProfit ">
+					 	#{insuranceFeeProfit},
+				</if>
+			 	<if test=" null != insuranceRecommendProfitNumer ">
+					 	#{insuranceRecommendProfitNumer},
+				</if>
+			 	<if test=" null != insuranceRecommendProfit ">
+					 	#{insuranceRecommendProfit},
+				</if>
+			 	<if test=" null != insuranceChildManagementProfitNumber ">
+					 	#{insuranceChildManagementProfitNumber},
+				</if>
+			 	<if test=" null != insuranceChildManagementProfit ">
+					 	#{insuranceChildManagementProfit},
+				</if>
+			 	<if test=" null != insuranceTeamManagementProfitNumer ">
+					 	#{insuranceTeamManagementProfitNumer},
+				</if>
+			 	<if test=" null != insuranceTeamManagementProfit ">
+					 	#{insuranceTeamManagementProfit},
+				</if>
+			 	<if test=" null != avgFeeProfit ">
+					 	#{avgFeeProfit},
+				</if>
+			 	<if test=" null != createTime ">
+					 	#{createTime},
+				</if>
+			 	<if test=" null != updateTime ">
+					 	#{updateTime},
+				</if>
+			 	<if test=" null != operator and ''!= operator  ">
+					 	#{operator},
+				</if>
+			 	<if test=" null != sendOperator and ''!= sendOperator  ">
+					 	#{sendOperator},
+				</if>
+		</trim>
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.linkwee.tc.fee.model.TCFeeSummary" useGeneratedKeys="true" keyProperty="id" >
+		INSERT INTO tcim_feesummary
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != bizId and ''!= bizId  ">
+					biz_id,
+				</if>
+			 	<if test=" null != type ">
+					type,
+				</if>
+			 	<if test=" null != year and ''!= year  ">
+					year,
+				</if>
+			 	<if test=" null != moth and ''!= moth  ">
+					moth,
+				</if>
+			 	<if test=" null != quarter and ''!= quarter  ">
+					quarter,
+				</if>
+			 	<if test=" null != totalNumber ">
+					total_number,
+				</if>
+			 	<if test=" null != totalProfit ">
+					total_profit,
+				</if>
+			 	<if test=" null != feeProfitNumber ">
+					fee_profit_number,
+				</if>
+			 	<if test=" null != feeProfit ">
+					fee_profit,
+				</if>
+			 	<if test=" null != recommendProfitNumer ">
+					recommend_profit_numer,
+				</if>
+			 	<if test=" null != recommendProfit ">
+					recommend_profit,
+				</if>
+			 	<if test=" null != childManagementProfitNumber ">
+					child_management_profit_number,
+				</if>
+			 	<if test=" null != childManagementProfit ">
+					child_management_profit,
+				</if>
+			 	<if test=" null != teamManagementProfitNumer ">
+					team_management_profit_numer,
+				</if>
+			 	<if test=" null != teamManagementProfit ">
+					team_management_profit,
+				</if>
+			 	<if test=" null != feeProfitAdd ">
+					fee_profit_add,
+				</if>
+			 	<if test=" null != feeProfitAddNumber ">
+					fee_profit_add_number,
+				</if>
+			 	<if test=" null != recommendProfitAddNumer ">
+					recommend_profit_add_numer,
+				</if>
+			 	<if test=" null != recommendProfitAdd ">
+					recommend_profit_add,
+				</if>
+			 	<if test=" null != personFeeAddNumber ">
+					person_fee_add_number,
+				</if>
+			 	<if test=" null != personFeeAdd ">
+					person_fee_add,
+				</if>
+			 	<if test=" null != insuranceFeeProfitNumber ">
+					insurance_fee_profit_number,
+				</if>
+			 	<if test=" null != insuranceFeeProfit ">
+					insurance_fee_profit,
+				</if>
+			 	<if test=" null != insuranceRecommendProfitNumer ">
+					insurance_recommend_profit_numer,
+				</if>
+			 	<if test=" null != insuranceRecommendProfit ">
+					insurance_recommend_profit,
+				</if>
+			 	<if test=" null != insuranceChildManagementProfitNumber ">
+					insurance_child_management_profit_number,
+				</if>
+			 	<if test=" null != insuranceChildManagementProfit ">
+					insurance_child_management_profit,
+				</if>
+			 	<if test=" null != insuranceTeamManagementProfitNumer ">
+					insurance_team_management_profit_numer,
+				</if>
+			 	<if test=" null != insuranceTeamManagementProfit ">
+					insurance_team_management_profit,
+				</if>
+			 	<if test=" null != avgFeeProfit ">
+					avg_fee_profit,
+				</if>
+			 	<if test=" null != createTime ">
+					create_time,
+				</if>
+			 	<if test=" null != updateTime ">
+					update_time,
+				</if>
+			 	<if test=" null != operator and ''!= operator  ">
+					operator,
+				</if>
+			 	<if test=" null != sendOperator and ''!= sendOperator  ">
+					send_operator,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != bizId and ''!= bizId  ">
+					 	#{bizId},
+				</if>
+			 	<if test=" null != type ">
+					 	#{type},
+				</if>
+			 	<if test=" null != year and ''!= year  ">
+					 	#{year},
+				</if>
+			 	<if test=" null != moth and ''!= moth  ">
+					 	#{moth},
+				</if>
+			 	<if test=" null != quarter and ''!= quarter  ">
+					 	#{quarter},
+				</if>
+			 	<if test=" null != totalNumber ">
+					 	#{totalNumber},
+				</if>
+			 	<if test=" null != totalProfit ">
+					 	#{totalProfit},
+				</if>
+			 	<if test=" null != feeProfitNumber ">
+					 	#{feeProfitNumber},
+				</if>
+			 	<if test=" null != feeProfit ">
+					 	#{feeProfit},
+				</if>
+			 	<if test=" null != recommendProfitNumer ">
+					 	#{recommendProfitNumer},
+				</if>
+			 	<if test=" null != recommendProfit ">
+					 	#{recommendProfit},
+				</if>
+			 	<if test=" null != childManagementProfitNumber ">
+					 	#{childManagementProfitNumber},
+				</if>
+			 	<if test=" null != childManagementProfit ">
+					 	#{childManagementProfit},
+				</if>
+			 	<if test=" null != teamManagementProfitNumer ">
+					 	#{teamManagementProfitNumer},
+				</if>
+			 	<if test=" null != teamManagementProfit ">
+					 	#{teamManagementProfit},
+				</if>
+			 	<if test=" null != feeProfitAdd ">
+					 	#{feeProfitAdd},
+				</if>
+			 	<if test=" null != feeProfitAddNumber ">
+					 	#{feeProfitAddNumber},
+				</if>
+			 	<if test=" null != recommendProfitAddNumer ">
+					 	#{recommendProfitAddNumer},
+				</if>
+			 	<if test=" null != recommendProfitAdd ">
+					 	#{recommendProfitAdd},
+				</if>
+			 	<if test=" null != personFeeAddNumber ">
+					 	#{personFeeAddNumber},
+				</if>
+			 	<if test=" null != personFeeAdd ">
+					 	#{personFeeAdd},
+				</if>
+			 	<if test=" null != insuranceFeeProfitNumber ">
+					 	#{insuranceFeeProfitNumber},
+				</if>
+			 	<if test=" null != insuranceFeeProfit ">
+					 	#{insuranceFeeProfit},
+				</if>
+			 	<if test=" null != insuranceRecommendProfitNumer ">
+					 	#{insuranceRecommendProfitNumer},
+				</if>
+			 	<if test=" null != insuranceRecommendProfit ">
+					 	#{insuranceRecommendProfit},
+				</if>
+			 	<if test=" null != insuranceChildManagementProfitNumber ">
+					 	#{insuranceChildManagementProfitNumber},
+				</if>
+			 	<if test=" null != insuranceChildManagementProfit ">
+					 	#{insuranceChildManagementProfit},
+				</if>
+			 	<if test=" null != insuranceTeamManagementProfitNumer ">
+					 	#{insuranceTeamManagementProfitNumer},
+				</if>
+			 	<if test=" null != insuranceTeamManagementProfit ">
+					 	#{insuranceTeamManagementProfit},
+				</if>
+			 	<if test=" null != avgFeeProfit ">
+					 	#{avgFeeProfit},
+				</if>
+			 	<if test=" null != createTime ">
+					 	#{createTime},
+				</if>
+			 	<if test=" null != updateTime ">
+					 	#{updateTime},
+				</if>
+			 	<if test=" null != operator and ''!= operator  ">
+					 	#{operator},
+				</if>
+			 	<if test=" null != sendOperator and ''!= sendOperator  ">
+					 	#{sendOperator},
+				</if>
+		</trim>
+	</insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.linkwee.tc.fee.model.TCFeeSummary" >
+  		UPDATE tcim_feesummary
+		<set>
+			<trim suffixOverrides=",">
+					<if test=" null != bizId and ''!= bizId  ">
+						biz_id = #{bizId},
+					</if>
+					<if test=" null != type ">
+						type = #{type},
+					</if>
+					<if test=" null != year and ''!= year  ">
+						year = #{year},
+					</if>
+					<if test=" null != moth and ''!= moth  ">
+						moth = #{moth},
+					</if>
+					<if test=" null != quarter and ''!= quarter  ">
+						quarter = #{quarter},
+					</if>
+					<if test=" null != totalNumber ">
+						total_number = #{totalNumber},
+					</if>
+					<if test=" null != totalProfit ">
+						total_profit = #{totalProfit},
+					</if>
+					<if test=" null != feeProfitNumber ">
+						fee_profit_number = #{feeProfitNumber},
+					</if>
+					<if test=" null != feeProfit ">
+						fee_profit = #{feeProfit},
+					</if>
+					<if test=" null != recommendProfitNumer ">
+						recommend_profit_numer = #{recommendProfitNumer},
+					</if>
+					<if test=" null != recommendProfit ">
+						recommend_profit = #{recommendProfit},
+					</if>
+					<if test=" null != childManagementProfitNumber ">
+						child_management_profit_number = #{childManagementProfitNumber},
+					</if>
+					<if test=" null != childManagementProfit ">
+						child_management_profit = #{childManagementProfit},
+					</if>
+					<if test=" null != teamManagementProfitNumer ">
+						team_management_profit_numer = #{teamManagementProfitNumer},
+					</if>
+					<if test=" null != teamManagementProfit ">
+						team_management_profit = #{teamManagementProfit},
+					</if>
+					<if test=" null != feeProfitAdd ">
+						fee_profit_add = #{feeProfitAdd},
+					</if>
+					<if test=" null != feeProfitAddNumber ">
+						fee_profit_add_number = #{feeProfitAddNumber},
+					</if>
+					<if test=" null != recommendProfitAddNumer ">
+						recommend_profit_add_numer = #{recommendProfitAddNumer},
+					</if>
+					<if test=" null != recommendProfitAdd ">
+						recommend_profit_add = #{recommendProfitAdd},
+					</if>
+					<if test=" null != personFeeAddNumber ">
+						person_fee_add_number = #{personFeeAddNumber},
+					</if>
+					<if test=" null != personFeeAdd ">
+						person_fee_add = #{personFeeAdd},
+					</if>
+					<if test=" null != insuranceFeeProfitNumber ">
+						insurance_fee_profit_number = #{insuranceFeeProfitNumber},
+					</if>
+					<if test=" null != insuranceFeeProfit ">
+						insurance_fee_profit = #{insuranceFeeProfit},
+					</if>
+					<if test=" null != insuranceRecommendProfitNumer ">
+						insurance_recommend_profit_numer = #{insuranceRecommendProfitNumer},
+					</if>
+					<if test=" null != insuranceRecommendProfit ">
+						insurance_recommend_profit = #{insuranceRecommendProfit},
+					</if>
+					<if test=" null != insuranceChildManagementProfitNumber ">
+						insurance_child_management_profit_number = #{insuranceChildManagementProfitNumber},
+					</if>
+					<if test=" null != insuranceChildManagementProfit ">
+						insurance_child_management_profit = #{insuranceChildManagementProfit},
+					</if>
+					<if test=" null != insuranceTeamManagementProfitNumer ">
+						insurance_team_management_profit_numer = #{insuranceTeamManagementProfitNumer},
+					</if>
+					<if test=" null != insuranceTeamManagementProfit ">
+						insurance_team_management_profit = #{insuranceTeamManagementProfit},
+					</if>
+					<if test=" null != avgFeeProfit ">
+						avg_fee_profit = #{avgFeeProfit},
+					</if>
+					<if test=" null != createTime ">
+						create_time = #{createTime},
+					</if>
+					<if test=" null != updateTime ">
+						update_time = #{updateTime},
+					</if>
+					<if test=" null != operator and ''!= operator  ">
+						operator = #{operator},
+					</if>
+					<if test=" null != sendOperator and ''!= sendOperator  ">
+						send_operator = #{sendOperator},
+					</if>
+			</trim>
+		</set>
+		<where>
+			 id = #{id}
+		</where>
+	</update>
+  
+	<update id="updateByPrimaryKey" parameterType="com.linkwee.tc.fee.model.TCFeeSummary" >
+	    UPDATE tcim_feesummary
+	   <set>
+			<trim suffixOverrides=",">
+					<if test=" null != bizId and ''!= bizId  ">
+						biz_id = #{bizId},
+					</if>
+					<if test=" null != type ">
+						type = #{type},
+					</if>
+					<if test=" null != year and ''!= year  ">
+						year = #{year},
+					</if>
+					<if test=" null != moth and ''!= moth  ">
+						moth = #{moth},
+					</if>
+					<if test=" null != quarter and ''!= quarter  ">
+						quarter = #{quarter},
+					</if>
+					<if test=" null != totalNumber ">
+						total_number = #{totalNumber},
+					</if>
+					<if test=" null != totalProfit ">
+						total_profit = #{totalProfit},
+					</if>
+					<if test=" null != feeProfitNumber ">
+						fee_profit_number = #{feeProfitNumber},
+					</if>
+					<if test=" null != feeProfit ">
+						fee_profit = #{feeProfit},
+					</if>
+					<if test=" null != recommendProfitNumer ">
+						recommend_profit_numer = #{recommendProfitNumer},
+					</if>
+					<if test=" null != recommendProfit ">
+						recommend_profit = #{recommendProfit},
+					</if>
+					<if test=" null != childManagementProfitNumber ">
+						child_management_profit_number = #{childManagementProfitNumber},
+					</if>
+					<if test=" null != childManagementProfit ">
+						child_management_profit = #{childManagementProfit},
+					</if>
+					<if test=" null != teamManagementProfitNumer ">
+						team_management_profit_numer = #{teamManagementProfitNumer},
+					</if>
+					<if test=" null != teamManagementProfit ">
+						team_management_profit = #{teamManagementProfit},
+					</if>
+					<if test=" null != feeProfitAdd ">
+						fee_profit_add = #{feeProfitAdd},
+					</if>
+					<if test=" null != feeProfitAddNumber ">
+						fee_profit_add_number = #{feeProfitAddNumber},
+					</if>
+					<if test=" null != recommendProfitAddNumer ">
+						recommend_profit_add_numer = #{recommendProfitAddNumer},
+					</if>
+					<if test=" null != recommendProfitAdd ">
+						recommend_profit_add = #{recommendProfitAdd},
+					</if>
+					<if test=" null != personFeeAddNumber ">
+						person_fee_add_number = #{personFeeAddNumber},
+					</if>
+					<if test=" null != personFeeAdd ">
+						person_fee_add = #{personFeeAdd},
+					</if>
+					<if test=" null != insuranceFeeProfitNumber ">
+						insurance_fee_profit_number = #{insuranceFeeProfitNumber},
+					</if>
+					<if test=" null != insuranceFeeProfit ">
+						insurance_fee_profit = #{insuranceFeeProfit},
+					</if>
+					<if test=" null != insuranceRecommendProfitNumer ">
+						insurance_recommend_profit_numer = #{insuranceRecommendProfitNumer},
+					</if>
+					<if test=" null != insuranceRecommendProfit ">
+						insurance_recommend_profit = #{insuranceRecommendProfit},
+					</if>
+					<if test=" null != insuranceChildManagementProfitNumber ">
+						insurance_child_management_profit_number = #{insuranceChildManagementProfitNumber},
+					</if>
+					<if test=" null != insuranceChildManagementProfit ">
+						insurance_child_management_profit = #{insuranceChildManagementProfit},
+					</if>
+					<if test=" null != insuranceTeamManagementProfitNumer ">
+						insurance_team_management_profit_numer = #{insuranceTeamManagementProfitNumer},
+					</if>
+					<if test=" null != insuranceTeamManagementProfit ">
+						insurance_team_management_profit = #{insuranceTeamManagementProfit},
+					</if>
+					<if test=" null != avgFeeProfit ">
+						avg_fee_profit = #{avgFeeProfit},
+					</if>
+					<if test=" null != createTime ">
+						create_time = #{createTime},
+					</if>
+					<if test=" null != updateTime ">
+						update_time = #{updateTime},
+					</if>
+					<if test=" null != operator and ''!= operator  ">
+						operator = #{operator},
+					</if>
+					<if test=" null != sendOperator and ''!= sendOperator  ">
+						send_operator = #{sendOperator},
+					</if>
+			</trim>
+		</set>
+		<where>
+			id = #{0}
+		</where>
+	  </update>
+
+	<!-- 分页条件查询 -->
+    <select id="selectBySearchInfo" resultMap="BaseResultMap" parameterType="com.linkwee.core.datatable.DataTable">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM tcim_feesummary
+        <where> 
+        <if test="dt.search!=null">  
+                name LIKE CONCAT('%','${dt.search.value}','%' )  
+         </if>  
+         <if test="dt.order!=null">  
+               <foreach collection="dt.order" index="index" item="item"
+                    open="order by" separator="," close=" ">
+                    ${item.name} ${item.dir} 
+                </foreach>
+         </if>  
+        </where>
+    </select>
+
+	<!-- 
+	 * 更新统计状态
+	 * @param bizId 业务编号
+	 * @param operator 操作人
+	 -->
+	<update id="updateFeesummaryTypeBybizId" >
+		 UPDATE tcim_feesummary
+	   <set>
+			type = 0,update_time = now(),send_operator = #{operator}
+		</set>
+		<where>
+			biz_id = #{bizId} AND type = 1
+		</where>
+	</update>
+
+
+</mapper>

@@ -1,0 +1,105 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>linkweeDemo</groupId>
+  <artifactId>linkwee-openapi-demo</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  
+  <name>linkwee-openapi-demo</name>
+  <url>http://maven.apache.org</url>
+
+  <properties>
+       <!-- base setting -->
+       <project.build.locales>zh_CN</project.build.locales>
+       <project.build.jdk>1.7</project.build.jdk>
+       <!-- lib versions -->
+       <junit.version>4.11</junit.version>
+       <slf4j.version>1.6.6</slf4j.version>
+       <log4j.version>1.2.17</log4j.version>
+       <commons-lang.version>2.6</commons-lang.version>
+       <fastjson.version>1.2.8</fastjson.version>
+       <httpclient.version>4.1.2</httpclient.version>
+       <servlet.version>3.0.1</servlet.version>
+       <commons-collections.version>3.2.1</commons-collections.version>
+       <plugin.maven-compiler>3.1</plugin.maven-compiler>
+       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <dependencies>
+      
+    <!-- 通用工具包,比如常用的StringUtils.isNotBlank -->
+	<dependency>
+		<groupId>commons-lang</groupId>
+		<artifactId>commons-lang</artifactId>
+		<version>${commons-lang.version}</version>
+		<type>jar</type>
+		<scope>compile</scope>
+	</dependency>
+		<dependency>
+		<groupId>commons-collections</groupId>
+		<artifactId>commons-collections</artifactId>
+		<version>3.2.1</version>
+	</dependency>
+ 	<!-- log start -->
+	<dependency>
+		<groupId>log4j</groupId>
+		<artifactId>log4j</artifactId>
+		<version>${log4j.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.slf4j</groupId>
+		<artifactId>slf4j-api</artifactId>
+		<version>${slf4j.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.slf4j</groupId>
+		<artifactId>slf4j-log4j12</artifactId>
+		<version>${slf4j.version}</version>
+	</dependency>
+	<!-- log end -->
+	
+	<!-- json -->
+	<dependency>
+	    <groupId>com.alibaba</groupId>
+	    <artifactId>fastjson</artifactId>
+	    <version>${fastjson.version}</version>
+	</dependency>
+	
+	<!-- http://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
+	<dependency>
+	    <groupId>org.apache.httpcomponents</groupId>
+	    <artifactId>httpclient</artifactId>
+	    <version>${httpclient.version}</version>
+	</dependency>
+	
+	<!-- junit -->
+	<dependency>
+		<groupId>junit</groupId>
+		<artifactId>junit</artifactId>
+		<version>${junit.version}</version>
+	</dependency>
+	
+	<dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>javax.servlet-api</artifactId>
+      <version>${servlet.version}</version>
+    </dependency>
+  </dependencies>
+  
+	<build>
+		<plugins>
+		<!--Maven编译插件 配置 -->
+		<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-compiler-plugin</artifactId>
+			<version>${plugin.maven-compiler}</version>
+			<configuration>
+				<source>${project.build.jdk}</source>
+				<target>${project.build.jdk}</target>
+				<encoding>${project.build.sourceEncoding}</encoding>
+			</configuration>
+		</plugin>
+		</plugins>
+	</build>
+</project>

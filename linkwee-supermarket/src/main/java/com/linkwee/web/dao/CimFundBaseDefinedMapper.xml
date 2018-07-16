@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.CimFundBaseDefinedMapper">
+	<!-- Result Map-->
+	<resultMap  type="com.linkwee.web.model.CimFundBaseDefined" id="BaseResultMap">
+		<result column="id" property="id" jdbcType="INTEGER"/>
+		<result column="org_number" property="orgNumber" jdbcType="VARCHAR"/>
+		<result column="fund_type" property="fundType" jdbcType="VARCHAR"/>
+		<result column="fund_type_name" property="fundTypeName" jdbcType="VARCHAR"/>
+		<result column="fund_type_key" property="fundTypeKey" jdbcType="VARCHAR"/>
+		<result column="fund_type_value" property="fundTypeValue" jdbcType="VARCHAR"/>
+		<result column="del_status" property="delStatus" jdbcType="INTEGER"/>
+	</resultMap>
+	
+  <sql id="Base_Column_List">
+    <trim suffixOverrides=",">
+	    	id,
+	    	org_number,
+	    	fund_type,
+	    	fund_type_name,
+	    	fund_type_key,
+	    	fund_type_value,
+	    	del_status,
+    </trim>
+  </sql>
+  
+ <sql id="Base_Column_List_T">
+    <trim suffixOverrides=",">
+	    	t.id,
+	    	t.org_number,
+	    	t.fund_type,
+	    	t.fund_type_name,
+	    	t.fund_type_key,
+	    	t.fund_type_value,
+	    	t.del_status,
+    </trim>
+  </sql>  
+  
+  <sql id="Base_Condition">
+		<if test=" null != id ">
+			and id = #{id}
+		</if>
+		<if test=" null != orgNumber and ''!= orgNumber  ">
+			and org_number = #{orgNumber}
+		</if>
+		<if test=" null != fundType and ''!= fundType  ">
+			and fund_type = #{fundType}
+		</if>
+		<if test=" null != fundTypeName and ''!= fundTypeName  ">
+			and fund_type_name = #{fundTypeName}
+		</if>
+		<if test=" null != fundTypeKey and ''!= fundTypeKey  ">
+			and fund_type_key = #{fundTypeKey}
+		</if>
+		<if test=" null != fundTypeValue and ''!= fundTypeValue  ">
+			and fund_type_value = #{fundTypeValue}
+		</if>
+		<if test=" null != delStatus ">
+			and del_status = #{delStatus}
+		</if>
+  </sql>
+  
+  <select id="selectOneByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.web.model.CimFundBaseDefined">
+		select <include refid="Base_Column_List" /> from tcim_fund_base_defined 
+		where 1=1 <include refid="Base_Condition" />
+  </select>
+  
+  <select id="selectByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.web.model.CimFundBaseDefined">
+		select <include refid="Base_Column_List" /> from tcim_fund_base_defined 
+		where 1=1 <include refid="Base_Condition" />
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tcim_fund_base_defined
+    where  id = #{0}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tcim_fund_base_defined
+    where id = #{0}
+  </delete>
+
+  <insert id="insert" parameterType="com.linkwee.web.model.CimFundBaseDefined" >
+    INSERT INTO tcim_fund_base_defined
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != orgNumber and ''!= orgNumber  ">
+					org_number,
+				</if>
+			 	<if test=" null != fundType and ''!= fundType  ">
+					fund_type,
+				</if>
+			 	<if test=" null != fundTypeName and ''!= fundTypeName  ">
+					fund_type_name,
+				</if>
+			 	<if test=" null != fundTypeKey and ''!= fundTypeKey  ">
+					fund_type_key,
+				</if>
+			 	<if test=" null != fundTypeValue and ''!= fundTypeValue  ">
+					fund_type_value,
+				</if>
+			 	<if test=" null != delStatus ">
+					del_status,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != orgNumber and ''!= orgNumber  ">
+					 	#{orgNumber},
+				</if>
+			 	<if test=" null != fundType and ''!= fundType  ">
+					 	#{fundType},
+				</if>
+			 	<if test=" null != fundTypeName and ''!= fundTypeName  ">
+					 	#{fundTypeName},
+				</if>
+			 	<if test=" null != fundTypeKey and ''!= fundTypeKey  ">
+					 	#{fundTypeKey},
+				</if>
+			 	<if test=" null != fundTypeValue and ''!= fundTypeValue  ">
+					 	#{fundTypeValue},
+				</if>
+			 	<if test=" null != delStatus ">
+					 	#{delStatus},
+				</if>
+		</trim>
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.linkwee.web.model.CimFundBaseDefined" useGeneratedKeys="true" keyProperty="id" >
+		INSERT INTO tcim_fund_base_defined
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != orgNumber and ''!= orgNumber  ">
+					org_number,
+				</if>
+			 	<if test=" null != fundType and ''!= fundType  ">
+					fund_type,
+				</if>
+			 	<if test=" null != fundTypeName and ''!= fundTypeName  ">
+					fund_type_name,
+				</if>
+			 	<if test=" null != fundTypeKey and ''!= fundTypeKey  ">
+					fund_type_key,
+				</if>
+			 	<if test=" null != fundTypeValue and ''!= fundTypeValue  ">
+					fund_type_value,
+				</if>
+			 	<if test=" null != delStatus ">
+					del_status,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != orgNumber and ''!= orgNumber  ">
+					 	#{orgNumber},
+				</if>
+			 	<if test=" null != fundType and ''!= fundType  ">
+					 	#{fundType},
+				</if>
+			 	<if test=" null != fundTypeName and ''!= fundTypeName  ">
+					 	#{fundTypeName},
+				</if>
+			 	<if test=" null != fundTypeKey and ''!= fundTypeKey  ">
+					 	#{fundTypeKey},
+				</if>
+			 	<if test=" null != fundTypeValue and ''!= fundTypeValue  ">
+					 	#{fundTypeValue},
+				</if>
+			 	<if test=" null != delStatus ">
+					 	#{delStatus},
+				</if>
+		</trim>
+	</insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.linkwee.web.model.CimFundBaseDefined" >
+  		UPDATE tcim_fund_base_defined
+		<set>
+			<trim suffixOverrides=",">
+					<if test=" null != orgNumber and ''!= orgNumber  ">
+						org_number = #{orgNumber},
+					</if>
+					<if test=" null != fundType and ''!= fundType  ">
+						fund_type = #{fundType},
+					</if>
+					<if test=" null != fundTypeName and ''!= fundTypeName  ">
+						fund_type_name = #{fundTypeName},
+					</if>
+					<if test=" null != fundTypeKey and ''!= fundTypeKey  ">
+						fund_type_key = #{fundTypeKey},
+					</if>
+					<if test=" null != fundTypeValue and ''!= fundTypeValue  ">
+						fund_type_value = #{fundTypeValue},
+					</if>
+					<if test=" null != delStatus ">
+						del_status = #{delStatus},
+					</if>
+			</trim>
+		</set>
+		<where>
+			 id = #{id}
+		</where>
+	</update>
+  
+	<update id="updateByPrimaryKey" parameterType="com.linkwee.web.model.CimFundBaseDefined" >
+	    UPDATE tcim_fund_base_defined
+	   <set>
+			<trim suffixOverrides=",">
+					<if test=" null != orgNumber and ''!= orgNumber  ">
+						org_number = #{orgNumber},
+					</if>
+					<if test=" null != fundType and ''!= fundType  ">
+						fund_type = #{fundType},
+					</if>
+					<if test=" null != fundTypeName and ''!= fundTypeName  ">
+						fund_type_name = #{fundTypeName},
+					</if>
+					<if test=" null != fundTypeKey and ''!= fundTypeKey  ">
+						fund_type_key = #{fundTypeKey},
+					</if>
+					<if test=" null != fundTypeValue and ''!= fundTypeValue  ">
+						fund_type_value = #{fundTypeValue},
+					</if>
+					<if test=" null != delStatus ">
+						del_status = #{delStatus},
+					</if>
+			</trim>
+		</set>
+		<where>
+			id = #{0}
+		</where>
+	  </update>
+
+	<!-- 分页条件查询 -->
+    <select id="selectBySearchInfo" resultMap="BaseResultMap" parameterType="com.linkwee.core.datatable.DataTable">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM tcim_fund_base_defined
+        <where> 
+        <if test="dt.search!=null">  
+                name LIKE CONCAT('%','${dt.search.value}','%' )  
+         </if>  
+         <if test="dt.order!=null">  
+               <foreach collection="dt.order" index="index" item="item"
+                    open="order by" separator="," close=" ">
+                    ${item.name} ${item.dir} 
+                </foreach>
+         </if>  
+        </where>
+    </select>
+
+</mapper>

@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.product.dao.ProductStatisticsDao">
+<parameterMap type="com.linkwee.web.model.product.ProductStatistics" id="ProductStatisticsParameterMap" />	
+<!-- Result Map-->
+<resultMap  type="com.linkwee.web.model.product.ProductStatistics" id="ProductStatisticsResultMap">
+	<result column="f_id" property="id" jdbcType="INTEGER"/>
+	<result column="f_product_id" property="productId" jdbcType="VARCHAR"/>
+	<result column="f_collect_finish_time" property="collectFinishTime" jdbcType="TIMESTAMP"/>
+	<result column="f_buyed_total_money" property="buyedTotalMoney" jdbcType="DECIMAL"/>
+	<result column="f_rema_money" property="remaMoney" jdbcType="DECIMAL"/>
+	<result column="f_buyed_total_people" property="buyedTotalPeople" jdbcType="INTEGER"/>
+	<result column="f_create_time" property="createTime" jdbcType="TIMESTAMP"/>
+	<result column="f_update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+</resultMap>
+  <sql id="Base_Column_List">
+    <trim suffixOverrides=",">
+	    	f_id,
+	    	f_product_id,
+	    	f_collect_finish_time,
+	    	f_buyed_total_money,
+	    	f_rema_money,
+	    	f_buyed_total_people,
+	    	f_create_time,
+	    	f_update_time,
+    </trim>
+  </sql>  
+  
+   <sql id="Base_Column_List_T">
+    <trim suffixOverrides=",">
+	    	t.f_id,
+	    	t.f_product_id,
+	    	t.f_collect_finish_time,
+	    	t.f_buyed_total_money,
+	    	t.f_rema_money,
+	    	t.f_buyed_total_people,
+	    	t.f_create_time,
+	    	t.f_update_time,
+    </trim>
+  </sql> 
+  	
+  <select id="getByPrimaryKey"  resultMap="ProductStatisticsResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_product_statistics where  f_id = #{0}
+  </select>	
+
+  <delete id="deleteByPrimaryKey" >
+    delete from t_product_statistics
+	<where>
+		f_id = #{0}
+	</where>
+  </delete>
+  
+  
+  <insert id="add" parameterMap="ProductStatisticsParameterMap" useGeneratedKeys="true" keyProperty="id" >
+		INSERT INTO t_product_statistics
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					f_id,
+				</if>
+			 	<if test=" null != productId and ''!= productId  ">
+					f_product_id,
+				</if>
+			 	<if test=" null != collectFinishTime ">
+					f_collect_finish_time,
+				</if>
+			 	<if test=" null != buyedTotalMoney ">
+					f_buyed_total_money,
+				</if>
+			 	<if test=" null != remaMoney ">
+					f_rema_money,
+				</if>
+			 	<if test=" null != buyedTotalPeople ">
+					f_buyed_total_people,
+				</if>
+			 	<if test=" null != createTime ">
+					f_create_time,
+				</if>
+			 	<if test=" null != updateTime ">
+					f_update_time,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != productId and ''!= productId  ">
+					 	#{productId},
+				</if>
+			 	<if test=" null != collectFinishTime ">
+					 	#{collectFinishTime},
+				</if>
+			 	<if test=" null != buyedTotalMoney ">
+					 	#{buyedTotalMoney},
+				</if>
+			 	<if test=" null != remaMoney ">
+					 	#{remaMoney},
+				</if>
+			 	<if test=" null != buyedTotalPeople ">
+					 	#{buyedTotalPeople},
+				</if>
+			 	<if test=" null != createTime ">
+					 	#{createTime},
+				</if>
+			 	<if test=" null != updateTime ">
+					 	#{updateTime},
+				</if>
+		</trim>
+	</insert>
+  
+  
+  <update id="update" parameterMap="ProductStatisticsParameterMap">
+		UPDATE t_product_statistics
+		<set>
+			<trim suffixOverrides=",">
+					<if test=" null != collectFinishTime ">
+						f_collect_finish_time = #{collectFinishTime},
+					</if>
+					<if test=" null != buyedTotalMoney ">
+						f_buyed_total_money = #{buyedTotalMoney},
+					</if>
+					<if test=" null != remaMoney ">
+						f_rema_money = #{remaMoney},
+					</if>
+					<if test=" null != buyedTotalPeople ">
+						f_buyed_total_people = #{buyedTotalPeople},
+					</if>
+					<if test=" null != createTime ">
+						f_create_time = #{createTime},
+					</if>
+					<if test=" null != updateTime ">
+						f_update_time = #{updateTime},
+					</if>
+			</trim>
+		</set>
+		<where>
+			 f_product_id = #{productId}
+		</where>
+	</update>
+  
+  
+   <update id="updateWithEmpty" parameterMap="ProductStatisticsParameterMap">
+		UPDATE t_product_statistics
+		<set>
+			<trim suffixOverrides=",">
+						f_product_id = #{productId},
+						f_collect_finish_time = #{collectFinishTime},
+						f_buyed_total_money = #{buyedTotalMoney},
+						f_rema_money = #{remaMoney},
+						f_buyed_total_people = #{buyedTotalPeople},
+						f_create_time = #{createTime},
+						f_update_time = #{updateTime},
+			</trim>
+		</set>
+		<where>
+			 f_id = #{id}
+		</where>
+	</update>
+
+  <insert id="addBatch" parameterType="java.util.List">
+	insert into t_product_statistics 
+	<trim prefix="(" suffix=")" >
+			<include refid="Base_Column_List" />
+	</trim>
+	VALUES
+	<foreach item="item" index="index" collection="list" separator=",">
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+				#{item.id,jdbcType=INTEGER},
+				#{item.productId,jdbcType=VARCHAR},
+				#{item.collectFinishTime,jdbcType=TIMESTAMP},
+				#{item.buyedTotalMoney,jdbcType=DECIMAL},
+				#{item.remaMoney,jdbcType=DECIMAL},
+				#{item.buyedTotalPeople,jdbcType=INTEGER},
+				#{item.createTime,jdbcType=TIMESTAMP},
+				#{item.updateTime,jdbcType=TIMESTAMP},
+		</trim>
+	</foreach>
+</insert>
+
+ 
+<update id="updateBatch" parameterType="java.util.List">
+      <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update t_product_statistics
+            <set>
+              	<trim suffixOverrides=",">
+					   <if test="item.productId!=null and ''!= item.productId  ">
+					        f_product_id = #{item.productId,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.collectFinishTime!=null ">
+					        f_collect_finish_time = #{item.collectFinishTime,jdbcType=TIMESTAMP},
+					   </if>
+					   <if test="item.buyedTotalMoney!=null ">
+					        f_buyed_total_money = #{item.buyedTotalMoney,jdbcType=DECIMAL},
+					   </if>
+					   <if test="item.remaMoney!=null ">
+					        f_rema_money = #{item.remaMoney,jdbcType=DECIMAL},
+					   </if>
+					   <if test="item.buyedTotalPeople!=null ">
+					        f_buyed_total_people = #{item.buyedTotalPeople,jdbcType=INTEGER},
+					   </if>
+					   <if test="item.createTime!=null ">
+					        f_create_time = #{item.createTime,jdbcType=TIMESTAMP},
+					   </if>
+					   <if test="item.updateTime!=null ">
+					        f_update_time = #{item.updateTime,jdbcType=TIMESTAMP},
+					   </if>
+			   </trim>
+            </set>
+             where f_id = #{item.id}
+     </foreach>
+</update>
+
+<update id="updateBatchWithEmpty" parameterType="java.util.List">
+      <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update t_product_statistics
+            <set>
+              	<trim suffixOverrides=",">
+					        f_product_id = #{item.productId,jdbcType=VARCHAR},
+					        f_collect_finish_time = #{item.collectFinishTime,jdbcType=TIMESTAMP},
+					        f_buyed_total_money = #{item.buyedTotalMoney,jdbcType=DECIMAL},
+					        f_rema_money = #{item.remaMoney,jdbcType=DECIMAL},
+					        f_buyed_total_people = #{item.buyedTotalPeople,jdbcType=INTEGER},
+					        f_create_time = #{item.createTime,jdbcType=TIMESTAMP},
+					        f_update_time = #{item.updateTime,jdbcType=TIMESTAMP},
+			   </trim>
+            </set>
+             where f_id = #{item.id}
+     </foreach>
+</update>         
+
+<delete id="deleteBatch" parameterType="Object">
+	DELETE FROM t_product_statistics
+	<where>
+		<foreach item="item" index="index" collection="array"  open="(" separator="or" close=") ">
+			  f_id  = #{item}
+		</foreach>
+	</where>
+</delete>
+    
+ <sql id="Base_Condition">
+		   <if test=" null != id ">
+				AND	T.f_id = #{id}
+		</if>
+		   <if test=" null != productId and ''!= productId  ">
+				AND	T.f_product_id = #{productId}
+		</if>
+		   <if test=" null != collectFinishTime ">
+				AND	T.f_collect_finish_time = #{collectFinishTime}
+		</if>
+		   <if test=" null != buyedTotalMoney ">
+				AND	T.f_buyed_total_money = #{buyedTotalMoney}
+		</if>
+		   <if test=" null != remaMoney ">
+				AND	T.f_rema_money = #{remaMoney}
+		</if>
+		   <if test=" null != buyedTotalPeople ">
+				AND	T.f_buyed_total_people = #{buyedTotalPeople}
+		</if>
+		   <if test=" null != createTime ">
+				AND	T.f_create_time = #{createTime}
+		</if>
+		   <if test=" null != updateTime ">
+				AND	T.f_update_time = #{updateTime}
+		</if>
+ </sql>    
+<select id="list" resultMap="ProductStatisticsResultMap"  >
+		SELECT <include refid="Base_Column_List" /> FROM t_product_statistics T WHERE 1=1
+		<include refid="Base_Condition" />
+</select>
+
+<select id="query" resultMap="ProductStatisticsResultMap"  >
+		SELECT <include refid="Base_Column_List" /> FROM t_product_statistics T WHERE 1=1
+		<include refid="Base_Condition" />
+</select>
+<select id="queryProRemaining" resultType="double"> 
+select f_rema_money from t_product_statistics t where t.f_product_id = #{productId}
+</select>
+
+<select id="queryBuyedAmountByProId" resultMap="ProductStatisticsResultMap">
+	SELECT
+	SUM(t.f_invest_amt) f_buyed_total_money,
+	count( DISTINCT t.f_invest_id) f_buyed_total_people
+	FROM
+		t_fixed_invest_record t
+	WHERE
+		t.f_product_id = #{productId}
+	AND t.f_status = 2
+</select>
+
+</mapper>

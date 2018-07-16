@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.ActAddFeeCouponUseDetailMapper">
+	<!-- Result Map-->
+	<resultMap  type="com.linkwee.web.model.ActAddFeeCouponUseDetail" id="BaseResultMap">
+		<result column="id" property="id" jdbcType="INTEGER"/>
+		<result column="user_id" property="userId" jdbcType="VARCHAR"/>
+		<result column="coupon_id" property="couponId" jdbcType="VARCHAR"/>
+		<result column="invest_id" property="investId" jdbcType="VARCHAR"/>
+		<result column="fee_amount" property="feeAmount" jdbcType="DECIMAL"/>
+		<result column="fee_rate" property="feeRate" jdbcType="DECIMAL"/>
+		<result column="coupon_type" property="couponType" jdbcType="INTEGER"/>
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+		<result column="extends1" property="extends1" jdbcType="VARCHAR"/>
+		<result column="extends2" property="extends2" jdbcType="VARCHAR"/>
+		<result column="extends3" property="extends3" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+  <sql id="Base_Column_List">
+    <trim suffixOverrides=",">
+	    	id,
+	    	user_id,
+	    	coupon_id,
+	    	invest_id,
+	    	fee_amount,
+	    	fee_rate,
+	    	coupon_type,
+	    	create_time,
+	    	extends1,
+	    	extends2,
+	    	extends3,
+    </trim>
+  </sql>
+  
+ <sql id="Base_Column_List_T">
+    <trim suffixOverrides=",">
+	    	t.id,
+	    	t.user_id,
+	    	t.coupon_id,
+	    	t.invest_id,
+	    	t.fee_amount,
+	    	t.fee_rate,
+	    	t.coupon_type,
+	    	t.create_time,
+	    	t.extends1,
+	    	t.extends2,
+	    	t.extends3,
+    </trim>
+  </sql>  
+  
+  <sql id="Base_Condition">
+		<if test=" null != id ">
+			and id = #{id}
+		</if>
+		<if test=" null != userId and ''!= userId  ">
+			and user_id = #{userId}
+		</if>
+		<if test=" null != couponId and ''!= couponId  ">
+			and coupon_id = #{couponId}
+		</if>
+		<if test=" null != investId and ''!= investId  ">
+			and invest_id = #{investId}
+		</if>
+		<if test=" null != feeAmount ">
+			and fee_amount = #{feeAmount}
+		</if>
+		<if test=" null != feeRate ">
+			and fee_rate = #{feeRate}
+		</if>
+		<if test=" null != couponType ">
+			and coupon_type = #{couponType}
+		</if>
+		<if test=" null != createTime ">
+			and create_time = #{createTime}
+		</if>
+		<if test=" null != extends1 and ''!= extends1  ">
+			and extends1 = #{extends1}
+		</if>
+		<if test=" null != extends2 and ''!= extends2  ">
+			and extends2 = #{extends2}
+		</if>
+		<if test=" null != extends3 and ''!= extends3  ">
+			and extends3 = #{extends3}
+		</if>
+  </sql>
+  
+  <select id="selectOneByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.web.model.ActAddFeeCouponUseDetail">
+		select <include refid="Base_Column_List" /> from tact_add_fee_coupon_use_detail 
+		where 1=1 <include refid="Base_Condition" />
+  </select>
+  
+  <select id="selectByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.web.model.ActAddFeeCouponUseDetail">
+		select <include refid="Base_Column_List" /> from tact_add_fee_coupon_use_detail 
+		where 1=1 <include refid="Base_Condition" />
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tact_add_fee_coupon_use_detail
+    where  id = #{0}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tact_add_fee_coupon_use_detail
+    where id = #{0}
+  </delete>
+
+  <insert id="insert" parameterType="com.linkwee.web.model.ActAddFeeCouponUseDetail" >
+    INSERT INTO tact_add_fee_coupon_use_detail
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != userId and ''!= userId  ">
+					user_id,
+				</if>
+			 	<if test=" null != couponId and ''!= couponId  ">
+					coupon_id,
+				</if>
+			 	<if test=" null != investId and ''!= investId  ">
+					invest_id,
+				</if>
+			 	<if test=" null != feeAmount ">
+					fee_amount,
+				</if>
+			 	<if test=" null != feeRate ">
+					fee_rate,
+				</if>
+			 	<if test=" null != couponType ">
+					coupon_type,
+				</if>
+			 	<if test=" null != createTime ">
+					create_time,
+				</if>
+			 	<if test=" null != extends1 and ''!= extends1  ">
+					extends1,
+				</if>
+			 	<if test=" null != extends2 and ''!= extends2  ">
+					extends2,
+				</if>
+			 	<if test=" null != extends3 and ''!= extends3  ">
+					extends3,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != userId and ''!= userId  ">
+					 	#{userId},
+				</if>
+			 	<if test=" null != couponId and ''!= couponId  ">
+					 	#{couponId},
+				</if>
+			 	<if test=" null != investId and ''!= investId  ">
+					 	#{investId},
+				</if>
+			 	<if test=" null != feeAmount ">
+					 	#{feeAmount},
+				</if>
+			 	<if test=" null != feeRate ">
+					 	#{feeRate},
+				</if>
+			 	<if test=" null != couponType ">
+					 	#{couponType},
+				</if>
+			 	<if test=" null != createTime ">
+					 	#{createTime},
+				</if>
+			 	<if test=" null != extends1 and ''!= extends1  ">
+					 	#{extends1},
+				</if>
+			 	<if test=" null != extends2 and ''!= extends2  ">
+					 	#{extends2},
+				</if>
+			 	<if test=" null != extends3 and ''!= extends3  ">
+					 	#{extends3},
+				</if>
+		</trim>
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.linkwee.web.model.ActAddFeeCouponUseDetail" useGeneratedKeys="true" keyProperty="id" >
+		INSERT INTO tact_add_fee_coupon_use_detail
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					id,
+				</if>
+			 	<if test=" null != userId and ''!= userId  ">
+					user_id,
+				</if>
+			 	<if test=" null != couponId and ''!= couponId  ">
+					coupon_id,
+				</if>
+			 	<if test=" null != investId and ''!= investId  ">
+					invest_id,
+				</if>
+			 	<if test=" null != feeAmount ">
+					fee_amount,
+				</if>
+			 	<if test=" null != feeRate ">
+					fee_rate,
+				</if>
+			 	<if test=" null != couponType ">
+					coupon_type,
+				</if>
+			 	<if test=" null != createTime ">
+					create_time,
+				</if>
+			 	<if test=" null != extends1 and ''!= extends1  ">
+					extends1,
+				</if>
+			 	<if test=" null != extends2 and ''!= extends2  ">
+					extends2,
+				</if>
+			 	<if test=" null != extends3 and ''!= extends3  ">
+					extends3,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != userId and ''!= userId  ">
+					 	#{userId},
+				</if>
+			 	<if test=" null != couponId and ''!= couponId  ">
+					 	#{couponId},
+				</if>
+			 	<if test=" null != investId and ''!= investId  ">
+					 	#{investId},
+				</if>
+			 	<if test=" null != feeAmount ">
+					 	#{feeAmount},
+				</if>
+			 	<if test=" null != feeRate ">
+					 	#{feeRate},
+				</if>
+			 	<if test=" null != couponType ">
+					 	#{couponType},
+				</if>
+			 	<if test=" null != createTime ">
+					 	#{createTime},
+				</if>
+			 	<if test=" null != extends1 and ''!= extends1  ">
+					 	#{extends1},
+				</if>
+			 	<if test=" null != extends2 and ''!= extends2  ">
+					 	#{extends2},
+				</if>
+			 	<if test=" null != extends3 and ''!= extends3  ">
+					 	#{extends3},
+				</if>
+		</trim>
+	</insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.linkwee.web.model.ActAddFeeCouponUseDetail" >
+  		UPDATE tact_add_fee_coupon_use_detail
+		<set>
+			<trim suffixOverrides=",">
+					<if test=" null != userId and ''!= userId  ">
+						user_id = #{userId},
+					</if>
+					<if test=" null != couponId and ''!= couponId  ">
+						coupon_id = #{couponId},
+					</if>
+					<if test=" null != investId and ''!= investId  ">
+						invest_id = #{investId},
+					</if>
+					<if test=" null != feeAmount ">
+						fee_amount = #{feeAmount},
+					</if>
+					<if test=" null != feeRate ">
+						fee_rate = #{feeRate},
+					</if>
+					<if test=" null != couponType ">
+						coupon_type = #{couponType},
+					</if>
+					<if test=" null != createTime ">
+						create_time = #{createTime},
+					</if>
+					<if test=" null != extends1 and ''!= extends1  ">
+						extends1 = #{extends1},
+					</if>
+					<if test=" null != extends2 and ''!= extends2  ">
+						extends2 = #{extends2},
+					</if>
+					<if test=" null != extends3 and ''!= extends3  ">
+						extends3 = #{extends3},
+					</if>
+			</trim>
+		</set>
+		<where>
+			 id = #{id}
+		</where>
+	</update>
+  
+	<update id="updateByPrimaryKey" parameterType="com.linkwee.web.model.ActAddFeeCouponUseDetail" >
+	    UPDATE tact_add_fee_coupon_use_detail
+	   <set>
+			<trim suffixOverrides=",">
+					<if test=" null != userId and ''!= userId  ">
+						user_id = #{userId},
+					</if>
+					<if test=" null != couponId and ''!= couponId  ">
+						coupon_id = #{couponId},
+					</if>
+					<if test=" null != investId and ''!= investId  ">
+						invest_id = #{investId},
+					</if>
+					<if test=" null != feeAmount ">
+						fee_amount = #{feeAmount},
+					</if>
+					<if test=" null != feeRate ">
+						fee_rate = #{feeRate},
+					</if>
+					<if test=" null != couponType ">
+						coupon_type = #{couponType},
+					</if>
+					<if test=" null != createTime ">
+						create_time = #{createTime},
+					</if>
+					<if test=" null != extends1 and ''!= extends1  ">
+						extends1 = #{extends1},
+					</if>
+					<if test=" null != extends2 and ''!= extends2  ">
+						extends2 = #{extends2},
+					</if>
+					<if test=" null != extends3 and ''!= extends3  ">
+						extends3 = #{extends3},
+					</if>
+			</trim>
+		</set>
+		<where>
+			id = #{0}
+		</where>
+	  </update>
+
+	<!-- 分页条件查询 -->
+    <select id="selectBySearchInfo" resultMap="BaseResultMap" parameterType="com.linkwee.core.datatable.DataTable">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM tact_add_fee_coupon_use_detail
+        <where> 
+        <if test="dt.search!=null">  
+                name LIKE CONCAT('%','${dt.search.value}','%' )  
+         </if>  
+         <if test="dt.order!=null">  
+               <foreach collection="dt.order" index="index" item="item"
+                    open="order by" separator="," close=" ">
+                    ${item.name} ${item.dir} 
+                </foreach>
+         </if>  
+        </where>
+    </select>
+    
+    <select id="queryNewestAddFee" parameterType="java.lang.String" resultMap="BaseResultMap">
+		SELECT 
+			<include refid="Base_Column_List" /> 
+		FROM 
+			tact_add_fee_coupon_use_detail 
+		WHERE
+			user_id = #{userId}
+		ORDER BY create_time DESC 
+		LIMIT 1
+  	</select>
+
+</mapper>

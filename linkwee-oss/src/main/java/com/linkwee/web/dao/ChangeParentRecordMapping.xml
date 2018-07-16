@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.ChangeParentRecordDao">
+<parameterMap type="com.linkwee.web.model.ChangeParentRecord" id="ChangeParentRecordParameterMap" />	
+<!-- Result Map-->
+<resultMap  type="com.linkwee.web.model.ChangeParentRecord" id="ChangeParentRecordResultMap">
+	<result column="f_id" property="id" jdbcType="INTEGER"/>
+	<result column="f_number" property="number" jdbcType="VARCHAR"/>
+	<result column="f_operation_id" property="operationId" jdbcType="VARCHAR"/>
+	<result column="f_parent_id" property="parentId" jdbcType="VARCHAR"/>
+	<result column="f_create_time" property="createTime" jdbcType="TIMESTAMP"/>
+	<result column="f_last_update_time" property="lastUpdateTime" jdbcType="TIMESTAMP"/>
+	<result column="f_type" property="type" jdbcType="INTEGER"/>
+	<result column="f_parent_name" property="parentName" jdbcType="VARCHAR"/>
+	<result column="f_parent_mobile" property="parentMobile" jdbcType="VARCHAR"/>
+</resultMap>
+  <sql id="Base_Column_List">
+    <trim suffixOverrides=",">
+	    	f_id,
+	    	f_number,
+	    	f_operation_id,
+	    	f_parent_id,
+	    	f_create_time,
+	    	f_last_update_time,
+	    	f_type,
+    </trim>
+  </sql>  
+  
+   <sql id="Base_Column_List_T">
+    <trim suffixOverrides=",">
+	    	t.f_id,
+	    	t.f_number,
+	    	t.f_operation_id,
+	    	t.f_parent_id,
+	    	t.f_create_time,
+	    	t.f_last_update_time,
+	    	t.f_type,
+    </trim>
+  </sql> 
+  	
+  <select id="getByPrimaryKey"  resultMap="ChangeParentRecordResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_change_parent_record where  f_id = #{0}
+  </select>	
+
+  <delete id="deleteByPrimaryKey" >
+    delete from t_change_parent_record
+	<where>
+		f_id = #{0}
+	</where>
+  </delete>
+  
+  
+  <insert id="add" parameterMap="ChangeParentRecordParameterMap" useGeneratedKeys="true" keyProperty="id" >
+		INSERT INTO t_change_parent_record
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					f_id,
+				</if>
+			 	<if test=" null != number and ''!= number  ">
+					f_number,
+				</if>
+			 	<if test=" null != operationId and ''!= operationId  ">
+					f_operation_id,
+				</if>
+			 	<if test=" null != parentId and ''!= parentId  ">
+					f_parent_id,
+				</if>
+					f_create_time,
+					f_last_update_time,
+			 	<if test=" null != type ">
+					f_type,
+				</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			 	<if test=" null != id ">
+					 	#{id},
+				</if>
+			 	<if test=" null != number and ''!= number  ">
+					 	#{number},
+				</if>
+			 	<if test=" null != operationId and ''!= operationId  ">
+					 	#{operationId},
+				</if>
+			 	<if test=" null != parentId and ''!= parentId  ">
+					 	#{parentId},
+				</if>
+					 	CURRENT_TIMESTAMP(),
+					 	CURRENT_TIMESTAMP(),
+			 	<if test=" null != type ">
+					 	#{type},
+				</if>
+		</trim>
+	</insert>
+  
+  
+  <update id="update" parameterMap="ChangeParentRecordParameterMap">
+		UPDATE t_change_parent_record
+		<set>
+			<trim suffixOverrides=",">
+					<if test=" null != number and ''!= number  ">
+						f_number = #{number},
+					</if>
+					<if test=" null != operationId and ''!= operationId  ">
+						f_operation_id = #{operationId},
+					</if>
+					<if test=" null != parentId and ''!= parentId  ">
+						f_parent_id = #{parentId},
+					</if>
+					<if test=" null != createTime ">
+						f_create_time = #{createTime},
+					</if>
+					<if test=" null != lastUpdateTime ">
+						f_last_update_time = #{lastUpdateTime},
+					</if>
+					<if test=" null != type ">
+						f_type = #{type},
+					</if>
+			</trim>
+		</set>
+		<where>
+			 f_id = #{id}
+		</where>
+	</update>
+  
+  
+   <update id="updateWithEmpty" parameterMap="ChangeParentRecordParameterMap">
+		UPDATE t_change_parent_record
+		<set>
+			<trim suffixOverrides=",">
+						f_number = #{number},
+						f_operation_id = #{operationId},
+						f_parent_id = #{parentId},
+						f_create_time = #{createTime},
+						f_last_update_time = #{lastUpdateTime},
+						f_type = #{type},
+			</trim>
+		</set>
+		<where>
+			 f_id = #{id}
+		</where>
+	</update>
+
+  <insert id="addBatch" parameterType="java.util.List">
+	insert into t_change_parent_record 
+	<trim prefix="(" suffix=")" >
+			<include refid="Base_Column_List" />
+	</trim>
+	VALUES
+	<foreach item="item" index="index" collection="list" separator=",">
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+				#{item.id,jdbcType=INTEGER},
+				#{item.number,jdbcType=VARCHAR},
+				#{item.operationId,jdbcType=VARCHAR},
+				#{item.parentId,jdbcType=VARCHAR},
+				#{item.createTime,jdbcType=TIMESTAMP},
+				#{item.lastUpdateTime,jdbcType=TIMESTAMP},
+				#{item.type,jdbcType=INTEGER},
+		</trim>
+	</foreach>
+</insert>
+
+ 
+<update id="updateBatch" parameterType="java.util.List">
+      <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update t_change_parent_record
+            <set>
+              	<trim suffixOverrides=",">
+					   <if test="item.number!=null and ''!= item.number  ">
+					        f_number = #{item.number,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.operationId!=null and ''!= item.operationId  ">
+					        f_operation_id = #{item.operationId,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.parentId!=null and ''!= item.parentId  ">
+					        f_parent_id = #{item.parentId,jdbcType=VARCHAR},
+					   </if>
+					   <if test="item.createTime!=null ">
+					        f_create_time = #{item.createTime,jdbcType=TIMESTAMP},
+					   </if>
+					   <if test="item.lastUpdateTime!=null ">
+					        f_last_update_time = #{item.lastUpdateTime,jdbcType=TIMESTAMP},
+					   </if>
+					   <if test="item.type!=null ">
+					        f_type = #{item.type,jdbcType=INTEGER},
+					   </if>
+			   </trim>
+            </set>
+             where f_id = #{item.id}
+     </foreach>
+</update>
+
+<update id="updateBatchWithEmpty" parameterType="java.util.List">
+      <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update t_change_parent_record
+            <set>
+              	<trim suffixOverrides=",">
+					        f_number = #{item.number,jdbcType=VARCHAR},
+					        f_operation_id = #{item.operationId,jdbcType=VARCHAR},
+					        f_parent_id = #{item.parentId,jdbcType=VARCHAR},
+					        f_create_time = #{item.createTime,jdbcType=TIMESTAMP},
+					        f_last_update_time = #{item.lastUpdateTime,jdbcType=TIMESTAMP},
+					        f_type = #{item.type,jdbcType=INTEGER},
+			   </trim>
+            </set>
+             where f_id = #{item.id}
+     </foreach>
+</update>         
+
+<delete id="deleteBatch" parameterType="Object">
+	DELETE FROM t_change_parent_record
+	<where>
+		<foreach item="item" index="index" collection="array"  open="(" separator="or" close=") ">
+			  f_id  = #{item}
+		</foreach>
+	</where>
+</delete>
+    
+ <sql id="Base_Condition">
+		   <if test=" null != id ">
+				AND	T.f_id = #{id}
+		</if>
+		   <if test=" null != number and ''!= number  ">
+				AND	T.f_number = #{number}
+		</if>
+		   <if test=" null != operationId and ''!= operationId  ">
+				AND	T.f_operation_id = #{operationId}
+		</if>
+		   <if test=" null != parentId and ''!= parentId  ">
+				AND	T.f_parent_id = #{parentId}
+		</if>
+		   <if test=" null != createTime ">
+				AND	T.f_create_time = #{createTime}
+		</if>
+		   <if test=" null != lastUpdateTime ">
+				AND	T.f_last_update_time = #{lastUpdateTime}
+		</if>
+		   <if test=" null != type ">
+				AND	T.f_type = #{type}
+		</if>
+ </sql>    
+<select id="list" resultMap="ChangeParentRecordResultMap"  >
+		SELECT T.* , s.f_name f_parent_name,s.f_mobile f_parent_mobile FROM t_change_parent_record T
+		LEFT JOIN t_sale_user_info s on T.f_parent_id=s.f_number
+		 WHERE 1=1
+		<include refid="Base_Condition" />
+</select>
+
+<select id="query" resultMap="ChangeParentRecordResultMap"  >
+		SELECT <include refid="Base_Column_List" /> FROM t_change_parent_record T WHERE 1=1
+		<include refid="Base_Condition" />
+</select>
+
+</mapper>

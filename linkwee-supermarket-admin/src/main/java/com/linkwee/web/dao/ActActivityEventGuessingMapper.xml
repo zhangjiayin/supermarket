@@ -1,0 +1,720 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.linkwee.web.dao.ActActivityEventGuessingMapper">
+	<!-- Result Map-->
+	<resultMap  type="com.linkwee.web.model.ActActivityEventGuessing" id="BaseResultMap">
+		<result column="id" property="id" jdbcType="INTEGER"/>
+		<result column="activity_code" property="activityCode" jdbcType="VARCHAR"/>
+		<result column="guessing_name" property="guessingName" jdbcType="VARCHAR"/>
+		<result column="grant_status" property="grantStatus" jdbcType="INTEGER"/>
+		<result column="could_grant_score" property="couldGrantScore" jdbcType="INTEGER"/>
+		<result column="jackpot" property="jackpot" jdbcType="DECIMAL"/>
+		<result column="competition_party_a" property="competitionPartyA" jdbcType="VARCHAR"/>
+		<result column="competition_party_b" property="competitionPartyB" jdbcType="VARCHAR"/>
+		<result column="score_a" property="scoreA" jdbcType="INTEGER"/>
+		<result column="score_b" property="scoreB" jdbcType="INTEGER"/>
+		<result column="support_votes_a" property="supportVotesA" jdbcType="INTEGER"/>
+		<result column="support_votes_b" property="supportVotesB" jdbcType="INTEGER"/>
+		<result column="support_votes_target_a" property="supportVotesTargetA" jdbcType="INTEGER"/>
+		<result column="support_votes_target_b" property="supportVotesTargetB" jdbcType="INTEGER"/>
+		<result column="growth_rate_a" property="growthRateA" jdbcType="INTEGER"/>
+		<result column="growth_rate_b" property="growthRateB" jdbcType="INTEGER"/>
+		<result column="next_start_time" property="nextStartTime" jdbcType="TIMESTAMP"/>
+		<result column="vote_start_time" property="voteStartTime" jdbcType="TIMESTAMP"/>
+		<result column="vote_end_time" property="voteEndTime" jdbcType="TIMESTAMP"/>
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+		<result column="extends1" property="extends1" jdbcType="VARCHAR"/>
+		<result column="extends2" property="extends2" jdbcType="VARCHAR"/>
+		<result column="extends3" property="extends3" jdbcType="VARCHAR"/>
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		<trim suffixOverrides=",">
+			id,
+			activity_code,
+			guessing_name,
+			grant_status,
+			could_grant_score,
+			jackpot,
+			competition_party_a,
+			competition_party_b,
+			score_a,
+			score_b,
+			support_votes_a,
+			support_votes_b,
+			support_votes_target_a,
+			support_votes_target_b,
+			growth_rate_a,
+			growth_rate_b,
+			next_start_time,
+			vote_start_time,
+			vote_end_time,
+			create_time,
+			update_time,
+			extends1,
+			extends2,
+			extends3,
+		</trim>
+	</sql>
+
+	<sql id="Base_Column_List_T">
+		<trim suffixOverrides=",">
+			t.id,
+			t.activity_code,
+			t.guessing_name,
+			t.grant_status,
+			t.could_grant_score,
+			t.jackpot,
+			t.competition_party_a,
+			t.competition_party_b,
+			t.score_a,
+			t.score_b,
+			t.support_votes_a,
+			t.support_votes_b,
+			t.support_votes_target_a,
+			t.support_votes_target_b,
+			t.growth_rate_a,
+			t.growth_rate_b,
+			t.next_start_time,
+			t.vote_start_time,
+			t.vote_end_time,
+			t.create_time,
+			t.update_time,
+			t.extends1,
+			t.extends2,
+			t.extends3,
+		</trim>
+	</sql>
+
+	<sql id="Base_Condition">
+		<if test=" null != id ">
+			and id = #{id}
+		</if>
+		<if test=" null != activityCode and ''!= activityCode  ">
+			and activity_code = #{activityCode}
+		</if>
+		<if test=" null != guessingName and ''!= guessingName  ">
+			and guessing_name = #{guessingName}
+		</if>
+		<if test=" null != grantStatus ">
+			and grant_status = #{grantStatus}
+		</if>
+		<if test=" null != couldGrantScore ">
+			and could_grant_score = #{couldGrantScore}
+		</if>
+		<if test=" null != jackpot ">
+			and jackpot = #{jackpot}
+		</if>
+		<if test=" null != competitionPartyA and ''!= competitionPartyA  ">
+			and competition_party_a = #{competitionPartyA}
+		</if>
+		<if test=" null != competitionPartyB and ''!= competitionPartyB  ">
+			and competition_party_b = #{competitionPartyB}
+		</if>
+		<if test=" null != scoreA ">
+			and score_a = #{scoreA}
+		</if>
+		<if test=" null != scoreB ">
+			and score_b = #{scoreB}
+		</if>
+		<if test=" null != supportVotesA ">
+			and support_votes_a = #{supportVotesA}
+		</if>
+		<if test=" null != supportVotesB ">
+			and support_votes_b = #{supportVotesB}
+		</if>
+		<if test=" null != supportVotesTargetA ">
+			and support_votes_target_a = #{supportVotesTargetA}
+		</if>
+		<if test=" null != supportVotesTargetB ">
+			and support_votes_target_b = #{supportVotesTargetB}
+		</if>
+		<if test=" null != growthRateA ">
+			and growth_rate_a = #{growthRateA}
+		</if>
+		<if test=" null != growthRateB ">
+			and growth_rate_b = #{growthRateB}
+		</if>
+		<if test=" null != nextStartTime ">
+			and next_start_time = #{nextStartTime}
+		</if>
+		<if test=" null != voteStartTime ">
+			and vote_start_time = #{voteStartTime}
+		</if>
+		<if test=" null != voteEndTime ">
+			and vote_end_time = #{voteEndTime}
+		</if>
+		<if test=" null != createTime ">
+			and create_time = #{createTime}
+		</if>
+		<if test=" null != updateTime ">
+			and update_time = #{updateTime}
+		</if>
+		<if test=" null != extends1 and ''!= extends1  ">
+			and extends1 = #{extends1}
+		</if>
+		<if test=" null != extends2 and ''!= extends2  ">
+			and extends2 = #{extends2}
+		</if>
+		<if test=" null != extends3 and ''!= extends3  ">
+			and extends3 = #{extends3}
+		</if>
+	</sql>
+
+	<select id="selectOneByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.web.model.ActActivityEventGuessing">
+		select <include refid="Base_Column_List" /> from tact_activity_event_guessing
+		where 1=1 <include refid="Base_Condition" />
+	</select>
+
+	<select id="selectByCondition" resultMap="BaseResultMap"  parameterType="com.linkwee.web.model.ActActivityEventGuessing">
+		select <include refid="Base_Column_List" /> from tact_activity_event_guessing
+		where 1=1 <include refid="Base_Condition" />
+	</select>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+		select
+		<include refid="Base_Column_List" />
+		from tact_activity_event_guessing
+		where  id = #{0}
+	</select>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+		delete from tact_activity_event_guessing
+		where id = #{0}
+	</delete>
+
+	<insert id="insert" parameterType="com.linkwee.web.model.ActActivityEventGuessing" >
+		INSERT INTO tact_activity_event_guessing
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test=" null != id ">
+				id,
+			</if>
+			<if test=" null != activityCode and ''!= activityCode  ">
+				activity_code,
+			</if>
+			<if test=" null != guessingName and ''!= guessingName  ">
+				guessing_name,
+			</if>
+			<if test=" null != grantStatus ">
+				grant_status,
+			</if>
+			<if test=" null != couldGrantScore ">
+				could_grant_score,
+			</if>
+			<if test=" null != jackpot ">
+				jackpot,
+			</if>
+			<if test=" null != competitionPartyA and ''!= competitionPartyA  ">
+				competition_party_a,
+			</if>
+			<if test=" null != competitionPartyB and ''!= competitionPartyB  ">
+				competition_party_b,
+			</if>
+			<if test=" null != scoreA ">
+				score_a,
+			</if>
+			<if test=" null != scoreB ">
+				score_b,
+			</if>
+			<if test=" null != supportVotesA ">
+				support_votes_a,
+			</if>
+			<if test=" null != supportVotesB ">
+				support_votes_b,
+			</if>
+			<if test=" null != supportVotesTargetA ">
+				support_votes_target_a,
+			</if>
+			<if test=" null != supportVotesTargetB ">
+				support_votes_target_b,
+			</if>
+			<if test=" null != growthRateA ">
+				growth_rate_a,
+			</if>
+			<if test=" null != growthRateB ">
+				growth_rate_b,
+			</if>
+			<if test=" null != nextStartTime ">
+				next_start_time,
+			</if>
+			<if test=" null != voteStartTime ">
+				vote_start_time,
+			</if>
+			<if test=" null != voteEndTime ">
+				vote_end_time,
+			</if>
+			<if test=" null != createTime ">
+				create_time,
+			</if>
+			<if test=" null != updateTime ">
+				update_time,
+			</if>
+			<if test=" null != extends1 and ''!= extends1  ">
+				extends1,
+			</if>
+			<if test=" null != extends2 and ''!= extends2  ">
+				extends2,
+			</if>
+			<if test=" null != extends3 and ''!= extends3  ">
+				extends3,
+			</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			<if test=" null != id ">
+				#{id},
+			</if>
+			<if test=" null != activityCode and ''!= activityCode  ">
+				#{activityCode},
+			</if>
+			<if test=" null != guessingName and ''!= guessingName  ">
+				#{guessingName},
+			</if>
+			<if test=" null != grantStatus ">
+				#{grantStatus},
+			</if>
+			<if test=" null != couldGrantScore ">
+				#{couldGrantScore},
+			</if>
+			<if test=" null != jackpot ">
+				#{jackpot},
+			</if>
+			<if test=" null != competitionPartyA and ''!= competitionPartyA  ">
+				#{competitionPartyA},
+			</if>
+			<if test=" null != competitionPartyB and ''!= competitionPartyB  ">
+				#{competitionPartyB},
+			</if>
+			<if test=" null != scoreA ">
+				#{scoreA},
+			</if>
+			<if test=" null != scoreB ">
+				#{scoreB},
+			</if>
+			<if test=" null != supportVotesA ">
+				#{supportVotesA},
+			</if>
+			<if test=" null != supportVotesB ">
+				#{supportVotesB},
+			</if>
+			<if test=" null != supportVotesTargetA ">
+				#{supportVotesTargetA},
+			</if>
+			<if test=" null != supportVotesTargetB ">
+				#{supportVotesTargetB},
+			</if>
+			<if test=" null != growthRateA ">
+				#{growthRateA},
+			</if>
+			<if test=" null != growthRateB ">
+				#{growthRateB},
+			</if>
+			<if test=" null != nextStartTime ">
+				#{nextStartTime},
+			</if>
+			<if test=" null != voteStartTime ">
+				#{voteStartTime},
+			</if>
+			<if test=" null != voteEndTime ">
+				#{voteEndTime},
+			</if>
+			<if test=" null != createTime ">
+				#{createTime},
+			</if>
+			<if test=" null != updateTime ">
+				#{updateTime},
+			</if>
+			<if test=" null != extends1 and ''!= extends1  ">
+				#{extends1},
+			</if>
+			<if test=" null != extends2 and ''!= extends2  ">
+				#{extends2},
+			</if>
+			<if test=" null != extends3 and ''!= extends3  ">
+				#{extends3},
+			</if>
+		</trim>
+	</insert>
+
+	<insert id="insertSelective" parameterType="com.linkwee.web.model.ActActivityEventGuessing" useGeneratedKeys="true" keyProperty="id" >
+		INSERT INTO tact_activity_event_guessing
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test=" null != id ">
+				id,
+			</if>
+			<if test=" null != activityCode and ''!= activityCode  ">
+				activity_code,
+			</if>
+			<if test=" null != guessingName and ''!= guessingName  ">
+				guessing_name,
+			</if>
+			<if test=" null != grantStatus ">
+				grant_status,
+			</if>
+			<if test=" null != couldGrantScore ">
+				could_grant_score,
+			</if>
+			<if test=" null != jackpot ">
+				jackpot,
+			</if>
+			<if test=" null != competitionPartyA and ''!= competitionPartyA  ">
+				competition_party_a,
+			</if>
+			<if test=" null != competitionPartyB and ''!= competitionPartyB  ">
+				competition_party_b,
+			</if>
+			<if test=" null != scoreA ">
+				score_a,
+			</if>
+			<if test=" null != scoreB ">
+				score_b,
+			</if>
+			<if test=" null != supportVotesA ">
+				support_votes_a,
+			</if>
+			<if test=" null != supportVotesB ">
+				support_votes_b,
+			</if>
+			<if test=" null != supportVotesTargetA ">
+				support_votes_target_a,
+			</if>
+			<if test=" null != supportVotesTargetB ">
+				support_votes_target_b,
+			</if>
+			<if test=" null != growthRateA ">
+				growth_rate_a,
+			</if>
+			<if test=" null != growthRateB ">
+				growth_rate_b,
+			</if>
+			<if test=" null != nextStartTime ">
+				next_start_time,
+			</if>
+			<if test=" null != voteStartTime ">
+				vote_start_time,
+			</if>
+			<if test=" null != voteEndTime ">
+				vote_end_time,
+			</if>
+			<if test=" null != createTime ">
+				create_time,
+			</if>
+			<if test=" null != updateTime ">
+				update_time,
+			</if>
+			<if test=" null != extends1 and ''!= extends1  ">
+				extends1,
+			</if>
+			<if test=" null != extends2 and ''!= extends2  ">
+				extends2,
+			</if>
+			<if test=" null != extends3 and ''!= extends3  ">
+				extends3,
+			</if>
+		</trim>
+		<trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+			<if test=" null != id ">
+				#{id},
+			</if>
+			<if test=" null != activityCode and ''!= activityCode  ">
+				#{activityCode},
+			</if>
+			<if test=" null != guessingName and ''!= guessingName  ">
+				#{guessingName},
+			</if>
+			<if test=" null != grantStatus ">
+				#{grantStatus},
+			</if>
+			<if test=" null != couldGrantScore ">
+				#{couldGrantScore},
+			</if>
+			<if test=" null != jackpot ">
+				#{jackpot},
+			</if>
+			<if test=" null != competitionPartyA and ''!= competitionPartyA  ">
+				#{competitionPartyA},
+			</if>
+			<if test=" null != competitionPartyB and ''!= competitionPartyB  ">
+				#{competitionPartyB},
+			</if>
+			<if test=" null != scoreA ">
+				#{scoreA},
+			</if>
+			<if test=" null != scoreB ">
+				#{scoreB},
+			</if>
+			<if test=" null != supportVotesA ">
+				#{supportVotesA},
+			</if>
+			<if test=" null != supportVotesB ">
+				#{supportVotesB},
+			</if>
+			<if test=" null != supportVotesTargetA ">
+				#{supportVotesTargetA},
+			</if>
+			<if test=" null != supportVotesTargetB ">
+				#{supportVotesTargetB},
+			</if>
+			<if test=" null != growthRateA ">
+				#{growthRateA},
+			</if>
+			<if test=" null != growthRateB ">
+				#{growthRateB},
+			</if>
+			<if test=" null != nextStartTime ">
+				#{nextStartTime},
+			</if>
+			<if test=" null != voteStartTime ">
+				#{voteStartTime},
+			</if>
+			<if test=" null != voteEndTime ">
+				#{voteEndTime},
+			</if>
+			<if test=" null != createTime ">
+				#{createTime},
+			</if>
+			<if test=" null != updateTime ">
+				#{updateTime},
+			</if>
+			<if test=" null != extends1 and ''!= extends1  ">
+				#{extends1},
+			</if>
+			<if test=" null != extends2 and ''!= extends2  ">
+				#{extends2},
+			</if>
+			<if test=" null != extends3 and ''!= extends3  ">
+				#{extends3},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="updateByPrimaryKeySelective" parameterType="com.linkwee.web.model.ActActivityEventGuessing" >
+		UPDATE tact_activity_event_guessing
+		<set>
+			<trim suffixOverrides=",">
+				<if test=" null != activityCode and ''!= activityCode  ">
+					activity_code = #{activityCode},
+				</if>
+				<if test=" null != guessingName and ''!= guessingName  ">
+					guessing_name = #{guessingName},
+				</if>
+				<if test=" null != grantStatus ">
+					grant_status = #{grantStatus},
+				</if>
+				<if test=" null != couldGrantScore ">
+					could_grant_score = #{couldGrantScore},
+				</if>
+				<if test=" null != jackpot ">
+					jackpot = #{jackpot},
+				</if>
+				<if test=" null != competitionPartyA and ''!= competitionPartyA  ">
+					competition_party_a = #{competitionPartyA},
+				</if>
+				<if test=" null != competitionPartyB and ''!= competitionPartyB  ">
+					competition_party_b = #{competitionPartyB},
+				</if>
+				<if test=" null != scoreA ">
+					score_a = #{scoreA},
+				</if>
+				<if test=" null != scoreB ">
+					score_b = #{scoreB},
+				</if>
+				<if test=" null != supportVotesA ">
+					support_votes_a = #{supportVotesA},
+				</if>
+				<if test=" null != supportVotesB ">
+					support_votes_b = #{supportVotesB},
+				</if>
+				<if test=" null != supportVotesTargetA ">
+					support_votes_target_a = #{supportVotesTargetA},
+				</if>
+				<if test=" null != supportVotesTargetB ">
+					support_votes_target_b = #{supportVotesTargetB},
+				</if>
+				<if test=" null != growthRateA ">
+					growth_rate_a = #{growthRateA},
+				</if>
+				<if test=" null != growthRateB ">
+					growth_rate_b = #{growthRateB},
+				</if>
+				<if test=" null != nextStartTime ">
+					next_start_time = #{nextStartTime},
+				</if>
+				<if test=" null != voteStartTime ">
+					vote_start_time = #{voteStartTime},
+				</if>
+				<if test=" null != voteEndTime ">
+					vote_end_time = #{voteEndTime},
+				</if>
+				<if test=" null != createTime ">
+					create_time = #{createTime},
+				</if>
+				<if test=" null != updateTime ">
+					update_time = #{updateTime},
+				</if>
+				<if test=" null != extends1 and ''!= extends1  ">
+					extends1 = #{extends1},
+				</if>
+				<if test=" null != extends2 and ''!= extends2  ">
+					extends2 = #{extends2},
+				</if>
+				<if test=" null != extends3 and ''!= extends3  ">
+					extends3 = #{extends3},
+				</if>
+			</trim>
+		</set>
+		<where>
+			id = #{id}
+		</where>
+	</update>
+
+	<update id="updateByPrimaryKey" parameterType="com.linkwee.web.model.ActActivityEventGuessing" >
+		UPDATE tact_activity_event_guessing
+		<set>
+			<trim suffixOverrides=",">
+				<if test=" null != activityCode and ''!= activityCode  ">
+					activity_code = #{activityCode},
+				</if>
+				<if test=" null != guessingName and ''!= guessingName  ">
+					guessing_name = #{guessingName},
+				</if>
+				<if test=" null != grantStatus ">
+					grant_status = #{grantStatus},
+				</if>
+				<if test=" null != couldGrantScore ">
+					could_grant_score = #{couldGrantScore},
+				</if>
+				<if test=" null != jackpot ">
+					jackpot = #{jackpot},
+				</if>
+				<if test=" null != competitionPartyA and ''!= competitionPartyA  ">
+					competition_party_a = #{competitionPartyA},
+				</if>
+				<if test=" null != competitionPartyB and ''!= competitionPartyB  ">
+					competition_party_b = #{competitionPartyB},
+				</if>
+				<if test=" null != scoreA ">
+					score_a = #{scoreA},
+				</if>
+				<if test=" null != scoreB ">
+					score_b = #{scoreB},
+				</if>
+				<if test=" null != supportVotesA ">
+					support_votes_a = #{supportVotesA},
+				</if>
+				<if test=" null != supportVotesB ">
+					support_votes_b = #{supportVotesB},
+				</if>
+				<if test=" null != supportVotesTargetA ">
+					support_votes_target_a = #{supportVotesTargetA},
+				</if>
+				<if test=" null != supportVotesTargetB ">
+					support_votes_target_b = #{supportVotesTargetB},
+				</if>
+				<if test=" null != growthRateA ">
+					growth_rate_a = #{growthRateA},
+				</if>
+				<if test=" null != growthRateB ">
+					growth_rate_b = #{growthRateB},
+				</if>
+				<if test=" null != nextStartTime ">
+					next_start_time = #{nextStartTime},
+				</if>
+				<if test=" null != voteStartTime ">
+					vote_start_time = #{voteStartTime},
+				</if>
+				<if test=" null != voteEndTime ">
+					vote_end_time = #{voteEndTime},
+				</if>
+				<if test=" null != createTime ">
+					create_time = #{createTime},
+				</if>
+				<if test=" null != updateTime ">
+					update_time = #{updateTime},
+				</if>
+				<if test=" null != extends1 and ''!= extends1  ">
+					extends1 = #{extends1},
+				</if>
+				<if test=" null != extends2 and ''!= extends2  ">
+					extends2 = #{extends2},
+				</if>
+				<if test=" null != extends3 and ''!= extends3  ">
+					extends3 = #{extends3},
+				</if>
+			</trim>
+		</set>
+		<where>
+			id = #{0}
+		</where>
+	</update>
+
+	<!-- 分页条件查询 -->
+	<select id="selectBySearchInfo" resultMap="BaseResultMap" parameterType="com.linkwee.core.datatable.DataTable">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM tact_activity_event_guessing
+		<where>
+			<if test="dt.search!=null">
+				guessing_name LIKE CONCAT('%','${dt.search.value}','%' )
+			</if>
+			<if test="dt.order!=null">
+				<foreach collection="dt.order" index="index" item="item"
+						 open="order by" separator="," close=" ">
+					${item.name} ${item.dir}
+				</foreach>
+			</if>
+		</where>
+	</select>
+
+    <select id="queryEventGuessingByActivityCode" resultMap="BaseResultMap">
+		select <include refid="Base_Column_List" /> from tact_activity_event_guessing
+		where activity_code = #{activityCode} ORDER BY id ASC limit 1
+	</select>
+
+	<select id="userNBAGuessingVotes" resultType="java.lang.Integer">
+		SELECT
+			SUM(total) AS totalVotes
+		FROM
+			(
+				SELECT
+					(
+						SELECT
+							IFNULL(
+								SUM(
+									FLOOR(tpir.invest_amt / 5000)
+								),
+								0
+							) total
+						FROM
+							tcim_product_invest_record tpir,
+							tcim_product tp,
+							tcrm_cfplanner tc
+						WHERE
+							tpir.user_id = tc.user_id
+						AND tpir.product_id = tp.product_id
+						AND tp.dead_line_min_value >= 30
+						AND tpir.start_time BETWEEN #{startTime}
+						AND #{endTime}
+						AND tc.user_id = tcf.user_id
+					) AS total
+				FROM
+					tcrm_cfplanner tcf
+				WHERE
+					tcf.user_id = #{userId}
+				OR tcf.parent_id = #{userId}
+			) temp
+	</select>
+
+	<update id="updateVotes" parameterType="com.linkwee.web.request.VoteRequest">
+		update tact_activity_event_guessing
+		set
+		<if test='supportVote == "a" '>
+			support_votes_a = support_votes_a + #{voteNumber}
+		</if>
+		<if test='supportVote == "b" '>
+			support_votes_b = support_votes_b + #{voteNumber}
+		</if>
+		WHERE id = #{guessId}
+	</update>
+
+</mapper>
