@@ -3073,9 +3073,7 @@
 								tcim_product_statistics tps2,
 								tcim_org_info toi2
 							WHERE
-								tp2.dead_line_min_value BETWEEN 28
-							AND 93
-							AND tp2.product_id = tps2.product_id
+							    tp2.product_id = tps2.product_id
 							AND toi2.org_number = tp2.org_number
 							AND toi2.status = 1
 							<if test=" ifHaveGray == false "> <!-- 增加灰度权限管控-->
